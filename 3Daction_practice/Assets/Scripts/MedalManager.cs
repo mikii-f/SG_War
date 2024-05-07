@@ -20,7 +20,7 @@ public class MedalManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player")){
+        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Sword")){
             _animator.SetBool("GetMedal", true);
             StartCoroutine(GetMedal());
         }

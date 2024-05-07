@@ -1925,9 +1925,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1108310225}
   - component: {fileID: 1108310226}
+  - component: {fileID: 1108310228}
+  - component: {fileID: 1108310227}
   m_Layer: 3
   m_Name: effects
-  m_TagString: Untagged
+  m_TagString: Sword
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1968,7 +1970,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 4b676d04a73dda841b6b65d7276667b6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -1976,6 +1978,39 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1108310227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108310224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f56902b618e42442b8435b6e6fd2616, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &1108310228
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108310224}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6, y: 3, z: 1}
+  m_Center: {x: -2.5, y: 0, z: 0}
 --- !u!1001 &1138083572
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2328,7 +2363,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1232745165}
   serializedVersion: 4
-  m_Mass: 10
+  m_Mass: 1
   m_Drag: 1
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2342,7 +2377,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 120
@@ -2359,7 +2394,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bacf7f068beae424b880fc5a37ebc19f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effects: {fileID: 1108310224}
   hp: 3
 --- !u!4 &1260495912 stripped
 Transform:
