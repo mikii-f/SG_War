@@ -21,7 +21,7 @@ public class FloatingField : MonoBehaviour
             _collider.isTrigger = true;
         }
         //真上にプレイヤーがきたら実体化
-        else if (Physics.BoxCast(transform.position, new Vector3(transform.localScale.x * 0.5f, 0.01f, transform.localScale.z * 0.5f),  Vector3.up, Quaternion.identity, 0.5f, playerLayer))
+        else if (Physics.BoxCast(transform.position, new Vector3(transform.localScale.x * 0.5f, 0.01f, transform.localScale.z * 0.5f),  Vector3.up, Quaternion.identity, 1f, playerLayer))
         {
             _collider.isTrigger = false;
         }

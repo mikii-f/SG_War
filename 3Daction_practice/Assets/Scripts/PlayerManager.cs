@@ -9,6 +9,10 @@ public class PlayerManager : MonoBehaviour
     private Transform _transform;
     private Collider _collider;
     private MeshRenderer _meshRenderer;
+    public GameObject effect2;      //本番では別の実現方法を目指す
+    private Collider _effect2Collider;
+    private Animator _effect2Animator;
+    public LayerMask mainField;
     public int hp = 3;
     private const int horizontalForce = 40;
     private const int jumpSpeed = 30;
@@ -24,6 +28,8 @@ public class PlayerManager : MonoBehaviour
     private bool isDamaged = false;
     private bool isInvincible = false;
     private bool isAttacked = false;
+    private bool isAttack2enable = true;
+    private bool fallingAccel = false;
     private const float attackTime = 0.6f;
 
     //プレイヤーの状態を保持
@@ -44,6 +50,9 @@ public class PlayerManager : MonoBehaviour
         _transform = GetComponent<Transform>();
         _collider = GetComponent<Collider>();
         _meshRenderer = GetComponent<MeshRenderer>();
+        _effect2Collider = effect2.GetComponent<Collider>();
+        _effect2Animator = effect2.GetComponent<Animator>();
+        _effect2Collider.enabled = false;
         playerStatus = Status.DOWN;
     }
 
@@ -60,6 +69,7 @@ public class PlayerManager : MonoBehaviour
                 afterJumpVelocity.y = jumpSpeed;
                 _rb.velocity = afterJumpVelocity;
                 isJumped = true;
+                fallingAccel = false;
             }
             //2段ジャンプ
             if (Input.GetKeyDown(KeyCode.W) && (playerStatus == Status.DOWN || floatingTime > 0.15) && isSecondJumpPossible)
@@ -70,6 +80,7 @@ public class PlayerManager : MonoBehaviour
                 floatingTime = 0;
                 isJumped = true;
                 isSecondJumpPossible = false;
+                fallingAccel = false;
             }
         }
         //空中に出てからの時間を保持
@@ -104,6 +115,14 @@ public class PlayerManager : MonoBehaviour
                 _rb.rotation = Quaternion.Euler(0f, 180f, 0f);
             }
         }
+        //下キーで落下加速
+        if (playerStatus == Status.DOWN)
+        {
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                fallingAccel = true;
+            }
+        }
         //攻撃時や2段ジャンプ時はキー入力によって向きを変える
         if (Input.GetKeyDown(KeyCode.W) || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         { 
@@ -122,28 +141,68 @@ public class PlayerManager : MonoBehaviour
             SceneManager.LoadScene("MainScene");
         }
         //強攻撃(アニメーションをプレイヤーに直接設定すると挙動がおかしくなるため子オブジェクトのみアニメーションで動かす)
-        if (Input.GetMouseButtonDown(1) && !isAttacked)
+        if (Input.GetMouseButtonDown(1) && !isAttacked && isAttack2enable)
         {
             isAttacked = true;
+            isAttack2enable = false;
             _collider.enabled = false;
+            fallingAccel = false;
+            _effect2Animator.SetTrigger("Attack2");
+            _effect2Collider.enabled = true;
             StartCoroutine(AttackFinish());
             _rb.velocity = Vector3.zero;
+
+            //障害物検知用(停止位置や移動距離は適宜わかりやすい名前の変数に置き換え)
+            RaycastHit hit;
+
             //移動方向はキー入力優先、次点で現在の向き
             if (Input.GetKey(KeyCode.D))
             {
-                _rb.position += new Vector3(5, 0, 0);
+                if (Physics.Raycast(_transform.position, Vector3.right, out hit, 5f, mainField))
+                {
+                    // 障害物がある場合は、障害物の手前まで瞬間移動する
+                    _rb.position = hit.point + Vector3.left;
+                }
+                else
+                {
+                    _rb.position += new Vector3(5, 0, 0);
+                }
             }
             else if (Input.GetKey(KeyCode.A))
             {
-                _rb.position += new Vector3(-5, 0, 0);
+                if (Physics.Raycast(_transform.position, Vector3.left, out hit, 5f, mainField))
+                {
+                    // 障害物がある場合は、障害物の手前まで瞬間移動する
+                    _rb.position = hit.point + Vector3.right;
+                }
+                else
+                {
+                    _rb.position += new Vector3(-5, 0, 0);
+                }
             }
             else if (_transform.eulerAngles.y == 0)
             {
-                _rb.position += new Vector3(5, 0, 0);
+                if (Physics.Raycast(_transform.position, Vector3.right, out hit, 5f, mainField))
+                {
+                    // 障害物がある場合は、障害物の手前まで瞬間移動する
+                    _rb.position = hit.point + Vector3.left;
+                }
+                else
+                {
+                    _rb.position += new Vector3(5, 0, 0);
+                }
             }
             else
             {
-                _rb.position += new Vector3(-5, 0, 0);
+                if (Physics.Raycast(_transform.position, Vector3.left, out hit, 5f, mainField))
+                {
+                    // 障害物がある場合は、障害物の手前まで瞬間移動する
+                    _rb.position = hit.point + Vector3.right;
+                }
+                else
+                {
+                    _rb.position += new Vector3(-5, 0, 0);
+                }
             }
         }
     }
@@ -153,7 +212,15 @@ public class PlayerManager : MonoBehaviour
         //重力(強攻撃時は空中で静止)
         if (!isAttacked)
         {
-            _rb.AddForce(new Vector3(0, gravity, 0));
+            //下キーを押した場合
+            if (fallingAccel)
+            {
+                _rb.AddForce(new Vector3(0, 1.5f * gravity, 0));
+            }
+            else
+            {
+                _rb.AddForce(new Vector3(0, gravity, 0));
+            }
         }
         //ダメージを受けた直後、強攻撃直後は操作できない
         if (!isDamaged && !isAttacked)
@@ -228,12 +295,13 @@ public class PlayerManager : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        //地上判定&滞空時間のリセット
+        //地上判定,滞空時間.2段ジャンプ,強攻撃のリセット
         if (collision.gameObject.CompareTag("Field") && Mathf.Abs(_rb.velocity.y) <= 1e-4)
         {
             playerStatus = Status.GROUND;
             floatingTime = 0;
             isSecondJumpPossible = true;
+            isAttack2enable = true;
         }
     }
 
@@ -287,5 +355,6 @@ public class PlayerManager : MonoBehaviour
         yield return new WaitForSeconds(attackTime);
         isAttacked = false;
         _collider.enabled = true;
+        _effect2Collider.enabled = false;
     }
 }
