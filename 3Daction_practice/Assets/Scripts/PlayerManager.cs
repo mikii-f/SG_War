@@ -93,9 +93,9 @@ public class PlayerManager : MonoBehaviour
             playerStatus = Status.DOWN;
         }
         //is•ûŒü‚ðŒü‚­
-        if (playerStatus == Status.GROUND && _rb.rotation != Quaternion.Euler(0f, 0f, 0f))
+        if (playerStatus == Status.GROUND)
         {
-            if (_rb.velocity.x > 0.5f)
+            if (_rb.velocity.x > 0.5f && _rb.rotation != Quaternion.Euler(0f, 0f, 0f))
             {
                 _rb.rotation = Quaternion.Euler(0f, 0f, 0f);
             }

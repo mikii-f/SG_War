@@ -1,3 +1,5 @@
+//本来はプレイヤーの親オブジェクトなどから操作する
+
 using UnityEngine;
 
 public class Attack2Manager : MonoBehaviour
