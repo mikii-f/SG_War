@@ -11,7 +11,7 @@ public class EnemyManager : MonoBehaviour
     private Collider _bulletCollider;
     [SerializeField] private LayerMask playerLayer;
     private bool startMove = false;
-    private const float eyesightY = 10f;
+    private const float eyesightY = 20f;
     private const float eyesightX = 40f;
     private const float speed = -2f;
     private const float coolTime = 4f;

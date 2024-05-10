@@ -21,7 +21,7 @@ public class SwordManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //左クリックで通常攻撃(本来はどちらもプレイヤー本体から動かす)
+        //左クリックで通常攻撃(本来はどちらもプレイヤー本体から動かす予定)
         if (Input.GetMouseButtonDown(0))
         {
             _animator.SetTrigger("Attack1");
@@ -56,7 +56,6 @@ public class SwordManager : MonoBehaviour
             StartCoroutine(HitStopEnd());
         }
     }
-
     private IEnumerator HitStopEnd()
     {
         yield return new WaitForSeconds(hitStopTime);
