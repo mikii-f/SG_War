@@ -309,7 +309,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 30, y: -25}
-  m_SizeDelta: {x: 1700, y: 300}
+  m_SizeDelta: {x: 1700, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &304219485
 MonoBehaviour:
@@ -367,8 +367,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: {fileID: 663229752}
   imManager: {fileID: 353498500}
-  background: {fileID: 2121893778}
-  backgroundImage2: {fileID: 21300000, guid: 5953ebbba196e0340948aaae10323466, type: 3}
 --- !u!1 &353498500
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,6 +403,10 @@ MonoBehaviour:
   bwCanvas: {fileID: 1085396981}
   textPanel: {fileID: 1593378710}
   text: {fileID: 304219483}
+  Character1: {fileID: 987556126}
+  background: {fileID: 2121893778}
+  backgroundImage1: {fileID: 21300000, guid: 96017ba2085e54d41b9c87a53f91f1a8, type: 3}
+  backgroundImage2: {fileID: 21300000, guid: 86d592241b85e884f9229db8316fc57d, type: 3}
 --- !u!4 &353498502
 Transform:
   m_ObjectHideFlags: 0
@@ -837,7 +839,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4e3da5cf5efd7ff468c24968c52b0a3b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e625be34f9f6e9d438154372e9669d4a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1918,7 +1920,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5f613239450a2244abe925ce3a05bb39, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8ae09be083a5f724fb97b7d977cccfaa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

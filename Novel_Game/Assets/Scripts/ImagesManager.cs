@@ -15,12 +15,18 @@ public class ImagesManager : MonoBehaviour
     public GameObject textPanel;
     public GameObject text;
     private TextManager textManager;
+    public GameObject Character1;
+    public GameObject background;
+    private SpriteRenderer _spriteRenderer;
+    public Sprite backgroundImage1;
+    public Sprite backgroundImage2;
     // Start is called before the first frame update
     void Start()
     {
         textManager = text.GetComponent<TextManager>();
         bORect = blackOver.GetComponent<RectTransform>();
         bURect = blackUnder.GetComponent<RectTransform>();
+        _spriteRenderer = background.GetComponent<SpriteRenderer>();
         blackOver.SetActive(false);
         blackUnder.SetActive(false);
         whiteImage = white.GetComponent<Image>();
@@ -34,6 +40,7 @@ public class ImagesManager : MonoBehaviour
 
     }
 
+    //Íƒ^ƒCƒgƒ‹‚Ì‰‰o‚ğI—¹
     IEnumerator TitleFinish()
     {
         yield return new WaitForSeconds(6);
@@ -45,6 +52,7 @@ public class ImagesManager : MonoBehaviour
         textManager.AnimationFinished();
     }
 
+    //•”wŒi‚ª”¼•ªŠJ‚­
     public IEnumerator BlackHalfOpen()
     {
         while (bORect.anchoredPosition.y < 540)
@@ -57,6 +65,7 @@ public class ImagesManager : MonoBehaviour
         }
     }
 
+    //•”wŒi‚ªŠJ‚¯‚é‚Æ‚Æ‚à‚ÉŒõ‚É•ï‚Ü‚ê™X‚É–ß‚é
     public IEnumerator BlackHalfToWhite()
     {
         StartCoroutine(FadeOut(1.2f));
@@ -92,6 +101,30 @@ public class ImagesManager : MonoBehaviour
             Color newColor = whiteImage.color;
             newColor.a = alpha / 255.0f;
             whiteImage.color = newColor;
+        }
+    }
+
+    //—§‚¿ŠGÁ‚µ
+    public void CharacterHide()
+    {
+        Character1.SetActive(false);
+    }
+
+    //”wŒiØ‚è‘Ö‚¦
+    public void BackGroundChange(int n)
+    {
+        switch (n)
+        {
+            case 0:
+                break;
+            case 1:
+                _spriteRenderer.sprite = backgroundImage1;
+                break;
+            case 2:
+                _spriteRenderer.sprite = backgroundImage2;
+                break;
+            default:
+                break;
         }
     }
 }

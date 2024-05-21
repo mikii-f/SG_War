@@ -18,9 +18,6 @@ public class TextManager : MonoBehaviour
     public Text nameText;
     public GameObject imManager;
     private ImagesManager imagesManager;
-    public GameObject background;               //そのうち別スクリプトで管理?
-    private SpriteRenderer _spriteRenderer;
-    public Sprite backgroundImage2;
     private bool isAnimation = true; 
 
     private void Awake()
@@ -37,7 +34,7 @@ public class TextManager : MonoBehaviour
     void Start()
     {
         _text = GetComponent<Text>();
-        _spriteRenderer = background.GetComponent<SpriteRenderer>();
+        
         imagesManager = imManager.GetComponent<ImagesManager>();
     }
 
@@ -96,7 +93,13 @@ public class TextManager : MonoBehaviour
                 StartCoroutine(imagesManager.BlackHalfToWhite());
                 break;
             case 10:
-                _spriteRenderer.sprite = backgroundImage2;
+                imagesManager.CharacterHide();
+                break;
+            case 21:
+                imagesManager.BackGroundChange(1);
+                break;
+            case 22:
+                imagesManager.BackGroundChange(2);
                 break;
             default:
                 break;
