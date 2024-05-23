@@ -9,29 +9,41 @@ public class ImagesManager : MonoBehaviour
     public GameObject blackUnder;
     private RectTransform bORect;
     private RectTransform bURect;
+    private Image blackOverImage;
+    private Image blackUnderImage;
     public GameObject white;
     private Image whiteImage;
     public GameObject bwCanvas;
     public GameObject textPanel;
-    public GameObject text;
+    public GameObject tManager;
     private TextManager textManager;
-    public GameObject Character1;
+    public GameObject character1;
+    private Image _characterSpriteRenderer;         //画像の扱い方はImageとSpriteRenderer統一すべき？
+    public Sprite noneSprite;
+    public Sprite vier;
+    public Sprite el;
     public GameObject background;
-    private SpriteRenderer _spriteRenderer;
+    private SpriteRenderer _backgroundSpriteRenderer;
+    public Sprite backgroundBlack;
     public Sprite backgroundImage1;
     public Sprite backgroundImage2;
+    public Sprite backgroundImage3;
+
     // Start is called before the first frame update
     void Start()
     {
-        textManager = text.GetComponent<TextManager>();
+        textManager = tManager.GetComponent<TextManager>();
         bORect = blackOver.GetComponent<RectTransform>();
         bURect = blackUnder.GetComponent<RectTransform>();
-        _spriteRenderer = background.GetComponent<SpriteRenderer>();
-        blackOver.SetActive(false);
-        blackUnder.SetActive(false);
+        blackOverImage = blackOver.GetComponent<Image>();
+        blackUnderImage = blackUnder.GetComponent<Image>();
+        _characterSpriteRenderer = character1.GetComponent<Image>();
+        _backgroundSpriteRenderer = background.GetComponent<SpriteRenderer>();
+        blackOverImage.color = new(0, 0, 0, 0.7f);
+        blackUnderImage.color = new(0, 0, 0, 0.7f);
         whiteImage = white.GetComponent<Image>();
         whiteImage.color = new(255, 255, 255, 0);
-        StartCoroutine(TitleFinish());
+        chapterTitle.SetActive(false);
     }
 
     // Update is called once per frame
@@ -40,16 +52,30 @@ public class ImagesManager : MonoBehaviour
 
     }
 
-    //章タイトルの演出を終了
-    IEnumerator TitleFinish()
+    //章タイトルの演出
+    public IEnumerator TitleAnimation()
     {
+        StartCoroutine(FadeOut(2f, blackOverImage));
+        StartCoroutine(FadeOut(2f, blackUnderImage));
+        yield return new WaitForSeconds(3f);
+        textPanel.SetActive(false);
+        CharacterChange(0);
+        blackOver.SetActive(false);
+        blackUnder.SetActive(false);
+        yield return new WaitForSeconds(1f);
+        chapterTitle.SetActive(true);
         yield return new WaitForSeconds(6);
         chapterTitle.SetActive(false);
-        blackOver.SetActive(true);
-        blackUnder.SetActive(true);
         yield return new WaitForSeconds(1);
         textPanel.SetActive(true);
         textManager.AnimationFinished();
+    }
+
+    //黒のオンオフ(今はオンだけ)
+    public void BlackOnOff()
+    {
+        blackOver.SetActive(true);
+        blackUnder.SetActive(true);
     }
 
     //黒背景が半分開く
@@ -68,7 +94,7 @@ public class ImagesManager : MonoBehaviour
     //黒背景が開けるとともに光に包まれ徐々に戻る
     public IEnumerator BlackHalfToWhite()
     {
-        StartCoroutine(FadeOut(1.2f));
+        StartCoroutine(FadeOut(1.2f, whiteImage));
         while (bORect.anchoredPosition.y < 810)
         {
             yield return null;
@@ -77,9 +103,9 @@ public class ImagesManager : MonoBehaviour
             bORect.anchoredPosition = posO;
             bURect.anchoredPosition = -posO;
         }
-        StartCoroutine(FadeIn(2f));
+        StartCoroutine(FadeIn(2f, whiteImage));
     }
-    IEnumerator FadeOut(float fadeTime)
+    IEnumerator FadeOut(float fadeTime, Image image)
     {
         float waitTime = 0.1f;
         float alphaChangeAmount = 255.0f / (fadeTime/waitTime);
@@ -88,10 +114,10 @@ public class ImagesManager : MonoBehaviour
             yield return new WaitForSeconds(waitTime);
             Color newColor = whiteImage.color;
             newColor.a = alpha / 255.0f;
-            whiteImage.color = newColor;
+            image.color = newColor;
         }
     }
-    IEnumerator FadeIn(float fadeTime)
+    IEnumerator FadeIn(float fadeTime, Image image)
     {
         float waitTime = 0.1f;
         float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
@@ -100,14 +126,27 @@ public class ImagesManager : MonoBehaviour
             yield return new WaitForSeconds(waitTime);
             Color newColor = whiteImage.color;
             newColor.a = alpha / 255.0f;
-            whiteImage.color = newColor;
+            image.color = newColor;
         }
     }
 
-    //立ち絵消し
-    public void CharacterHide()
+    //立ち絵関係
+    public void CharacterChange(int n)
     {
-        Character1.SetActive(false);
+        switch (n)
+        {
+            case 0:
+                _characterSpriteRenderer.sprite = noneSprite;
+                break;
+            case 1:
+                _characterSpriteRenderer.sprite = vier;
+                break;
+            case 2:
+                _characterSpriteRenderer.sprite = el;
+                break;
+            default:
+                break;
+        }
     }
 
     //背景切り替え
@@ -116,12 +155,16 @@ public class ImagesManager : MonoBehaviour
         switch (n)
         {
             case 0:
+                _backgroundSpriteRenderer.sprite = backgroundBlack;
                 break;
             case 1:
-                _spriteRenderer.sprite = backgroundImage1;
+                _backgroundSpriteRenderer.sprite = backgroundImage1;
                 break;
             case 2:
-                _spriteRenderer.sprite = backgroundImage2;
+                _backgroundSpriteRenderer.sprite = backgroundImage2;
+                break;
+            case 3:
+                _backgroundSpriteRenderer.sprite = backgroundImage3;
                 break;
             default:
                 break;

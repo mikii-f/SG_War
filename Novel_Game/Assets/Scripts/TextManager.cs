@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,11 +15,11 @@ public class TextManager : MonoBehaviour
     private float timeCount = 0f;               //時間保持用
     private string tempText;                    //表示しようとしているテキスト
     private int textLength;                     //表示しようとしているテキストの長さ
-    private Text _text;
+    public Text _text;
     public Text nameText;
     public GameObject imManager;
     private ImagesManager imagesManager;
-    private bool isAnimation = true; 
+    private bool isAnimation = false; 
 
     private void Awake()
     {
@@ -33,9 +34,8 @@ public class TextManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _text = GetComponent<Text>();
-        
         imagesManager = imManager.GetComponent<ImagesManager>();
+        StartCoroutine(GoNextLine());
     }
 
     // Update is called once per frame
@@ -52,13 +52,7 @@ public class TextManager : MonoBehaviour
             //なければ次へ
             else
             {
-                SelectFunction(_function[lineNumber]);
-                tempText = _sentences[lineNumber];
-                textLength = tempText.Length;
-                _text.text = "";
-                nameText.text = _names[lineNumber];
-                displayWordNumber = 0;
-                lineNumber++;
+                StartCoroutine(GoNextLine());
             }
         }
         //一文字ずつ表示
@@ -80,26 +74,59 @@ public class TextManager : MonoBehaviour
         }
     }
 
+    //ページ送り
+    private IEnumerator GoNextLine()
+    {
+        yield return null;
+        SelectFunction(_function[lineNumber]);
+        tempText = _sentences[lineNumber];
+        textLength = tempText.Length;
+        _text.text = "";
+        nameText.text = _names[lineNumber];
+        displayWordNumber = 0;
+        lineNumber++;
+    }
+
     //テキストに記述した機能コードに応じて関数呼び出し
+    //0番台→演出用の黒白関係　10番台→立ち絵関係　20番台→背景関係
     private void SelectFunction(int n)
     {
         switch (n){
             case 0:
                 break;
             case 1:
-                StartCoroutine(imagesManager.BlackHalfOpen());
+                imagesManager.BlackOnOff();
                 break;
             case 2:
+                StartCoroutine(imagesManager.BlackHalfOpen());
+                break;
+            case 3:
                 StartCoroutine(imagesManager.BlackHalfToWhite());
                 break;
             case 10:
-                imagesManager.CharacterHide();
+                imagesManager.CharacterChange(0);
+                break;
+            case 11:
+                imagesManager.CharacterChange(1);
+                break;
+            case 12:
+                imagesManager.CharacterChange(2);
+                break;
+            case 20:
+                imagesManager.BackGroundChange(0);
                 break;
             case 21:
                 imagesManager.BackGroundChange(1);
                 break;
             case 22:
                 imagesManager.BackGroundChange(2);
+                break;
+            case 23:
+                imagesManager.BackGroundChange(3);
+                break;
+            case 100:
+                isAnimation = true;
+                StartCoroutine(imagesManager.TitleAnimation());
                 break;
             default:
                 break;
@@ -124,9 +151,11 @@ public class TextManager : MonoBehaviour
             }
         }
     }
-
+    
+    //アニメーションが終了したら1行進み操作可能に
     public void AnimationFinished()
     {
         isAnimation = false;
+        GoNextLine();
     }
 }
