@@ -18,12 +18,12 @@ public class ImagesManager : MonoBehaviour
     public GameObject tManager;
     private TextManager textManager;
     public GameObject character1;
-    private Image _characterSpriteRenderer;         //âÊëúÇÃàµÇ¢ï˚ÇÕImageÇ∆SpriteRendererìùàÍÇ∑Ç◊Ç´ÅH
+    private Image _characterImage; 
     public Sprite noneSprite;
     public Sprite vier;
     public Sprite el;
     public GameObject background;
-    private SpriteRenderer _backgroundSpriteRenderer;
+    private Image _backgroundImage;
     public Sprite backgroundBlack;
     public Sprite backgroundImage1;
     public Sprite backgroundImage2;
@@ -37,8 +37,8 @@ public class ImagesManager : MonoBehaviour
         bURect = blackUnder.GetComponent<RectTransform>();
         blackOverImage = blackOver.GetComponent<Image>();
         blackUnderImage = blackUnder.GetComponent<Image>();
-        _characterSpriteRenderer = character1.GetComponent<Image>();
-        _backgroundSpriteRenderer = background.GetComponent<SpriteRenderer>();
+        _characterImage = character1.GetComponent<Image>();
+        _backgroundImage = background.GetComponent<Image>();
         blackOverImage.color = new(0, 0, 0, 0.7f);
         blackUnderImage.color = new(0, 0, 0, 0.7f);
         whiteImage = white.GetComponent<Image>();
@@ -136,13 +136,13 @@ public class ImagesManager : MonoBehaviour
         switch (n)
         {
             case 0:
-                _characterSpriteRenderer.sprite = noneSprite;
+                _characterImage.sprite = noneSprite;
                 break;
             case 1:
-                _characterSpriteRenderer.sprite = vier;
+                _characterImage.sprite = vier;
                 break;
             case 2:
-                _characterSpriteRenderer.sprite = el;
+                _characterImage.sprite = el;
                 break;
             default:
                 break;
@@ -155,16 +155,16 @@ public class ImagesManager : MonoBehaviour
         switch (n)
         {
             case 0:
-                _backgroundSpriteRenderer.sprite = backgroundBlack;
+                _backgroundImage.sprite = backgroundBlack;
                 break;
             case 1:
-                _backgroundSpriteRenderer.sprite = backgroundImage1;
+                _backgroundImage.sprite = backgroundImage1;
                 break;
             case 2:
-                _backgroundSpriteRenderer.sprite = backgroundImage2;
+                _backgroundImage.sprite = backgroundImage2;
                 break;
             case 3:
-                _backgroundSpriteRenderer.sprite = backgroundImage3;
+                _backgroundImage.sprite = backgroundImage3;
                 break;
             default:
                 break;
