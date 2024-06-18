@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 242038475}
   - component: {fileID: 242038476}
   m_Layer: 0
-  m_Name: TextManager
+  m_Name: TextManager0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -337,6 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30bcb85ff8fab434da35f309e0565803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  imManager0: {fileID: 1635119068}
 --- !u!1 &489890153
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,7 +672,7 @@ GameObject:
   - component: {fileID: 1635119070}
   - component: {fileID: 1635119071}
   m_Layer: 0
-  m_Name: ImagesManager
+  m_Name: ImagesManager0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

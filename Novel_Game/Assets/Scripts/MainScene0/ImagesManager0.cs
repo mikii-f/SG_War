@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ImagesManager0 : MonoBehaviour
 {
@@ -14,5 +13,10 @@ public class ImagesManager0 : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void ChangeScene()
+    {
+        SceneManager.LoadScene("MainScene1");
     }
 }
