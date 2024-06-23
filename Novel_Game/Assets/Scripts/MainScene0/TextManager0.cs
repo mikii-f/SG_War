@@ -23,7 +23,7 @@ public class TextManager0 : TextManagerOrigin
         mainText = GameObject.Find("Text").GetComponent<Text>();
         nameText = GameObject.Find("Name").GetComponent<Text>();
         imagesManager0 = imManager0.GetComponent<ImagesManager0>();
-        StartCoroutine(GoNextLine());
+        GoNextLine();
     }
 
     //テキストに記述した機能コードに応じて関数呼び出し

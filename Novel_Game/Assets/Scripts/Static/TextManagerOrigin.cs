@@ -19,7 +19,7 @@ public abstract class TextManagerOrigin : MonoBehaviour
     protected bool isAnimation = false;
 
     // Update is called once per frame
-    public void Update()
+    protected void Update()
     {
         timeCount += Time.deltaTime;
         if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) && _sentences.Count > lineNumber && !isAnimation)
@@ -32,7 +32,7 @@ public abstract class TextManagerOrigin : MonoBehaviour
             //なければ次へ
             else
             {
-                StartCoroutine(GoNextLine());
+                GoNextLine();
             }
         }
         //一文字ずつ表示
@@ -55,9 +55,8 @@ public abstract class TextManagerOrigin : MonoBehaviour
     }
 
     //ページ送り
-    protected IEnumerator GoNextLine()
+    protected void GoNextLine()
     {
-        yield return null;
         SelectFunction(_function[lineNumber]);
         tempText = _sentences[lineNumber];
         textLength = tempText.Length;
@@ -93,6 +92,14 @@ public abstract class TextManagerOrigin : MonoBehaviour
     public void AnimationFinished()
     {
         isAnimation = false;
-        StartCoroutine(GoNextLine());
+        GoNextLine();
     }
+
+    //ウィンドウ非表示を伴わないタイプのアニメーションによる操作停止用
+    protected IEnumerator AnimationWaitSet(float f)
+    {
+        isAnimation = true;
+        yield return new WaitForSeconds(f);
+        isAnimation = false;
+    } 
 }

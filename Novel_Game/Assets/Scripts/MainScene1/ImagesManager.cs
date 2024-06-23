@@ -13,7 +13,6 @@ public class ImagesManager : MonoBehaviour
     private Image blackUnderImage;
     public GameObject white;
     private Image whiteImage;
-    public GameObject bwCanvas;
     public GameObject textPanel;
     public GameObject tManager;
     private TextManager textManager;
@@ -24,10 +23,12 @@ public class ImagesManager : MonoBehaviour
     public Sprite el;
     public GameObject background;
     private Image _backgroundImage;
+    private RectTransform _backgroundRect;
     public Sprite backgroundBlack;
-    public Sprite backgroundImage1;
+    public Sprite backgroundImage1;         //気が向いたときに分かりやすい名称に変更
     public Sprite backgroundImage2;
     public Sprite backgroundImage3;
+    public Sprite backgroundImage4;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +40,7 @@ public class ImagesManager : MonoBehaviour
         blackUnderImage = blackUnder.GetComponent<Image>();
         _characterImage = character1.GetComponent<Image>();
         _backgroundImage = background.GetComponent<Image>();
+        _backgroundRect = background.GetComponent<RectTransform>();
         blackOverImage.color = new(0, 0, 0, 0.7f);
         blackUnderImage.color = new(0, 0, 0, 0.7f);
         whiteImage = white.GetComponent<Image>();
@@ -71,6 +73,62 @@ public class ImagesManager : MonoBehaviour
         textManager.AnimationFinished();
     }
 
+    //ワイプ(前半)
+    public IEnumerator Wipe1()
+    {
+        bORect.anchoredPosition = new(-1920, 270);
+        bURect.anchoredPosition = new(-1920, -270);
+        textPanel.SetActive(false);
+        while (bORect.anchoredPosition.x < 0)
+        {
+            yield return null;
+            Vector2 posO = bORect.anchoredPosition;
+            Vector2 posU = bURect.anchoredPosition;
+            posO.x += 960 * Time.deltaTime;
+            posU.x += 960 * Time.deltaTime;
+            bORect.anchoredPosition = posO;
+            bURect.anchoredPosition = posU;
+        }
+        textManager.AnimationFinished();
+    }
+
+    //ワイプ(後半)
+    public IEnumerator Wipe2()
+    {
+        yield return new WaitForSeconds(0.5f);
+        while (bORect.anchoredPosition.x < 1920)
+        {
+            yield return null;
+            Vector2 posO = bORect.anchoredPosition;
+            Vector2 posU = bURect.anchoredPosition;
+            posO.x += 960 * Time.deltaTime;
+            posU.x += 960 * Time.deltaTime;
+            bORect.anchoredPosition = posO;
+            bURect.anchoredPosition = posU;
+        }
+        yield return new WaitForSeconds(0.5f);
+        textPanel.SetActive(true);
+        textManager.AnimationFinished();
+    }
+
+    //ズームして背景をスライド(引数でズーム倍率や速さを変えられるようにすれば汎用性上がる)
+    public IEnumerator BackgroundSlide()
+    {
+        _backgroundRect.localScale *= 1.5f;
+        _backgroundRect.anchoredPosition = new(-480, 0);
+        while (_backgroundRect.anchoredPosition.x < 480)
+        {
+            yield return null;
+            float temp = _backgroundRect.anchoredPosition.x;
+            temp += 96 * Time.deltaTime;
+            _backgroundRect.anchoredPosition = new(temp, 0);
+        }
+    }
+    public void SlideStop()
+    {
+        _backgroundRect.anchoredPosition = new(480, 0);
+    }
+
     //黒のオンオフ(今はオンだけ)
     public void BlackOnOff()
     {
@@ -94,6 +152,7 @@ public class ImagesManager : MonoBehaviour
     //黒背景が開けるとともに光に包まれ徐々に戻る
     public IEnumerator BlackHalfToWhite()
     {
+
         StartCoroutine(FadeOut(1.2f, whiteImage));
         while (bORect.anchoredPosition.y < 810)
         {
@@ -149,8 +208,14 @@ public class ImagesManager : MonoBehaviour
         }
     }
 
+    public void BackgroundReset()
+    {
+        _backgroundRect.localScale = new(100, 100);
+        _backgroundRect.anchoredPosition = new Vector2(0, 0);
+    }
+
     //背景切り替え
-    public void BackGroundChange(int n)
+    public void BackgroundChange(int n)
     {
         switch (n)
         {
@@ -165,6 +230,9 @@ public class ImagesManager : MonoBehaviour
                 break;
             case 3:
                 _backgroundImage.sprite = backgroundImage3;
+                break;
+            case 4:
+                _backgroundImage.sprite = backgroundImage4;
                 break;
             default:
                 break;

@@ -6,6 +6,7 @@ public class TextManager : TextManagerOrigin
 {
     public GameObject imManager;
     private ImagesManager imagesManager;
+    private Coroutine slideCoroutine;
 
     private void Awake()
     {
@@ -23,7 +24,7 @@ public class TextManager : TextManagerOrigin
         mainText = GameObject.Find("Text").GetComponent<Text>();
         nameText = GameObject.Find("Name").GetComponent<Text>();
         imagesManager = imManager.GetComponent<ImagesManager>();
-        StartCoroutine(GoNextLine());
+        GoNextLine();
     }
 
     //テキストに記述した機能コードに応じて関数呼び出し
@@ -40,9 +41,11 @@ public class TextManager : TextManagerOrigin
                     imagesManager.BlackOnOff();
                     break;
                 case "BlackHalfOpen":
+                    StartCoroutine(AnimationWaitSet(1f));
                     StartCoroutine(imagesManager.BlackHalfOpen());
                     break;
                 case "BlackHalfToWhite":
+                    StartCoroutine(AnimationWaitSet(3f));
                     StartCoroutine(imagesManager.BlackHalfToWhite());
                     break;
                 case "CharacterChange":
@@ -62,25 +65,46 @@ public class TextManager : TextManagerOrigin
                             break;
                     }
                     break;
-                case "BackGroundChange":
+                case "BackgroundChange":
                     i++;
                     switch (s[i])
                     {
                         case "Black":
-                            imagesManager.BackGroundChange(0);
+                            imagesManager.BackgroundChange(0);
                             break;
                         case "MyRoom":
-                            imagesManager.BackGroundChange(1);
+                            imagesManager.BackgroundChange(1);
                             break;
                         case "Road":
-                            imagesManager.BackGroundChange(2);
+                            imagesManager.BackgroundChange(2);
                             break;
                         case "Buildings":
-                            imagesManager.BackGroundChange(3);
+                            imagesManager.BackgroundChange(3);
+                            break;
+                        case "City":
+                            imagesManager.BackgroundChange(4);
                             break;
                         default:
                             break;
                     }
+                    break;
+                case "Wipe1":
+                    isAnimation = true;
+                    StartCoroutine(imagesManager.Wipe1());
+                    break;
+                case "Wipe2":
+                    isAnimation = true;
+                    StartCoroutine(imagesManager.Wipe2());
+                    break;
+                case "BackgroundSlide":
+                    slideCoroutine = StartCoroutine(imagesManager.BackgroundSlide());
+                    break;
+                case "SlideStop":
+                    StopCoroutine(slideCoroutine);
+                    imagesManager.SlideStop();
+                    break;
+                case "BackgroundReset":
+                    imagesManager.BackgroundReset();
                     break;
                 case "TitleCoal":
                     isAnimation = true;
