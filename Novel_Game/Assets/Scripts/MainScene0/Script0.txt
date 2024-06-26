@@ -13,6 +13,6 @@
 0
 剣羽和人
 もちろんだ！ここで、決着をつけるぞ！！
-ChangeScene
+ChangeScene,MainScene1
 
  

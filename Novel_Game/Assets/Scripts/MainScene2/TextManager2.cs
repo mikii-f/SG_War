@@ -1,14 +1,13 @@
 using System.IO;
 using UnityEngine;
 
-public class TextManager : TextManagerOrigin
+public class TextManager2 : TextManagerOrigin
 {
-    private ImagesManager imagesManager;
-    private Coroutine slideCoroutine;
+    private ImagesManager2 imagesManager;
 
     void Awake()
     {
-        StreamReader reader = new(@"Assets/Scripts/MainScene1/Script.txt");
+        StreamReader reader = new(@"Assets/Scripts/MainScene2/Script2.txt");
         while (reader.Peek() != -1)
         {
             _function.Add(reader.ReadLine().Split(','));
@@ -16,17 +15,18 @@ public class TextManager : TextManagerOrigin
             _sentences.Add(reader.ReadLine());
         }
     }
+
     // Start is called before the first frame update
     protected override void StartSet()
     {
-        imagesManager = imManager.GetComponent<ImagesManager>();
+        imagesManager = imManager.GetComponent<ImagesManager2>();
     }
 
-    //テキストに記述した機能コードに応じて関数呼び出し
+    // Update is called once per frame
     protected override void SelectFunction(string[] s)
     {
         int n = s.Length;
-        for (int i=0; i<n; i++)
+        for (int i = 0; i < n; i++)
         {
             switch (s[i])
             {
@@ -60,12 +60,6 @@ public class TextManager : TextManagerOrigin
                     {
                         imagesManager.TextPanelOnOff(false);
                     }
-                    break;
-                case "BlackHalfOpen":
-                    StartCoroutine(imagesManager.BlackHalfOpen());
-                    break;
-                case "BlackHalfToWhite":
-                    StartCoroutine(imagesManager.BlackHalfToWhite());
                     break;
                 case "CharacterChange":
                     i++;
@@ -115,18 +109,8 @@ public class TextManager : TextManagerOrigin
                     isAnimation = true;
                     StartCoroutine(imagesManager.Wipe2());
                     break;
-                case "BackgroundSlide":
-                    slideCoroutine = StartCoroutine(imagesManager.BackgroundSlide());
-                    break;
-                case "SlideStop":
-                    StopCoroutine(slideCoroutine);
-                    imagesManager.SlideStop();
-                    break;
                 case "BackgroundReset":
                     imagesManager.BackgroundReset();
-                    break;
-                case "BlackReset":
-                    imagesManager.BlackReset();
                     break;
                 case "AnimAndGoNext":
                     i++;

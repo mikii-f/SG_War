@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public abstract class TextManagerOrigin : MonoBehaviour
 {
+    [SerializeField] protected GameObject imManager;
     protected List<string> _sentences = new();    //全文を格納
     protected List<string[]> _function = new();   //機能コード(呼び出す関数を表す)を格納
     protected List<string> _names = new();        //名前を格納
@@ -14,12 +15,22 @@ public abstract class TextManagerOrigin : MonoBehaviour
     protected float timeCount = 0f;               //時間保持用
     protected string tempText;                    //表示しようとしているテキスト
     protected int textLength;                     //表示しようとしているテキストの長さ
+    [SerializeField] private GameObject mText;
+    [SerializeField] private GameObject nText;
     protected Text mainText;
     protected Text nameText;
     protected bool isAnimation = false;
 
+    void Start()
+    {
+        mainText = mText.GetComponent<Text>();
+        nameText = nText.GetComponent<Text>();
+        GoNextLine();
+        StartSet();
+    }
+
     // Update is called once per frame
-    protected void Update()
+    void Update()
     {
         timeCount += Time.deltaTime;
         if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) && _sentences.Count > lineNumber && !isAnimation)
@@ -88,9 +99,11 @@ public abstract class TextManagerOrigin : MonoBehaviour
         }
     }
 
-    //アニメーションが終了したら1行進み操作可能に
-    public void AnimationFinished()
+    //アニメーションが終了したら任意の時間待った後1行進み操作可能に
+    public IEnumerator AnimationFinished(float f)
     {
+        isAnimation = true;
+        yield return new WaitForSeconds(f);
         isAnimation = false;
         GoNextLine();
     }
@@ -101,5 +114,8 @@ public abstract class TextManagerOrigin : MonoBehaviour
         isAnimation = true;
         yield return new WaitForSeconds(f);
         isAnimation = false;
-    } 
+    }
+
+    //各クラストごとのスタート時処理
+    protected abstract void StartSet();
 }

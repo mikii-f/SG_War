@@ -16,10 +16,13 @@
 CharacterChange,el
 ？？？
 ──きて。起きて！まだ戦いは終わっていないの。お願い、どうか届いて──────
-TitleCoal
+FadeOut,2.0,Black,AnimAndGoNext,3.0
 
 
-BlackOnOff
+TextPanelOnOff,Off,CharacterChange,transparent,BlackOnOff,Off,TitleCoal
+
+
+TextPanelOnOff,On,BlackOnOff,On
 
 何か、夢を見ていた気がする。
 BackgroundChange,MyRoom
@@ -28,13 +31,13 @@ BackgroundChange,MyRoom
 CharacterChange,vier
 
 ──────仕方ない。とりあえず起きるとしよう。
-BlackHalfOpen
+BlackHalfOpen,AnimationWaitSet,2.0
 
 目を半分ほど開ける。／………………誰だ俺の寝顔を見ていた不届き者は。いや同居人の心当たりなど一人しかいないのだが。
 0
 ？？？
 あ、やっと起きた？それじゃあカーテン、開けちゃうね！
-BlackHalfToWhite
+BlackHalfToWhite,AnimationWaitSet,4.0
 
 急な日光に目が眩む。ほんとに容赦ないなこいつは──────！
 0
@@ -226,3 +229,12 @@ BackgroundChange,Road,CharacterChange,transparent
 0
 
 しかしその夜────────────
+FadeOut,2.0,Black,BlackReset,AnimAndGoNext,3.0
+
+
+TextPanelOnOff,Off,AnimAndGoNext,1.0
+
+
+ChangeScene,MainScene2
+
+ 

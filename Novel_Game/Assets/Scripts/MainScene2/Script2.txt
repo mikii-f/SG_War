@@ -1,0 +1,9 @@
+AnimAndGoNext,1.0
+
+
+TitleCoal
+
+
+TextPanelOnOff,On
+
+大学から戻り、夕飯を食べた後のこと。

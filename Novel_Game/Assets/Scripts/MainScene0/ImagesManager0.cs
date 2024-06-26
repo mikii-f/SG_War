@@ -1,22 +1,27 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ImagesManager0 : MonoBehaviour
+public class ImagesManager0 : ImagesManagerOrigin
 {
-    // Start is called before the first frame update
-    void Start()
+    private TextManager0 textManager;
+    protected override void StartSet()
     {
-        
+        textManager = tManager.GetComponent<TextManager0>();
+        white.SetActive(false);
+        blackOver.SetActive(false);
+        blackUnder.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void CharacterChange(int n)
     {
-        
-    }
 
-    public void ChangeScene()
+    }
+    public override void BackgroundChange(int n)
     {
-        SceneManager.LoadScene("MainScene1");
+
+    }
+    protected override void AnimationFinished(float waitTime)
+    {
+        StartCoroutine(textManager.AnimationFinished(waitTime));
     }
 }

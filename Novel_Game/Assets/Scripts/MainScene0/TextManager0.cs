@@ -1,11 +1,9 @@
 using System.IO;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TextManager0 : TextManagerOrigin
 {
-    public GameObject imManager0;
-    private ImagesManager0 imagesManager0;
+    private ImagesManager0 imagesManager;
 
     private void Awake()
     {
@@ -18,12 +16,9 @@ public class TextManager0 : TextManagerOrigin
         }
     }
     // Start is called before the first frame update
-    void Start()
+    protected override void StartSet()
     {
-        mainText = GameObject.Find("Text").GetComponent<Text>();
-        nameText = GameObject.Find("Name").GetComponent<Text>();
-        imagesManager0 = imManager0.GetComponent<ImagesManager0>();
-        GoNextLine();
+        imagesManager = imManager.GetComponent<ImagesManager0>();
     }
 
     //テキストに記述した機能コードに応じて関数呼び出し
@@ -37,7 +32,8 @@ public class TextManager0 : TextManagerOrigin
                 case "0":
                     break;
                 case "ChangeScene":
-                    imagesManager0.ChangeScene();
+                    i++;
+                    imagesManager.ChangeScene(s[i]);
                     break;
             }
         }
