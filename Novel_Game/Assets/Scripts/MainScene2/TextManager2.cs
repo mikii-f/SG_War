@@ -16,7 +16,6 @@ public class TextManager2 : TextManagerOrigin
         }
     }
 
-    // Start is called before the first frame update
     protected override void StartSet()
     {
         imagesManager = imManager.GetComponent<ImagesManager2>();
@@ -74,6 +73,9 @@ public class TextManager2 : TextManagerOrigin
                         case "el":
                             imagesManager.CharacterChange(2);
                             break;
+                        case "Ghost1":
+                            imagesManager.CharacterChange(11);
+                            break;
                         default:
                             break;
                     }
@@ -90,12 +92,6 @@ public class TextManager2 : TextManagerOrigin
                             break;
                         case "Road":
                             imagesManager.BackgroundChange(2);
-                            break;
-                        case "Buildings":
-                            imagesManager.BackgroundChange(3);
-                            break;
-                        case "City":
-                            imagesManager.BackgroundChange(4);
                             break;
                         default:
                             break;

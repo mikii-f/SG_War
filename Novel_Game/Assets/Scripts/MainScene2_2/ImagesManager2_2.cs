@@ -1,8 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class ImagesManager2 : ImagesManagerOrigin
+public class ImagesManager2_2 : ImagesManagerOrigin
 {
-    private TextManager2 textManager;
+    private TextManager textManager;
     [SerializeField] private Sprite vier;
     [SerializeField] private Sprite ghost1;
     [SerializeField] private Sprite backgroundMyRoom;
@@ -10,8 +12,9 @@ public class ImagesManager2 : ImagesManagerOrigin
 
     protected override void StartSet()
     {
-        textManager = tManager.GetComponent<TextManager2>();
+        textManager = tManager.GetComponent<TextManager>();
         textPanel.SetActive(false);
+        chapterTitle.SetActive(false);
     }
 
     //立ち絵関係
@@ -32,6 +35,7 @@ public class ImagesManager2 : ImagesManagerOrigin
                 break;
         }
     }
+
     //背景切り替え
     public override void BackgroundChange(int n)
     {
@@ -50,6 +54,7 @@ public class ImagesManager2 : ImagesManagerOrigin
                 break;
         }
     }
+
     //テキストへのアニメーション終了通知
     protected override void AnimationFinished(float waitTime)
     {

@@ -15,7 +15,7 @@ public class TextManager0 : TextManagerOrigin
             _sentences.Add(reader.ReadLine());
         }
     }
-    // Start is called before the first frame update
+
     protected override void StartSet()
     {
         imagesManager = imManager.GetComponent<ImagesManager0>();

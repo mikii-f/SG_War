@@ -7,12 +7,10 @@ public class ImagesManager : ImagesManagerOrigin
     private TextManager textManager;
     [SerializeField] private Sprite vier;
     [SerializeField] private Sprite el;
-    [SerializeField] private Sprite backgroundImage1;         //ãCÇ™å¸Ç¢ÇΩÇ∆Ç´Ç…ï™Ç©ÇËÇ‚Ç∑Ç¢ñºèÃÇ…ïœçX
-    [SerializeField] private Sprite backgroundImage2;
-    [SerializeField] private Sprite backgroundImage3;
-    [SerializeField] private Sprite backgroundImage4;
+    [SerializeField] private Sprite backgroundMyRoom;
+    [SerializeField] private Sprite backgroundRoad;
+    [SerializeField] private Sprite backgroundCity;
 
-    // Start is called before the first frame update
     protected override void StartSet()
     {
         textManager = tManager.GetComponent<TextManager>();
@@ -77,16 +75,13 @@ public class ImagesManager : ImagesManagerOrigin
                 _backgroundImage.sprite = backgroundBlack;
                 break;
             case 1:
-                _backgroundImage.sprite = backgroundImage1;
+                _backgroundImage.sprite = backgroundMyRoom;
                 break;
             case 2:
-                _backgroundImage.sprite = backgroundImage2;
+                _backgroundImage.sprite = backgroundRoad;
                 break;
             case 3:
-                _backgroundImage.sprite = backgroundImage3;
-                break;
-            case 4:
-                _backgroundImage.sprite = backgroundImage4;
+                _backgroundImage.sprite = backgroundCity;
                 break;
             default:
                 break;

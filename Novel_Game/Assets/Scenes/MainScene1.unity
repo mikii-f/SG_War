@@ -393,10 +393,9 @@ MonoBehaviour:
   backgroundBlack: {fileID: 21300000, guid: 96f10c3d17a319c43a908e5ba537e43e, type: 3}
   vier: {fileID: 21300000, guid: e625be34f9f6e9d438154372e9669d4a, type: 3}
   el: {fileID: 21300000, guid: c84f7542a8ba7bd40a4021051d5d880e, type: 3}
-  backgroundImage1: {fileID: 21300000, guid: 8ae09be083a5f724fb97b7d977cccfaa, type: 3}
-  backgroundImage2: {fileID: 21300000, guid: 96017ba2085e54d41b9c87a53f91f1a8, type: 3}
-  backgroundImage3: {fileID: 21300000, guid: 86d592241b85e884f9229db8316fc57d, type: 3}
-  backgroundImage4: {fileID: 21300000, guid: c1abe65adeca8c040b326a7615bff7ab, type: 3}
+  backgroundMyRoom: {fileID: 21300000, guid: 8ae09be083a5f724fb97b7d977cccfaa, type: 3}
+  backgroundRoad: {fileID: 21300000, guid: 96017ba2085e54d41b9c87a53f91f1a8, type: 3}
+  backgroundCity: {fileID: 21300000, guid: c1abe65adeca8c040b326a7615bff7ab, type: 3}
 --- !u!4 &353498502
 Transform:
   m_ObjectHideFlags: 0
@@ -799,7 +798,7 @@ RectTransform:
   m_GameObject: {fileID: 987556126}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 100, y: 100, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1605321874}
@@ -807,7 +806,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -50, y: -270}
-  m_SizeDelta: {x: 2000, y: 2000}
+  m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &987556128
 MonoBehaviour:

@@ -18,6 +18,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     [SerializeField] protected GameObject tManager;
     [SerializeField] protected GameObject character1;
     protected Image _characterImage;
+    protected RectTransform _characterRect;
     [SerializeField] protected GameObject background1;
     protected Image _backgroundImage;
     protected RectTransform _backgroundRect;
@@ -32,6 +33,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         blackUnderImage = blackUnder.GetComponent<Image>();
         whiteImage = white.GetComponent<Image>();
         _characterImage = character1.GetComponent<Image>();
+        _characterRect = character1.GetComponent<RectTransform>();
         _backgroundImage = background1.GetComponent<Image>();
         _backgroundRect = background1.GetComponent<RectTransform>();
         whiteImage.color = new(255, 255, 255, 0);
@@ -82,11 +84,32 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
                 StartCoroutine(FadeOut(n, blackOverImage));
                 StartCoroutine(FadeOut(n, blackUnderImage));
                 break;
+            case "Character":
+                StartCoroutine(FadeOut(n, _characterImage));
+                break;
             default:
                 StartCoroutine(FadeOut(n, blackOverImage));
                 StartCoroutine(FadeOut(n, blackUnderImage));
                 break;
         }
+    }
+    public void FadeInReceiver(float n, string image)
+    {
+        switch (image)
+        {
+            case "Black":
+                StartCoroutine(FadeIn(n, blackOverImage));
+                StartCoroutine(FadeIn(n, blackUnderImage));
+                break;
+            case "Character":
+                StartCoroutine(FadeIn(n, _characterImage));
+                break;
+            default:
+                StartCoroutine(FadeIn(n, blackOverImage));
+                StartCoroutine(FadeIn(n, blackUnderImage));
+                break;
+        }
+
     }
 
     //ワイプ(前半)
@@ -145,6 +168,14 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     {
         _backgroundRect.anchoredPosition = new(480, 0);
     }
+    //キャラクターのサイズ・位置・透明度をリセット
+    public void CharacterReset()
+    {
+        _characterRect.localScale = new(100, 100);
+        _characterRect.anchoredPosition = new(-50, -270);
+        _characterImage.color = Color.white;
+    }
+
     //背景のサイズおよび位置をリセット
     public void BackgroundReset()
     {
