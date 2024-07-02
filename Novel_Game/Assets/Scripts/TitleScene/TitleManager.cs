@@ -14,7 +14,7 @@ public class TitleManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadScene("MainScene");
+            SceneManager.LoadScene("MainScene0");
         }
     }
 }
