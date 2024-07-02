@@ -172,7 +172,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     public void CharacterReset()
     {
         _characterRect.localScale = new(100, 100);
-        _characterRect.anchoredPosition = new(-50, -270);
+        _characterRect.anchoredPosition = new(0, -360);
         _characterImage.color = Color.white;
     }
 

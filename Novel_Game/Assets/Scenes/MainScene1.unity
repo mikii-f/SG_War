@@ -391,8 +391,8 @@ MonoBehaviour:
   background1: {fileID: 2121893778}
   noneSprite: {fileID: 21300000, guid: 199e3707cf3f9ac4f91be2a04aa6e369, type: 3}
   backgroundBlack: {fileID: 21300000, guid: 96f10c3d17a319c43a908e5ba537e43e, type: 3}
-  vier: {fileID: 21300000, guid: e625be34f9f6e9d438154372e9669d4a, type: 3}
-  el: {fileID: 21300000, guid: c84f7542a8ba7bd40a4021051d5d880e, type: 3}
+  vier: {fileID: 21300000, guid: 9839a3770c232d1438e08ccc60921534, type: 3}
+  el: {fileID: 21300000, guid: d8dea69a93d4849499c0b63a85f5a246, type: 3}
   backgroundMyRoom: {fileID: 21300000, guid: 8ae09be083a5f724fb97b7d977cccfaa, type: 3}
   backgroundRoad: {fileID: 21300000, guid: 96017ba2085e54d41b9c87a53f91f1a8, type: 3}
   backgroundCity: {fileID: 21300000, guid: c1abe65adeca8c040b326a7615bff7ab, type: 3}
@@ -805,8 +805,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -50, y: -270}
-  m_SizeDelta: {x: 20, y: 20}
+  m_AnchoredPosition: {x: 0, y: -360}
+  m_SizeDelta: {x: 13.5, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &987556128
 MonoBehaviour:
