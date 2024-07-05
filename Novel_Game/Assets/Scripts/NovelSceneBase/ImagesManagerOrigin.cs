@@ -57,7 +57,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
         for (float alpha = 0.0f; alpha <= 255.0f; alpha += alphaChangeAmount)
         {
-            Color newColor = whiteImage.color;
+            Color newColor = image.color;
             newColor.a = alpha / 255.0f;
             image.color = newColor;
             yield return new WaitForSeconds(waitTime);
@@ -69,7 +69,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
         for (float alpha = 255.0f; alpha >= 0f; alpha -= alphaChangeAmount)
         {
-            Color newColor = whiteImage.color;
+            Color newColor = image.color;
             newColor.a = alpha / 255.0f;
             image.color = newColor;
             yield return new WaitForSeconds(waitTime);
@@ -187,6 +187,8 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     {
         bORect.anchoredPosition = new(0, 270);
         bURect.anchoredPosition = new(0, -270);
+        blackOverImage.color = Color.white;
+        blackUnderImage.color = Color.white;
     }
 
     //çïÇÃÉIÉìÉIÉt

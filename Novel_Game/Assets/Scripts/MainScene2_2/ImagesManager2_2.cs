@@ -1,10 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ImagesManager2_2 : ImagesManagerOrigin
 {
-    private TextManager textManager;
+    private TextManager2_2 textManager;
     [SerializeField] private Sprite vier;
     [SerializeField] private Sprite ghost1;
     [SerializeField] private Sprite backgroundMyRoom;
@@ -12,7 +11,7 @@ public class ImagesManager2_2 : ImagesManagerOrigin
 
     protected override void StartSet()
     {
-        textManager = tManager.GetComponent<TextManager>();
+        textManager = tManager.GetComponent<TextManager2_2>();
         textPanel.SetActive(false);
         chapterTitle.SetActive(false);
     }

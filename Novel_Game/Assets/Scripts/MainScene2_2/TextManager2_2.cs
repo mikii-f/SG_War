@@ -44,6 +44,9 @@ public class TextManager2_2 : TextManagerOrigin
                     i++;
                     imagesManager.FadeInReceiver(fadeTime, s[i]);
                     break;
+                case "BlackReset":
+                    imagesManager.BlackReset();
+                    break;
                 case "BlackOnOff":
                     i++;
                     if (s[i] == "On")

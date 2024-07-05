@@ -229,7 +229,7 @@ BackgroundChange,Road,CharacterChange,transparent
 0
 
 しかしその夜────────────
-FadeOut,2.0,Black,BlackReset,AnimAndGoNext,3.0
+BlackReset,FadeOut,2.0,Black,AnimAndGoNext,3.0
 
 
 TextPanelOnOff,Off,AnimAndGoNext,1.0

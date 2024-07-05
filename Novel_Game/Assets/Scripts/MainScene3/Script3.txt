@@ -1,0 +1,9 @@
+AnimAndGoNext,1.0
+
+
+TitleCoal
+
+
+BlackOnOff,Off,TextPanelOnOff,On
+
+時刻は既に土曜日の夕方。
