@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class ImagesManager : ImagesManagerOrigin
 {
-    private TextManager textManager;
     [SerializeField] private Sprite vier;
     [SerializeField] private Sprite el;
     [SerializeField] private Sprite backgroundMyRoom;
@@ -13,38 +12,7 @@ public class ImagesManager : ImagesManagerOrigin
 
     protected override void StartSet()
     {
-        textManager = tManager.GetComponent<TextManager>();
-        blackOverImage.color = new(0, 0, 0, 0.7f);
-        blackUnderImage.color = new(0, 0, 0, 0.7f);
-    }
-
-    //黒背景が半分開く
-    public IEnumerator BlackHalfOpen()
-    {
-        while (bORect.anchoredPosition.y < 540)
-        {
-            yield return null;
-            Vector2 posO = bORect.anchoredPosition;
-            posO.y += 135 * Time.deltaTime;
-            bORect.anchoredPosition = posO;
-            bURect.anchoredPosition = -posO;
-        }
-    }
-
-    //黒背景が開けるとともに光に包まれ徐々に戻る
-    public IEnumerator BlackHalfToWhite()
-    {
-
-        StartCoroutine(FadeOut(1.2f, whiteImage));
-        while (bORect.anchoredPosition.y < 810)
-        {
-            yield return null;
-            Vector2 posO = bORect.anchoredPosition;
-            posO.y += 135 * Time.deltaTime;
-            bORect.anchoredPosition = posO;
-            bURect.anchoredPosition = -posO;
-        }
-        StartCoroutine(FadeIn(2f, whiteImage));
+        blackAllImage.color = new(0, 0, 0, 0.7f);
     }
 
     //立ち絵関係
@@ -86,11 +54,5 @@ public class ImagesManager : ImagesManagerOrigin
             default:
                 break;
         }
-    }
-
-    //テキストへのアニメーション終了通知
-    protected override void AnimationFinished(float waitTime)
-    {
-        StartCoroutine(textManager.AnimationFinished(waitTime));
     }
 }

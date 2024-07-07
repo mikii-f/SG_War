@@ -33,12 +33,17 @@ public class CarnivoreEnemyManager : EnemyManagerOrigin
     //í èÌçUåÇ
     protected override IEnumerator NormalAttack()
     {
+        StartCoroutine(AttackSubtitle("àŸí‹"));
         isAttack = true;
         Vector2 temp = myRect.localScale;
         myRect.localScale = new(0.8f * temp.x, 0.8f * temp.y);
         yield return new WaitForSeconds(0.5f);
         myRect.localScale = new(1.2f * temp.x, 1.2f * temp.y);
-        StartCoroutine(AttackEffect(attackRect, attackImage));
+        //ìríÜÇ≈éÄÇÒÇæéûóp
+        if (!isDied)
+        {
+            StartCoroutine(AttackEffect(attackRect, attackImage));
+        }
         yield return new WaitForSeconds(0.1f);
         float size = 1.2f;
         while (size != 1.0f)
@@ -48,7 +53,10 @@ public class CarnivoreEnemyManager : EnemyManagerOrigin
             myRect.localScale = new(size * temp.x, size * temp.y);
             yield return null;
         }
-        bSManager.EnemyToSainAttack(attack);
+        if (!isDied)
+        {
+            bSManager.EnemyToSainAttack(attack);
+        }
         isAttack = false;
         switch (currentGage)
         {
@@ -62,13 +70,17 @@ public class CarnivoreEnemyManager : EnemyManagerOrigin
     //É`ÉÉÅ[ÉWãZ
     protected override IEnumerator ChargeAttack()
     {
+        StartCoroutine(AttackSubtitle("àŸí‹òA"));
         isAttack = true;
         Vector2 temp = myRect.localScale;
         myRect.localScale = new(0.7f * temp.x, 0.7f * temp.y);
         yield return new WaitForSeconds(0.5f);
         myRect.localScale = new(1.5f * temp.x, 1.5f * temp.y);
-        StartCoroutine(AttackEffect(attackRect, attackImage));
-        StartCoroutine(AttackEffect(attackRect2, attackImage2));
+        if (!isDied)
+        {
+            StartCoroutine(AttackEffect(attackRect, attackImage));
+            StartCoroutine(AttackEffect(attackRect2, attackImage2));
+        }
         yield return new WaitForSeconds(0.1f);
         float size = 1.5f;
         while (size != 1.0f)
@@ -78,8 +90,15 @@ public class CarnivoreEnemyManager : EnemyManagerOrigin
             myRect.localScale = new(size * temp.x, size * temp.y);
             yield return null;
         }
-        bSManager.EnemyToSainAttack(attack*2);
+        if (!isDied)
+        {
+            bSManager.EnemyToSainAttack(attack * 2);
+        }
         isAttack = false;
         gage1Image.sprite = grayGage;
+    }
+    public override void Revive()
+    {
+        //åªèÛïúäàÇ≥ÇπÇÈó\íËÇ»Çµ
     }
 }

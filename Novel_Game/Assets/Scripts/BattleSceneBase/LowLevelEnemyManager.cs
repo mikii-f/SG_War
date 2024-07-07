@@ -32,11 +32,16 @@ public class LowLevelEnemyManager : EnemyManagerOrigin
     //í èÌçUåÇ
     protected override IEnumerator NormalAttack()
     {
+        StartCoroutine(AttackSubtitle("ódåı"));
         isAttack = true;
         Vector2 temp = myRect.localScale;
         myRect.localScale = new(0.8f * temp.x, 0.8f * temp.y);
         yield return new WaitForSeconds(0.5f);
-        StartCoroutine(AttackEffect(attackRect, attackImage));
+        //ìríÜÇ≈éÄÇÒÇæéûóp
+        if (!isDied)
+        {
+            StartCoroutine(AttackEffect(attackRect, attackImage));
+        }
         myRect.localScale = new(1.2f * temp.x, 1.2f * temp.y);
         yield return new WaitForSeconds(0.1f);
         float size = 1.2f;
@@ -47,7 +52,11 @@ public class LowLevelEnemyManager : EnemyManagerOrigin
             myRect.localScale = new(size * temp.x, size * temp.y);
             yield return null;
         }
-        bSManager.EnemyToSainAttack(attack);
+        //ìríÜÇ≈éÄÇÒÇæéûóp
+        if (!isDied)
+        {
+            bSManager.EnemyToSainAttack(attack);
+        }
         isAttack = false;
         switch (currentGage)
         {
@@ -67,6 +76,7 @@ public class LowLevelEnemyManager : EnemyManagerOrigin
     //É`ÉÉÅ[ÉWãZ
     protected override IEnumerator ChargeAttack()
     {
+        StartCoroutine(AttackSubtitle("ódåıÅEã≠"));
         isAttack = true;
         Vector2 temp = myRect.localScale;
         myRect.localScale = new(0.7f * temp.x, 0.7f * temp.y);
@@ -74,7 +84,10 @@ public class LowLevelEnemyManager : EnemyManagerOrigin
         myRect.localScale = new(1.5f * temp.x, 1.5f * temp.y);
         //íeÇÃëÂÇ´Ç≥Ç2î{Ç…
         attackRect.localScale = new(2, 2);
-        StartCoroutine(AttackEffect(attackRect, attackImage));
+        if (!isDied)
+        {
+            StartCoroutine(AttackEffect(attackRect, attackImage));
+        }
         yield return new WaitForSeconds(0.3f);
         float size = 1.5f;
         while (size != 1.0f)
@@ -84,10 +97,28 @@ public class LowLevelEnemyManager : EnemyManagerOrigin
             myRect.localScale = new(size * temp.x, size * temp.y);
             yield return null;
         }
-        bSManager.EnemyToSainAttack(attack*2);
+        if (!isDied)
+        {
+            bSManager.EnemyToSainAttack(attack * 2);
+        }
         isAttack = false;
         gage1Image.sprite = grayGage;
         gage2Image.sprite = grayGage;
         gage3Image.sprite = grayGage;
+    }
+    public override void Revive()
+    {
+        myImage.color = Color.white;
+        currentHP = maxHP;
+        currentGage = 0;
+        HPslider.value = (float)currentHP / maxHP;
+        HPText.text = currentHP.ToString() + "/" + maxHP.ToString();
+        gage1Image.sprite = grayGage;
+        gage2Image.sprite = grayGage;
+        gage3Image.sprite = grayGage;
+        intervalCount = interval;
+        isDied = false;
+        myAllObject.SetActive(true);
+        bSManager.ReviveSuccess();
     }
 }

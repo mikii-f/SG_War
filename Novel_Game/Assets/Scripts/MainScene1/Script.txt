@@ -1,4 +1,7 @@
-0
+AnimAndGoNext,1.0
+
+
+TextPanelOn,MenuOn
 
 セイン、それはあらゆる世界に現れる「異妖」を浄化するため、高次に存在する「星」から派遣される情報生命体。
 0
@@ -16,19 +19,19 @@
 CharacterChange,el
 ？？？
 ──きて。起きて！まだ戦いは終わっていないの。お願い、どうか届いて──────
-FadeOut,2.0,Black,AnimAndGoNext,3.0
+FadeOut,2.0,Black,AnimAndGoNext,3.0,MenuOff
 
 
-TextPanelOnOff,Off,CharacterChange,transparent,BlackOnOff,Off,TitleCoal
+TextPanelOff,CharacterChange,transparent,BlackOff,TitleCoal
 
 
-TextPanelOnOff,On,BlackOnOff,On
+TextPanelOn,MenuOn,BlackOUOn,BackgroundChange,MyRoom,CharacterChange,vier
 
 何か、夢を見ていた気がする。
-BackgroundChange,MyRoom
+0
 
 とても大切な内容だった気がするのに、夢というものはこういう時ほど思い出せない。／掴もうとすればするほど薄れていってしまう。
-CharacterChange,vier
+0
 
 ──────仕方ない。とりあえず起きるとしよう。
 BlackHalfOpen,AnimationWaitSet,2.0
@@ -229,10 +232,10 @@ BackgroundChange,Road,CharacterChange,transparent
 0
 
 しかしその夜────────────
-BlackReset,FadeOut,2.0,Black,AnimAndGoNext,3.0
+MenuOff,FadeOut,2.0,Black,AnimAndGoNext,3.0
 
 
-TextPanelOnOff,Off,AnimAndGoNext,1.0
+TextPanelOff,AnimAndGoNext,1.0
 
 
 ChangeScene,MainScene2

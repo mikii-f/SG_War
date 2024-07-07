@@ -7,7 +7,7 @@ FadeIn,1.0,Black,AnimAndGoNext,1.5
 FadeIn,2.0,Character,AnimAndGoNext,2.5
 
 
-CharacterChange,vier,CharacterReset,TextPanelOnOff,On
+CharacterChange,vier,CharacterReset,TextPanelOn,MenuOn
 フィア
 倒した、けど……。
 0
@@ -55,7 +55,7 @@ CharacterChange,vier,CharacterReset,TextPanelOnOff,On
 0
 剣羽和人
 さあな。じゃあ、とりあえず家に帰るとするか。
-BlackReset,Wipe1
+Wipe1
 
 
 Wipe2,CharacterChange,transparent,BackgroundChange,MyRoom
@@ -109,10 +109,10 @@ CharacterChange,vier
 0
 
 異常な事態ではあるが、きっとどうにかなるだろう。そんな希望を抱きながら。
-BlackReset,FadeOut,2.0,Black,AnimAndGoNext,3.0
+MenuOff,FadeOut,2.0,Black,AnimAndGoNext,3.0
 
 
-TextPanelOnOff,Off,AnimAndGoNext,1.0
+TextPanelOff,AnimAndGoNext,1.0
 
 
 ChangeScene,MainScene3

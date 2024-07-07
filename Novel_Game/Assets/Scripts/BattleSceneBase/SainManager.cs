@@ -29,6 +29,8 @@ public class SainManager : MonoBehaviour
     private RectTransform sARect;
     private Image sAImage;
     [SerializeField] private GameObject mask;
+    [SerializeField] private GameObject mask2;
+    [SerializeField] private GameObject mask3;
     [SerializeField] private GameObject attack1Effect;
     protected RectTransform attack1Rect;
     protected Image attack1Image;
@@ -44,7 +46,8 @@ public class SainManager : MonoBehaviour
     private float intervalCount = 0;
     private bool isGuard = false;
     private bool isCannotGuard = false;
-    //整数値で係数を扱うことで簡単化(floatは色々とめんどい)
+    private bool isInvincible = false;
+    //整数値で係数を扱うことで簡単化(floatは色々とめんどい)(/10の処理に問題がないよう気をつける)
     private int attackFactor = 10;
     private int speedFactor = 10;
     private float buffTimer = 0;
@@ -74,6 +77,8 @@ public class SainManager : MonoBehaviour
         intervalText = intervalDisplay.GetComponent<Text>();
         sAImage.color = new(0.4f, 0.4f, 0.4f, 1);
         mask.SetActive(false);
+        mask2.SetActive(false);
+        mask3.SetActive(false);
         buffEffect.SetActive(false);
         healEffect.SetActive(false);
         guardEffect.SetActive(false);
@@ -128,12 +133,7 @@ public class SainManager : MonoBehaviour
             //通常攻撃(攻撃小 SG回復10)
             StartCoroutine(bSManager.SainSkill1(50*attackFactor/10, attack1Rect, attack1Image));
             currentSG = Mathf.Min(100, currentSG + 10);
-            if (currentSG == 100)
-            {
-                sAImage.color = Color.white;
-            }
-            SGslider.value = (float)currentSG / maxSG;
-            SGText.text = currentSG.ToString() + "/" + maxSG.ToString();
+            SGCheck();
         }
     }
     public void BattleSkill2Click()
@@ -144,12 +144,10 @@ public class SainManager : MonoBehaviour
             intervalCount = interval;
             StartCoroutine(ButtonAnim(bS2Rect));
             mask.SetActive(true);
-            //強攻撃(攻撃中 SG消費10 何か追加効果)　案：敵の行動遅延(〇？) 自身の速度上昇 次の攻撃回避
+            //強攻撃(攻撃中 SG消費10 攻撃態勢に入る前の敵の行動遅延)
             StartCoroutine(bSManager.SainSkill2(100*attackFactor/10, attack2Rect, attack2Image));
             currentSG -= 10;
-            sAImage.color = new(0.4f, 0.4f, 0.4f, 1);
-            SGslider.value = (float)currentSG / maxSG;
-            SGText.text = currentSG.ToString() + "/" + maxSG.ToString();
+            SGCheck();
         }
     }
     //クリックの受け取りはコルーチンにできないっぽい
@@ -169,17 +167,19 @@ public class SainManager : MonoBehaviour
         StartCoroutine(EffectOnandOff(buffEffect));
         //自己強化(SG消費20 インターバル半減 ガードが不可能になる 回避率30%上昇(後で実装) 攻撃力上昇) 重ね掛け不可
         currentSG -= 20;
-        sAImage.color = new(0.4f, 0.4f, 0.4f, 1);
+        SGCheck();
         speedFactor += 10;
         isCannotGuard = true;
         attackFactor += 4;
-        SGslider.value = (float)currentSG / maxSG;
-        SGText.text = currentSG.ToString() + "/" + maxSG.ToString();
         float tempTimer = buffTimer;
         yield return new WaitUntil(() => buffTimer - tempTimer >= 10);
         speedFactor -= 10;
         isCannotGuard = false;
         attackFactor -= 4;
+        if (currentSG >= 20)
+        {
+            mask3.SetActive(false);
+        }
     }
 
     public void SpecialAttackClick()
@@ -188,20 +188,62 @@ public class SainManager : MonoBehaviour
         if (currentSG == maxSG && !pause)
         {
             StartCoroutine(ButtonAnim(sARect));
-            sAImage.color = new(0.4f, 0.4f, 0.4f, 1);
+            StartCoroutine(Invincible(1));
             //敵全体に大ダメージ(SG消費100 時間を止めて専用演出 必殺持ちの敵のガードを割る)
             StartCoroutine(bSManager.SainToAllAttack(150 * attackFactor / 10));
             currentSG = 0;
-            SGslider.value = 0;
-            SGText.text = currentSG.ToString() + "/" + maxSG.ToString();
+            SGCheck();
+        }
+    }
+    //主に必殺技発動直後のための無敵時間
+    private IEnumerator Invincible(float invincibleTime)
+    {
+        isInvincible = true;
+        yield return new WaitForSeconds(invincibleTime);
+        isInvincible = false;
+    }
+
+    //SG値によってマスク切り替え
+    private void SGCheck()
+    {
+        SGslider.value = (float)currentSG / maxSG;
+        SGText.text = currentSG.ToString() + "/" + maxSG.ToString();
+        if (currentSG >= 100)
+        {
+            sAImage.color = Color.white;
+        }
+        else
+        {
+            sAImage.color = new(0.4f, 0.4f, 0.4f, 1);
+        }
+        if (currentSG >= 20 && !isCannotGuard)
+        {
+            mask3.SetActive(false);
+        }
+        else
+        {
+            mask3.SetActive(true);
+        }
+        if (currentSG >= 10)
+        {
+            mask2.SetActive(false);
+        }
+        else
+        {
+            mask2.SetActive(true);
         }
     }
 
     //ダメージを受ける
     public void ReceiveDamage(int damage)
     {
+        //無敵時間ならノーダメ
+        if (isInvincible)
+        {
+            damage = 0;
+        }
         //ガード中なら9割カット
-        if (isGuard)
+        else if (isGuard)
         {
             damage /= 10;
         }
@@ -220,7 +262,7 @@ public class SainManager : MonoBehaviour
         HPText.text = currentHP.ToString() + "/" + maxHP.ToString();
         if (currentHP == 0)
         {
-            //ゲームオーバー処理
+            StartCoroutine(bSManager.GameOver());
         }
     }
     //ダメージ受け取り時の揺れ

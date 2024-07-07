@@ -57,15 +57,9 @@ public class BattleSceneManager2 : BattleSceneManagerOrigin
         }
     }
 
-    //ƒoƒgƒ‹Ÿ—˜
-    protected override IEnumerator Win()
+
+    public override void SceneLoad()
     {
-        //•KŽE‹Z‚É‚æ‚Á‚Ä“G‚ð‘Sˆõ“|‚µ‚½ê‡‚ÉPauseˆ—‚ª‹£‡‚·‚é‚Ì‚ð”ð‚¯‚é‚½‚ß
-        yield return new WaitUntil(() => !isSpecialAttack);
-        sainManager.Pause = true;
-        leaderManager.Pause = true;
-        yield return new WaitForSeconds(3);
-        yield return StartCoroutine(FadeOut(2, blackImage));
-        //SceneManager.LoadScene("MainScene3-2");
+        SceneManager.LoadScene("MainScene3_2");
     }
 }

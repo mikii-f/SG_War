@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class ImagesManager3 : ImagesManagerOrigin
+public class ImagesManager3_2 : ImagesManagerOrigin
 {
     [SerializeField] private Sprite vier;
     [SerializeField] private Sprite ghost1;
@@ -10,7 +10,7 @@ public class ImagesManager3 : ImagesManagerOrigin
 
     protected override void StartSet()
     {
-        blackAllImage.color = Color.clear;
+        
     }
 
     //—§‚¿ŠGŠÖŒW

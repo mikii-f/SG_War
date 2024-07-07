@@ -1,23 +1,18 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.ParticleSystem;
 
 public abstract class BattleSceneManagerOrigin : MonoBehaviour
 {
-    [SerializeField] private GameObject sainManagerObject;
-    [SerializeField] private GameObject leaderManagerObject;
-    protected SainManager sainManager;
-    protected LeaderManager leaderManager;
+    [SerializeField] protected SainManager sainManager;
+    [SerializeField] protected LeaderManager leaderManager;
+    [SerializeField] protected BattleSystemManager battleSystemManager;
     [SerializeField] protected GameObject blackObject;
     protected RectTransform blackRect;
     protected Image blackImage;
     [SerializeField] private GameObject specialSkillAnimation;
-    [SerializeField] private GameObject enemyNumberObject;
-    private Text enemyNumberText;
-    [SerializeField] private GameObject waveNumberObject;
-    protected Text waveNumberText;
+    [SerializeField] private Text enemyNumberText;
+    [SerializeField] private Text waveNumberText;
     protected int[] numberOfEnemy;
     protected int numberOfWave;
     protected EnemyManagerOrigin[][] enemyComposition;
@@ -26,16 +21,13 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
     protected int numberOfCurrentWave = 0;      //配列のインデックスとして使うことが多いため0から
     protected int selectedEnemy = 0;
     protected bool isSpecialAttack = false;
+    private bool isGameOver = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        sainManager = sainManagerObject.GetComponent<SainManager>();
-        leaderManager = leaderManagerObject.GetComponent<LeaderManager>();
         blackRect = blackObject.GetComponent<RectTransform>();
         blackImage = blackObject.GetComponent<Image>();
-        enemyNumberText = enemyNumberObject.GetComponent<Text>();
-        waveNumberText = waveNumberObject.GetComponent<Text>();
         specialSkillAnimation.SetActive(false);
         StartCoroutine(FadeIn(1, blackImage));
         StartSet();
@@ -217,6 +209,7 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
         }
         //着弾・消滅
         enemyComposition[numberOfCurrentWave][selectedEnemy].ReceiveDamage(damage);
+        enemyComposition[numberOfCurrentWave][selectedEnemy].ReceiveDelay();
         float waitTime = 0.05f;
         float fadeTime = 0.5f;
         float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
@@ -265,20 +258,25 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
     //敵が死んだことの受け取り
     public void EnemyDied()
     {
-        numberOfArriveEnemy--;
-        ArriveEnemyCheck();
-        enemyNumberText.text = "Enemy " + numberOfArriveEnemy.ToString() + "/" + numberOfEnemy[numberOfCurrentWave].ToString();
-        if (numberOfArriveEnemy == 0 && numberOfCurrentWave+1 == numberOfWave)
+        //相打ちだった時対策
+        if (!isGameOver)
         {
-            StartCoroutine(Win());
-        }
-        else if (numberOfArriveEnemy == 0)
-        {
-             StartCoroutine(GoToNextWave());
-        }
-        else
-        {
-            EnemySelect();
+            numberOfArriveEnemy--;
+            ArriveEnemyCheck();
+            enemyNumberText.text = "Enemy " + numberOfArriveEnemy.ToString() + "/" + numberOfEnemy[numberOfCurrentWave].ToString();
+            if (numberOfArriveEnemy == 0 && numberOfCurrentWave + 1 == numberOfWave)
+            {
+                StartCoroutine(Win());
+            }
+            else if (numberOfArriveEnemy == 0)
+            {
+                StartCoroutine(GoToNextWave());
+            }
+            //敵を倒してからこの判定をするまでにラグがある→修正 その間にターゲットを移動させていたら選び直す必要はない
+            else if (deadEnemyComposition[numberOfCurrentWave][selectedEnemy])
+            {
+                EnemySelect();
+            }
         }
     }
     //生きている敵の管理
@@ -289,6 +287,25 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
             deadEnemyComposition[numberOfCurrentWave][i] = enemyComposition[numberOfCurrentWave][i].Dead;
         }
     }
+    //複合型による増殖(再生)処理
+    public void ReviveEnemy()
+    {
+        for (int i = 0; i< numberOfEnemy[numberOfCurrentWave]; i++)
+        {
+            if (deadEnemyComposition[numberOfCurrentWave][i])
+            {
+                enemyComposition[numberOfCurrentWave][i].Revive();
+            }
+        }
+    }
+    //復活可能な敵だった時の処理
+    public void ReviveSuccess()
+    {
+        numberOfArriveEnemy++;
+        ArriveEnemyCheck ();
+        enemyNumberText.text = "Enemy " + numberOfArriveEnemy.ToString() + "/" + numberOfEnemy[numberOfCurrentWave].ToString();
+    }
+
     //ウェーブ遷移
     private IEnumerator GoToNextWave()
     {
@@ -296,7 +313,8 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
         yield return new WaitUntil(() => !isSpecialAttack);
         sainManager.Pause = true;
         leaderManager.Pause = true;
-        yield return new WaitForSeconds(1);
+        battleSystemManager.MenuOff();
+        yield return new WaitForSeconds(2);
         StartCoroutine(Wipe());
         yield return new WaitForSeconds(0.5f);//ワイプにより2秒間暗転
         numberOfCurrentWave++;
@@ -309,6 +327,7 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
         enemyNumberText.text = "Enemy " + numberOfArriveEnemy.ToString() + "/" + numberOfEnemy[numberOfCurrentWave].ToString();
         waveNumberText.text = "Wave " + (numberOfCurrentWave+1).ToString() + "/" + numberOfWave.ToString();
         yield return new WaitForSeconds(4);
+        battleSystemManager.MenuOn();
         for (int i = 0; i < numberOfEnemy[numberOfCurrentWave]; i++)
         {
             enemyComposition[numberOfCurrentWave][i].Pause = false;
@@ -346,7 +365,7 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
     private IEnumerator Wipe()
     {
         blackRect.anchoredPosition = new(-1920, 0);
-        blackImage.color = Color.white;
+        blackImage.color = Color.black;
         while (blackRect.anchoredPosition.x < 0)
         {
             yield return null;
@@ -355,17 +374,43 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
             blackRect.anchoredPosition = pos;
         }
         yield return new WaitForSeconds(2);
-        while (blackRect.anchoredPosition.x < 1920)
+        while (blackRect.anchoredPosition.x < 1930)
         {
             yield return null;
             Vector2 pos = blackRect.anchoredPosition;
-            pos.x += 3840 * Time.deltaTime;
+            pos.x += 3860 * Time.deltaTime;
             blackRect.anchoredPosition = pos;
         }
-        blackImage.color = new (1, 1, 1, 0);
+        blackImage.color = Color.clear;
         blackRect.anchoredPosition = new (0, 0);
     }
 
+    //ゲームオーバー処理
+    public IEnumerator GameOver()
+    {
+        isGameOver = true;
+        sainManager.Pause = true;
+        leaderManager.Pause = true;
+        battleSystemManager.MenuOff();
+        for (int i = 0; i < numberOfEnemy[numberOfCurrentWave]; i++)
+        {
+            enemyComposition[numberOfCurrentWave][i].Pause = true;
+        }
+        yield return new WaitForSeconds(1);
+        battleSystemManager.GameOverMessageObject = true;
+    }
     //勝利&シーン遷移
-    protected abstract IEnumerator Win();
+    private IEnumerator Win()
+    {
+        //必殺技によって敵を全員倒した場合にPause処理が競合するのを避けるため
+        yield return new WaitUntil(() => !isSpecialAttack);
+        sainManager.Pause = true;
+        leaderManager.Pause = true;
+        battleSystemManager.MenuOff();
+        yield return new WaitForSeconds(3);
+        yield return StartCoroutine(FadeOut(2, blackImage));
+        SceneLoad();
+    }
+    //各シーンにおけるロード&強制スキップ用
+    public abstract void SceneLoad();
 }

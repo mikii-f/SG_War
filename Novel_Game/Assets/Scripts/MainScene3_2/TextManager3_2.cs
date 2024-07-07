@@ -1,11 +1,11 @@
 using System.IO;
 using UnityEngine;
 
-public class TextManager0 : TextManagerOrigin
+public class TextManager3_2 : TextManagerOrigin
 {
     private void Awake()
     {
-        StreamReader reader = new(@"Assets/Scripts/MainScene0/Script0.txt");
+        StreamReader reader = new(@"Assets/Scripts/MainScene3_2/Script3_2.txt");
         while (reader.Peek() != -1)
         {
             _function.Add(reader.ReadLine().Split(','));

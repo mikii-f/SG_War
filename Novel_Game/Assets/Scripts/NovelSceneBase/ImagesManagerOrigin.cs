@@ -6,20 +6,23 @@ using UnityEngine.SceneManagement;
 public abstract class ImagesManagerOrigin : MonoBehaviour
 {
     [SerializeField] protected GameObject chapterTitle;
-    [SerializeField] protected GameObject blackOver;
-    [SerializeField] protected GameObject blackUnder;
+    [SerializeField] private GameObject blackOver;
+    [SerializeField] private GameObject blackUnder;
+    [SerializeField] private GameObject blackAll;
     protected RectTransform bORect;
     protected RectTransform bURect;
+    protected RectTransform bARect;
     protected Image blackOverImage;
     protected Image blackUnderImage;
-    [SerializeField] protected GameObject white;
+    protected Image blackAllImage;
+    [SerializeField] private GameObject white;
     protected Image whiteImage;
     [SerializeField] protected GameObject textPanel;
-    [SerializeField] protected GameObject tManager;
-    [SerializeField] protected GameObject character1;
+    [SerializeField] private TextManagerOrigin textManager;
+    [SerializeField] private GameObject character1;
     protected Image _characterImage;
     protected RectTransform _characterRect;
-    [SerializeField] protected GameObject background1;
+    [SerializeField] private GameObject background1;
     protected Image _backgroundImage;
     protected RectTransform _backgroundRect;
     [SerializeField] protected Sprite noneSprite;
@@ -29,15 +32,20 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     {
         bORect = blackOver.GetComponent<RectTransform>();
         bURect = blackUnder.GetComponent<RectTransform>();
+        bARect = blackAll.GetComponent<RectTransform>();
         blackOverImage = blackOver.GetComponent<Image>();
         blackUnderImage = blackUnder.GetComponent<Image>();
+        blackAllImage = blackAll.GetComponent<Image>();
         whiteImage = white.GetComponent<Image>();
         _characterImage = character1.GetComponent<Image>();
         _characterRect = character1.GetComponent<RectTransform>();
         _backgroundImage = background1.GetComponent<Image>();
         _backgroundRect = background1.GetComponent<RectTransform>();
-        whiteImage.color = new(255, 255, 255, 0);
+        whiteImage.color = new(1, 1, 1, 0);
+        blackOverImage.color = Color.clear;
+        blackUnderImage.color = Color.clear;
         chapterTitle.SetActive(false);
+        textPanel.SetActive(false);
         StartSet();
     }
 
@@ -81,15 +89,13 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         switch (image)
         {
             case "Black":
-                StartCoroutine(FadeOut(n, blackOverImage));
-                StartCoroutine(FadeOut(n, blackUnderImage));
+                StartCoroutine(FadeOut(n, blackAllImage));
                 break;
             case "Character":
                 StartCoroutine(FadeOut(n, _characterImage));
                 break;
             default:
-                StartCoroutine(FadeOut(n, blackOverImage));
-                StartCoroutine(FadeOut(n, blackUnderImage));
+                StartCoroutine(FadeOut(n, blackAllImage));
                 break;
         }
     }
@@ -98,15 +104,13 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         switch (image)
         {
             case "Black":
-                StartCoroutine(FadeIn(n, blackOverImage));
-                StartCoroutine(FadeIn(n, blackUnderImage));
+                StartCoroutine(FadeIn(n, blackAllImage));
                 break;
             case "Character":
                 StartCoroutine(FadeIn(n, _characterImage));
                 break;
             default:
-                StartCoroutine(FadeIn(n, blackOverImage));
-                StartCoroutine(FadeIn(n, blackUnderImage));
+                StartCoroutine(FadeIn(n, blackAllImage));
                 break;
         }
 
@@ -115,18 +119,15 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     //ワイプ(前半)
     public IEnumerator Wipe1()
     {
-        bORect.anchoredPosition = new(-1920, 270);
-        bURect.anchoredPosition = new(-1920, -270);
+        bARect.anchoredPosition = new(-1920, 0);
+        blackAllImage.color = Color.black;
         textPanel.SetActive(false);
-        while (bORect.anchoredPosition.x < 0)
+        while (bARect.anchoredPosition.x < 0)
         {
             yield return null;
-            Vector2 posO = bORect.anchoredPosition;
-            Vector2 posU = bURect.anchoredPosition;
-            posO.x += 960 * Time.deltaTime;
-            posU.x += 960 * Time.deltaTime;
-            bORect.anchoredPosition = posO;
-            bURect.anchoredPosition = posU;
+            Vector2 pos = bARect.anchoredPosition;
+            pos.x += 960 * Time.deltaTime;
+            bARect.anchoredPosition = pos;
         }
         AnimationFinished(0);
     }
@@ -135,19 +136,51 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     public IEnumerator Wipe2()
     {
         yield return new WaitForSeconds(0.5f);
-        while (bORect.anchoredPosition.x < 1920)
+        while (bARect.anchoredPosition.x < 1930)
+        {
+            yield return null;
+            Vector2 pos = bARect.anchoredPosition;
+            pos.x += 960 * Time.deltaTime;
+            bARect.anchoredPosition = pos;
+        }
+        yield return new WaitForSeconds(0.5f);
+        blackAllImage.color = Color.clear;
+        bARect.anchoredPosition = new(0, 0);
+        textPanel.SetActive(true);
+        AnimationFinished(0);
+    }
+
+    //黒背景が半分開く
+    public IEnumerator BlackHalfOpen()
+    {
+        blackOverImage.color = Color.black;
+        blackUnderImage.color = Color.black;
+        while (bORect.anchoredPosition.y < 540)
         {
             yield return null;
             Vector2 posO = bORect.anchoredPosition;
-            Vector2 posU = bURect.anchoredPosition;
-            posO.x += 960 * Time.deltaTime;
-            posU.x += 960 * Time.deltaTime;
+            posO.y += 135 * Time.deltaTime;
             bORect.anchoredPosition = posO;
-            bURect.anchoredPosition = posU;
+            bURect.anchoredPosition = -posO;
         }
-        yield return new WaitForSeconds(0.5f);
-        textPanel.SetActive(true);
-        AnimationFinished(0);
+    }
+    //黒背景が開けるとともに光に包まれ徐々に戻る
+    public IEnumerator BlackHalfToWhite()
+    {
+        StartCoroutine(FadeOut(1.2f, whiteImage));
+        while (bORect.anchoredPosition.y < 810)
+        {
+            yield return null;
+            Vector2 posO = bORect.anchoredPosition;
+            posO.y += 135 * Time.deltaTime;
+            bORect.anchoredPosition = posO;
+            bURect.anchoredPosition = -posO;
+        }
+        StartCoroutine(FadeIn(2f, whiteImage));
+        blackOverImage.color = Color.clear;
+        blackUnderImage.color = Color.clear;
+        bORect.anchoredPosition = new(0, 270);
+        bURect.anchoredPosition = new(0, -270);
     }
 
     //ズームして背景をスライド(引数でズーム倍率や速さを変えられるようにすれば汎用性上がる)
@@ -168,6 +201,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     {
         _backgroundRect.anchoredPosition = new(480, 0);
     }
+
     //キャラクターのサイズ・位置・透明度をリセット
     public void CharacterReset()
     {
@@ -175,38 +209,51 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         _characterRect.anchoredPosition = new(0, -360);
         _characterImage.color = Color.white;
     }
-
     //背景のサイズおよび位置をリセット
     public void BackgroundReset()
     {
         _backgroundRect.localScale = new(100, 100);
         _backgroundRect.anchoredPosition = new Vector2(0, 0);
     }
-    //よく使う黒オブジェクト用リセット関数
-    public void BlackReset()
+    //黒のオンオフ(別の方法を探したいが……)
+    public void BlackOn()
     {
-        bORect.anchoredPosition = new(0, 270);
-        bURect.anchoredPosition = new(0, -270);
-        blackOverImage.color = Color.white;
-        blackUnderImage.color = Color.white;
+        blackAllImage.color = Color.black;
     }
-
-    //黒のオンオフ
-    public void BlackOnOff(bool ToF)
+    public void BlackOff()
     {
-        blackOver.SetActive(ToF);
-        blackUnder.SetActive(ToF);
+        blackAllImage.color = Color.clear;
+    }
+    public void BlackOUOn()
+    {
+        blackOverImage.color = Color.black;
+        blackUnderImage.color = Color.black;
+    }
+    public void BlackOUOff()
+    {
+        blackOverImage.color = Color.clear;
+        blackUnderImage.color = Color.clear;
     }
     //テキストパネルのオンオフ
-    public void TextPanelOnOff(bool ToF)
+    public void TextPanelOn()
     {
-        textPanel.SetActive(ToF);
+        textPanel.SetActive(true);
+    }
+    public void TextPanelOff()
+    {
+        textPanel.SetActive(false);
     }
 
     //シーン切り替え
     public void ChangeScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    //アニメーションの終了を各テキストマネージャーに伝えるための関数
+    protected void AnimationFinished(float waitTime)
+    {
+        StartCoroutine(textManager.AnimationFinished(waitTime));
     }
 
     //以下各クラスに必要だが異なる処理にするもの
@@ -217,6 +264,4 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     public abstract void BackgroundChange(int n);
     //シーンごとにStartで異なる処理を(差分だけ)記述するための関数
     protected abstract void StartSet();
-    //アニメーションの終了を各テキストマネージャーに伝えるための関数
-    protected abstract void AnimationFinished(float waitTime);
 }

@@ -24,8 +24,8 @@ public class ComplexEnemyManager : EnemyManagerOrigin
     //’ÊíUŒ‚
     protected override IEnumerator NormalAttack()
     {
+        StartCoroutine(AttackSubtitle("å¿‚¢‚Ä‚¢‚é"));
         isAttack = true;
-        //’Êí‚Í‰½‚à‚µ‚È‚¢
         yield return new WaitForSeconds(1);
         isAttack = false;
         switch (currentGage)
@@ -43,11 +43,17 @@ public class ComplexEnemyManager : EnemyManagerOrigin
     //ƒ`ƒƒ[ƒW‹Z
     protected override IEnumerator ChargeAttack()
     {
+        StartCoroutine(AttackSubtitle("‘BÄ¶"));
         isAttack = true;
-        //‚±‚±‚Å‰º‹‰ˆÙ—d‚ğ1‘Ì‘B(Ä¶)‚·‚éˆ—
+        bSManager.ReviveEnemy();
         yield return new WaitForSeconds(1);
         isAttack = false;
         gage1Image.sprite = grayGage;
         gage2Image.sprite = grayGage;
+    }
+
+    public override void Revive()
+    {
+        //Œ»ó•œŠˆ‚³‚¹‚é—\’è‚È‚µ
     }
 }

@@ -7,18 +7,21 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
 {
     [SerializeField] private GameObject bSManagerObject;
     protected BattleSceneManagerOrigin bSManager;
-    [SerializeField] private GameObject myAllObject;
+    [SerializeField] protected GameObject myAllObject;
     public bool AllObject { set { myAllObject.SetActive(value); } }
     [SerializeField] private GameObject myObject;
     protected RectTransform myRect;
     protected Image myImage;
     [SerializeField] private GameObject namePanel;
     [SerializeField] private GameObject gagePanel;
+    [SerializeField] private GameObject attackPanel;
+    private RectTransform attackPanelRect;
+    [SerializeField] private Text attackSubtitle;
     private RectTransform gageRect;
     [SerializeField] private GameObject HPbar;
-    private Slider HPslider;
+    protected Slider HPslider;
     [SerializeField] private GameObject HPTextObject;
-    private TMP_Text HPText;
+    protected TMP_Text HPText;
     [SerializeField] protected Sprite grayGage;
     [SerializeField] protected Sprite redGage;
     [SerializeField] protected int maxHP;
@@ -31,7 +34,7 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
     protected float interval;
     protected float intervalCount;
     protected bool isAttack = false;
-    private bool isDied = false;
+    protected bool isDied = false;
     public bool Dead { get { return isDied; } }
     private bool pause = true;
     public bool Pause { set { pause = value; } }
@@ -42,6 +45,8 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
         bSManager = bSManagerObject.GetComponent<BattleSceneManagerOrigin>();
         myRect = myObject.GetComponent<RectTransform>();
         myImage = myObject.GetComponent<Image>();
+        attackPanelRect = attackPanel.GetComponent<RectTransform>();
+        attackPanel.SetActive(false);
         gageRect = gagePanel.GetComponent<RectTransform>();
         HPslider = HPbar.GetComponent<Slider>();
         HPText = HPTextObject.GetComponent<TMP_Text>();
@@ -125,6 +130,25 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
         attackRect.anchoredPosition = new (-diffX, 0);
         attackRect.localScale = new Vector2(1, 1);
     }
+    //çUåÇéûÇÃéöñã
+    protected IEnumerator AttackSubtitle(string attackName)
+    {
+        attackSubtitle.text = attackName;
+        attackPanel.SetActive(true);
+        while (attackPanelRect.anchoredPosition.x < 100)
+        {
+            yield return null;
+            Vector2 pos = attackPanelRect.anchoredPosition;
+            pos.x += 1000 * Time.deltaTime;
+            attackPanelRect.anchoredPosition = pos;
+        }
+        yield return new WaitForSeconds(1);
+        attackPanel.SetActive(false);
+        Vector2 temp = attackPanelRect.anchoredPosition;
+        temp.x = -100;
+        attackPanelRect.anchoredPosition = temp;
+    }
+
     //É_ÉÅÅ[ÉWéÛÇØéÊÇË
     public void ReceiveDamage(int damage)
     {
@@ -162,10 +186,18 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
         temp.x = defaultX;
         myRect.anchoredPosition = temp;
     }
+    public void ReceiveDelay()
+    {
+        if (!isAttack)
+        {
+            intervalCount += 1;
+        }
+    }
     //è¡ñ≈
     private IEnumerator Died()
     {
         isDied = true;
+        bSManager.EnemyDied();
         float waitTime = 0.1f;
         float fadeTime = 1;
         float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
@@ -177,7 +209,6 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
             yield return new WaitForSeconds(waitTime);
         }
         myAllObject.SetActive(false);
-        bSManager.EnemyDied();
     }
     //çUåÇëŒè€Ç∆ÇµÇƒëIëÇ≥ÇÍÇΩÇ∆Ç´ÇÃUIägëÂèkè¨
     public void Select()
@@ -192,4 +223,7 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
         HPTextObject.SetActive(false);
         gageRect.localScale = new(0.5f, 0.5f);
     }
+
+    //ïúäà
+    public abstract void Revive();
 }
