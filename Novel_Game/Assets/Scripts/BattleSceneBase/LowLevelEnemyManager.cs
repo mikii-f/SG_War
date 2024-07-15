@@ -17,6 +17,7 @@ public class LowLevelEnemyManager : EnemyManagerOrigin
     // Start is called before the first frame update
     protected override void StartSet()
     {
+        id = 0;
         gage1Image = gage1.GetComponent<Image>();
         gage2Image = gage2.GetComponent<Image>();
         gage3Image = gage3.GetComponent<Image>();
@@ -119,6 +120,5 @@ public class LowLevelEnemyManager : EnemyManagerOrigin
         intervalCount = interval;
         isDied = false;
         myAllObject.SetActive(true);
-        bSManager.ReviveSuccess();
     }
 }

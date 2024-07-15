@@ -27,6 +27,8 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     protected RectTransform _backgroundRect;
     [SerializeField] protected Sprite noneSprite;
     [SerializeField] protected Sprite backgroundBlack;
+    private bool skip = false;
+    public bool Skip { set { skip = value; } }
     // Start is called before the first frame update
     void Start()
     {
@@ -51,36 +53,59 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
 
     public IEnumerator TitleAnimation()
     {
-        yield return new WaitForSeconds(1);
-        chapterTitle.SetActive(true);
-        yield return new WaitForSeconds(6);
-        chapterTitle.SetActive(false);
-        yield return new WaitForSeconds(1);
-        AnimationFinished(0);
+        if (!skip)
+        {
+            yield return new WaitForSeconds(1);
+            chapterTitle.SetActive(true);
+            yield return new WaitForSeconds(6);
+            chapterTitle.SetActive(false);
+            yield return new WaitForSeconds(1);
+            AnimationFinished(0);
+        }
     }
 
     protected IEnumerator FadeOut(float fadeTime, Image image)
     {
-        float waitTime = 0.1f;
-        float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
-        for (float alpha = 0.0f; alpha <= 255.0f; alpha += alphaChangeAmount)
+        if (!skip)
+        {
+            float waitTime = 0.1f;
+            float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
+            for (float alpha = 0.0f; alpha <= 255.0f; alpha += alphaChangeAmount)
+            {
+                Color newColor = image.color;
+                newColor.a = alpha / 255.0f;
+                image.color = newColor;
+                yield return new WaitForSeconds(waitTime);
+            }
+        }
+        //スキップ中の場合結果のみ反映
+        else
         {
             Color newColor = image.color;
-            newColor.a = alpha / 255.0f;
+            newColor.a = 1;
             image.color = newColor;
-            yield return new WaitForSeconds(waitTime);
         }
     }
     protected IEnumerator FadeIn(float fadeTime, Image image)
     {
-        float waitTime = 0.1f;
-        float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
-        for (float alpha = 255.0f; alpha >= 0f; alpha -= alphaChangeAmount)
+        if (!skip)
+        {
+            float waitTime = 0.1f;
+            float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
+            for (float alpha = 255.0f; alpha >= 0f; alpha -= alphaChangeAmount)
+            {
+                Color newColor = image.color;
+                newColor.a = alpha / 255.0f;
+                image.color = newColor;
+                yield return new WaitForSeconds(waitTime);
+            }
+        }
+        //スキップ中の場合結果のみ反映
+        else
         {
             Color newColor = image.color;
-            newColor.a = alpha / 255.0f;
+            newColor.a = 0;
             image.color = newColor;
-            yield return new WaitForSeconds(waitTime);
         }
     }
     //テキスト側からフェード対象を選択する用
@@ -116,84 +141,133 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
 
     }
 
+    //ワイプはひとまとまりで使われるはずだが、万が一途中でセーブされてもいいようにする
     //ワイプ(前半)
     public IEnumerator Wipe1()
     {
-        bARect.anchoredPosition = new(-1920, 0);
-        blackAllImage.color = Color.black;
-        textPanel.SetActive(false);
-        while (bARect.anchoredPosition.x < 0)
+        if (!skip)
         {
-            yield return null;
-            Vector2 pos = bARect.anchoredPosition;
-            pos.x += 960 * Time.deltaTime;
-            bARect.anchoredPosition = pos;
+            bARect.anchoredPosition = new(-1920, 0);
+            blackAllImage.color = Color.black;
+            textPanel.SetActive(false);
+            while (bARect.anchoredPosition.x < 0)
+            {
+                yield return null;
+                Vector2 pos = bARect.anchoredPosition;
+                pos.x += 960 * Time.deltaTime;
+                bARect.anchoredPosition = pos;
+            }
+            AnimationFinished(0);
         }
-        AnimationFinished(0);
+        else
+        {
+            blackAllImage.color = Color.black;
+            textPanel.SetActive(false);
+            bARect.anchoredPosition = Vector2.zero;
+        }
     }
 
     //ワイプ(後半)
     public IEnumerator Wipe2()
     {
-        yield return new WaitForSeconds(0.5f);
-        while (bARect.anchoredPosition.x < 1930)
+        if (!skip)
         {
-            yield return null;
-            Vector2 pos = bARect.anchoredPosition;
-            pos.x += 960 * Time.deltaTime;
-            bARect.anchoredPosition = pos;
+            yield return new WaitForSeconds(0.5f);
+            while (bARect.anchoredPosition.x < 1930)
+            {
+                yield return null;
+                Vector2 pos = bARect.anchoredPosition;
+                pos.x += 960 * Time.deltaTime;
+                bARect.anchoredPosition = pos;
+            }
+            yield return new WaitForSeconds(0.5f);
+            blackAllImage.color = Color.clear;
+            bARect.anchoredPosition = new(0, 0);
+            textPanel.SetActive(true);
+            AnimationFinished(0);
         }
-        yield return new WaitForSeconds(0.5f);
-        blackAllImage.color = Color.clear;
-        bARect.anchoredPosition = new(0, 0);
-        textPanel.SetActive(true);
-        AnimationFinished(0);
+        else
+        {
+            blackAllImage.color = Color.clear;
+            textPanel.SetActive(true);
+            bARect.anchoredPosition = new(0, 0);
+        }
     }
 
     //黒背景が半分開く
     public IEnumerator BlackHalfOpen()
     {
-        blackOverImage.color = Color.black;
-        blackUnderImage.color = Color.black;
-        while (bORect.anchoredPosition.y < 540)
+        if (!skip)
         {
-            yield return null;
-            Vector2 posO = bORect.anchoredPosition;
-            posO.y += 135 * Time.deltaTime;
-            bORect.anchoredPosition = posO;
-            bURect.anchoredPosition = -posO;
+            blackOverImage.color = Color.black;
+            blackUnderImage.color = Color.black;
+            while (bORect.anchoredPosition.y < 540)
+            {
+                yield return null;
+                Vector2 posO = bORect.anchoredPosition;
+                posO.y += 135 * Time.deltaTime;
+                bORect.anchoredPosition = posO;
+                bURect.anchoredPosition = -posO;
+            }
+        }
+        //スキップ中の場合結果のみ反映
+        else
+        {
+            blackOverImage.color = Color.black;
+            blackUnderImage.color = Color.black;
+            bORect.anchoredPosition = new (0, 540);
+            bURect.anchoredPosition = new (0, -540);
         }
     }
     //黒背景が開けるとともに光に包まれ徐々に戻る
     public IEnumerator BlackHalfToWhite()
     {
-        StartCoroutine(FadeOut(1.2f, whiteImage));
-        while (bORect.anchoredPosition.y < 810)
+        if (!skip)
         {
-            yield return null;
-            Vector2 posO = bORect.anchoredPosition;
-            posO.y += 135 * Time.deltaTime;
-            bORect.anchoredPosition = posO;
-            bURect.anchoredPosition = -posO;
+            StartCoroutine(FadeOut(1.2f, whiteImage));
+            while (bORect.anchoredPosition.y < 810)
+            {
+                yield return null;
+                Vector2 posO = bORect.anchoredPosition;
+                posO.y += 135 * Time.deltaTime;
+                bORect.anchoredPosition = posO;
+                bURect.anchoredPosition = -posO;
+            }
+            StartCoroutine(FadeIn(2f, whiteImage));
+            blackOverImage.color = Color.clear;
+            blackUnderImage.color = Color.clear;
+            bORect.anchoredPosition = new(0, 270);
+            bURect.anchoredPosition = new(0, -270);
         }
-        StartCoroutine(FadeIn(2f, whiteImage));
-        blackOverImage.color = Color.clear;
-        blackUnderImage.color = Color.clear;
-        bORect.anchoredPosition = new(0, 270);
-        bURect.anchoredPosition = new(0, -270);
+        //スキップ中の場合結果のみ反映
+        else
+        {
+            blackOverImage.color = Color.clear;
+            blackUnderImage.color = Color.clear;
+            bORect.anchoredPosition = new(0, 270);
+            bURect.anchoredPosition = new(0, -270);
+        }
     }
 
     //ズームして背景をスライド(引数でズーム倍率や速さを変えられるようにすれば汎用性上がる)
     public IEnumerator BackgroundSlide()
     {
-        _backgroundRect.localScale *= 1.5f;
-        _backgroundRect.anchoredPosition = new(-480, 0);
-        while (_backgroundRect.anchoredPosition.x < 480)
+        if (!skip)
         {
-            yield return null;
-            float temp = _backgroundRect.anchoredPosition.x;
-            temp += 96 * Time.deltaTime;
-            _backgroundRect.anchoredPosition = new(temp, 0);
+            _backgroundRect.localScale *= 1.5f;
+            _backgroundRect.anchoredPosition = new(-480, 0);
+            while (_backgroundRect.anchoredPosition.x < 480)
+            {
+                yield return null;
+                float temp = _backgroundRect.anchoredPosition.x;
+                temp += 96 * Time.deltaTime;
+                _backgroundRect.anchoredPosition = new(temp, 0);
+            }
+        }
+        else
+        {
+            _backgroundRect.localScale *= 1.5f;
+            _backgroundRect.anchoredPosition = new(480, 0);
         }
     }
     //テキスト側からコルーチンをストップした時用
@@ -244,9 +318,12 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         textPanel.SetActive(false);
     }
 
-    //シーン切り替え
+    //シーン切り替え(進行度を自動で保存する)
     public void ChangeScene(string sceneName)
     {
+        GameManager.instance.SceneName = SceneManager.GetActiveScene().name;
+        GameManager.instance.LineNumber = 0;
+        GameManager.instance.Save();
         SceneManager.LoadScene(sceneName);
     }
 

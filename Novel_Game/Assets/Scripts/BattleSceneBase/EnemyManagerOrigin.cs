@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public abstract class EnemyManagerOrigin : MonoBehaviour
 {
+    protected int id;
+    public int ID { get { return id; } }
     [SerializeField] private GameObject bSManagerObject;
     protected BattleSceneManagerOrigin bSManager;
     [SerializeField] protected GameObject myAllObject;

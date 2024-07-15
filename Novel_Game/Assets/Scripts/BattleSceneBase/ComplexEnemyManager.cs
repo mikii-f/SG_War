@@ -12,6 +12,7 @@ public class ComplexEnemyManager : EnemyManagerOrigin
     // Start is called before the first frame update
     protected override void StartSet()
     {
+        id = 1;
         gage1Image = gage1.GetComponent<Image>();
         gage2Image = gage2.GetComponent<Image>();
         maxGage = 2;

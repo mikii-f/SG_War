@@ -1,39 +1,31 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class BattleSystemManager : MonoBehaviour
 {
     [SerializeField] private BattleSceneManagerOrigin bSManager;
     [SerializeField] private GameObject menu;
-    [SerializeField] private GameObject gameOverMessageObject;
-    public bool GameOverMessageObject { set { gameOverMessageObject.SetActive(value); } }
-    [SerializeField] private RectTransform gOYesSwitchRect;
-    [SerializeField] private RectTransform gONoSwitchRect;
     [SerializeField] private GameObject functions;
     [SerializeField] private RectTransform restartSwitchRect;
-    [SerializeField] private GameObject restartMessageObject;
-    [SerializeField] private RectTransform restartYesSwitchRect;
-    [SerializeField] private RectTransform restartNoSwitchRect;
     [SerializeField] private RectTransform retreatSwitchRect;
-    [SerializeField] private GameObject retreatMessageObject;
-    [SerializeField] private RectTransform retreatYesSwitchRect;
-    [SerializeField] private RectTransform retreatNoSwitchRect;
     [SerializeField] private RectTransform debugSwitchRect;
-    [SerializeField] private GameObject debugMessageObject;
-    [SerializeField] private RectTransform debugYesSwitchRect;
-    [SerializeField] private RectTransform debugNoSwitchRect;
+    [SerializeField] private GameObject systemMessageObject;
+    [SerializeField] private Text systemMessage;
+    [SerializeField] private RectTransform yesSwitch;
+    [SerializeField] private RectTransform noSwitch;
+    [SerializeField] private Text yesText;
+    [SerializeField] private Text noText;
+    private int messageNumber;
     private bool isMessageDisplay = false;
     private bool isFunctionAvailable = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        gameOverMessageObject.SetActive(false);
         functions.SetActive(false);
-        restartMessageObject.SetActive(false);
-        retreatMessageObject.SetActive(false);
-        debugMessageObject.SetActive(false);
+        systemMessageObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -72,56 +64,21 @@ public class BattleSystemManager : MonoBehaviour
             //メッセージへの応答
             if (Input.GetKeyDown(KeyCode.Y))
             {
-                if (gameOverMessageObject.activeSelf)
+                if (systemMessageObject.activeSelf)
                 {
-                    GORestartSwitch();
-                }
-                else if (restartMessageObject.activeSelf)
-                {
-                    RestartYesSwitch();
-                }
-                else if (retreatMessageObject.activeSelf)
-                {
-                    RetreatYesSwitch();
-                }
-                else if (debugMessageObject.activeSelf)
-                {
-                    DebugYesSwitch();
+                    YesSwitch();
                 }
             }
             else if (Input.GetKeyDown(KeyCode.N))
             {
-                if (gameOverMessageObject.activeSelf)
+                if (systemMessageObject.activeSelf)
                 {
-                    GOGrowSwitch();
-                }
-                else if (restartMessageObject.activeSelf)
-                {
-                    RestartNoSwitch();
-                }
-                else if (retreatMessageObject.activeSelf)
-                {
-                    RetreatNoSwitch();
-                }
-                else if (debugMessageObject.activeSelf)
-                {
-                    DebugNoSwitch();
+                    NoSwitch();
                 }
             }
         }
     }
 
-    //再挑戦ボタン(ゲームオーバー時)
-    public void GORestartSwitch()
-    {
-        StartCoroutine(ButtonAnim(gOYesSwitchRect));
-        StartCoroutine(ReloadScene());
-    }
-    //育成に向かう(ゲームオーバー時)
-    public void GOGrowSwitch()
-    {
-        StartCoroutine(ButtonAnim(gONoSwitchRect));
-    }
     //メニュー開閉
     public void MenuSwitch()
     {
@@ -131,57 +88,92 @@ public class BattleSystemManager : MonoBehaviour
     {
         functions.SetActive(false);
     }
+    //ゲームオーバー(バトルシーンから呼び出し)
+    public void GameOver()
+    {
+        systemMessage.text = "GAME OVER\n再挑戦しますか？";
+        yesText.text = "再挑戦(Y)";
+        noText.text = "育成へ(N)";
+        messageNumber = 0;
+        systemMessageObject.SetActive(true);
+        isMessageDisplay = true;
+    }
     //再挑戦(メニューから選択)
     public void RestartMenuSwitch()
     {
         StartCoroutine(ButtonAnim(restartSwitchRect));
-        restartMessageObject.SetActive(true);
+        systemMessage.text = "戦闘を始めからやり直しますか？";
+        yesText.text = "再挑戦(Y)";
+        noText.text = "戻る(N)";
+        messageNumber = 1;
+        systemMessageObject.SetActive(true);
         isMessageDisplay = true;
-    }
-    public void RestartYesSwitch()
-    {
-        StartCoroutine(ButtonAnim(restartYesSwitchRect));
-        StartCoroutine(ReloadScene());
-    }
-    public void RestartNoSwitch()
-    {
-        StartCoroutine(ButtonAnim((restartNoSwitchRect)));
-        StartCoroutine(Back(restartMessageObject));
     }
     //撤退(メニューから選択)
     public void RetreatMenuSwitch()
     {
         StartCoroutine(ButtonAnim(retreatSwitchRect));
-        retreatMessageObject.SetActive(true);
+        systemMessage.text = "撤退しますか？\n(直前の場面に移り育成が行えます)";
+        yesText.text = "撤退(Y)";
+        noText.text = "戻る(N)";
+        messageNumber = 2;
+        systemMessageObject.SetActive(true);
         isMessageDisplay = true;
-    }
-    public void RetreatYesSwitch()
-    {
-        StartCoroutine(ButtonAnim(retreatYesSwitchRect));
-        //直前の場面に戻る処理
-    }
-    public void RetreatNoSwitch()
-    {
-        StartCoroutine(ButtonAnim((retreatNoSwitchRect)));
-        StartCoroutine(Back(retreatMessageObject));
     }
     //デバッグ用スキップ
     public void DebugMenuSwitch()
     {
         StartCoroutine(ButtonAnim(debugSwitchRect));
-        debugMessageObject.SetActive(true);
+        systemMessage.text = "戦闘をスキップしますか？\n(ゲームを評価してくださる方向けの機能です！！)";
+        yesText.text = "スキップ(Y)";
+        noText.text = "戻る(N)";
+        messageNumber = 3;
+        systemMessageObject.SetActive(true);
         isMessageDisplay = true;
     }
-    public void DebugYesSwitch()
+
+    //Yesボタンを押したときの機能
+    public void YesSwitch()
     {
-        StartCoroutine(ButtonAnim(debugYesSwitchRect));
-        StartCoroutine(SceneSkip());
-        debugMessageObject.SetActive(false);
+        StartCoroutine(ButtonAnim(yesSwitch));
+        switch (messageNumber)
+        {
+            //ゲームオーバーからの再挑戦
+            case 0:
+                StartCoroutine(ReloadScene());
+                break;
+            //メニューからの再挑戦
+            case 1:
+                StartCoroutine(ReloadScene());
+                break;
+            //撤退し直前の場面に戻る
+            case 2:
+                StartCoroutine(GoBackStory());
+                break;
+            //デバッグ用スキップ
+            case 3:
+                StartCoroutine(SceneSkip());
+                systemMessageObject.SetActive(false);
+                break;
+            default:
+                break;
+        }
     }
-    public void DebugNoSwitch()
+    //Noボタンを押したときの機能
+    public void NoSwitch()
     {
-        StartCoroutine(ButtonAnim((debugNoSwitchRect)));
-        StartCoroutine(Back(debugMessageObject));
+        StartCoroutine(ButtonAnim(noSwitch));
+        switch (messageNumber)
+        {
+            //ゲームオーバーから育成へ
+            case 0:
+                StartCoroutine(GoBackStory());
+                break;
+            //戻る
+            default:
+                StartCoroutine(Back(systemMessageObject));
+                break;
+        }
     }
 
     //少し待って再読み込み
@@ -203,6 +195,19 @@ public class BattleSystemManager : MonoBehaviour
         yield return new WaitForSeconds(0.15f);
         bSManager.SceneLoad();
     }
+    //少し待って直前の場面へ
+    private IEnumerator GoBackStory()
+    {
+        yield return new WaitForSeconds(0.15f);
+        if (GameManager.instance.SceneName == null)
+        {
+            SceneManager.LoadScene("TitleScene");
+        }
+        else
+        {
+            SceneManager.LoadScene(GameManager.instance.SceneName);
+        }
+    }
 
     //ボタンのアニメーション
     private IEnumerator ButtonAnim(RectTransform rect)
@@ -222,9 +227,7 @@ public class BattleSystemManager : MonoBehaviour
     {
         menu.SetActive(false);
         functions.SetActive(false);
-        restartMessageObject.SetActive(false);
-        retreatMessageObject.SetActive(false);
-        debugMessageObject.SetActive(false);
+        systemMessageObject.SetActive(false);
         isMessageDisplay = false;
         isFunctionAvailable = false;
     }

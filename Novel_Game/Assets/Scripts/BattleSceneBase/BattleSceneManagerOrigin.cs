@@ -201,7 +201,7 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
             attackRect.anchoredPosition = temp;
             attackRect.localScale = temp2;
             attackRect.localEulerAngles = temp3;
-            if (temp2.x <= 0.5f)
+            if (temp2.x <= 0.5f)//•’Ê‚Éwhile‚ÌðŒ‚É“ü‚ê‚ç‚ê‚é‚â‚ñ
             {
                 break;
             }
@@ -292,18 +292,16 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
     {
         for (int i = 0; i< numberOfEnemy[numberOfCurrentWave]; i++)
         {
-            if (deadEnemyComposition[numberOfCurrentWave][i])
+            //Ž€‚ñ‚¾‰º‹‰ˆÙ—d‚ª‚¢‚½‚çˆê‘Ì•œŠˆ
+            if (deadEnemyComposition[numberOfCurrentWave][i] && enemyComposition[numberOfCurrentWave][i].ID == 0)
             {
                 enemyComposition[numberOfCurrentWave][i].Revive();
+                numberOfArriveEnemy++;
+                ArriveEnemyCheck();
+                enemyNumberText.text = "Enemy " + numberOfArriveEnemy.ToString() + "/" + numberOfEnemy[numberOfCurrentWave].ToString();
+                break;
             }
         }
-    }
-    //•œŠˆ‰Â”\‚È“G‚¾‚Á‚½Žž‚Ìˆ—
-    public void ReviveSuccess()
-    {
-        numberOfArriveEnemy++;
-        ArriveEnemyCheck ();
-        enemyNumberText.text = "Enemy " + numberOfArriveEnemy.ToString() + "/" + numberOfEnemy[numberOfCurrentWave].ToString();
     }
 
     //ƒEƒF[ƒu‘JˆÚ
@@ -397,7 +395,7 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
             enemyComposition[numberOfCurrentWave][i].Pause = true;
         }
         yield return new WaitForSeconds(1);
-        battleSystemManager.GameOverMessageObject = true;
+        battleSystemManager.GameOver();
     }
     //Ÿ—˜&ƒV[ƒ“‘JˆÚ
     private IEnumerator Win()

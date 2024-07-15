@@ -16,6 +16,7 @@ public class CarnivoreEnemyManager : EnemyManagerOrigin
     // Start is called before the first frame update
     protected override void StartSet()
     {
+        id = 2;
         gage1Image = gage1.GetComponent<Image>();
         attackRect = attackEffect.GetComponent<RectTransform>();
         attackImage = attackEffect.GetComponent<Image>();

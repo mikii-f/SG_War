@@ -15,25 +15,31 @@ public class SystemManager : MonoBehaviour
     [SerializeField] private RectTransform growSwitchRect;
     [SerializeField] private RectTransform saveSwitchRect;
     [SerializeField] private RectTransform titleSwitchRect;
-    [SerializeField] private GameObject skipMessageObject;
-    [SerializeField] private RectTransform skipNoSwitchRect;
-    [SerializeField] private RectTransform skipYesSwitchRect;
     [SerializeField] private GameObject logTextObject;
+    [SerializeField] private GameObject systemMessageObject;
+    [SerializeField] private Text systemMessage;
+    [SerializeField] private RectTransform yesSwitch;
+    [SerializeField] private RectTransform noSwitch;
+    [SerializeField] private GameObject saveSuccessed;
+    private int messageNumber;
     private bool isMessageDisplay = false;
     private bool isFunctionAvailable = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        functions.SetActive(false);
-        skipMessageObject.SetActive(false);
         menu.SetActive(false);
+        functions.SetActive(false);
         logTextObject.SetActive(false);
+        systemMessageObject.SetActive(false);
+        saveSuccessed.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        //アニメーション中にセーブが行えても問題ないのかどうか
+
         //キー入力によるシステム操作(テキスト側から禁止されていないとき)(UI操作は自然とできなくなっているはず)
         if (isFunctionAvailable)
         {
@@ -80,16 +86,16 @@ public class SystemManager : MonoBehaviour
             //メッセージへの応答
             if (Input.GetKeyDown(KeyCode.Y))
             {
-                if (skipMessageObject.activeSelf)
+                if (systemMessageObject.activeSelf)
                 {
-                    SkipYesSwitch();
+                    YesSwitch();
                 }
             }
             else if (Input.GetKeyDown(KeyCode.N))
             {
-                if (skipMessageObject.activeSelf)
+                if (systemMessageObject.activeSelf)
                 {
-                    SkipNoSwitch();
+                    NoSwitch();
                 }
             }
         }
@@ -119,7 +125,9 @@ public class SystemManager : MonoBehaviour
     public void SkipSwitch() 
     {
         StartCoroutine(ButtonAnim(skipSwitchRect));
-        skipMessageObject.SetActive(true);
+        systemMessage.text = "このシーンをスキップしますか？";
+        messageNumber = 0;
+        systemMessageObject.SetActive(true);
         isMessageDisplay = true;
     }
     public void LogSwitch() 
@@ -136,14 +144,26 @@ public class SystemManager : MonoBehaviour
     public void GrowSwitch()
     {
         StartCoroutine(ButtonAnim(growSwitchRect));
+        systemMessage.text = "育成に向かいますか？";
+        messageNumber = 1;
+        systemMessageObject.SetActive(true);
+        isMessageDisplay = true;
     }
     public void SaveSwitch()
     {
         StartCoroutine(ButtonAnim(saveSwitchRect));
+        systemMessage.text = "進行度を保存しますか？";
+        messageNumber = 2;
+        systemMessageObject.SetActive(true);
+        isMessageDisplay = true;
     }
     public void TitleSwitch() 
     {
-        StartCoroutine(ButtonAnim(titleSwitchRect)  );
+        StartCoroutine(ButtonAnim(titleSwitchRect));
+        systemMessage.text = "タイトルに戻りますか？\n(自動でセーブされます)";
+        messageNumber = 3;
+        systemMessageObject.SetActive(true);
+        isMessageDisplay = true;
     }
     public void FunctionsClose()
     {
@@ -155,16 +175,48 @@ public class SystemManager : MonoBehaviour
         yield return null;
         textManager.FunctionsOpen = false;
     }
-    public void SkipNoSwitch()
+    public void YesSwitch()
     {
-        StartCoroutine(ButtonAnim(skipNoSwitchRect));
-        skipMessageObject.SetActive(false);
+        StartCoroutine(ButtonAnim(yesSwitch));
+        switch (messageNumber)
+        {
+            //スキップ
+            case 0:
+                StartCoroutine(textManager.SceneSkip());
+                break;
+            //育成へ
+            case 1:
+                StartCoroutine(textManager.GoToGrow());
+                break;
+            //セーブ
+            case 2:
+                textManager.Save();
+                StartCoroutine(SaveSuccessed());
+                break;
+            //タイトルへ
+            case 3:
+                StartCoroutine(textManager.GoBackTitle());
+                break;
+            default:
+                break;
+        }
+
+    }
+    public void NoSwitch()
+    {
+        StartCoroutine(ButtonAnim(noSwitch));
+        systemMessageObject.SetActive(false);
         isMessageDisplay = false;
     }
-    public void SkipYesSwitch()
+    //セーブ成功を伝えるメッセージ
+    private IEnumerator SaveSuccessed()
     {
-        StartCoroutine(ButtonAnim(skipYesSwitchRect));
-        StartCoroutine(textManager.SceneSkip());
+        yield return new WaitForSeconds(0.15f);
+        systemMessageObject.SetActive(false);
+        isMessageDisplay= false;
+        saveSuccessed.SetActive(true);
+        yield return new WaitForSeconds(3);
+        saveSuccessed.SetActive(false);
     }
 
     //ボタンのアニメーション
@@ -186,7 +238,7 @@ public class SystemManager : MonoBehaviour
     {
         menu.SetActive(false);
         functions.SetActive(false);
-        skipMessageObject.SetActive(false);
+        systemMessageObject.SetActive(false);
         isMessageDisplay = false;
         isFunctionAvailable = false;
     }

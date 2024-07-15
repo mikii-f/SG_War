@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public abstract class TextManagerOrigin : MonoBehaviour
 {
@@ -10,74 +11,97 @@ public abstract class TextManagerOrigin : MonoBehaviour
     protected List<string> _sentences = new();    //全文を格納
     protected List<string[]> _function = new();   //機能コード(呼び出す関数を表す)を格納
     protected List<string> _names = new();        //名前を格納
-    private int lineNumber = 0;                 //現在の行
-    private int displayWordNumber = 0;          //表示する文字数の管理(1文字ずつ表示する用)
-    private float readTime = 0.03f;             //文字表示スピード
-    private float timeCount = 0f;               //時間保持用
+    private int lineNumber = 0;                   //現在の行
+    private int displayWordNumber = 0;            //表示する文字数の管理(1文字ずつ表示する用)
+    private float readTime = 0.03f;               //文字表示スピード
+    private float timeCount = 0f;                 //時間保持用
     private float waitTime = 1f;                  //自動再生時の待ち時間
-    private string tempText;                    //表示しようとしているテキスト
-    private int textLength;                     //表示しようとしているテキストの長さ
+    private string tempText;                      //表示しようとしているテキスト
+    private int textLength;                       //表示しようとしているテキストの長さ
     [SerializeField] private Text mainText;
     [SerializeField] private Text nameText;
     [SerializeField] private Text logText;
-    protected bool isAnimation = false;
+    private bool isAnimation = false;
     private bool functionsOpen = false;
     public bool FunctionsOpen { set { functionsOpen = value; } }
     private bool isSpeedUp = false;
     public bool IsSpeedUp { set { isSpeedUp = value; TextFill(); } get { return isSpeedUp; } }
     private Coroutine slideCoroutine;
+    private bool skip = false;  //セーブデータなどから復帰する際に任意の行から始める用
 
     void Start()
     {
+        StartCoroutine(SaveDataCheck());
+    }
+    private IEnumerator SaveDataCheck()
+    {
+        yield return null;
+        //指定された行まで進む
+        if (GameManager.instance.LineNumber != 0)
+        {
+            skip = true;
+            imagesManager.Skip = true;
+            for (int i = 0; i < GameManager.instance.LineNumber - 1; i++)
+            {
+                GoNextLine();
+                TextFill();
+            }
+            skip = false;
+            isAnimation = false;    //関数を使わずにこちらからアニメーションオンにすることがあるため(改善検討)
+            imagesManager.Skip = false;
+        }
         GoNextLine();
     }
 
     // Update is called once per frame
     void Update()
     {
-        timeCount += Time.deltaTime;
-        //ファンクションが開いているときおよび自動再生時は反応しない
-        if (!functionsOpen && !isSpeedUp)
+        if (!skip)
         {
-            if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) && _sentences.Count > lineNumber && !isAnimation)
+            timeCount += Time.deltaTime;
+            //ファンクションが開いているときおよび自動再生時は反応しない
+            if (!functionsOpen && !isSpeedUp)
             {
-                //表示されていない部分があったら表示
-                if (displayWordNumber < textLength)
+                if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) && _sentences.Count > lineNumber && !isAnimation)
                 {
-                    TextFill();
+                    //表示されていない部分があったら表示
+                    if (displayWordNumber < textLength)
+                    {
+                        TextFill();
+                    }
+                    //なければ次へ
+                    else
+                    {
+                        GoNextLine();
+                    }
                 }
-                //なければ次へ
+            }
+            //一文字ずつ表示
+            if (displayWordNumber < textLength && timeCount > readTime && !isSpeedUp)
+            {
+                //全角スラッシュがきたら改行
+                if (tempText[displayWordNumber] == '／')
+                {
+                    mainText.text += '\n';
+                    displayWordNumber++;
+                    timeCount = 0f;
+                }
                 else
                 {
-                    GoNextLine();
+                    mainText.text += tempText[displayWordNumber];
+                    displayWordNumber++;
+                    timeCount = 0f;
                 }
             }
-        }
-        //一文字ずつ表示
-        if (displayWordNumber < textLength && timeCount > readTime && !isSpeedUp)
-        {
-            //全角スラッシュがきたら改行
-            if (tempText[displayWordNumber] == '／')
+            //自動再生時
+            if (isSpeedUp)
             {
-                mainText.text += '\n';
-                displayWordNumber++;
-                timeCount = 0f;
-            }
-            else
-            {
-                mainText.text += tempText[displayWordNumber];
-                displayWordNumber++;
-                timeCount = 0f;
-            }
-        }
-        //自動再生時
-        if (isSpeedUp)
-        {
-            if (_sentences.Count > lineNumber && !isAnimation && timeCount > waitTime)
-            {
-                GoNextLine();
-                TextFill();
-                timeCount = 0f;
+                if (_sentences.Count > lineNumber && !isAnimation && timeCount > waitTime)
+                {
+                    GoNextLine();
+                    TextFill();
+                    timeCount = 0f;
+                }
             }
         }
     }
@@ -261,29 +285,67 @@ public abstract class TextManagerOrigin : MonoBehaviour
     //アニメーションが終了したら任意の時間待った後1行進み操作可能に
     public IEnumerator AnimationFinished(float f)
     {
-        isAnimation = true;
-        yield return new WaitForSeconds(f);
-        isAnimation = false;
-        timeCount = 0;
-        GoNextLine();
-        if (isSpeedUp)
+        //スキップ中は無視
+        if (!skip)
         {
-            TextFill();
+            isAnimation = true;
+            yield return new WaitForSeconds(f);
+            isAnimation = false;
+            timeCount = 0;
+            GoNextLine();
+            if (isSpeedUp)
+            {
+                TextFill();
+            }
         }
     }
 
     //ウィンドウ非表示を伴わないタイプのアニメーションによる操作停止用
     protected IEnumerator AnimationWaitSet(float f)
     {
-        isAnimation = true;
-        yield return new WaitForSeconds(f);
-        isAnimation = false;
+        if (!skip)
+        {
+            isAnimation = true;
+            yield return new WaitForSeconds(f);
+            isAnimation = false;
+        }
     }
 
     //シーンスキップ
     public IEnumerator SceneSkip()
     {
         yield return new WaitForSeconds(0.15f);
-        SelectFunction(_function[_sentences.Count-1]);
+        SelectFunction(_function[_sentences.Count - 1]);
+    }
+    //育成に向かう
+    public IEnumerator GoToGrow()
+    {
+        yield return new WaitForSeconds(0.15f);
+        GameManager.instance.SceneName = SceneManager.GetActiveScene().name;
+        GameManager.instance.LineNumber = lineNumber;
+        GameManager.instance.Save();
+        imagesManager.FadeOutReceiver(1, "Black");
+        imagesManager.TextPanelOff();
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene("3DGameSelectScene");
+    }
+    //セーブする
+    public void Save()
+    {
+        GameManager.instance.SceneName = SceneManager.GetActiveScene().name;
+        GameManager.instance.LineNumber = lineNumber;
+        GameManager.instance.Save();
+    }
+    //タイトルへ
+    public IEnumerator GoBackTitle()
+    {
+        yield return new WaitForSeconds(0.15f);
+        GameManager.instance.SceneName = SceneManager.GetActiveScene().name;
+        GameManager.instance.LineNumber = lineNumber;
+        GameManager.instance.Save();
+        imagesManager.FadeOutReceiver(1, "Black");
+        imagesManager.TextPanelOff();
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene("TitleScene");
     }
 }
