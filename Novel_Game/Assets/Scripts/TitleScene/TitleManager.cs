@@ -14,7 +14,8 @@ public class TitleManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadScene("MainScene0");
+            GameManager.instance.LineNumber = PlayerPrefs.GetInt("lineNumber", 0);
+            SceneManager.LoadScene(PlayerPrefs.GetString("sceneName", "MainScene0"));
         }
     }
 }

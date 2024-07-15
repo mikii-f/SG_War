@@ -4,7 +4,7 @@ AnimAndGoNext,1.0
 TitleCoal
 
 
-BlackOnOff,Off,TextPanelOnOff,On,BackgroundChange,Road
+TextPanelOn,MenuOn,BackgroundChange,Road
 
 4限の講義が終わり帰路に就く。
 0
@@ -25,7 +25,7 @@ BlackOnOff,Off,TextPanelOnOff,On,BackgroundChange,Road
 0
 
 いつも通り2人分の夕飯を作るため、俺は真っ直ぐ家に向かった。
-BlackOnOff,On,Wipe1
+Wipe1
 
 
 Wipe2,CharacterChange,vier,BackgroundChange,MyRoom
@@ -148,10 +148,10 @@ Wipe2,BackgroundChange,Road
 0
 フィア
 うん！それならきっとエルちゃんも喜ぶ──────あれ？
-CharacterChange,Ghost1,TextPanelOnOff,Off,AnimAndGoNext,1.5
+CharacterChange,Ghost1,TextPanelOff,AnimAndGoNext,1.5
 
 
-CharacterChange,vier,TextPanelOnOff,On
+CharacterChange,vier,TextPanelOn
 フィア
 うそ……なんで……？さっきまで何も感知できなかったのに……。
 0
@@ -160,6 +160,12 @@ CharacterChange,vier,TextPanelOnOff,On
 0
 フィア
 う、うん！もちろん！リーダーの方こそちゃんと指示お願いね！
+MenuOff,FadeOut,2.0,Black,AnimAndGoNext,3.0
+
+
+TextPanelOff,AnimAndGoNext,1.0
+
+
 ChangeScene,BattleScene1
 
  

@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class ImagesManager2 : ImagesManagerOrigin
 {
-    private TextManager2 textManager;
     [SerializeField] private Sprite vier;
     [SerializeField] private Sprite ghost1;
     [SerializeField] private Sprite backgroundMyRoom;
@@ -10,8 +9,7 @@ public class ImagesManager2 : ImagesManagerOrigin
 
     protected override void StartSet()
     {
-        textManager = tManager.GetComponent<TextManager2>();
-        textPanel.SetActive(false);
+        blackAllImage.color = Color.clear;
     }
 
     //立ち絵関係
@@ -49,10 +47,5 @@ public class ImagesManager2 : ImagesManagerOrigin
             default:
                 break;
         }
-    }
-    //テキストへのアニメーション終了通知
-    protected override void AnimationFinished(float waitTime)
-    {
-        StartCoroutine(textManager.AnimationFinished(waitTime));
     }
 }
