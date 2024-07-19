@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ImagesManager2_2 : ImagesManagerOrigin
 {
@@ -49,5 +50,9 @@ public class ImagesManager2_2 : ImagesManagerOrigin
             default:
                 break;
         }
+    }
+    public override void ChangeScene()
+    {
+        SceneManager.LoadScene("3DGameScene0");
     }
 }

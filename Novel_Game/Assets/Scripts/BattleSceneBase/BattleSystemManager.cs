@@ -91,6 +91,7 @@ public class BattleSystemManager : MonoBehaviour
     //ゲームオーバー(バトルシーンから呼び出し)
     public void GameOver()
     {
+        isFunctionAvailable = true;
         systemMessage.text = "GAME OVER\n再挑戦しますか？";
         yesText.text = "再挑戦(Y)";
         noText.text = "育成へ(N)";

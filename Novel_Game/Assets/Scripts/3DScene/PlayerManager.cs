@@ -1,10 +1,10 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
+    [SerializeField] private StageManagerOrigin stageManager;
     [SerializeField] private GameObject character;
     private Animator playerAnimator;
     private Rigidbody _rb;
@@ -21,7 +21,6 @@ public class PlayerManager : MonoBehaviour
     private const int horizontalForce = 20;
     private const float maxSpeed = 10f;
     private const float frictionForce = 8f;
-    [SerializeField] private int hp = 3;
     [SerializeField] private Collider normalAttackCollider;
     [SerializeField] private GameObject normalAttackEffect;
     private bool isDamaged = false;
@@ -37,7 +36,9 @@ public class PlayerManager : MonoBehaviour
     private bool attack2Stop = false;
     private const int attack2Possible = 3;
     private int attack2Count = 0;
-    private const float attack2reception = 0.15f;
+    private const float attack2reception = 0.12f;
+    private bool clear = false;
+    public bool Clear { set { clear = value; } }
     //プレイヤーのアニメーション(ポーズ)を管理
     private enum PlayerState
     {
@@ -96,8 +97,8 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //ダメージを受けた直後、攻撃直後は操作できない
-        if (!isDamaged && !isAttacked)
+        //ダメージを受けた直後、攻撃直後、クリア後は操作できない
+        if (!isDamaged && !isAttacked && !clear)
         {
             //ジャンプ
             if (Input.GetKeyDown(KeyCode.W) && positionState == PositionState.GROUND)
@@ -231,7 +232,7 @@ public class PlayerManager : MonoBehaviour
             playerAnimator.SetInteger("PlayerState", (int)playerState);
         }
         //下キーで落下加速
-        if (positionState == PositionState.DOWN)
+        if (positionState == PositionState.DOWN && !isAttack2)
         {
             if (Input.GetKeyDown(KeyCode.S))
             {
@@ -239,19 +240,19 @@ public class PlayerManager : MonoBehaviour
             }
         }
         //通常攻撃
-        if (Input.GetMouseButtonDown(0) && attackPossible)
+        if (Input.GetMouseButtonDown(0) && attackPossible && !clear)
         {
             StartCoroutine(NormalAttack());
         }
-        //強攻撃
-        if (Input.GetMouseButtonDown(1) && attackPossible && attack2Count == 0)
+        //強攻撃(上手いやり方が見つかったらリザルト画面でも強攻撃だけは使えるようにしたい)
+        if (Input.GetMouseButtonDown(1) && attackPossible && attack2Count == 0 && !clear)
         {
             StartCoroutine(StrongAttack());
         }
         //落下判定
         if (_transform.position.y < deathLine)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            stageManager.GameOver();
         }
     }
 
@@ -461,7 +462,7 @@ public class PlayerManager : MonoBehaviour
         }
         attackPossible = true;
     }
-    //約4m移動しつつ斬撃
+    //約4m移動しつつ斬撃(足元側(オブジェクトの回転中心に対して当たり判定が長い側)が地面を向いたときにめり込みが解消できないことが分かっている)
     private IEnumerator SAExecute(int n)
     {
         int[] theta = { -90, -45, 0, 45, 90, 135, 180, -135 };
@@ -486,7 +487,7 @@ public class PlayerManager : MonoBehaviour
             _rb.rotation = Quaternion.Euler(temp);
         }
         character.SetActive(false);
-        yield return null;          //埋まり状態解消用
+        yield return null;              //埋まり状態解消用
         float oneAttackTime = 0.05f;
         _rb.velocity = v / (oneAttackTime*attack2EffectsCount);
         int attackCount = 0;
@@ -541,8 +542,8 @@ public class PlayerManager : MonoBehaviour
                 _rb.AddForce(new Vector3(0, gravity, 0));
             }
         }
-        //ダメージを受けた直後、攻撃直後は操作できない
-        if (!isDamaged && !isAttacked)
+        //ダメージを受けた直後、攻撃直後、クリア後は操作できない
+        if (!isDamaged && !isAttacked && !clear)
         {
             //右移動
             if (Input.GetKey(KeyCode.D))
@@ -656,7 +657,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    //ダメージ時(ダメージ後の無敵時間および攻撃中を除く)
+    //ダメージ時(ダメージ後の無敵時間および攻撃中を除く)&コイン獲得
     private void OnTriggerEnter(Collider other)
     {
         if ((other.CompareTag("Enemy") || other.CompareTag("Bullet")) && !isInvincible && !isAttacked)
@@ -664,19 +665,19 @@ public class PlayerManager : MonoBehaviour
             isDamaged = true;
             isInvincible = true;
             attackPossible = false;
-            hp--;
+            stageManager.Damage();
             if (other.CompareTag("Bullet"))
             {
                 other.enabled = false;
                 other.gameObject.SetActive(false);
             }
-            if (hp == 0)
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            }
             Vector3 decreasedVelocity = new(0.2f * _rb.velocity.x, 0.2f * _rb.velocity.y, 0.2f * _rb.velocity.z);
             _rb.velocity = decreasedVelocity;
             StartCoroutine(Damage());
+        }
+        if (other.CompareTag("Medal"))
+        {
+            stageManager.GotMedal();
         }
     }
     //ダメージ時の点滅&操作不能や無敵時間の管理

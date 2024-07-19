@@ -62,7 +62,7 @@ public abstract class TextManagerOrigin : MonoBehaviour
             //ファンクションが開いているときおよび自動再生時は反応しない
             if (!functionsOpen && !isSpeedUp)
             {
-                if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) && _sentences.Count > lineNumber && !isAnimation)
+                if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) && lineNumber < _sentences.Count && !isAnimation)
                 {
                     //表示されていない部分があったら表示
                     if (displayWordNumber < textLength)
@@ -226,9 +226,11 @@ public abstract class TextManagerOrigin : MonoBehaviour
                     slideCoroutine = StartCoroutine(imagesManager.BackgroundSlide());
                     break;
                 case "SlideStop":
-                    StopCoroutine(slideCoroutine);
-                    imagesManager.SlideStop();
-                    break;
+                    if (slideCoroutine != null)
+                    {
+                        StopCoroutine(slideCoroutine);
+                        imagesManager.SlideStop();
+                    }                    break;
                 case "CharacterReset":
                     imagesManager.CharacterReset();
                     break;
@@ -253,9 +255,11 @@ public abstract class TextManagerOrigin : MonoBehaviour
                     isAnimation = true;
                     StartCoroutine(imagesManager.TitleAnimation());
                     break;
+                case "Save":
+                    Save();
+                    break;
                 case "ChangeScene":
-                    i++;
-                    imagesManager.ChangeScene(s[i]);
+                    imagesManager.ChangeScene();
                     break;
                 default:
                     break;
@@ -315,7 +319,13 @@ public abstract class TextManagerOrigin : MonoBehaviour
     public IEnumerator SceneSkip()
     {
         yield return new WaitForSeconds(0.15f);
-        SelectFunction(_function[_sentences.Count - 1]);
+        skip = true;
+        imagesManager.Skip = true;
+        while (lineNumber < _sentences.Count)
+        {
+            GoNextLine();
+            TextFill();
+        }
     }
     //育成に向かう
     public IEnumerator GoToGrow()

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ImagesManager2 : ImagesManagerOrigin
 {
@@ -47,5 +48,10 @@ public class ImagesManager2 : ImagesManagerOrigin
             default:
                 break;
         }
+    }
+    public override void ChangeScene()
+    {
+        //“P‘Ş‚É’¼‘O‚Ö–ß‚ê‚é‚æ‚¤‚És”‚Ì‰Šú‰»‚ğ‚µ‚È‚¢
+        SceneManager.LoadScene("BattleScene1");
     }
 }

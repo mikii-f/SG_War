@@ -9,7 +9,6 @@ public class Enemy1Manager : MonoBehaviour
     private GameObject bullet;
     private Transform bulletTransform;
     private Collider bulletCollider;
-    [SerializeField] private LayerMask playerLayer;
     private bool startMove = false;
     private const float eyesightY = 20f;
     private const float eyesightX = 40f;
@@ -17,6 +16,7 @@ public class Enemy1Manager : MonoBehaviour
     private const float coolTime = 5f;
     private float idlingTime = 0f;
     private bool isAttack = false;
+    private Transform playerTransform;
 
     // Start is called before the first frame update
     void Start()
@@ -28,13 +28,18 @@ public class Enemy1Manager : MonoBehaviour
         bulletTransform = bullet.GetComponent<Transform>();
         bulletCollider = bullet.GetComponent<Collider>();
         bullet.SetActive(false);
+        //プレイヤーの位置を取得
+        if (PlayerFootManager.instance != null)
+        {
+            playerTransform = PlayerFootManager.instance.transform;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         //プレイヤーが近づいてから動き出す
-        if (Physics.BoxCast(_transform.position, new Vector3(1, eyesightY, 1), Vector3.left, Quaternion.identity, eyesightX, playerLayer))
+        if (Mathf.Abs(_transform.position.x - playerTransform.position.x) < eyesightX && Mathf.Abs(_transform.position.y - playerTransform.position.y) < eyesightY)
         {
             startMove = true;
         }

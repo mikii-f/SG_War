@@ -48,7 +48,18 @@ public class BattleSceneManager2 : BattleSceneManagerOrigin
         {
             enemyComposition[1][i].AllObject = false;
         }
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
+        explanation.SetActive(true);
+        yield return new WaitUntil(() => !explanation.activeSelf);
+        battleStartAndFinishText.text = "3";
+        yield return new WaitForSeconds(1);
+        battleStartAndFinishText.text = "2";
+        yield return new WaitForSeconds(1);
+        battleStartAndFinishText.text = "1";
+        yield return new WaitForSeconds(1);
+        battleStartAndFinishText.text = "Battle Start";
+        yield return new WaitForSeconds(1);
+        battleStartAndFinishText.text = "";
         sainManager.Pause = false;
         leaderManager.Pause = false;
         for (int i = 0; i < 3; i++)
@@ -60,6 +71,7 @@ public class BattleSceneManager2 : BattleSceneManagerOrigin
 
     public override void SceneLoad()
     {
+        GameManager.instance.LineNumber = 0;
         SceneManager.LoadScene("MainScene3_2");
     }
 }

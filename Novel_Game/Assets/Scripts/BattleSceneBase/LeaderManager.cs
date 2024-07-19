@@ -4,16 +4,14 @@ using UnityEngine.UI;
 
 public class LeaderManager : MonoBehaviour
 {
-    [SerializeField] private GameObject sainManagerObject;
-    private SainManager sainManager;
-    [SerializeField] private GameObject HPAssist;
-    [SerializeField] private GameObject attackAssist;
-    [SerializeField] private GameObject speedAssist;
-    [SerializeField] private GameObject guard;
-    private RectTransform HPRect;
-    private RectTransform attackRect;
-    private RectTransform speedRect;
-    private RectTransform guardRect;
+    [SerializeField] private SainManager sainManager;
+    [SerializeField] private GameObject autoObject;
+    private RectTransform autoRect;
+    private Image autoImage;
+    [SerializeField] private RectTransform HPRect;
+    [SerializeField] private RectTransform attackRect;
+    [SerializeField] private RectTransform speedRect;
+    [SerializeField] private RectTransform guardRect;
     [SerializeField] private GameObject HPIntervalDisplay;
     [SerializeField] private GameObject attackIntervalDisplay;
     [SerializeField] private GameObject speedIntervalDisplay;
@@ -34,11 +32,8 @@ public class LeaderManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        sainManager = sainManagerObject.GetComponent<SainManager>();
-        HPRect = HPAssist.GetComponent<RectTransform>();
-        attackRect = attackAssist.GetComponent<RectTransform>();
-        speedRect = speedAssist.GetComponent<RectTransform>();
-        guardRect = guard.GetComponent<RectTransform>();
+        autoRect = autoObject.GetComponent<RectTransform>();
+        autoImage = autoObject.GetComponent<Image>();
         HPIntervalText = HPIntervalDisplay.GetComponentInChildren<Text>();
         attackIntervalText = attackIntervalDisplay.GetComponentInChildren<Text>();
         speedIntervalText = speedIntervalDisplay.GetComponentInChildren<Text>();
@@ -52,7 +47,7 @@ public class LeaderManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //各種アシストのキー入力
+        //各種アシスト及びオート機能のキー入力
         if (Input.GetKeyDown(KeyCode.Return))
         {
             GuardClick();
@@ -68,6 +63,10 @@ public class LeaderManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             SpeedAssistClick();
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            AutoClick();
         }
 
         //各種アシストのインターバル管理
@@ -141,7 +140,7 @@ public class LeaderManager : MonoBehaviour
     }
     public void GuardClick()
     {
-        if (guardIntervalCount == 0 && !pause)
+        if (guardIntervalCount == 0 && !pause && !sainManager.IsCannotGuard)
         {
             guardIntervalCount = guardInterval;
             StartCoroutine(ButtonAnim(guardRect));
@@ -149,7 +148,23 @@ public class LeaderManager : MonoBehaviour
             guardIntervalDisplay.SetActive(true);
         }
     }
-
+    public void AutoClick()
+    {
+        if (!pause)
+        {
+            StartCoroutine(ButtonAnim(autoRect));
+            if (!sainManager.Auto)
+            {
+                sainManager.Auto = true;
+                autoImage.color = Color.white;
+            }
+            else
+            {
+                sainManager.Auto = false;
+                autoImage.color = new(100f / 255, 100f / 255, 100f / 255, 1f);
+            }
+        }
+    }
 
     //ボタンのアニメーション
     private IEnumerator ButtonAnim(RectTransform rect)

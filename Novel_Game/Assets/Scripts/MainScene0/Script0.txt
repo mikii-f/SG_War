@@ -1,10 +1,13 @@
 AnimAndGoNext,1.0
 
 
+FadeIn,1.0,Black,AnimAndGoNext,1.5
+
+
 TextPanelOn,MenuOn
 
 とある夢の中────────────────────
-0
+CharacterChange,vier
 ？？？
 ようやく追い詰めた！
 0
@@ -16,12 +19,12 @@ TextPanelOn,MenuOn
 0
 剣羽和人
 もちろんだ！ここで、決着をつけるぞ！！
-MenuOff,FadeOut,2.0,Black,AnimAndGoNext,3.0
+Save,MenuOff,FadeOut,2.0,Black,AnimAndGoNext,3.0
 
 
 TextPanelOff,AnimAndGoNext,1.0
 
 
-ChangeScene,MainScene1
+ChangeScene
 
  

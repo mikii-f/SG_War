@@ -7,23 +7,19 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
 {
     protected int id;
     public int ID { get { return id; } }
-    [SerializeField] private GameObject bSManagerObject;
-    protected BattleSceneManagerOrigin bSManager;
+    [SerializeField] protected BattleSceneManagerOrigin bSManager;
     [SerializeField] protected GameObject myAllObject;
     public bool AllObject { set { myAllObject.SetActive(value); } }
     [SerializeField] private GameObject myObject;
     protected RectTransform myRect;
     protected Image myImage;
     [SerializeField] private GameObject namePanel;
-    [SerializeField] private GameObject gagePanel;
     [SerializeField] private GameObject attackPanel;
     private RectTransform attackPanelRect;
     [SerializeField] private Text attackSubtitle;
-    private RectTransform gageRect;
-    [SerializeField] private GameObject HPbar;
-    protected Slider HPslider;
-    [SerializeField] private GameObject HPTextObject;
-    protected TMP_Text HPText;
+    [SerializeField] private RectTransform gageRect;
+    [SerializeField] protected Slider HPslider;
+    [SerializeField] protected TMP_Text HPText;
     [SerializeField] protected Sprite grayGage;
     [SerializeField] protected Sprite redGage;
     [SerializeField] protected int maxHP;
@@ -31,8 +27,8 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
     protected int maxGage;
     protected int currentHP;
     protected int currentGage;
-    [SerializeField] private GameObject intervalDisplay;
-    private Text intervalText;
+    [SerializeField] private TMP_Text damageText;
+    [SerializeField] private Text intervalText;
     protected float interval;
     protected float intervalCount;
     protected bool isAttack = false;
@@ -44,17 +40,12 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        bSManager = bSManagerObject.GetComponent<BattleSceneManagerOrigin>();
         myRect = myObject.GetComponent<RectTransform>();
         myImage = myObject.GetComponent<Image>();
         attackPanelRect = attackPanel.GetComponent<RectTransform>();
         attackPanel.SetActive(false);
-        gageRect = gagePanel.GetComponent<RectTransform>();
-        HPslider = HPbar.GetComponent<Slider>();
-        HPText = HPTextObject.GetComponent<TMP_Text>();
         currentHP = maxHP;
         HPText.text = currentHP.ToString() + "/" + maxHP.ToString();
-        intervalText = intervalDisplay.GetComponent<Text>();
         StartSet();
     }
     protected abstract void StartSet();
@@ -157,6 +148,7 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
         //今は死んだ敵も完全に消滅させていないため、条件を付けないと必殺で2回目の消滅判定が起きる(必殺側でも対応済みだが念のため)
         if (!isDied)
         {
+            StartCoroutine(DamageDisplay(damage));
             currentHP = Mathf.Max(0, currentHP - damage);
             HPslider.value = (float)currentHP / maxHP;
             HPText.text = currentHP.ToString() + "/" + maxHP.ToString();
@@ -166,6 +158,13 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
                 StartCoroutine(Died());
             }
         }
+    }
+    //ダメージ表示(上の関数をコルーチン化してもいい)
+    private IEnumerator DamageDisplay(int damage)
+    {
+        damageText.text = damage.ToString();
+        yield return new WaitForSeconds(0.35f);
+        damageText.text = "";
     }
     //ダメージ受け取り時の揺れ
     private IEnumerator DamageVibration()
@@ -216,13 +215,13 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
     public void Select()
     {
         namePanel.SetActive(true);
-        HPTextObject.SetActive(true);
+        HPText.text = currentHP.ToString() + "/" + maxHP.ToString();
         gageRect.localScale = Vector3.one;
     }
     public void DisSelect()
     {
         namePanel.SetActive(false);
-        HPTextObject.SetActive(false);
+        HPText.text = "";
         gageRect.localScale = new(0.5f, 0.5f);
     }
 

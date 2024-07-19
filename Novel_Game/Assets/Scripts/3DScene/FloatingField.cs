@@ -57,5 +57,13 @@ public class FloatingField : MonoBehaviour
                 _collider.isTrigger = true;
             }
         }
+        //^‰º‚É‚¢‚Ä‚à\•ª‰º‚É‚¢‚é‚È‚ç“§‰ß
+        else if (_transform.position.y - playerTransform.position.y > 1)
+        {
+            if (!_collider.isTrigger)
+            {
+                _collider.isTrigger = true;
+            }
+        }
     }
 }

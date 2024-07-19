@@ -121,7 +121,7 @@ CharacterChange,vier,TextPanelOn
 0
 フィア
 もちろん！そっちこそちゃんと援護お願いね！
-MenuOff,TextPanelOff,FadeOut,1.0,Black,AnimAndGoNext,2.0
+Save,MenuOff,TextPanelOff,FadeOut,1.0,Black,AnimAndGoNext,2.0
 
 
 ChangeScene,BattleScene2

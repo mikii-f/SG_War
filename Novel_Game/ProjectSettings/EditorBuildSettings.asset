@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainScene0.unity
     guid: cf5e879b975e98c4ba338028e0a7e98f
   - enabled: 1
+    path: Assets/Scenes/BattleScene0.unity
+    guid: b0deb7f7582e4184aa1a88b7c7bfe7ce
+  - enabled: 1
     path: Assets/Scenes/MainScene1.unity
     guid: a76656dcbcd5cd647b43c0f38bc0b1e0
   - enabled: 1
@@ -23,6 +26,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainScene2_2.unity
     guid: 907d1c80c7cfc694a857e324452962c1
+  - enabled: 1
+    path: Assets/Scenes/3DGameScene0.unity
+    guid: 13b130e771d40b545817b74ba4810814
+  - enabled: 1
+    path: Assets/Scenes/MainScene2_3.unity
+    guid: 22c74c0888991f949a0f9e068dc83a8a
   - enabled: 1
     path: Assets/Scenes/MainScene3.unity
     guid: a060e2c8b3f53064f8e4693791cda174

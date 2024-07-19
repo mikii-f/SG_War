@@ -8,6 +8,12 @@ public class GameManager : MonoBehaviour
     public string SceneName { set { sceneName = value; } get { return sceneName; } }
     private static int lineNumber;
     public int LineNumber { set { lineNumber = value; } get { return lineNumber; } }
+    private static int exp;
+    public int EXP { set { exp = value; } get { return exp; } }
+    private static int sainHP;
+    public int SainHP { set { sainHP = value; } get {return sainHP; } }
+    private static int sainAttack;
+    public int SainAttack { set { sainAttack = value; } get { return sainAttack; } }
     //そのうちステータスも
     private void Awake()
     {
@@ -20,9 +26,34 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     public void Save()
     {
         PlayerPrefs.SetString("sceneName", sceneName);
         PlayerPrefs.SetInt("lineNumber", lineNumber);
+        PlayerPrefs.SetInt("exp", exp);
+        PlayerPrefs.SetInt("sainHP", sainHP);
+        PlayerPrefs.SetInt("sainAttack", sainAttack);
+    }
+    
+    //セーブデータ削除(セーブデータを複数にした場合は選択できるようにする)
+    public void Initialize()
+    {
+        PlayerPrefs.SetString("sceneName", "MainScene0");
+        PlayerPrefs.SetInt("lineNumber", 0);
+        PlayerPrefs.SetInt("exp", 0);
+        PlayerPrefs.SetInt("sainHP", 1000);
+        PlayerPrefs.SetInt("sainAttack", 50);
+        Set();
+    }
+
+    //セーブデータと一時記憶の同期
+    public void Set()
+    {
+        sceneName = PlayerPrefs.GetString("sceneName");
+        lineNumber = PlayerPrefs.GetInt("lineNumber");
+        exp = PlayerPrefs.GetInt("exp");
+        sainHP = PlayerPrefs.GetInt("sainHP");
+        sainAttack = PlayerPrefs.GetInt("sainAttack");
     }
 }

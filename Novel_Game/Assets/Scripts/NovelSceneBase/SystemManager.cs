@@ -83,6 +83,11 @@ public class SystemManager : MonoBehaviour
                     TitleSwitch();
                 }
             }
+            //ログを閉じる
+            if (logTextObject.activeSelf && Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                LogClose();
+            }
             //メッセージへの応答
             if (Input.GetKeyDown(KeyCode.Y))
             {
@@ -133,13 +138,18 @@ public class SystemManager : MonoBehaviour
     public void LogSwitch() 
     {
         StartCoroutine(ButtonAnim(logSwitchRect));
-        logTextObject.SetActive(true);
-        isMessageDisplay = true;
+        StartCoroutine(LogOnOff());
     }
     public void LogClose()
     {
-        logTextObject.SetActive(false);
-        isMessageDisplay = false;
+        StartCoroutine(LogOnOff());
+    }
+    //開けてすぐ閉じてしまうとかがないように1フレーム空ける
+    private IEnumerator LogOnOff()
+    {
+        yield return null;
+        logTextObject.SetActive(!logTextObject.activeSelf);
+        isMessageDisplay = !isMessageDisplay;
     }
     public void GrowSwitch()
     {
@@ -238,6 +248,7 @@ public class SystemManager : MonoBehaviour
     {
         menu.SetActive(false);
         functions.SetActive(false);
+        logTextObject.SetActive(false);
         systemMessageObject.SetActive(false);
         isMessageDisplay = false;
         isFunctionAvailable = false;

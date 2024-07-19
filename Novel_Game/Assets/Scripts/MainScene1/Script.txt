@@ -232,12 +232,12 @@ BackgroundChange,Road,CharacterChange,transparent
 0
 
 しかしその夜────────────
-MenuOff,FadeOut,2.0,Black,AnimAndGoNext,3.0
+Save,MenuOff,FadeOut,2.0,Black,AnimAndGoNext,3.0
 
 
 TextPanelOff,AnimAndGoNext,1.0
 
 
-ChangeScene,MainScene2
+ChangeScene
 
  

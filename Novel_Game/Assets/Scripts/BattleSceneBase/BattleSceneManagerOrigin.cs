@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public abstract class BattleSceneManagerOrigin : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
     [SerializeField] protected GameObject blackObject;
     protected RectTransform blackRect;
     protected Image blackImage;
+    [SerializeField] protected GameObject explanation;
+    [SerializeField] protected TMP_Text battleStartAndFinishText;
     [SerializeField] private GameObject specialSkillAnimation;
     [SerializeField] private Text enemyNumberText;
     [SerializeField] private Text waveNumberText;
@@ -29,6 +32,7 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
         blackRect = blackObject.GetComponent<RectTransform>();
         blackImage = blackObject.GetComponent<Image>();
         specialSkillAnimation.SetActive(false);
+        explanation.SetActive(false);
         StartCoroutine(FadeIn(1, blackImage));
         StartSet();
     }
@@ -186,7 +190,7 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
     {
         attackImage.color = Color.white;
         float diffX = AttackPoint();
-        while (true)
+        while (attackRect.localScale.x > 0.5f)
         {
             Vector2 temp = attackRect.anchoredPosition;
             Vector2 temp2 = attackRect.localScale;
@@ -201,10 +205,6 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
             attackRect.anchoredPosition = temp;
             attackRect.localScale = temp2;
             attackRect.localEulerAngles = temp3;
-            if (temp2.x <= 0.5f)//普通にwhileの条件に入れられるやん
-            {
-                break;
-            }
             yield return null;
         }
         //着弾・消滅
@@ -405,9 +405,16 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
         sainManager.Pause = true;
         leaderManager.Pause = true;
         battleSystemManager.MenuOff();
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
+        battleStartAndFinishText.text = "Battle Finish";
+        yield return new WaitForSeconds(2);
         yield return StartCoroutine(FadeOut(2, blackImage));
         SceneLoad();
+    }
+    //戦闘開始時の説明クローズ
+    public void Close()
+    {
+        explanation.SetActive(false);
     }
     //各シーンにおけるロード&強制スキップ用
     public abstract void SceneLoad();

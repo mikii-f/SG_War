@@ -160,12 +160,12 @@ CharacterChange,vier,TextPanelOn
 0
 フィア
 う、うん！もちろん！リーダーの方こそちゃんと指示お願いね！
-MenuOff,FadeOut,2.0,Black,AnimAndGoNext,3.0
+Save,MenuOff,FadeOut,2.0,Black,AnimAndGoNext,3.0
 
 
 TextPanelOff,AnimAndGoNext,1.0
 
 
-ChangeScene,BattleScene1
+ChangeScene
 
  

@@ -318,14 +318,8 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         textPanel.SetActive(false);
     }
 
-    //シーン切り替え(進行度を自動で保存する)
-    public void ChangeScene(string sceneName)
-    {
-        GameManager.instance.SceneName = SceneManager.GetActiveScene().name;
-        GameManager.instance.LineNumber = 0;
-        GameManager.instance.Save();
-        SceneManager.LoadScene(sceneName);
-    }
+    //シーン切り替え
+    public abstract void ChangeScene();
 
     //アニメーションの終了を各テキストマネージャーに伝えるための関数
     protected void AnimationFinished(float waitTime)
