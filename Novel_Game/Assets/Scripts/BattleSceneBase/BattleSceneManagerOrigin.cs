@@ -368,15 +368,15 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
         {
             yield return null;
             Vector2 pos = blackRect.anchoredPosition;
-            pos.x += 3840 * Time.deltaTime;
+            pos.x = Mathf.Min(0, pos.x + 3840 * Time.deltaTime);
             blackRect.anchoredPosition = pos;
         }
         yield return new WaitForSeconds(2);
-        while (blackRect.anchoredPosition.x < 1930)
+        while (blackRect.anchoredPosition.x < 1920)
         {
             yield return null;
             Vector2 pos = blackRect.anchoredPosition;
-            pos.x += 3860 * Time.deltaTime;
+            pos.x = Mathf.Min(1920, pos.x + 3840 * Time.deltaTime);
             blackRect.anchoredPosition = pos;
         }
         blackImage.color = Color.clear;

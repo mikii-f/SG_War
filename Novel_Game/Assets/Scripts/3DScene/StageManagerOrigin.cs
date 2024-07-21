@@ -13,8 +13,6 @@ public abstract class StageManagerOrigin : MonoBehaviour
     private int life = 3;
     protected bool clear = false;
 
-
-    
     public void GotMedal()
     {
         medalCount++;
@@ -22,11 +20,15 @@ public abstract class StageManagerOrigin : MonoBehaviour
     }
     public void Damage()
     {
-        life--;
-        lifeText.text = "Life × " + life.ToString();
-        if (life == 0)
+        //スキップ含めクリア済みなら影響なし
+        if (!clear)
         {
-            GameOver();
+            life--;
+            lifeText.text = "Life × " + life.ToString();
+            if (life == 0)
+            {
+                GameOver();
+            }
         }
     }
     public void GameOver()

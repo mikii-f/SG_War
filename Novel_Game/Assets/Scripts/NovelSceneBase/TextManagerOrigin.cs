@@ -210,6 +210,9 @@ public abstract class TextManagerOrigin : MonoBehaviour
                         case "City":
                             imagesManager.BackgroundChange(3);
                             break;
+                        case "Rooftop":
+                            imagesManager.BackgroundChange(4);
+                            break;
                         default:
                             break;
                     }

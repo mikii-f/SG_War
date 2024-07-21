@@ -11,7 +11,7 @@ public class Enemy1Manager : MonoBehaviour
     private Collider bulletCollider;
     private bool startMove = false;
     private const float eyesightY = 20f;
-    private const float eyesightX = 40f;
+    private const float eyesightX = 20f;
     private const float speed = -1f;
     private const float coolTime = 5f;
     private float idlingTime = 0f;
@@ -68,6 +68,12 @@ public class Enemy1Manager : MonoBehaviour
             {
                 idlingTime = 0;
                 StartCoroutine(Attack());
+            }
+
+            //プレイヤーが十分右にいったら消える
+            if (playerTransform.position.x - _transform.position.x > 2 * eyesightX)
+            {
+                Destroy(gameObject);
             }
         }
     }

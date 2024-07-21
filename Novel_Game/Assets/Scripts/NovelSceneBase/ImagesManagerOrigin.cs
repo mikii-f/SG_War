@@ -154,7 +154,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
             {
                 yield return null;
                 Vector2 pos = bARect.anchoredPosition;
-                pos.x += 960 * Time.deltaTime;
+                pos.x = Mathf.Min(0, pos.x + 960 * Time.deltaTime);
                 bARect.anchoredPosition = pos;
             }
             AnimationFinished(0);
@@ -173,11 +173,11 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         if (!skip)
         {
             yield return new WaitForSeconds(0.5f);
-            while (bARect.anchoredPosition.x < 1930)
+            while (bARect.anchoredPosition.x < 1920)
             {
                 yield return null;
                 Vector2 pos = bARect.anchoredPosition;
-                pos.x += 960 * Time.deltaTime;
+                pos.x = Mathf.Min(1920, pos.x + 960 * Time.deltaTime);
                 bARect.anchoredPosition = pos;
             }
             yield return new WaitForSeconds(0.5f);

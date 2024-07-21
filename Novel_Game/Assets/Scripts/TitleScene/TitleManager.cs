@@ -8,7 +8,6 @@ public class TitleManager : MonoBehaviour
     [SerializeField] private RectTransform continueGameSwitchRect;
     [SerializeField] private RectTransform wordsSwitchRect;
     [SerializeField] private RectTransform methodSwitchRect;
-    [SerializeField] private RectTransform afterClearSwitch;
     [SerializeField] private GameObject words1;
     [SerializeField] private GameObject method;
 
@@ -39,6 +38,13 @@ public class TitleManager : MonoBehaviour
     public void ContinueGameSwitch()
     {
         StartCoroutine(ButtonAnim(continueGameSwitchRect));
+        StartCoroutine(ContinueGame());
+    }
+    private IEnumerator ContinueGame()
+    {
+        yield return new WaitForSeconds(0.15f);
+        GameManager.instance.Set();
+        SceneManager.LoadScene(GameManager.instance.SceneName);
     }
     public void WordsSwitch()
     {
@@ -49,10 +55,6 @@ public class TitleManager : MonoBehaviour
     {
         StartCoroutine(ButtonAnim(methodSwitchRect));
         method.SetActive(true);
-    }
-    public void AfterClearSwitch() 
-    {
-        StartCoroutine(ButtonAnim(afterClearSwitch));
     }
     public void Close()
     {

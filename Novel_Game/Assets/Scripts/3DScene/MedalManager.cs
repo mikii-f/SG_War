@@ -11,10 +11,10 @@ public class MedalManager : MonoBehaviour
     {
         _transform = GetComponent<Transform>();
         _collider = GetComponent<Collider>();
-        StartCoroutine(Idling());
+        //StartCoroutine(Idling());
     }
-
-    private IEnumerator Idling()
+    //あまり見た目的には分からないため負荷軽減のためカット
+    /*private IEnumerator Idling()
     {
         while (true)
         {
@@ -37,7 +37,7 @@ public class MedalManager : MonoBehaviour
                 yield return null;
             }
         }
-    }
+    }*/
 
     private void OnTriggerEnter(Collider other)
     {

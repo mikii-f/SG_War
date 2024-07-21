@@ -76,7 +76,6 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Application.targetFrameRate = 60;           //60FPS固定
         playerAnimator = character.GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
         _transform = GetComponent<Transform>();
@@ -249,8 +248,8 @@ public class PlayerManager : MonoBehaviour
         {
             StartCoroutine(StrongAttack());
         }
-        //落下判定
-        if (_transform.position.y < deathLine)
+        //落下判定(何らかのミスでクリア後に落ちても反応しない)
+        if (_transform.position.y < deathLine　&& !clear)
         {
             stageManager.GameOver();
         }

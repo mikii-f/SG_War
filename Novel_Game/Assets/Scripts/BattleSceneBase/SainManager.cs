@@ -304,8 +304,13 @@ public class SainManager : MonoBehaviour
     //ダメージを受ける
     public void ReceiveDamage(int damage)
     {
+        //ポーズ中(勝利後)はノーダメ
+        if (pause)
+        {
+            damage = 0;
+        }
         //回避に成功したらノーダメ
-        if (UnityEngine.Random.Range(0, 10) < avoidFactor)
+        else if (UnityEngine.Random.Range(0, 10) < avoidFactor)
         {
             damage = 0;
             if (commentCoroutine != null)
