@@ -21,6 +21,7 @@ public class SystemManager : MonoBehaviour
     [SerializeField] private RectTransform yesSwitch;
     [SerializeField] private RectTransform noSwitch;
     [SerializeField] private GameObject saveSuccessed;
+    [SerializeField] private GameObject growMask;
     private int messageNumber;
     private bool isMessageDisplay = false;
     private bool isFunctionAvailable = false;
@@ -33,13 +34,16 @@ public class SystemManager : MonoBehaviour
         logTextObject.SetActive(false);
         systemMessageObject.SetActive(false);
         saveSuccessed.SetActive(false);
+        //1回目の育成を行うまでは育成は選択できない
+        if (GameManager.instance.EXP != 0)
+        {
+            growMask.SetActive(false);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        //アニメーション中にセーブが行えても問題ないのかどうか
-
         //キー入力によるシステム操作(テキスト側から禁止されていないとき)(UI操作は自然とできなくなっているはず)
         if (isFunctionAvailable)
         {
@@ -70,7 +74,7 @@ public class SystemManager : MonoBehaviour
                 {
                     LogSwitch();
                 }
-                else if (Input.GetKeyDown(KeyCode.Alpha4))
+                else if (Input.GetKeyDown(KeyCode.Alpha4) && !growMask.activeSelf)
                 {
                     GrowSwitch();
                 }
@@ -215,8 +219,14 @@ public class SystemManager : MonoBehaviour
     public void NoSwitch()
     {
         StartCoroutine(ButtonAnim(noSwitch));
-        systemMessageObject.SetActive(false);
+        StartCoroutine(CloseSystemMessage());
         isMessageDisplay = false;
+    }
+    //少し待って閉じる
+    private IEnumerator CloseSystemMessage()
+    {
+        yield return new WaitForSeconds(0.15f);
+        systemMessageObject.SetActive(false);
     }
     //セーブ成功を伝えるメッセージ
     private IEnumerator SaveSuccessed()

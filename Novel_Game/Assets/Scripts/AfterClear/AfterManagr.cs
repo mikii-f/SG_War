@@ -66,6 +66,7 @@ public class AfterManagr : MonoBehaviour
     }
     public void YesSwitch()
     {
+        StartCoroutine(ButtonAnim(yesSwitch));
         switch (messageNumber)
         {
             case 0:
@@ -78,6 +79,13 @@ public class AfterManagr : MonoBehaviour
     }
     public void NoSwitch()
     {
+        StartCoroutine(ButtonAnim(noSwitch));
+        StartCoroutine(CloseSystemMessage());
+    }
+    //­‚µ‘Ò‚Á‚Ä•Â‚¶‚é
+    private IEnumerator CloseSystemMessage()
+    {
+        yield return new WaitForSeconds(0.15f);
         systemMessageObject.SetActive(false);
     }
     //ƒ^ƒCƒgƒ‹‚Ö
