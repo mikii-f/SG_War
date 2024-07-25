@@ -7,6 +7,8 @@ using System.Collections;
 public class Stage1Manager : StageManagerOrigin
 {
     [SerializeField] TMP_Text goalText;
+    [SerializeField] GameObject transparentWall;
+    private MeshRenderer wallMeshRenderer;
     [SerializeField] GameObject resultPanel;
     [SerializeField] Text scoreText;
     private int score = 0;
@@ -21,6 +23,9 @@ public class Stage1Manager : StageManagerOrigin
 
     private void Start()
     {
+        wallMeshRenderer = transparentWall.GetComponent<MeshRenderer>();
+        wallMeshRenderer.enabled = false;
+        transparentWall.SetActive(false);
         resultPanel.SetActive(false);
         messagePanel.SetActive(false);
         function.SetActive(false);
@@ -99,9 +104,10 @@ public class Stage1Manager : StageManagerOrigin
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && !transparentWall.activeSelf)
         {
             StartCoroutine(Goal());
+            transparentWall.SetActive(true);
         }
     }
     private IEnumerator Goal()
@@ -109,7 +115,7 @@ public class Stage1Manager : StageManagerOrigin
         playerManager.Clear = true;
         clear = true;
         goalText.text = "GOAL";
-        score = (int)(1000 * medalCount / 100 * 60 / time);
+        score = Mathf.Max((int)(2000 * medalCount / 100 * 60 / time), 1);
         yield return new WaitForSeconds(4);
         goalText.text = "";
         scoreText.text = "メダル獲得：" + medalCount.ToString() + "枚\n\nタイム：" + time.ToString("F2") + "s\n\n\nスコア：" + score.ToString() + "\n累計EXP：" + (GameManager.instance.EXP + score).ToString();
@@ -143,9 +149,65 @@ public class Stage1Manager : StageManagerOrigin
             messagePanel.SetActive(false);
             yield return new WaitForSeconds(1);
         }
-        //exp5000
-        //exp10000
-        //exp15000
+        else if (GameManager.instance.EXP < 5000)
+        {
+            GameManager.instance.EXP += score;
+            if (GameManager.instance.EXP >= 5000)
+            {
+                GameManager.instance.SainHP = 1400;
+                GameManager.instance.SainAttack = 90;
+                GameManager.instance.SainSG = 30;
+                GameManager.instance.Save();
+                messageText.text = "体力：1000→1400\n攻撃力：50→90\n初期SG：20→30";
+                messagePanel.SetActive(true);
+                yield return new WaitUntil(() => Input.GetMouseButton(0));
+                messagePanel.SetActive(false);
+                yield return new WaitForSeconds(1);
+            }
+            else
+            {
+                GameManager.instance.Save();
+            }
+        }
+        else if (GameManager.instance.EXP < 10000)
+        {
+            GameManager.instance.EXP += score;
+            if (GameManager.instance.EXP >= 10000)
+            {
+                GameManager.instance.SainHP = 1700;
+                GameManager.instance.SainAttack = 120;
+                GameManager.instance.Save();
+                messageText.text = "体力：1400→1700\n攻撃力：90→120";
+                messagePanel.SetActive(true);
+                yield return new WaitUntil(() => Input.GetMouseButton(0));
+                messagePanel.SetActive(false);
+                yield return new WaitForSeconds(1);
+            }
+            else
+            {
+                GameManager.instance.Save();
+            }
+        }
+        else if (GameManager.instance.EXP < 15000)
+        {
+            GameManager.instance.EXP += score;
+            if (GameManager.instance.EXP >= 15000)
+            {
+                GameManager.instance.SainHP = 2000;
+                GameManager.instance.SainAttack = 150;
+                GameManager.instance.SainSG = 40;
+                GameManager.instance.Save();
+                messageText.text = "体力：1700→2000\n攻撃力：120→150\n初期SG：30→40";
+                messagePanel.SetActive(true);
+                yield return new WaitUntil(() => Input.GetMouseButton(0));
+                messagePanel.SetActive(false);
+                yield return new WaitForSeconds(1);
+            }
+            else
+            {
+                GameManager.instance.Save();
+            }
+        }
         else
         {
             GameManager.instance.EXP += score;

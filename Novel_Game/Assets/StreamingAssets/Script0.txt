@@ -7,7 +7,7 @@ FadeIn,1.0,Black,AnimAndGoNext,1.5
 TextPanelOn,MenuOn
 
 とある夢の中────────────────────
-CharacterChange,vier
+CharacterChange,vier_battle
 ？？？
 ようやく追い詰めた！
 0

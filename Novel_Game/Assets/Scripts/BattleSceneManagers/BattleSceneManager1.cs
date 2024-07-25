@@ -37,8 +37,10 @@ public class BattleSceneManager1 : BattleSceneManagerOrigin
     }
 
     public override void SceneLoad()
-    { 
+    {
+        GameManager.instance.SceneName = "MainScene2_2";
         GameManager.instance.LineNumber = 0;
+        GameManager.instance.Save();
         SceneManager.LoadScene("MainScene2_2");
     }
 }

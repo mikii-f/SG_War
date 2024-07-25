@@ -114,6 +114,31 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
     {
         sainManager.ReceiveDamage(damage);
     }
+    //“G‚©‚ç‚Ì•KE‹Z(ƒK[ƒhE‰ñ”ğ•s‰Â)
+    public IEnumerator EnemySpecialAttack()
+    {
+        yield return null;
+        /*sainManager.Pause = true;
+        leaderManager.Pause = true;
+        isSpecialAttack = true;
+        for (int i = 0; i < numberOfEnemy[numberOfCurrentWave]; i++)
+        {
+            enemyComposition[numberOfCurrentWave][i].Pause = true;
+        }
+        yield return new WaitForSeconds(2);
+        specialSkillAnimation.SetActive(true);
+        yield return new WaitForSeconds(2.5f);
+        specialSkillAnimation.SetActive(false);
+        yield return new WaitForSeconds(2);
+        sainManager.Pause = false;
+        leaderManager.Pause = false;
+        isSpecialAttack = false;
+        for (int i = 0; i < numberOfEnemy[numberOfCurrentWave]; i++)
+        {
+            enemyComposition[numberOfCurrentWave][i].Pause = false;
+        }*/
+    }
+
     //“G‚Ö‚ÌUŒ‚‚Ì’…’e’n“_æ“¾
     private float AttackPoint()
     {
@@ -243,6 +268,11 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
         {
             if (!deadEnemyComposition[numberOfCurrentWave][i])
             {
+                //‹­“G‚ÌƒoƒŠƒA”j‰ó
+                if (enemyComposition[numberOfCurrentWave][i].ID == 4)
+                {
+                    enemyComposition[numberOfCurrentWave][i].ShieldBreak();
+                }
                 enemyComposition[numberOfCurrentWave][i].ReceiveDamage(damage);
             }
         }

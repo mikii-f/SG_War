@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class ImagesManager0 : ImagesManagerOrigin
 {
-    [SerializeField] private Sprite vier;
+    [SerializeField] private Sprite vier_battle;
     protected override void StartSet()
     {
         
@@ -16,8 +16,8 @@ public class ImagesManager0 : ImagesManagerOrigin
             case 0:
                 _characterImage.sprite = noneSprite;
                 break;
-            case 1:
-                _characterImage.sprite = vier;
+            case 21:
+                _characterImage.sprite = vier_battle;
                 break;
             default:
                 break;

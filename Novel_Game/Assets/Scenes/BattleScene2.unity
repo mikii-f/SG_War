@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,6 +123,81 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &814765
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 814768}
+  - component: {fileID: 814767}
+  - component: {fileID: 814766}
+  m_Layer: 5
+  m_Name: GrowMask
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &814766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.78431374}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &814767
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814765}
+  m_CullTransparentMesh: 1
+--- !u!224 &814768
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814765}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1948372806}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 150, y: -65}
+  m_SizeDelta: {x: 202, y: 102}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &18186292
 GameObject:
   m_ObjectHideFlags: 0
@@ -941,6 +1016,7 @@ RectTransform:
   m_Children:
   - {fileID: 690616792}
   - {fileID: 1576250829}
+  - {fileID: 1112847029}
   - {fileID: 2106894808}
   - {fileID: 166218984}
   m_Father: {fileID: 51881214}
@@ -1201,9 +1277,9 @@ MonoBehaviour:
   attack: 50
   damageText: {fileID: 1443358514}
   intervalText: {fileID: 1211691228}
-  gage1: {fileID: 1836466712}
-  gage2: {fileID: 1452550747}
-  gage3: {fileID: 18186292}
+  gage1Image: {fileID: 1836466714}
+  gage2Image: {fileID: 1452550749}
+  gage3Image: {fileID: 18186294}
   attackEffect: {fileID: 917016468}
 --- !u!1 &161000140
 GameObject:
@@ -2876,7 +2952,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u30A6\u30A7\u30FC\u30D6\u69CB\u6210\n\u3000\u30A6\u30A7\u30FC\u30D6\u6570:2\n\u30001\u30A6\u30A7\u30FC\u30D6\u76EE:\u4E0B\u7D1A\u7570\u5996\u30FB\u8907\u5408\u578B\u7570\u5996\u30FB\u4E0B\u7D1A\u7570\u5996\n\u30002\u30A6\u30A7\u30FC\u30D6\u76EE:\u8089\u98DF\u7363\u578B\u7570\u5996\u30FB\u4E0B\u7D1A\u7570\u5996\u30FB\u8089\u98DF\u7363\u578B\u7570\u5996\n\u6575\u8A73\u7D30\n\u3000\u4E0B\u7D1A\u7570\u5996\n\u3000\u3000\u901A\u5E38\u653B\u6483:\u653B\u6483\u529B\u306E100%\u30C0\u30E1\u30FC\u30B8\n\u3000\u3000\u30C1\u30E3\u30FC\u30B8\u6280:\u653B\u6483\u529B\u306E200%\u30C0\u30E1\u30FC\u30B8\n\u3000\u8907\u5408\u578B\u7570\u5996\n\u3000\u3000\u901A\u5E38\u653B\u6483:\u4F55\u3082\u3057\u306A\u3044\n\u3000\u3000\u30C1\u30E3\u30FC\u30B8\u6280:\u305D\u306E\u30A6\u30A7\u30FC\u30D6\u4E2D\u306B\u6D88\u6EC5\u3057\u305F\u4E0B\u7D1A\u7570\u5996\u304C\u3044\u308B\u5834\u5408\n\u3000\u3000\u3000\u3000\u3000\u3000\u3000
-    \u518D\u751F\u3055\u305B\u308B\n\u3000\u3000\u8089\u98DF\u7363\u578B\u7570\u5996\n\u3000\u3000\u901A\u5E38\u653B\u6483:\u653B\u6483\u529B\u306E100%\u30C0\u30E1\u30FC\u30B8\n\u3000\u3000\u30C1\u30E3\u30FC\u30B8\u6280:\u653B\u6483\u529B\u306E200%\u30C0\u30E1\u30FC\u30B8\n\u3000\u3000\u653B\u6483\u9593\u9694\u304C\u77ED\u304F\u30C1\u30E3\u30FC\u30B8\u3082\u901F\u3044\u3002\u305F\u3060\u3057\u653B\u6483\u529B\u306F\u63A7\u3048\u3081\u3002\n\n\u5473\u65B9\u8A73\u7D30\n\u3000\u30D5\u30A3\u30A2\n\u3000\u3000\u6226\u95D8\u30B9\u30AD\u30EB1:\u653B\u6483\u529B\u306E100%\u30C0\u30E1\u30FC\u30B8\n\u3000\u3000\u6226\u95D8\u30B9\u30AD\u30EB2:\u653B\u6483\u529B\u306E200%\u30C0\u30E1\u30FC\u30B8&\u6575\u306E\u653B\u64831\u79D2\u9045\u5EF6\n\u3000\u3000\u6226\u95D8\u30B9\u30AD\u30EB3:\u653B\u6483\u9593\u9694\u77ED\u7E2E+10&\u56DE\u907F30%&\u30AC\u30FC\u30C9\u4E0D\u80FD&\n\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u653B\u6483\u529B\u4E0A\u660740%(10\u79D2,\u91CD\u306D\u639B\u3051\u4E0D\u53EF,\u4F7F\u7528\u5F8C\n\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u5373\u5EA7\u306B\u884C\u52D5\u53EF\u80FD)\n\u3000\u3000\u5FC5\u6BBA\u6280:\u6575\u5168\u4F53\u306B\u653B\u6483\u529B\u306E300%\u30C0\u30E1\u30FC\u30B8&\u5F37\u6575\u306E\u30AC\u30FC\u30C9\u30B2\u30FC\u30B8\n\u3000\u3000\u3000\u3000\u3000\u3092\u5272\u308B\n\u3000\u30EA\u30FC\u30C0\u30FC\u30B9\u30AD\u30EB\n\u3000\u3000\u4F53\u529B\u652F\u63F4:\u30BB\u30A4\u30F3\u306E\u4F53\u529B\u309250%\u56DE\u5FA9(\u518D\u767A\u52D560\u79D2)\n\u3000\u3000\u653B\u6483\u652F\u63F4:\u30BB\u30A4\u30F3\u306E\u653B\u6483\u529B\u309250%\u4E0A\u6607(15\u79D2,\u518D\u767A\u52D560\u79D2)\n\u3000\u3000\u901F\u5EA6\u652F\u63F4:\u30BB\u30A4\u30F3\u306E\u653B\u6483\u9593\u9694\u77ED\u7E2E+5(20\u79D2,\u518D\u767A\u52D560\u79D2)\n\u3000\u3000\u30AC\u30FC\u30C9:\u6575\u304B\u3089\u306E\u653B\u6483\u306B\u3088\u308B\u30C0\u30E1\u30FC\u30B8\u309290%\u30AB\u30C3\u30C8\u3059\u308B(0.5\u79D2,\n\u3000\u3000\u3000\u3000\u3000\u518D\u767A\u52D54\u79D2)\n\u88DC\u8DB3\u4E8B\u9805\n\u3000\u653B\u6483\u9593\u9694\u77ED\u7E2E+n\n\u3000\u3000\u30A4\u30F3\u30BF\u30FC\u30D0\u30EB\u306E\u30AB\u30A6\u30F3\u30C8\u4FC2\u6570(\u521D\u671F\u502410)\u306B\u5BFE\u3057\u52A0\u7B97\u3055\u308C\u308B\n\u3000\u3000(\u4F8B:\u653B\u6483\u9593\u9694\u77ED\u7E2E+10\u306B\u3088\u308A\u4FC2\u6570\u304C20\u306B\u4E0A\u6607\u3059\u308B\u30682\u500D\u306E\n\u3000\u3000  
+    \u518D\u751F\u3055\u305B\u308B\n\u3000\u3000\u8089\u98DF\u7363\u578B\u7570\u5996\n\u3000\u3000\u901A\u5E38\u653B\u6483:\u653B\u6483\u529B\u306E100%\u30C0\u30E1\u30FC\u30B8\n\u3000\u3000\u30C1\u30E3\u30FC\u30B8\u6280:\u653B\u6483\u529B\u306E200%\u30C0\u30E1\u30FC\u30B8\n\u3000\u3000\u653B\u6483\u9593\u9694\u304C\u77ED\u304F\u30C1\u30E3\u30FC\u30B8\u3082\u901F\u3044\u3002\u305F\u3060\u3057\u653B\u6483\u529B\u306F\u63A7\u3048\u3081\u3002\n\n\u5473\u65B9\u8A73\u7D30\n\u3000\u30D5\u30A3\u30A2\n\u3000\u3000\u6226\u95D8\u30B9\u30AD\u30EB1:\u653B\u6483\u529B\u306E100%\u30C0\u30E1\u30FC\u30B8\n\u3000\u3000\u6226\u95D8\u30B9\u30AD\u30EB2:\u653B\u6483\u529B\u306E200%\u30C0\u30E1\u30FC\u30B8&\u6575\u306E\u653B\u64831\u79D2\u9045\u5EF6\n\u3000\u3000\u6226\u95D8\u30B9\u30AD\u30EB3:\u653B\u6483\u9593\u9694\u77ED\u7E2E+10&\u56DE\u907F30%&\u30AC\u30FC\u30C9\u4E0D\u80FD&\n\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u653B\u6483\u529B\u4E0A\u660740%(10\u79D2,\u91CD\u306D\u639B\u3051\u4E0D\u53EF,\u4F7F\u7528\u5F8C\n\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u5373\u5EA7\u306B\u884C\u52D5\u53EF\u80FD)\n\u3000\u3000\u5FC5\u6BBA\u6280:\u6575\u5168\u4F53\u306B\u653B\u6483\u529B\u306E500%\u30C0\u30E1\u30FC\u30B8&\u5F37\u6575\u306E\u30AC\u30FC\u30C9\u30B2\u30FC\u30B8\n\u3000\u3000\u3000\u3000\u3000\u3092\u5272\u308B\n\u3000\u30EA\u30FC\u30C0\u30FC\u30B9\u30AD\u30EB\n\u3000\u3000\u4F53\u529B\u652F\u63F4:\u30BB\u30A4\u30F3\u306E\u4F53\u529B\u309250%\u56DE\u5FA9(\u518D\u767A\u52D560\u79D2)\n\u3000\u3000\u653B\u6483\u652F\u63F4:\u30BB\u30A4\u30F3\u306E\u653B\u6483\u529B\u309250%\u4E0A\u6607(15\u79D2,\u518D\u767A\u52D560\u79D2)\n\u3000\u3000\u901F\u5EA6\u652F\u63F4:\u30BB\u30A4\u30F3\u306E\u653B\u6483\u9593\u9694\u77ED\u7E2E+5(20\u79D2,\u518D\u767A\u52D560\u79D2)\n\u3000\u3000\u30AC\u30FC\u30C9:\u6575\u304B\u3089\u306E\u653B\u6483\u306B\u3088\u308B\u30C0\u30E1\u30FC\u30B8\u309290%\u30AB\u30C3\u30C8\u3059\u308B(0.5\u79D2,\n\u3000\u3000\u3000\u3000\u3000\u518D\u767A\u52D54\u79D2)\n\u88DC\u8DB3\u4E8B\u9805\n\u3000\u653B\u6483\u9593\u9694\u77ED\u7E2E+n\n\u3000\u3000\u30A4\u30F3\u30BF\u30FC\u30D0\u30EB\u306E\u30AB\u30A6\u30F3\u30C8\u4FC2\u6570(\u521D\u671F\u502410)\u306B\u5BFE\u3057\u52A0\u7B97\u3055\u308C\u308B\n\u3000\u3000(\u4F8B:\u653B\u6483\u9593\u9694\u77ED\u7E2E+10\u306B\u3088\u308A\u4FC2\u6570\u304C20\u306B\u4E0A\u6607\u3059\u308B\u30682\u500D\u306E\n\u3000\u3000  
     \u901F\u3055\u3067\u30AB\u30A6\u30F3\u30C8\u304C\u9032\u3080)"
 --- !u!222 &284677559
 CanvasRenderer:
@@ -6689,7 +6765,7 @@ MonoBehaviour:
   attack: 30
   damageText: {fileID: 1233636409}
   intervalText: {fileID: 1535988544}
-  gage1: {fileID: 1026100204}
+  gage1Image: {fileID: 1026100206}
   attackEffect: {fileID: 1749525945}
   attackEffect2: {fileID: 795096311}
 --- !u!1 &674452832
@@ -8768,9 +8844,9 @@ MonoBehaviour:
   attack: 50
   damageText: {fileID: 450736337}
   intervalText: {fileID: 1139037007}
-  gage1: {fileID: 1029624974}
-  gage2: {fileID: 1893541023}
-  gage3: {fileID: 1664023959}
+  gage1Image: {fileID: 1029624976}
+  gage2Image: {fileID: 1893541025}
+  gage3Image: {fileID: 1664023961}
   attackEffect: {fileID: 882928389}
 --- !u!1 &862631337
 GameObject:
@@ -11311,10 +11387,85 @@ MonoBehaviour:
   attack: 50
   damageText: {fileID: 994487504}
   intervalText: {fileID: 45499482}
-  gage1: {fileID: 1055755065}
-  gage2: {fileID: 1425810652}
-  gage3: {fileID: 1260941164}
+  gage1Image: {fileID: 1055755067}
+  gage2Image: {fileID: 1425810654}
+  gage3Image: {fileID: 1260941166}
   attackEffect: {fileID: 1973439142}
+--- !u!1 &1112847028
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1112847029}
+  - component: {fileID: 1112847031}
+  - component: {fileID: 1112847030}
+  m_Layer: 5
+  m_Name: GrowMask
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1112847029
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112847028}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 93746040}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 50, y: -5}
+  m_SizeDelta: {x: 152, y: 72}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1112847030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112847028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.78431374}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1112847031
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112847028}
+  m_CullTransparentMesh: 1
 --- !u!1 &1127288373
 GameObject:
   m_ObjectHideFlags: 0
@@ -14398,6 +14549,9 @@ MonoBehaviour:
   noSwitch: {fileID: 1944765009}
   yesText: {fileID: 1990384587}
   noText: {fileID: 322999184}
+  growMask1: {fileID: 1112847028}
+  growMask2: {fileID: 814765}
+  black: {fileID: 980818875}
 --- !u!4 &1443028052
 Transform:
   m_ObjectHideFlags: 0
@@ -17987,7 +18141,7 @@ MonoBehaviour:
   attack: 30
   damageText: {fileID: 2146412675}
   intervalText: {fileID: 1857148546}
-  gage1: {fileID: 338664479}
+  gage1Image: {fileID: 338664481}
   attackEffect: {fileID: 1778342625}
   attackEffect2: {fileID: 2065181282}
 --- !u!4 &1825438023
@@ -18472,12 +18626,12 @@ MonoBehaviour:
   specialSkillAnimation: {fileID: 2051004722}
   enemyNumberText: {fileID: 508758961}
   waveNumberText: {fileID: 829898156}
-  lLEnemyManagerObject1: {fileID: 861471350}
-  compEnemyManagerObject: {fileID: 2137434024}
-  lLEnemyManagerObject2: {fileID: 157632542}
-  carnEnemyManagerObject1: {fileID: 669319653}
-  lLEnemyManagerObject3: {fileID: 1106748067}
-  carnEnemyManagerObject2: {fileID: 1825438021}
+  lLEnemyManager1: {fileID: 861471353}
+  compEnemyManager: {fileID: 2137434026}
+  lLEnemyManager2: {fileID: 157632544}
+  carnEnemyManager1: {fileID: 669319655}
+  lLEnemyManager3: {fileID: 1106748069}
+  carnEnemyManager2: {fileID: 1825438022}
 --- !u!1 &1893541023
 GameObject:
   m_ObjectHideFlags: 0
@@ -19147,6 +19301,7 @@ RectTransform:
   - {fileID: 1631641106}
   - {fileID: 326511469}
   - {fileID: 1944765009}
+  - {fileID: 814768}
   m_Father: {fileID: 51881214}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -21307,8 +21462,8 @@ MonoBehaviour:
   attack: 0
   damageText: {fileID: 1412363987}
   intervalText: {fileID: 1582811817}
-  gage1: {fileID: 1394051203}
-  gage2: {fileID: 594452403}
+  gage1Image: {fileID: 1394051205}
+  gage2Image: {fileID: 594452405}
 --- !u!1 &2146412673
 GameObject:
   m_ObjectHideFlags: 0

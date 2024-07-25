@@ -4,36 +4,22 @@ using UnityEngine.SceneManagement;
 
 public class BattleSceneManager3 : BattleSceneManagerOrigin
 {
-    [SerializeField] private GameObject lLEnemyManagerObject1;
-    [SerializeField] private GameObject compEnemyManagerObject;
-    [SerializeField] private GameObject lLEnemyManagerObject2;
-    [SerializeField] private GameObject carnEnemyManagerObject1;
-    [SerializeField] private GameObject lLEnemyManagerObject3;
-    [SerializeField] private GameObject carnEnemyManagerObject2;
-    private LowLevelEnemyManager lLEnemyManager1;
-    private ComplexEnemyManager compEnemyManager;
-    private LowLevelEnemyManager lLEnemyManager2;
-    private CarnivoreEnemyManager carnEnemyManager1;
-    private LowLevelEnemyManager lLEnemyManager3;
-    private CarnivoreEnemyManager carnEnemyManager2;
+    [SerializeField] private LowLevelEnemyManager lLEnemyManager1;
+    [SerializeField]private ComplexEnemyManager compEnemyManager;
+    [SerializeField] private LowLevelEnemyManager lLEnemyManager2;
+    [SerializeField] private ElManager elManager;
 
     // Start is called before the first frame update
     protected override void StartSet()
     {
-        lLEnemyManager1 = lLEnemyManagerObject1.GetComponent<LowLevelEnemyManager>();
-        compEnemyManager = compEnemyManagerObject.GetComponent<ComplexEnemyManager>();
-        lLEnemyManager2 = lLEnemyManagerObject2.GetComponent<LowLevelEnemyManager>();
-        carnEnemyManager1 = carnEnemyManagerObject1.GetComponent<CarnivoreEnemyManager>();
-        lLEnemyManager3 = lLEnemyManagerObject3.GetComponent<LowLevelEnemyManager>();
-        carnEnemyManager2 = carnEnemyManagerObject2.GetComponent<CarnivoreEnemyManager>();
-        numberOfEnemy = new int[] { 3, 3 };
+        numberOfEnemy = new int[] { 3, 1 };
         numberOfWave = 2;
         enemyComposition = new EnemyManagerOrigin[2][];
         enemyComposition[0] = new EnemyManagerOrigin[3] { lLEnemyManager1, compEnemyManager, lLEnemyManager2 };
-        enemyComposition[1] = new EnemyManagerOrigin[3] { carnEnemyManager1, lLEnemyManager3, carnEnemyManager2 };
+        enemyComposition[1] = new EnemyManagerOrigin[1] {  elManager };
         deadEnemyComposition = new bool[2][];
         deadEnemyComposition[0] = new bool[3];
-        deadEnemyComposition[1] = new bool[3];
+        deadEnemyComposition[1] = new bool[1];
         numberOfArriveEnemy = numberOfEnemy[0];
         StartCoroutine(BattleStart());
     }
@@ -42,9 +28,7 @@ public class BattleSceneManager3 : BattleSceneManagerOrigin
         yield return null;
         enemyComposition[0][1].DisSelect();
         enemyComposition[0][2].DisSelect();
-        enemyComposition[1][1].DisSelect();
-        enemyComposition[1][2].DisSelect();
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < numberOfEnemy[1]; i++)
         {
             enemyComposition[1][i].AllObject = false;
         }
@@ -71,7 +55,9 @@ public class BattleSceneManager3 : BattleSceneManagerOrigin
 
     public override void SceneLoad()
     {
+        GameManager.instance.SceneName = "MainScene4_2";
         GameManager.instance.LineNumber = 0;
+        GameManager.instance.Save();
         SceneManager.LoadScene("MainScene4_2");
     }
 }

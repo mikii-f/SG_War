@@ -4,28 +4,16 @@ using UnityEngine.SceneManagement;
 
 public class BattleSceneManager2 : BattleSceneManagerOrigin
 {
-    [SerializeField] private GameObject lLEnemyManagerObject1;
-    [SerializeField] private GameObject compEnemyManagerObject;
-    [SerializeField] private GameObject lLEnemyManagerObject2;
-    [SerializeField] private GameObject carnEnemyManagerObject1;
-    [SerializeField] private GameObject lLEnemyManagerObject3;
-    [SerializeField] private GameObject carnEnemyManagerObject2;
-    private LowLevelEnemyManager lLEnemyManager1;
-    private ComplexEnemyManager compEnemyManager;
-    private LowLevelEnemyManager lLEnemyManager2;
-    private CarnivoreEnemyManager carnEnemyManager1;
-    private LowLevelEnemyManager lLEnemyManager3;
-    private CarnivoreEnemyManager carnEnemyManager2;
+    [SerializeField] private LowLevelEnemyManager lLEnemyManager1;
+    [SerializeField] private ComplexEnemyManager compEnemyManager;
+    [SerializeField] private LowLevelEnemyManager lLEnemyManager2;
+    [SerializeField] private CarnivoreEnemyManager carnEnemyManager1;
+    [SerializeField] private LowLevelEnemyManager lLEnemyManager3;
+    [SerializeField] private CarnivoreEnemyManager carnEnemyManager2;
 
     // Start is called before the first frame update
     protected override void StartSet()
     {
-        lLEnemyManager1 = lLEnemyManagerObject1.GetComponent<LowLevelEnemyManager>();
-        compEnemyManager = compEnemyManagerObject.GetComponent<ComplexEnemyManager>();
-        lLEnemyManager2 = lLEnemyManagerObject2.GetComponent<LowLevelEnemyManager>();
-        carnEnemyManager1 = carnEnemyManagerObject1.GetComponent<CarnivoreEnemyManager>();
-        lLEnemyManager3 = lLEnemyManagerObject3.GetComponent<LowLevelEnemyManager>();
-        carnEnemyManager2 = carnEnemyManagerObject2.GetComponent<CarnivoreEnemyManager>();
         numberOfEnemy = new int[] {3, 3};
         numberOfWave = 2;
         enemyComposition = new EnemyManagerOrigin[2][];
@@ -71,7 +59,9 @@ public class BattleSceneManager2 : BattleSceneManagerOrigin
 
     public override void SceneLoad()
     {
+        GameManager.instance.SceneName = "MainScene3_2";
         GameManager.instance.LineNumber = 0;
+        GameManager.instance.Save();
         SceneManager.LoadScene("MainScene3_2");
     }
 }

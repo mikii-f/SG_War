@@ -28,14 +28,15 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
     protected int currentHP;
     protected int currentGage;
     [SerializeField] private TMP_Text damageText;
-    [SerializeField] private Text intervalText;
+    [SerializeField] protected Text intervalText;
     protected float interval;
     protected float intervalCount;
     protected bool isAttack = false;
     protected bool isDied = false;
     public bool Dead { get { return isDied; } }
-    private bool pause = true;
+    protected bool pause = true;
     public bool Pause { set { pause = value; } }
+    protected bool isShield = false;        //強敵の必殺直前のシールド状態
 
     // Start is called before the first frame update
     void Start()
@@ -146,7 +147,7 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
     public void ReceiveDamage(int damage)
     {
         //今は死んだ敵も完全に消滅させていないため、条件を付けないと必殺で2回目の消滅判定が起きる(必殺側でも対応済みだが念のため)
-        if (!isDied)
+        if (!isDied && !isShield)
         {
             StartCoroutine(DamageDisplay(damage));
             currentHP = Mathf.Max(0, currentHP - damage);
@@ -157,6 +158,14 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
             {
                 StartCoroutine(Died());
             }
+        }
+    }
+    //必殺による強敵のシールド破壊(今回はエルのみになる予定)
+    public void ShieldBreak()
+    {
+        if (isShield)
+        {
+            isShield = false;
         }
     }
     //ダメージ表示(上の関数をコルーチン化してもいい)

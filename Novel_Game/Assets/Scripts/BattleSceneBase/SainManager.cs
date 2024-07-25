@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class SainManager : MonoBehaviour
 {
@@ -73,7 +74,9 @@ public class SainManager : MonoBehaviour
         UnityEngine.Random.InitState(DateTime.Now.Millisecond);
         maxHP = Mathf.Max(GameManager.instance.SainHP, 1000);       //開発中におけるGameManagerの値が設定されていない状況用
         attack = Mathf.Max(GameManager.instance.SainAttack, 50);
+        currentSG = Mathf.Max(GameManager.instance.SainSG, 20);
         currentHP = maxHP;
+        SGslider.value = (float)currentSG / maxSG;
         HPText.text = currentHP.ToString() + "/" + maxHP.ToString();
         SGText.text = currentSG.ToString() + "/" + maxSG.ToString();
         sARect = specialAttack.GetComponent<RectTransform>();
@@ -98,6 +101,15 @@ public class SainManager : MonoBehaviour
         mask.SetActive(false);
         mask2.SetActive(false);
         mask3.SetActive(false);
+        //1戦目はスキルゲージが増えない
+        if (SceneManager.GetActiveScene().name == "BattleScene1")
+        {
+            mask2.SetActive(true);
+            mask3.SetActive(true);
+            currentSG = 0;
+            SGText.text = currentSG.ToString() + "/" + maxSG.ToString();
+            SGslider.value = 0;
+        }
         buffEffect.SetActive(false);
         healEffect.SetActive(false);
         guardEffect.SetActive(false);
@@ -172,7 +184,11 @@ public class SainManager : MonoBehaviour
             mask.SetActive(true);
             //通常攻撃(攻撃力の100% SG回復10)
             StartCoroutine(bSManager.SainSkill1(attack*attackFactor/10, attack1Rect, attack1Image));
-            currentSG = Mathf.Min(maxSG, currentSG + 10);
+            //1戦目は通常攻撃しかできない
+            if (SceneManager.GetActiveScene().name != "BattleScene1")
+            {
+                currentSG = Mathf.Min(maxSG, currentSG + 10);
+            }
             SGCheck();
         }
     }
@@ -229,11 +245,11 @@ public class SainManager : MonoBehaviour
         }
         //自己強化(SG消費20 インターバル半減 ガードが不可能になる 回避率30%上昇 攻撃力上昇) 重ね掛け不可
         currentSG -= 20;
-        SGCheck();
         speedFactor += 10;
         avoidFactor += 3;
         isCannotGuard = true;
         attackFactor += 4;
+        SGCheck();
         float tempTimer = buffTimer;
         yield return new WaitUntil(() => buffTimer - tempTimer >= 10);
         //バフ状況の管理
@@ -256,8 +272,8 @@ public class SainManager : MonoBehaviour
             StartCoroutine(ButtonAnim(sARect));
             StartCoroutine(Invincible(1));
             StartCoroutine(Comment("必殺技発動"));
-            //敵全体に攻撃力300%(SG消費100 時間を止めて専用演出 必殺持ちの敵のガードを割る)
-            StartCoroutine(bSManager.SainToAllAttack(3*attack * attackFactor / 10));
+            //敵全体に攻撃力500%(SG消費100 時間を止めて専用演出 必殺持ちの敵のガードを割る)
+            StartCoroutine(bSManager.SainToAllAttack(5*attack * attackFactor / 10));
             currentSG -= 100;
             SGCheck();
         }

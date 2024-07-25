@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LeaderManager : MonoBehaviour
 {
@@ -42,6 +43,19 @@ public class LeaderManager : MonoBehaviour
         attackIntervalDisplay.SetActive(false);
         speedIntervalDisplay.SetActive(false);
         guardIntervalDisplay.SetActive(false);
+        //1戦目はガードしかできない
+        if (SceneManager.GetActiveScene().name == "BattleScene1")
+        {
+            HPIntervalDisplay.SetActive(true);
+            attackIntervalDisplay.SetActive(true);
+            speedIntervalDisplay.SetActive(true);
+            HPIntervalCount = 99.99f;
+            attackIntervalCount = 99.99f;
+            speedIntervalCount = 99.99f;
+            HPIntervalText.text = HPIntervalCount.ToString("F2");
+            attackIntervalText.text = attackIntervalCount.ToString("F2");
+            speedIntervalText.text = speedIntervalCount.ToString("F2");
+        }
     }
 
     // Update is called once per frame
@@ -69,32 +83,36 @@ public class LeaderManager : MonoBehaviour
             AutoClick();
         }
 
-        //各種アシストのインターバル管理
-        if (HPIntervalCount > 0 && !pause)
+        //各種アシストのインターバル管理(1戦目はガードのみ)
+        if (SceneManager.GetActiveScene().name != "BattleScene1")
         {
-            HPIntervalCount = Mathf.Max(0, HPIntervalCount - Time.deltaTime);
-            HPIntervalText.text = HPIntervalCount.ToString("F2");
-        }
-        else if (HPIntervalCount == 0)
-        {
-            HPIntervalDisplay.SetActive(false);
-        }
-        if (attackIntervalCount > 0 && !pause) {
-            attackIntervalCount = Mathf.Max(0, attackIntervalCount - Time.deltaTime);
-            attackIntervalText.text = attackIntervalCount.ToString("F2");
-        }
-        else if (attackIntervalCount == 0)
-        {
-            attackIntervalDisplay.SetActive(false);
-        }
-        if (speedIntervalCount > 0 && !pause)
-        {
-            speedIntervalCount = Mathf.Max(0,speedIntervalCount - Time.deltaTime);
-            speedIntervalText.text = speedIntervalCount.ToString("F2");
-        }
-        else if (speedIntervalCount == 0)
-        {
-            speedIntervalDisplay.SetActive(false);
+            if (HPIntervalCount > 0 && !pause)
+            {
+                HPIntervalCount = Mathf.Max(0, HPIntervalCount - Time.deltaTime);
+                HPIntervalText.text = HPIntervalCount.ToString("F2");
+            }
+            else if (HPIntervalCount == 0)
+            {
+                HPIntervalDisplay.SetActive(false);
+            }
+            if (attackIntervalCount > 0 && !pause)
+            {
+                attackIntervalCount = Mathf.Max(0, attackIntervalCount - Time.deltaTime);
+                attackIntervalText.text = attackIntervalCount.ToString("F2");
+            }
+            else if (attackIntervalCount == 0)
+            {
+                attackIntervalDisplay.SetActive(false);
+            }
+            if (speedIntervalCount > 0 && !pause)
+            {
+                speedIntervalCount = Mathf.Max(0, speedIntervalCount - Time.deltaTime);
+                speedIntervalText.text = speedIntervalCount.ToString("F2");
+            }
+            else if (speedIntervalCount == 0)
+            {
+                speedIntervalDisplay.SetActive(false);
+            }
         }
         if (guardIntervalCount > 0 && !pause)
         {

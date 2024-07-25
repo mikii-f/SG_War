@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public int SainHP { set { sainHP = value; } get {return sainHP; } }
     private static int sainAttack;
     public int SainAttack { set { sainAttack = value; } get { return sainAttack; } }
+    private int sainSG;
+    public int SainSG { set { sainSG = value; } get { return sainSG; } }
     //そのうちステータスも
     private void Awake()
     {
@@ -36,6 +38,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("exp", exp);
         PlayerPrefs.SetInt("sainHP", sainHP);
         PlayerPrefs.SetInt("sainAttack", sainAttack);
+        PlayerPrefs.SetInt("sainSG", sainSG);
     }
     
     //セーブデータ削除(セーブデータを複数にした場合は選択できるようにする)
@@ -44,8 +47,9 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetString("sceneName", "MainScene0");
         PlayerPrefs.SetInt("lineNumber", 0);
         PlayerPrefs.SetInt("exp", 0);
-        PlayerPrefs.SetInt("sainHP", 1000);
-        PlayerPrefs.SetInt("sainAttack", 50);
+        PlayerPrefs.SetInt("sainHP", 3000);
+        PlayerPrefs.SetInt("sainAttack", 200);
+        PlayerPrefs.SetInt("sainSG", 50);
         Set();
     }
 
@@ -57,5 +61,6 @@ public class GameManager : MonoBehaviour
         exp = PlayerPrefs.GetInt("exp");
         sainHP = PlayerPrefs.GetInt("sainHP");
         sainAttack = PlayerPrefs.GetInt("sainAttack");
+        sainSG = PlayerPrefs.GetInt("sainSG");
     }
 }

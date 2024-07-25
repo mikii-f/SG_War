@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
+//いずれは全体的な見直しが必要(非常にデバッグがしにくい)
+
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
@@ -97,7 +99,7 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         //ダメージを受けた直後、攻撃直後、クリア後は操作できない
-        if (!isDamaged && !isAttacked && !clear)
+        if (!isDamaged && !isAttacked)
         {
             //ジャンプ
             if (Input.GetKeyDown(KeyCode.W) && positionState == PositionState.GROUND)
@@ -243,8 +245,8 @@ public class PlayerManager : MonoBehaviour
         {
             StartCoroutine(NormalAttack());
         }
-        //強攻撃(上手いやり方が見つかったらリザルト画面でも強攻撃だけは使えるようにしたい)
-        if (Input.GetMouseButtonDown(1) && attackPossible && attack2Count == 0 && !clear)
+        //強攻撃
+        if (Input.GetMouseButtonDown(1) && attackPossible && attack2Count == 0)
         {
             StartCoroutine(StrongAttack());
         }
@@ -358,6 +360,7 @@ public class PlayerManager : MonoBehaviour
                     //右上
                     if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D) && former != 3){
                         yield return StartCoroutine(SAExecute(3));
+                        positionState = PositionState.UP;
                         playerState = PlayerState.ATTACK2;
                         playerAnimator.SetInteger("PlayerState", (int)playerState);
                         former = 3;
@@ -374,6 +377,7 @@ public class PlayerManager : MonoBehaviour
                     else if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A) && former != 5)
                     {
                         yield return StartCoroutine(SAExecute(5));
+                        positionState = PositionState.UP;
                         playerState = PlayerState.ATTACK2;
                         playerAnimator.SetInteger("PlayerState", (int)playerState);
                         former = 5;
@@ -406,6 +410,7 @@ public class PlayerManager : MonoBehaviour
                     else if (Input.GetKey(KeyCode.W) && former != 4)
                     {
                         yield return StartCoroutine(SAExecute(4));
+                        positionState = PositionState.UP;
                         playerState = PlayerState.ATTACK2;
                         playerAnimator.SetInteger("PlayerState", (int)playerState);
                         former = 4;
@@ -542,7 +547,7 @@ public class PlayerManager : MonoBehaviour
             }
         }
         //ダメージを受けた直後、攻撃直後、クリア後は操作できない
-        if (!isDamaged && !isAttacked && !clear)
+        if (!isDamaged && !isAttacked)
         {
             //右移動
             if (Input.GetKey(KeyCode.D))
@@ -743,7 +748,7 @@ public class PlayerManager : MonoBehaviour
     //何らかの理由で着地判定ができなかった時用
     public void SetGround()
     {
-        if (positionState == PositionState.DOWN && !isAttack2)
+        if ((positionState == PositionState.DOWN || playerState == PlayerState.JUMPDOWN) && !isAttack2)
         {
             playerState = PlayerState.IDLING;
             positionState = PositionState.GROUND;

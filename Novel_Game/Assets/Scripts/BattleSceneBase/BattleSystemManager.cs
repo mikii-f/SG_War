@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class BattleSystemManager : MonoBehaviour
+public class BattleSystemManager : SystemManagerOrigin
 {
     [SerializeField] private BattleSceneManagerOrigin bSManager;
     [SerializeField] private GameObject menu;
@@ -17,6 +17,9 @@ public class BattleSystemManager : MonoBehaviour
     [SerializeField] private RectTransform noSwitch;
     [SerializeField] private Text yesText;
     [SerializeField] private Text noText;
+    [SerializeField] private GameObject growMask1;
+    [SerializeField] private GameObject growMask2;
+    [SerializeField] private Image black;
     private int messageNumber;
     private bool isMessageDisplay = false;
     private bool isFunctionAvailable = true;
@@ -26,6 +29,12 @@ public class BattleSystemManager : MonoBehaviour
     {
         functions.SetActive(false);
         systemMessageObject.SetActive(false);
+        //1回目の育成を行うまでは育成を選択できない
+        if (GameManager.instance.EXP != 0)
+        {
+            growMask1.SetActive(false);
+        }
+        growMask2.SetActive(false);
     }
 
     // Update is called once per frame
@@ -52,7 +61,7 @@ public class BattleSystemManager : MonoBehaviour
                 {
                     RestartMenuSwitch();
                 }
-                else if (Input.GetKeyDown(KeyCode.Alpha9))
+                else if (Input.GetKeyDown(KeyCode.Alpha9) && !growMask1.activeSelf)
                 {
                     RetreatMenuSwitch();
                 }
@@ -91,6 +100,10 @@ public class BattleSystemManager : MonoBehaviour
     //ゲームオーバー(バトルシーンから呼び出し)
     public void GameOver()
     {
+        if (GameManager.instance.EXP == 0)
+        {
+            growMask2.SetActive(true);
+        }
         isFunctionAvailable = true;
         systemMessage.text = "GAME OVER\n再挑戦しますか？";
         yesText.text = "再挑戦(Y)";
@@ -107,7 +120,7 @@ public class BattleSystemManager : MonoBehaviour
         yesText.text = "再挑戦(Y)";
         noText.text = "戻る(N)";
         messageNumber = 1;
-        systemMessageObject.SetActive(true);
+        StartCoroutine(Delay(systemMessageObject));
         isMessageDisplay = true;
     }
     //撤退(メニューから選択)
@@ -118,7 +131,7 @@ public class BattleSystemManager : MonoBehaviour
         yesText.text = "撤退(Y)";
         noText.text = "戻る(N)";
         messageNumber = 2;
-        systemMessageObject.SetActive(true);
+        StartCoroutine(Delay(systemMessageObject));
         isMessageDisplay = true;
     }
     //デバッグ用スキップ
@@ -129,7 +142,7 @@ public class BattleSystemManager : MonoBehaviour
         yesText.text = "スキップ(Y)";
         noText.text = "戻る(N)";
         messageNumber = 3;
-        systemMessageObject.SetActive(true);
+        StartCoroutine(Delay(systemMessageObject));
         isMessageDisplay = true;
     }
 
@@ -154,7 +167,7 @@ public class BattleSystemManager : MonoBehaviour
             //デバッグ用スキップ
             case 3:
                 StartCoroutine(SceneSkip());
-                systemMessageObject.SetActive(false);
+                StartCoroutine(Delay(systemMessageObject));
                 break;
             default:
                 break;
@@ -163,16 +176,21 @@ public class BattleSystemManager : MonoBehaviour
     //Noボタンを押したときの機能
     public void NoSwitch()
     {
-        StartCoroutine(ButtonAnim(noSwitch));
         switch (messageNumber)
         {
             //ゲームオーバーから育成へ
             case 0:
-                StartCoroutine(GoBackStory());
+                if (!growMask2.activeSelf)
+                {
+                    StartCoroutine(ButtonAnim(noSwitch));
+                    StartCoroutine(GoBackStory());
+                }
                 break;
             //戻る
             default:
-                StartCoroutine(Back(systemMessageObject));
+                StartCoroutine(ButtonAnim(noSwitch));
+                StartCoroutine(Delay(systemMessageObject));
+                isMessageDisplay = false;
                 break;
         }
     }
@@ -180,26 +198,20 @@ public class BattleSystemManager : MonoBehaviour
     //少し待って再読み込み
     private IEnumerator ReloadScene()
     {
-        yield return new WaitForSeconds(0.15f);
+        yield return new WaitForSeconds(0.1f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-    //少し待って閉じる
-    private IEnumerator Back(GameObject gameObject)
-    {
-        yield return new WaitForSeconds(0.15f);
-        gameObject.SetActive(false);
-        isMessageDisplay = false;
     }
     //少し待ってスキップ
     private IEnumerator SceneSkip()
     {
-        yield return new WaitForSeconds(0.15f);
+        yield return new WaitForSeconds(0.1f);
         bSManager.SceneLoad();
     }
     //少し待って直前の場面へ
     private IEnumerator GoBackStory()
     {
-        yield return new WaitForSeconds(0.15f);
+        yield return new WaitForSeconds(0.1f);
+        yield return StartCoroutine(FadeOut(1, black));
         if (GameManager.instance.SceneName == null)
         {
             SceneManager.LoadScene("TitleScene");
@@ -208,15 +220,6 @@ public class BattleSystemManager : MonoBehaviour
         {
             SceneManager.LoadScene(GameManager.instance.SceneName);
         }
-    }
-
-    //ボタンのアニメーション
-    private IEnumerator ButtonAnim(RectTransform rect)
-    {
-        Vector2 temp = rect.localScale;
-        rect.localScale = new(0.9f * temp.x, 0.9f * temp.y);
-        yield return new WaitForSeconds(0.1f);
-        rect.localScale = temp;
     }
 
     public void MenuOn()

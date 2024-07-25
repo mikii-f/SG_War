@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SystemManager : MonoBehaviour
+public class SystemManager : SystemManagerOrigin
 {
     [SerializeField] private TextManagerOrigin textManager;
     [SerializeField] private GameObject menu;
@@ -34,7 +34,7 @@ public class SystemManager : MonoBehaviour
         logTextObject.SetActive(false);
         systemMessageObject.SetActive(false);
         saveSuccessed.SetActive(false);
-        //1回目の育成を行うまでは育成は選択できない
+        //1回目の育成を行うまでは育成を選択できない
         if (GameManager.instance.EXP != 0)
         {
             growMask.SetActive(false);
@@ -136,7 +136,7 @@ public class SystemManager : MonoBehaviour
         StartCoroutine(ButtonAnim(skipSwitchRect));
         systemMessage.text = "このシーンをスキップしますか？";
         messageNumber = 0;
-        systemMessageObject.SetActive(true);
+        StartCoroutine(Delay(systemMessageObject));
         isMessageDisplay = true;
     }
     public void LogSwitch() 
@@ -160,7 +160,7 @@ public class SystemManager : MonoBehaviour
         StartCoroutine(ButtonAnim(growSwitchRect));
         systemMessage.text = "育成に向かいますか？";
         messageNumber = 1;
-        systemMessageObject.SetActive(true);
+        StartCoroutine(Delay(systemMessageObject));
         isMessageDisplay = true;
     }
     public void SaveSwitch()
@@ -168,7 +168,7 @@ public class SystemManager : MonoBehaviour
         StartCoroutine(ButtonAnim(saveSwitchRect));
         systemMessage.text = "進行度を保存しますか？";
         messageNumber = 2;
-        systemMessageObject.SetActive(true);
+        StartCoroutine(Delay(systemMessageObject));
         isMessageDisplay = true;
     }
     public void TitleSwitch() 
@@ -176,7 +176,7 @@ public class SystemManager : MonoBehaviour
         StartCoroutine(ButtonAnim(titleSwitchRect));
         systemMessage.text = "タイトルに戻りますか？\n(自動でセーブされます)";
         messageNumber = 3;
-        systemMessageObject.SetActive(true);
+        StartCoroutine(Delay(systemMessageObject));
         isMessageDisplay = true;
     }
     public void FunctionsClose()
@@ -219,33 +219,18 @@ public class SystemManager : MonoBehaviour
     public void NoSwitch()
     {
         StartCoroutine(ButtonAnim(noSwitch));
-        StartCoroutine(CloseSystemMessage());
+        StartCoroutine(Delay(systemMessageObject));
         isMessageDisplay = false;
-    }
-    //少し待って閉じる
-    private IEnumerator CloseSystemMessage()
-    {
-        yield return new WaitForSeconds(0.15f);
-        systemMessageObject.SetActive(false);
     }
     //セーブ成功を伝えるメッセージ
     private IEnumerator SaveSuccessed()
     {
-        yield return new WaitForSeconds(0.15f);
+        yield return new WaitForSeconds(0.1f);
         systemMessageObject.SetActive(false);
         isMessageDisplay= false;
         saveSuccessed.SetActive(true);
         yield return new WaitForSeconds(3);
         saveSuccessed.SetActive(false);
-    }
-
-    //ボタンのアニメーション
-    private IEnumerator ButtonAnim(RectTransform rect)
-    {
-        Vector2 temp = rect.localScale;
-        rect.localScale = new(0.9f * temp.x, 0.9f * temp.y);
-        yield return new WaitForSeconds(0.1f);
-        rect.localScale = temp;
     }
 
     //テキスト側からメニューの表示非表示

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class AfterManagr : MonoBehaviour
+public class AfterManagr : SystemManagerOrigin
 {
     [SerializeField] private RectTransform titleSwitchRect;
     [SerializeField] private RectTransform wordsSwitchRect;
@@ -14,6 +14,7 @@ public class AfterManagr : MonoBehaviour
     [SerializeField] private Text systemMessage;
     [SerializeField] private RectTransform yesSwitch;
     [SerializeField] private RectTransform noSwitch;
+    [SerializeField] private Image black;
     private int messageNumber;
 
     // Start is called before the first frame update
@@ -43,7 +44,7 @@ public class AfterManagr : MonoBehaviour
         StartCoroutine(ButtonAnim(titleSwitchRect));
         systemMessage.text = "タイトルに戻りますか？";
         messageNumber = 0;
-        systemMessageObject.SetActive(true);
+        StartCoroutine(Delay(systemMessageObject));
     }
     public void WordsSwitch()
     {
@@ -54,7 +55,7 @@ public class AfterManagr : MonoBehaviour
         StartCoroutine(ButtonAnim(growSwitchRect));
         systemMessage.text = "育成に向かいますか？";
         messageNumber = 1;
-        systemMessageObject.SetActive(true);
+        StartCoroutine(Delay(systemMessageObject));
     }
     public void BonusSwitch()
     {
@@ -80,33 +81,19 @@ public class AfterManagr : MonoBehaviour
     public void NoSwitch()
     {
         StartCoroutine(ButtonAnim(noSwitch));
-        StartCoroutine(CloseSystemMessage());
-    }
-    //少し待って閉じる
-    private IEnumerator CloseSystemMessage()
-    {
-        yield return new WaitForSeconds(0.15f);
-        systemMessageObject.SetActive(false);
+        StartCoroutine(Delay(systemMessageObject));
     }
     //タイトルへ
     private IEnumerator GoBackTitle()
     {
-        yield return new WaitForSeconds(0.15f);
+        yield return new WaitForSeconds(0.1f);
+        yield return StartCoroutine(FadeOut(1, black));
         SceneManager.LoadScene("TitleScene");
     }
     //育成へ
     private IEnumerator GoToGrow()
     {
-        yield return new WaitForSeconds(0.15f);
-        SceneManager.LoadScene("3DGameSelectScene");
-    }
-
-    //ボタンのアニメーション
-    private IEnumerator ButtonAnim(RectTransform rect)
-    {
-        Vector2 temp = rect.localScale;
-        rect.localScale = new(0.9f * temp.x, 0.9f * temp.y);
         yield return new WaitForSeconds(0.1f);
-        rect.localScale = temp;
+        SceneManager.LoadScene("3DGameSelectScene");
     }
 }

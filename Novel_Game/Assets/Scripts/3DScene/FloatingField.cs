@@ -41,15 +41,15 @@ public class FloatingField : MonoBehaviour
                 _collider.isTrigger = true;
             }
         }
-        //上にプレイヤー(の足)がきたら実体化
-        else if (playerTransform.position.y > _transform.position.y)
+        //真上にプレイヤー(の足)がきたら実体化
+        else if (playerTransform.position.y > _transform.position.y　&& playerTransform.position.x + playerWidth >= _transform.position.x - myWidth && playerTransform.position.x - playerWidth <= _transform.position.x + myWidth)
         {
             if (_collider.isTrigger)
             {
                 _collider.isTrigger = false;
             }
         }
-        //実体化しているときで、プレイヤーが台の幅に収まっている間は透過しない
+        //台より横にいる間は透過(プレイヤーが台の幅に収まっている間は透過しない)(台が薄いため、そうしないと着地判定が出る前に足が台より下にいくため(?)透過してしまう)
         else if (playerTransform.position.x+playerWidth < _transform.position.x-myWidth || playerTransform.position.x-playerWidth > _transform.position.x+myWidth)
         {
             if (!_collider.isTrigger)

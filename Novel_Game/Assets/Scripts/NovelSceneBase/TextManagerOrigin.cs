@@ -184,11 +184,20 @@ public abstract class TextManagerOrigin : MonoBehaviour
                         case "vier":
                             imagesManager.CharacterChange(1);
                             break;
+                        case "vier_battle":
+                            imagesManager.CharacterChange(21);
+                            break;
                         case "el":
-                            imagesManager.CharacterChange(2);
+                            imagesManager.CharacterChange(51);
+                            break;
+                        case "el_battle":
+                            imagesManager.CharacterChange(71);
+                            break;
+                        case "el_enemy":
+                            imagesManager.CharacterChange(91);
                             break;
                         case "Ghost1":
-                            imagesManager.CharacterChange(11);
+                            imagesManager.CharacterChange(101);
                             break;
                         default:
                             break;

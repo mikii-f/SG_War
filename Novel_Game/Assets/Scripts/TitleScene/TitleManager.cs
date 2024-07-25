@@ -1,8 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class TitleManager : MonoBehaviour
+public class TitleManager : SystemManagerOrigin
 {
     [SerializeField] private RectTransform newGameSwitchRect;
     [SerializeField] private RectTransform continueGameSwitchRect;
@@ -10,28 +11,56 @@ public class TitleManager : MonoBehaviour
     [SerializeField] private RectTransform methodSwitchRect;
     [SerializeField] private GameObject words1;
     [SerializeField] private GameObject method;
+    [SerializeField] private GameObject systemMessageObject;
+    [SerializeField] private RectTransform yesSwitch;
+    [SerializeField] private RectTransform noSwitch;
+    [SerializeField] private Image black;
 
-    // Start is called before the first frame update
     void Start()
     {
         words1.SetActive(false);
         method.SetActive(false);
+        systemMessageObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        //メッセージへの応答
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            if (systemMessageObject.activeSelf)
+            {
+                YesSwitch();
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.N))
+        {
+            if (systemMessageObject.activeSelf)
+            {
+                NoSwitch();
+            }
+        }
     }
 
     public void NewGameSwitch()
     {
         StartCoroutine(ButtonAnim(newGameSwitchRect));
+        StartCoroutine(Delay(systemMessageObject));
+    }
+    public void YesSwitch()
+    {
+        StartCoroutine(ButtonAnim(yesSwitch));
         StartCoroutine(NewGame());
+    }
+    public void NoSwitch()
+    {
+        StartCoroutine(ButtonAnim(noSwitch));
+        StartCoroutine(Delay(systemMessageObject));
     }
     private IEnumerator NewGame()
     {
-        yield return new WaitForSeconds(0.15f);
+        yield return new WaitForSeconds(0.1f);
+        yield return StartCoroutine(FadeOut(2, black));
         GameManager.instance.Initialize();
         SceneManager.LoadScene(GameManager.instance.SceneName);
     }
@@ -42,31 +71,24 @@ public class TitleManager : MonoBehaviour
     }
     private IEnumerator ContinueGame()
     {
-        yield return new WaitForSeconds(0.15f);
+        yield return new WaitForSeconds(0.1f);
+        yield return StartCoroutine(FadeOut(2, black));
         GameManager.instance.Set();
         SceneManager.LoadScene(GameManager.instance.SceneName);
     }
     public void WordsSwitch()
     {
         StartCoroutine(ButtonAnim(wordsSwitchRect));
-        words1.SetActive(true);
+        StartCoroutine(Delay(words1));
     }
     public void MethodSwitch()
     {
         StartCoroutine(ButtonAnim(methodSwitchRect));
-        method.SetActive(true);
+        StartCoroutine(Delay(method));
     }
     public void Close()
     {
         words1.SetActive(false);
         method.SetActive(false);
-    }
-    //ボタンのアニメーション
-    private IEnumerator ButtonAnim(RectTransform rect)
-    {
-        Vector2 temp = rect.localScale;
-        rect.localScale = new(0.9f * temp.x, 0.9f * temp.y);
-        yield return new WaitForSeconds(0.1f);
-        rect.localScale = temp;
     }
 }

@@ -24,7 +24,7 @@ public class ImagesManager3 : ImagesManagerOrigin
             case 1:
                 _characterImage.sprite = vier;
                 break;
-            case 11:
+            case 101:
                 _characterImage.sprite = ghost1;
                 break;
             default:
