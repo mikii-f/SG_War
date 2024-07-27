@@ -1,19 +1,18 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class ImagesManager : ImagesManagerOrigin
 {
     [SerializeField] private Sprite vier;
     [SerializeField] private Sprite el;
+    [SerializeField] private Sprite el_battle;
     [SerializeField] private Sprite backgroundMyRoom;
     [SerializeField] private Sprite backgroundRoad;
     [SerializeField] private Sprite backgroundCity;
 
     protected override void StartSet()
     {
-        blackAllImage.color = new(0, 0, 0, 0.7f);
+        blackAllImage.color = Color.clear;
     }
 
     //—§‚¿ŠGŠÖŒW
@@ -29,6 +28,9 @@ public class ImagesManager : ImagesManagerOrigin
                 break;
             case 51:
                 _characterImage.sprite = el;
+                break;
+            case 71:
+                _characterImage.sprite = el_battle;
                 break;
             default:
                 break;

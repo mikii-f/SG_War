@@ -15,12 +15,18 @@ public class TitleManager : SystemManagerOrigin
     [SerializeField] private RectTransform yesSwitch;
     [SerializeField] private RectTransform noSwitch;
     [SerializeField] private Image black;
+    [SerializeField] private GameObject continueSwitchMask;
 
     void Start()
     {
         words1.SetActive(false);
         method.SetActive(false);
         systemMessageObject.SetActive(false);
+        StartCoroutine(FadeIn(0.5f, black));
+        if (GameManager.instance.SaveData)
+        {
+            continueSwitchMask.SetActive(false);
+        }
     }
 
     private void Update()

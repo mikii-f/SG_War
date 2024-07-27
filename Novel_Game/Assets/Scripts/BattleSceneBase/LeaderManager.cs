@@ -158,7 +158,8 @@ public class LeaderManager : MonoBehaviour
     }
     public void GuardClick()
     {
-        if (guardIntervalCount == 0 && !pause && !sainManager.IsCannotGuard)
+        //if (guardIntervalCount == 0 && !pause && !sainManager.IsCannotGuard)
+        if (guardIntervalCount == 0 && !pause)
         {
             guardIntervalCount = guardInterval;
             StartCoroutine(ButtonAnim(guardRect));

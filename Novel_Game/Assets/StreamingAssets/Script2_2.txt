@@ -7,7 +7,13 @@ FadeIn,1.0,Black,AnimAndGoNext,1.5
 FadeIn,2.0,Character,AnimAndGoNext,2.5
 
 
-CharacterChange,vier,CharacterReset,TextPanelOn,MenuOn
+CharacterChange,vier_battle,CharacterReset,FadeOut,1.0,White,AnimAndGoNext,1.0
+
+
+CharacterChange,vier,FadeIn,0.5,White,AnimAndGoNext,0.5
+
+
+TextPanelOn,MenuOn
 フィア
 倒した、けど……。
 0

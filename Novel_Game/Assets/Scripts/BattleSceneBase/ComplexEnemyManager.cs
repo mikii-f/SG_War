@@ -16,6 +16,7 @@ public class ComplexEnemyManager : EnemyManagerOrigin
         currentGage = 0;
         interval = 6;
         intervalCount = interval;
+        intervalText.text = intervalCount.ToString("F2");
     }
 
     //’ÊíUŒ‚

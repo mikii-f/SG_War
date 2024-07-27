@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public abstract class BattleSceneManagerOrigin : MonoBehaviour
+public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
 {
     [SerializeField] protected SainManager sainManager;
     [SerializeField] protected LeaderManager leaderManager;
@@ -24,13 +24,20 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
     protected int numberOfCurrentWave = 0;      //配列のインデックスとして使うことが多いため0から
     protected int selectedEnemy = 0;
     protected bool isSpecialAttack = false;
+    private bool isEnemySpecialAttack = false;
     private bool isGameOver = false;
+    [SerializeField] private GameObject specialAttackPanel;
+    private RectTransform specialAttackPanelRect;
+    private Image specialAttackPanelImage;
 
     // Start is called before the first frame update
     void Start()
     {
         blackRect = blackObject.GetComponent<RectTransform>();
         blackImage = blackObject.GetComponent<Image>();
+        specialAttackPanelRect = specialAttackPanel.GetComponent<RectTransform>();
+        specialAttackPanelImage = specialAttackPanel.GetComponent<Image>();
+        specialAttackPanelImage.color = new(1, 1, 1, 0);
         specialSkillAnimation.SetActive(false);
         explanation.SetActive(false);
         StartCoroutine(FadeIn(1, blackImage));
@@ -42,6 +49,10 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space) && explanation.activeSelf)
+        {
+            explanation.SetActive(false);
+        }
         //同時押しなどによるバグをなくすためには全てif-elseで繋ぐべきなのか？その場合どれの優先度を高くする？別スクリプトは？
         //攻撃対象の選択
         if (Input.GetKeyDown(KeyCode.A))
@@ -115,30 +126,54 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
         sainManager.ReceiveDamage(damage);
     }
     //敵からの必殺技(ガード・回避不可)
-    public IEnumerator EnemySpecialAttack()
+    public IEnumerator EnemySpecialAttack(int damage)
     {
-        yield return null;
-        /*sainManager.Pause = true;
+        sainManager.Pause = true;
         leaderManager.Pause = true;
-        isSpecialAttack = true;
+        isEnemySpecialAttack = true;
         for (int i = 0; i < numberOfEnemy[numberOfCurrentWave]; i++)
         {
             enemyComposition[numberOfCurrentWave][i].Pause = true;
         }
         yield return new WaitForSeconds(2);
-        specialSkillAnimation.SetActive(true);
+        //specialSkillAnimation.SetActive(true);
         yield return new WaitForSeconds(2.5f);
-        specialSkillAnimation.SetActive(false);
+        //specialSkillAnimation.SetActive(false);
+        sainManager.ReceiveSpecialDamage(damage);
         yield return new WaitForSeconds(2);
         sainManager.Pause = false;
         leaderManager.Pause = false;
-        isSpecialAttack = false;
+        isEnemySpecialAttack = false;
         for (int i = 0; i < numberOfEnemy[numberOfCurrentWave]; i++)
         {
             enemyComposition[numberOfCurrentWave][i].Pause = false;
-        }*/
+        }
     }
-
+    public IEnumerator SpecialAttackName(Sprite sprite)
+    {
+        specialAttackPanelImage.sprite = sprite;
+        StartCoroutine(FadeOut(0.25f, specialAttackPanelImage));
+        specialAttackPanelRect.anchoredPosition = new(-400, 0);
+        //0.25秒で400移動
+        while (specialAttackPanelRect.anchoredPosition.x < 0)
+        {
+            yield return null;
+            Vector2 pos = specialAttackPanelRect.anchoredPosition;
+            pos.x = Mathf.Min(pos.x + 1600 * Time.deltaTime, 0);
+            specialAttackPanelRect.anchoredPosition = pos;
+        }
+        specialAttackPanelImage.color = Color.white;
+        yield return new WaitForSeconds(1);
+        StartCoroutine(FadeIn(0.25f, specialAttackPanelImage));
+        while (specialAttackPanelRect.anchoredPosition.x < 400)
+        {
+            yield return null;
+            Vector2 pos = specialAttackPanelRect.anchoredPosition;
+            pos.x = Mathf.Min(pos.x + 1600 * Time.deltaTime, 400);
+            specialAttackPanelRect.anchoredPosition = pos;
+        }
+        specialAttackPanelImage.color = new(1, 1, 1, 0);
+    }
     //敵への攻撃の着弾地点取得
     private float AttackPoint()
     {
@@ -364,31 +399,6 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
         leaderManager.Pause = false;
     }
 
-    //戦闘開始時・終了時のフェード
-    protected IEnumerator FadeIn(float fadeTime, Image image)
-    {
-        float waitTime = 0.1f;
-        float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
-        for (float alpha = 255.0f; alpha >= 0f; alpha -= alphaChangeAmount)
-        {
-            Color newColor = image.color;
-            newColor.a = alpha / 255.0f;
-            image.color = newColor;
-            yield return new WaitForSeconds(waitTime);
-        }
-    }
-    protected IEnumerator FadeOut(float fadeTime, Image image)
-    {
-        float waitTime = 0.1f;
-        float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
-        for (float alpha = 0.0f; alpha <= 255.0f; alpha += alphaChangeAmount)
-        {
-            Color newColor = image.color;
-            newColor.a = alpha / 255.0f;
-            image.color = newColor;
-            yield return new WaitForSeconds(waitTime);
-        }
-    }
     //ウェーブ遷移時のワイプ(0.5+2+0.5秒)
     private IEnumerator Wipe()
     {
@@ -416,6 +426,8 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
     //ゲームオーバー処理
     public IEnumerator GameOver()
     {
+        //必殺技によって倒された場合にPause処理が競合するのを避けるため
+        yield return new WaitUntil(() => !isEnemySpecialAttack);
         isGameOver = true;
         sainManager.Pause = true;
         leaderManager.Pause = true;

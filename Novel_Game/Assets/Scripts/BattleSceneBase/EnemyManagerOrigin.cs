@@ -91,7 +91,7 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
         float diffX = -attackRect.anchoredPosition.x;
         float diffY = -100;
         float diffScale = attackRect.localScale.x * 2;
-        while (true)
+        while (attackRect.anchoredPosition.y > -100)
         {
             Vector2 temp = attackRect.anchoredPosition;
             Vector2 temp2 = attackRect.localScale;
@@ -103,10 +103,6 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
             temp2.y += diffScale * Time.deltaTime * 2;
             attackRect.anchoredPosition = temp;
             attackRect.localScale = temp2;
-            if (temp.y <= -100)
-            {
-                break;
-            }
             yield return null;
         }
         //’…’eEÁ–Å
@@ -198,7 +194,7 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
     }
     public void ReceiveDelay()
     {
-        if (!isAttack)
+        if (!isAttack && !isShield)
         {
             intervalCount += 1;
         }

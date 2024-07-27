@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class BattleSceneManager2 : BattleSceneManagerOrigin
 {
@@ -10,6 +11,8 @@ public class BattleSceneManager2 : BattleSceneManagerOrigin
     [SerializeField] private CarnivoreEnemyManager carnEnemyManager1;
     [SerializeField] private LowLevelEnemyManager lLEnemyManager3;
     [SerializeField] private CarnivoreEnemyManager carnEnemyManager2;
+    [SerializeField] private GameObject tutorialPanel;
+    [SerializeField] private Text tutorialText;
 
     // Start is called before the first frame update
     protected override void StartSet()
@@ -23,6 +26,7 @@ public class BattleSceneManager2 : BattleSceneManagerOrigin
         deadEnemyComposition[0] = new bool[3];
         deadEnemyComposition[1] = new bool[3];
         numberOfArriveEnemy = numberOfEnemy[0];
+        tutorialPanel.SetActive(false);
         StartCoroutine(BattleStart());
     }
     private IEnumerator BattleStart()
@@ -37,6 +41,23 @@ public class BattleSceneManager2 : BattleSceneManagerOrigin
             enemyComposition[1][i].AllObject = false;
         }
         yield return new WaitForSeconds(2);
+        tutorialPanel.SetActive(true);
+        tutorialText.text = "今回は複数体の敵との戦闘となります。";
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
+        yield return null;
+        tutorialText.text = "敵の詳細を確認し、優先して倒すべき敵を見極めましょう。";
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
+        yield return null;
+        tutorialText.text = "A/Dキーにより敵ターゲットを切り替えることができます。";
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
+        yield return null;
+        tutorialText.text = "また、全ての攻撃をガードするのは困難です。強力な攻撃を重点的にガードするようにしましょう。";
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
+        yield return null;
+        tutorialText.text = "戦闘スキル3を使用して回避率を上げる、必殺技で一掃するといった戦略も有効です。";
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
+        yield return null;
+        tutorialPanel.SetActive(false);
         explanation.SetActive(true);
         yield return new WaitUntil(() => !explanation.activeSelf);
         battleStartAndFinishText.text = "3";

@@ -22,6 +22,7 @@ public class LowLevelEnemyManager : EnemyManagerOrigin
         currentGage = 0;
         interval = 5;
         intervalCount = interval;
+        intervalText.text = intervalCount.ToString("F2");
     }
 
     //’ÊíUŒ‚

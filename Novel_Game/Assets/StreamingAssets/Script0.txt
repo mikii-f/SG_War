@@ -10,10 +10,13 @@ TextPanelOn,MenuOn
 CharacterChange,vier_battle
 ？？？
 ようやく追い詰めた！
-0
+CharacterChange,Command
+統率個体
+────────！
+CharacterChange,vier_battle,CharacterColor
 剣羽和人
 ああ！だが、辿り着けたのは俺たち2人だけか……！
-0
+CharacterReset
 ？？？
 みんな自分の役目を果たしてる！私たちは私たちの役目を果たそう！／それに……私たち2人なら絶対勝てる、そうでしょ？
 0

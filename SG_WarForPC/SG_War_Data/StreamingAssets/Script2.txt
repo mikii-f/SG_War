@@ -13,6 +13,9 @@ TextPanelOn,MenuOn,BackgroundChange,Road
 0
 剣羽和人
 とはいえ、これといった進路も考えてないんだ。今は選択肢を増やせるように────────ん？
+CharacterRect,1100,-360,CharacterChange,Ghost1,FadeIn,0.5,Character,AnimAndGoNext,0.5
+
+
 0
 
 今、視界の隅に何か、いるはずのないものが映ったような。
@@ -28,7 +31,7 @@ TextPanelOn,MenuOn,BackgroundChange,Road
 Wipe1
 
 
-Wipe2,CharacterChange,vier,BackgroundChange,MyRoom
+Wipe2,CharacterReset,CharacterChange,vier,BackgroundChange,MyRoom
 
 
 0
@@ -99,6 +102,9 @@ Wipe1
 
 Wipe2,BackgroundChange,Road
 
+
+0
+
 夜の住宅街を歩く。
 0
 
@@ -159,7 +165,16 @@ CharacterChange,vier,TextPanelOn
 (嫌な予感が当たりやがった…………！)／フィア！とりあえず敵は一体だけだ！久々だがやれるな！？
 0
 フィア
-う、うん！もちろん！リーダーの方こそちゃんと指示お願いね！
+う、うん！もちろん！
+FadeOut,1.0,White,AnimAndGoNext,1.0
+
+
+CharacterChange,vier_battle,FadeIn,0.5,White,AnimAndGoNext,0.5
+
+
+0
+
+リーダーの方こそ、ちゃんと指示お願いね！
 Save,MenuOff,FadeOut,2.0,Black,AnimAndGoNext,3.0
 
 

@@ -1,10 +1,16 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ImagesManager3 : ImagesManagerOrigin
 {
+    [SerializeField] private Image characterImage2;
+    [SerializeField] private Image characterImage3;
     [SerializeField] private Sprite vier;
+    [SerializeField] private Sprite vier_battle;
     [SerializeField] private Sprite ghost1;
+    [SerializeField] private Sprite ghost2;
+    [SerializeField] private Sprite ghost3;
     [SerializeField] private Sprite backgroundMyRoom;
     [SerializeField] private Sprite backgroundRoad;
 
@@ -20,12 +26,22 @@ public class ImagesManager3 : ImagesManagerOrigin
         {
             case 0:
                 _characterImage.sprite = noneSprite;
+                characterImage2.sprite = noneSprite;
+                characterImage3.sprite = noneSprite;
                 break;
             case 1:
                 _characterImage.sprite = vier;
                 break;
+            case 21:
+                _characterImage.sprite = vier_battle;
+                break;
             case 101:
                 _characterImage.sprite = ghost1;
+                break;
+            case 111:
+                _characterImage.sprite = ghost1;
+                characterImage2.sprite = ghost2;
+                characterImage3.sprite = ghost3;
                 break;
             default:
                 break;

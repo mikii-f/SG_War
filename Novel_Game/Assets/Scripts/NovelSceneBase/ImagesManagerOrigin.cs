@@ -115,6 +115,9 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
             case "Black":
                 StartCoroutine(FadeOut(n, blackAllImage));
                 break;
+            case "White":
+                StartCoroutine(FadeOut(n, whiteImage));
+                break;
             case "Character":
                 StartCoroutine(FadeOut(n, _characterImage));
                 break;
@@ -129,6 +132,9 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         {
             case "Black":
                 StartCoroutine(FadeIn(n, blackAllImage));
+                break;
+            case "White":
+                StartCoroutine(FadeIn(n, whiteImage));
                 break;
             case "Character":
                 StartCoroutine(FadeIn(n, _characterImage));
@@ -274,7 +280,16 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     {
         _backgroundRect.anchoredPosition = new(480, 0);
     }
-
+    //話していないキャラクターの暗転用
+    public void CharacterColor()
+    {
+        _characterImage.color = new(0.5f, 0.5f, 0.5f, 1);
+    }
+    //キャラクターの位置を設定
+    public void CharacterRect(int x, int y)
+    {
+        _characterRect.anchoredPosition = new(x, y);
+    }
     //キャラクターのサイズ・位置・透明度をリセット
     public void CharacterReset()
     {

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -421,7 +421,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\u30B7\u30CA\u30EA\u30AA\u30E9\u30A4\u30BF\u30FC\n\u6625\u5BAE\u30C8\u30AD\n\n\n\n\u30A4\u30E9\u30B9\u30C8\n\u6625\u5BAE\u30C8\u30AD\n\n\n\n3D\u30E2\u30C7\u30EB\u5236\u4F5C\n\u6625\u5BAE\u30C8\u30AD\n\n\n\n\u30B9\u30AF\u30EA\u30D7\u30C8\n\u6625\u5BAE\u30C8\u30AD\n\n\n\n\u4F01\u753B\n\u6625\u5BAE\u30C8\u30AD\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\u7DCF\u76E3\u7763\n\u6625\u5BAE\u30C8\u30AD"
+  m_Text: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\u30B7\u30CA\u30EA\u30AA\u30E9\u30A4\u30BF\u30FC\n\u6625\u5BAE\u30C8\u30AD\n\n\n\n\u30A4\u30E9\u30B9\u30C8\n\u6625\u5BAE\u30C8\u30AD\n\n\n\n3D\u30E2\u30C7\u30EB\u5236\u4F5C\n\u6625\u5BAE\u30C8\u30AD\n\n\n\n\u30B9\u30AF\u30EA\u30D7\u30C8\n\u6625\u5BAE\u30C8\u30AD\n\n\n\n\u4F01\u753B\n\u6625\u5BAE\u30C8\u30AD\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\u7DCF\u76E3\u7763\n\u6625\u5BAE\u30C8\u30AD"
 --- !u!222 &438836960
 CanvasRenderer:
   m_ObjectHideFlags: 0

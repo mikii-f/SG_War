@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class BattleSceneManager0 : BattleSceneManagerOrigin
 {
-    [SerializeField] private LowLevelEnemyManager lLEnemyManager;
+    [SerializeField] private CommandManager commandManager;
     [SerializeField] private GameObject tutorialPanel;
     [SerializeField] private Text tutorialText;
     [SerializeField] private GameObject enemyFrame;
@@ -19,7 +19,7 @@ public class BattleSceneManager0 : BattleSceneManagerOrigin
         numberOfEnemy = new int[] { 1 };
         numberOfWave = 1;
         enemyComposition = new EnemyManagerOrigin[1][];
-        enemyComposition[0] = new EnemyManagerOrigin[] { lLEnemyManager };
+        enemyComposition[0] = new EnemyManagerOrigin[] { commandManager };
         deadEnemyComposition = new bool[1][];
         deadEnemyComposition[0] = new bool[1];
         numberOfArriveEnemy = numberOfEnemy[0];
@@ -47,6 +47,9 @@ public class BattleSceneManager0 : BattleSceneManagerOrigin
         sainFrame1.SetActive(true);
         yield return null;
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
+        tutorialText.text = "カウントが0の状態で待機しているときは敵からのダメージを自動で50%カットします。";
+        yield return null;
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
         tutorialText.text = "戦闘スキルにはSG(スキルゲージ)を回復するものと消費するものがあります。";
         yield return null;
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
@@ -72,9 +75,6 @@ public class BattleSceneManager0 : BattleSceneManagerOrigin
         yield return null;
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
         leaderFrame.SetActive(false);
-        tutorialText.text = "今回敵は1体ですが、敵が複数体存在するときはA/Dキーで攻撃対象を選択することができます。";
-        yield return null;
-        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
         systemFrame.SetActive(true);
         tutorialText.text = "全てのウェーブで全ての敵を倒すと勝利、味方のHPが0になると敗北です。";
         yield return null;
@@ -98,7 +98,7 @@ public class BattleSceneManager0 : BattleSceneManagerOrigin
         battleStartAndFinishText.text = "";
         sainManager.Pause = false;
         leaderManager.Pause = false;
-        lLEnemyManager.Pause = false;
+        commandManager.Pause = false;
     }
 
     public override void SceneLoad()

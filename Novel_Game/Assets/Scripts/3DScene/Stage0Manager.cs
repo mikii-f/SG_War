@@ -16,6 +16,10 @@ public class Stage0Manager : StageManagerOrigin
         {
             method.SetActive(!method.activeSelf);
         }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Next();
+        }
     }
     
     public void Next()

@@ -16,16 +16,16 @@ TextPanelOn,MenuOn
 0
 ？？？
 ────て。──────い──
-CharacterChange,el
+CharacterChange,el_battle,CharacterColor
 ？？？
 ──きて。起きて！まだ戦いは終わっていないの。お願い、どうか届いて──────
-FadeOut,2.0,Black,AnimAndGoNext,3.0,MenuOff
+CharacterReset,FadeIn,2.0,Character,AnimAndGoNext,3.0,MenuOff
 
 
-TextPanelOff,CharacterChange,transparent,BlackOff,TitleCoal
+TextPanelOff,BlackOff,TitleCoal
 
 
-TextPanelOn,MenuOn,BlackOUOn,BackgroundChange,MyRoom,CharacterChange,vier
+TextPanelOn,MenuOn,BlackOUOn,BackgroundChange,MyRoom,CharacterChange,vier,CharacterReset
 
 何か、夢を見ていた気がする。
 0

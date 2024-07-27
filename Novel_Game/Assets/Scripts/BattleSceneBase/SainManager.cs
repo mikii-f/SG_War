@@ -5,7 +5,7 @@ using TMPro;
 using System;
 using UnityEngine.SceneManagement;
 
-public class SainManager : MonoBehaviour
+public class SainManager : SystemManagerOrigin
 {
     [SerializeField] private BattleSceneManagerOrigin bSManager;
     [SerializeField] private RectTransform myRect;
@@ -48,13 +48,15 @@ public class SainManager : MonoBehaviour
     [SerializeField] private Sprite attackBuffIcon;
     [SerializeField] private Sprite speedBuffIcon;
     [SerializeField] private Sprite avoidBuffIcon;
-    [SerializeField] private Sprite cannotGuardIcon;
+    //[SerializeField] private Sprite cannotGuardIcon;
     [SerializeField] private GameObject commentPanel;
     private RectTransform commentPanelRect;
     [SerializeField] private Text comment;
+    [SerializeField] private Sprite specialAttackNameSprite;
     private bool isGuard = false;
-    private bool isCannotGuard = false;
-    public bool IsCannotGuard { get { return isCannotGuard; } }
+    //private bool isCannotGuard = false;
+    //public bool IsCannotGuard { get { return isCannotGuard; } }   ガード不可はデメリットとして大きすぎるのでいったん外す
+    private bool isSkill3 = false;
     private bool isInvincible = false;
     //整数値で係数を扱うことで簡単化(floatは色々とめんどい)(/10の処理に問題がないよう気をつける)
     private int attackFactor = 10;
@@ -161,7 +163,7 @@ public class SainManager : MonoBehaviour
                         BattleSkill3Click();
                     }
                     //S3使用中はスキル2を優先して使用
-                    else if (isCannotGuard && currentSG >= 10)
+                    else if (isSkill3 && currentSG >= 10)
                     {
                         BattleSkill2Click();
                     }
@@ -209,8 +211,8 @@ public class SainManager : MonoBehaviour
     //クリックの受け取りはコルーチンにできないっぽい
     public void BattleSkill3Click()
     {
-        //インターバルの確認＆SG>=20＆ガード不可でない(他にガード不可を付与する効果を作った時には別フラグを用意)
-        if (intervalCount == 0 && currentSG >= 20 && !pause && !isCannotGuard)
+        //インターバルの確認＆SG>=20＆スキル3使用中でない
+        if (intervalCount == 0 && currentSG >= 20 && !pause && !isSkill3)
         {
             StartCoroutine(BattleSkill3());
         }
@@ -229,8 +231,8 @@ public class SainManager : MonoBehaviour
             {
                 buffAndDebuffs[i].sprite = speedBuffIcon;
                 buffAndDebuffs[i + 1].sprite = avoidBuffIcon;
-                buffAndDebuffs[i + 2].sprite = cannotGuardIcon;
-                buffAndDebuffs[i + 3].sprite = attackBuffIcon;
+                buffAndDebuffs[i + 2].sprite = attackBuffIcon;
+                //buffAndDebuffs[i + 3].sprite = cannotGuardIcon;
                 for (int j=0; j<buffDebuffNumber; j++)
                 {
                     if (buffIndex[j] == -1)
@@ -243,21 +245,21 @@ public class SainManager : MonoBehaviour
                 break;
             }
         }
-        //自己強化(SG消費20 インターバル半減 ガードが不可能になる 回避率30%上昇 攻撃力上昇) 重ね掛け不可
+        //自己強化(SG消費20 インターバル半減 回避率30%上昇 攻撃力上昇) 重ね掛け不可
         currentSG -= 20;
         speedFactor += 10;
         avoidFactor += 3;
-        isCannotGuard = true;
         attackFactor += 4;
+        isSkill3 = true;
         SGCheck();
         float tempTimer = buffTimer;
         yield return new WaitUntil(() => buffTimer - tempTimer >= 10);
         //バフ状況の管理
-        BuffIndexCheck(index, 4);
+        BuffIndexCheck(index, 3);
         speedFactor -= 10;
         avoidFactor -= 3;
-        isCannotGuard = false;
         attackFactor -= 4;
+        isSkill3 = false;
         if (currentSG >= 20)
         {
             mask3.SetActive(false);
@@ -271,13 +273,14 @@ public class SainManager : MonoBehaviour
         {
             StartCoroutine(ButtonAnim(sARect));
             StartCoroutine(Invincible(1));
-            StartCoroutine(Comment("必殺技発動"));
+            StartCoroutine(bSManager.SpecialAttackName(specialAttackNameSprite));
             //敵全体に攻撃力500%(SG消費100 時間を止めて専用演出 必殺持ちの敵のガードを割る)
             StartCoroutine(bSManager.SainToAllAttack(5*attack * attackFactor / 10));
             currentSG -= 100;
             SGCheck();
         }
     }
+    
     //主に必殺技発動直後のための無敵時間
     private IEnumerator Invincible(float invincibleTime)
     {
@@ -299,7 +302,7 @@ public class SainManager : MonoBehaviour
         {
             sAImage.color = new(0.4f, 0.4f, 0.4f, 1);
         }
-        if (currentSG >= 20 && !isCannotGuard)
+        if (currentSG >= 20 && !isSkill3)
         {
             mask3.SetActive(false);
         }
@@ -375,6 +378,20 @@ public class SainManager : MonoBehaviour
             StartCoroutine(bSManager.GameOver());
         }
     }
+    //必殺技ダメージを受ける(ガード等無効)
+    public void ReceiveSpecialDamage(int damage)
+    {
+        StartCoroutine(DamageVibration());
+        StartCoroutine(DamageDisplay(damage));
+        currentHP = Mathf.Max(0, currentHP - damage);
+        HPslider.value = (float)currentHP / maxHP;
+        HPText.text = currentHP.ToString() + "/" + maxHP.ToString();
+        if (currentHP == 0)
+        {
+            StartCoroutine(bSManager.GameOver());
+        }
+    }
+
     //ダメージ表示(再表示できるように上の関数から分離)
     private IEnumerator DamageDisplay(int damage)
     {
@@ -432,16 +449,12 @@ public class SainManager : MonoBehaviour
     //ガード状態になる
     public IEnumerator ReceiveGuard()
     {
-        if (!isCannotGuard)
-        {
-            isGuard = true;
-            guardEffect.SetActive(true);
-            float tempTimer = buffTimer;
-            yield return new WaitUntil(() => buffTimer - tempTimer >= 0.5f);
-            isGuard = false;
-            guardEffect.SetActive(false);
-        }
-    }
+        isGuard = true;
+        guardEffect.SetActive(true);
+        float tempTimer = buffTimer;
+        yield return new WaitUntil(() => buffTimer - tempTimer >= 0.5f);
+        isGuard = false;
+        guardEffect.SetActive(false);    }
     //体力アシストを受ける(暫定400回復)
     public void ReceiveHPAssist()
     {
@@ -509,14 +522,6 @@ public class SainManager : MonoBehaviour
         speedFactor -= 5;
     }
 
-    //ボタンのアニメーション
-    private IEnumerator ButtonAnim(RectTransform rect)
-    {
-        Vector2 temp = rect.localScale;
-        rect.localScale = new(0.9f*temp.x, 0.9f*temp.y);
-        yield return new WaitForSeconds(0.1f);
-        rect.localScale = temp;
-    }
     //バフなどのアニメーション(フェードいる？)
     private IEnumerator EffectOnandOff(GameObject effect)
     {

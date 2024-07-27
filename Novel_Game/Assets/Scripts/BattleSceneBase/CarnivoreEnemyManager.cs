@@ -27,6 +27,7 @@ public class CarnivoreEnemyManager : EnemyManagerOrigin
         currentGage = 0;
         interval = 3;
         intervalCount = interval;
+        intervalText.text = intervalCount.ToString("F2");
     }
 
     //’ÊíUŒ‚

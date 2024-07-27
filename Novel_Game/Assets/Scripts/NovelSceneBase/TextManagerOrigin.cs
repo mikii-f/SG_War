@@ -126,7 +126,7 @@ public abstract class TextManagerOrigin : MonoBehaviour
         lineNumber++;
     }
 
-    //テキストに記述した機能コードに応じて関数呼び出し
+    //テキストに記述した機能コードに応じて関数呼び出し(複数キャラクターの表示にも対応させたいところ)(現状だと1行の中で時間差で演出を動作させることができない)
     private void SelectFunction(string[] s)
     {
         int n = s.Length;
@@ -199,6 +199,12 @@ public abstract class TextManagerOrigin : MonoBehaviour
                         case "Ghost1":
                             imagesManager.CharacterChange(101);
                             break;
+                        case "Command":
+                            imagesManager.CharacterChange(106);
+                            break;
+                        case "Enemys":
+                            imagesManager.CharacterChange(111);
+                            break;
                         default:
                             break;
                     }
@@ -242,7 +248,18 @@ public abstract class TextManagerOrigin : MonoBehaviour
                     {
                         StopCoroutine(slideCoroutine);
                         imagesManager.SlideStop();
-                    }                    break;
+                    }                    
+                    break;
+                case "CharacterColor":
+                    imagesManager.CharacterColor();
+                    break;
+                case "CharacterRect":
+                    i++;
+                    int x = int.Parse(s[i]);
+                    i++;
+                    int y = int.Parse(s[i]);
+                    imagesManager.CharacterRect(x, y);
+                    break;
                 case "CharacterReset":
                     imagesManager.CharacterReset();
                     break;

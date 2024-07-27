@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     public int SainAttack { set { sainAttack = value; } get { return sainAttack; } }
     private int sainSG;
     public int SainSG { set { sainSG = value; } get { return sainSG; } }
+    private bool saveData = false;
+    public bool SaveData { get { return saveData; } }
     //そのうちステータスも
     private void Awake()
     {
@@ -24,6 +26,10 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
             Application.targetFrameRate = 60;           //60FPS固定
+            if (PlayerPrefs.GetString("sceneNeme") != null)
+            {
+                saveData = true;
+            }
         }
         else
         {
