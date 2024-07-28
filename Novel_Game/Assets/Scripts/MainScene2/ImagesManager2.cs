@@ -8,6 +8,7 @@ public class ImagesManager2 : ImagesManagerOrigin
     [SerializeField] private Sprite ghost1;
     [SerializeField] private Sprite backgroundMyRoom;
     [SerializeField] private Sprite backgroundRoad;
+    [SerializeField] private Sprite backgroundRoadNight;
 
     protected override void StartSet()
     {
@@ -48,6 +49,9 @@ public class ImagesManager2 : ImagesManagerOrigin
                 break;
             case 2:
                 _backgroundImage.sprite = backgroundRoad;
+                break;
+            case 5:
+                _backgroundImage.sprite = backgroundRoadNight;
                 break;
             default:
                 break;

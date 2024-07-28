@@ -1817,8 +1817,9 @@ MonoBehaviour:
   ghost1: {fileID: 21300000, guid: f073aa36522233346981af266d175b33, type: 3}
   ghost2: {fileID: 21300000, guid: c08e6e32355eff5439820774466315a3, type: 3}
   ghost3: {fileID: 21300000, guid: c5a30e2d97aea9b4baa6c833c8e224b3, type: 3}
-  backgroundMyRoom: {fileID: 21300000, guid: 8ae09be083a5f724fb97b7d977cccfaa, type: 3}
+  backgroundMyRoom: {fileID: 21300000, guid: 034ce8998b3d5c24ab3b6abc9c6281e8, type: 3}
   backgroundRoad: {fileID: 21300000, guid: 96017ba2085e54d41b9c87a53f91f1a8, type: 3}
+  backgroundRoadNight: {fileID: 21300000, guid: 27f7ae69d0b360747ba4ed8e14f33327, type: 3}
 --- !u!1 &703895376
 GameObject:
   m_ObjectHideFlags: 0

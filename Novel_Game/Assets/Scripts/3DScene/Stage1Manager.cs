@@ -145,7 +145,7 @@ public class Stage1Manager : StageManagerOrigin
             GameManager.instance.Save();
             messageText.text = "スキル2・3が開放されました\n必殺技が開放されました\nリーダースキル「体力支援」「攻撃支援」「速度支援」が開放されました";
             messagePanel.SetActive(true);
-            yield return new WaitUntil(() => Input.GetMouseButton(0));
+            yield return new WaitUntil(() => Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space));
             messagePanel.SetActive(false);
             yield return new WaitForSeconds(1);
         }
@@ -160,7 +160,7 @@ public class Stage1Manager : StageManagerOrigin
                 GameManager.instance.Save();
                 messageText.text = "体力：1000→1400\n攻撃力：50→90\n初期SG：20→30";
                 messagePanel.SetActive(true);
-                yield return new WaitUntil(() => Input.GetMouseButton(0));
+                yield return new WaitUntil(() => Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space));
                 messagePanel.SetActive(false);
                 yield return new WaitForSeconds(1);
             }
@@ -179,7 +179,7 @@ public class Stage1Manager : StageManagerOrigin
                 GameManager.instance.Save();
                 messageText.text = "体力：1400→1700\n攻撃力：90→120";
                 messagePanel.SetActive(true);
-                yield return new WaitUntil(() => Input.GetMouseButton(0));
+                yield return new WaitUntil(() => Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space));
                 messagePanel.SetActive(false);
                 yield return new WaitForSeconds(1);
             }
@@ -199,7 +199,7 @@ public class Stage1Manager : StageManagerOrigin
                 GameManager.instance.Save();
                 messageText.text = "体力：1700→2000\n攻撃力：120→150\n初期SG：30→40";
                 messagePanel.SetActive(true);
-                yield return new WaitUntil(() => Input.GetMouseButton(0));
+                yield return new WaitUntil(() => Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space));
                 messagePanel.SetActive(false);
                 yield return new WaitForSeconds(1);
             }
@@ -213,7 +213,7 @@ public class Stage1Manager : StageManagerOrigin
             GameManager.instance.EXP += score;
             GameManager.instance.Save();
         }
-        yield return new WaitUntil(() => Input.GetMouseButton(0));
+        yield return new WaitUntil(() => Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space));
         SceneManager.LoadScene("3DGameSelectScene");
     }
 }

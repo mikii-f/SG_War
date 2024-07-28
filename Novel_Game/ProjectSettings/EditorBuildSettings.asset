@@ -62,4 +62,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/3DGameScene1.unity
     guid: 6683cd90eebfee44f95cda4a9ac89365
+  - enabled: 1
+    path: Assets/Scenes/ExtraBattle1.unity
+    guid: ede98903f7db8f5448668d23a0655e42
   m_configObjects: {}

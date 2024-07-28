@@ -12,6 +12,8 @@ public class ImagesManager4 : ImagesManagerOrigin
     [SerializeField] private Sprite backgroundMyRoom;
     [SerializeField] private Sprite backgroundRoad;
     [SerializeField] private Sprite backgroundRooftop;
+    [SerializeField] private Sprite backgroundRoadNight;
+    [SerializeField] private Sprite backgroundNightSky;
 
     protected override void StartSet()
     {
@@ -64,7 +66,13 @@ public class ImagesManager4 : ImagesManagerOrigin
                 _backgroundImage.sprite = backgroundRoad;
                 break;
             case 4:
-                _backgroundImage.sprite= backgroundRooftop;
+                _backgroundImage.sprite = backgroundRooftop;
+                break;
+            case 5:
+                _backgroundImage.sprite = backgroundRoadNight;
+                break;
+            case 6:
+                _backgroundImage.sprite = backgroundNightSky;
                 break;
             default:
                 break;

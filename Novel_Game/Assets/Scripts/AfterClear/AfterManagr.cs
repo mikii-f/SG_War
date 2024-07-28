@@ -10,6 +10,11 @@ public class AfterManagr : SystemManagerOrigin
     [SerializeField] private RectTransform growSwitchRect;
     [SerializeField] private RectTransform bonusSwitchRect;
     [SerializeField] private RectTransform plusAlphaSwitch;
+    [SerializeField] private GameObject words2;
+    [SerializeField] private GameObject bonus;
+    [SerializeField] private GameObject battle;
+    [SerializeField] private RectTransform battle1SwitchRect;
+    [SerializeField] private RectTransform backSwitchRect;
     [SerializeField] private GameObject systemMessageObject;
     [SerializeField] private Text systemMessage;
     [SerializeField] private RectTransform yesSwitch;
@@ -21,6 +26,11 @@ public class AfterManagr : SystemManagerOrigin
     void Start()
     {
         systemMessageObject.SetActive(false);
+        words2.SetActive(false);
+        bonus.SetActive(false);
+        battle.SetActive(false);
+        black.color = Color.white;
+        StartCoroutine(FadeIn(0.5f, black));
     }
 
     // Update is called once per frame
@@ -49,6 +59,7 @@ public class AfterManagr : SystemManagerOrigin
     public void WordsSwitch()
     {
         StartCoroutine(ButtonAnim(wordsSwitchRect));
+        StartCoroutine(Delay(words2));
     }
     public void GrowSwitchRect()
     {
@@ -60,10 +71,12 @@ public class AfterManagr : SystemManagerOrigin
     public void BonusSwitch()
     {
         StartCoroutine(ButtonAnim(bonusSwitchRect));
+        StartCoroutine(Delay(bonus));
     }
     public void PlusAlphaSwitch()
     {
         StartCoroutine(ButtonAnim(plusAlphaSwitch));
+        StartCoroutine(Delay(battle));
     }
     public void YesSwitch()
     {
@@ -86,6 +99,7 @@ public class AfterManagr : SystemManagerOrigin
     //タイトルへ
     private IEnumerator GoBackTitle()
     {
+        black.color = new(0, 0, 0, 0);
         yield return new WaitForSeconds(0.1f);
         yield return StartCoroutine(FadeOut(1, black));
         SceneManager.LoadScene("TitleScene");
@@ -93,7 +107,34 @@ public class AfterManagr : SystemManagerOrigin
     //育成へ
     private IEnumerator GoToGrow()
     {
+        black.color = new(0, 0, 0, 0);
         yield return new WaitForSeconds(0.1f);
+        yield return StartCoroutine(FadeOut(0.5f, black));
         SceneManager.LoadScene("3DGameSelectScene");
+    }
+    //バトル1へ
+    public void Battle1Switch()
+    {
+        StartCoroutine(ButtonAnim(battle1SwitchRect));
+        StartCoroutine(GoToBattle1());
+    }
+    private IEnumerator GoToBattle1()
+    {
+        black.color = new(0, 0, 0, 0);
+        yield return new WaitForSeconds(0.1f);
+        yield return StartCoroutine(FadeOut(0.5f, black));
+        SceneManager.LoadScene("ExtraBattle1");
+    }
+    //バトル一覧を閉じる
+    public void BattleClose()
+    {
+        StartCoroutine(ButtonAnim(backSwitchRect));
+        StartCoroutine(Delay(battle));
+    }
+    public void Close()
+    {
+        words2.SetActive(false);
+        bonus.SetActive(false);
+        battle.SetActive(false);
     }
 }

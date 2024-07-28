@@ -115,7 +115,7 @@ public abstract class TextManagerOrigin : MonoBehaviour
         }
         if (mainText.text != "")
         {
-            logText.text += mainText.text + "\n";
+            logText.text += mainText.text + "\n\n";
         }
         SelectFunction(_function[lineNumber]);
         tempText = _sentences[lineNumber];
@@ -227,6 +227,15 @@ public abstract class TextManagerOrigin : MonoBehaviour
                             break;
                         case "Rooftop":
                             imagesManager.BackgroundChange(4);
+                            break;
+                        case "RoadNight":
+                            imagesManager.BackgroundChange(5);
+                            break;
+                        case "NightSky":
+                            imagesManager.BackgroundChange(6);
+                            break;
+                        case "Rooftop2":
+                            imagesManager.BackgroundChange(7);
                             break;
                         default:
                             break;

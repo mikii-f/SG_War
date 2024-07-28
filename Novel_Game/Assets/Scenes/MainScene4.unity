@@ -1165,7 +1165,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -960, y: 540}
-  m_SizeDelta: {x: 3840, y: 1920}
+  m_SizeDelta: {x: 3840, y: 2160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &343683072
 MonoBehaviour:
@@ -2348,9 +2348,11 @@ MonoBehaviour:
   el_enemy: {fileID: 21300000, guid: 8f0d2c5153557224abf995b5453243f9, type: 3}
   ghost1: {fileID: 21300000, guid: f073aa36522233346981af266d175b33, type: 3}
   command: {fileID: 21300000, guid: f6563aeaba069f04884544e48e9f9bad, type: 3}
-  backgroundMyRoom: {fileID: 21300000, guid: 8ae09be083a5f724fb97b7d977cccfaa, type: 3}
+  backgroundMyRoom: {fileID: 21300000, guid: 034ce8998b3d5c24ab3b6abc9c6281e8, type: 3}
   backgroundRoad: {fileID: 21300000, guid: 96017ba2085e54d41b9c87a53f91f1a8, type: 3}
   backgroundRooftop: {fileID: 21300000, guid: 67367d8a28ae7ee4d8f0051969b22731, type: 3}
+  backgroundRoadNight: {fileID: 21300000, guid: 27f7ae69d0b360747ba4ed8e14f33327, type: 3}
+  backgroundNightSky: {fileID: 21300000, guid: 1a02a6e593d8db64b8d0ecb31f0f85ed, type: 3}
 --- !u!1 &657379088
 GameObject:
   m_ObjectHideFlags: 0

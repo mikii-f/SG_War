@@ -46,7 +46,7 @@ CharacterChange,vier
 Wipe1
 
 
-Wipe2,CharacterChange,transparent
+Wipe2,CharacterChange,transparent,BackgroundChange,RoadNight
 
 
 0
@@ -88,7 +88,7 @@ CharacterChange,vier
 Wipe1
 
 
-Wipe2,CharacterChange,vier_battle
+Wipe2,CharacterChange,vier_battle,BackgroundChange,NightSky
 
 
 0

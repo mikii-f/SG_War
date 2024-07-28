@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
             Application.targetFrameRate = 60;           //60FPSŒÅ’è
-            if (PlayerPrefs.GetString("sceneNeme") != null)
+            if (PlayerPrefs.GetString("sceneName") != "")
             {
                 saveData = true;
             }

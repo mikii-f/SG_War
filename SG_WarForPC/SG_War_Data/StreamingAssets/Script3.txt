@@ -6,7 +6,7 @@ TitleCoal
 
 MenuOn,TextPanelOn,BackgroundChange,Road
 
-土曜日。時刻は既に夕方。
+土曜日。時刻はそろそろ夕方。
 0
 
 俺たちはスイーツ店巡りを楽しんだ後だった。
@@ -94,7 +94,7 @@ CharacterChange,vier
 Wipe1,
 
 
-Wipe2
+Wipe2,BackgroundChange,RoadNight
 
 
 0

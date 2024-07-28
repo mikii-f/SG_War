@@ -20,7 +20,7 @@ public class EndRoal : MonoBehaviour
         yield return new WaitForSeconds(6);
         nextTitle.SetActive(false);
         yield return new WaitForSeconds(2);
-        while (endroalRect.anchoredPosition.y < 2100)
+        while (endroalRect.anchoredPosition.y < 2200)
         {
             Vector2 temp = endroalRect.anchoredPosition;
             temp.y += 210 * Time.deltaTime;

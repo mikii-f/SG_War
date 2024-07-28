@@ -172,6 +172,9 @@ CharacterChange,el_battle
 0
 エル
 …………うん。
+BackgroundChange,Rooftop2,AnimAndGoNext,2.0
+
+
 0
 剣羽和人
 よし！じゃあ家に帰るとするか！

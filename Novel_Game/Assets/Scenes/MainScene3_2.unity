@@ -444,7 +444,7 @@ MonoBehaviour:
   vier: {fileID: 21300000, guid: 9839a3770c232d1438e08ccc60921534, type: 3}
   vier_battle: {fileID: 21300000, guid: d46ef1afe15c19c419cc589d6e592a98, type: 3}
   ghost1: {fileID: 21300000, guid: f073aa36522233346981af266d175b33, type: 3}
-  backgroundMyRoom: {fileID: 21300000, guid: 8ae09be083a5f724fb97b7d977cccfaa, type: 3}
+  backgroundMyRoom: {fileID: 21300000, guid: 034ce8998b3d5c24ab3b6abc9c6281e8, type: 3}
   backgroundRoad: {fileID: 21300000, guid: 96017ba2085e54d41b9c87a53f91f1a8, type: 3}
 --- !u!1 &243618676
 GameObject:
@@ -1908,7 +1908,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 96017ba2085e54d41b9c87a53f91f1a8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 27f7ae69d0b360747ba4ed8e14f33327, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

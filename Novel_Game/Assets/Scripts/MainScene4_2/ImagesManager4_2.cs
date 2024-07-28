@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ImagesManager4_2 : ImagesManagerOrigin
 {
@@ -13,6 +14,8 @@ public class ImagesManager4_2 : ImagesManagerOrigin
     [SerializeField] private Sprite backgroundMyRoom;
     [SerializeField] private Sprite backgroundRoad;
     [SerializeField] private Sprite backgroundRooftop;
+    [SerializeField] private Sprite backgroundRooftop2;
+    [SerializeField] private Image backgroundImage2;
 
     protected override void StartSet()
     {
@@ -69,6 +72,10 @@ public class ImagesManager4_2 : ImagesManagerOrigin
                 break;
             case 4:
                 _backgroundImage.sprite = backgroundRooftop;
+                break;
+            case 7:
+                StartCoroutine(FadeOut(3.0f, backgroundImage2));
+                backgroundImage2.sprite = backgroundRooftop2;
                 break;
             default:
                 break;
