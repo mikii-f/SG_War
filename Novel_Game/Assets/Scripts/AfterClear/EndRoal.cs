@@ -46,6 +46,8 @@ public class EndRoal : SystemManagerOrigin
     private IEnumerator SkipEndroal()
     {
         yield return StartCoroutine(FadeOut(1, white));
+        GameManager.instance.SceneName = "AfterClear";
+        GameManager.instance.Save();
         SceneManager.LoadScene("AfterClear");
     }
 }

@@ -6,7 +6,6 @@ public class MedalManager : MonoBehaviour
     private Transform _transform;
     private Collider _collider;
 
-    // Start is called before the first frame update
     void Start()
     {
         _transform = GetComponent<Transform>();

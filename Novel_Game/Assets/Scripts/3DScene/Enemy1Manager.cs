@@ -147,6 +147,8 @@ public class Enemy1Manager : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         Destroy(gameObject);
     }
+
+    //ˆµ‚¤‚Ì‚ªImage‚Å‚È‚¢‚½‚ß‹¤’Ê‰»FadeOut‚ÍŽg‚¦‚È‚¢
     private IEnumerator FadeOut()
     {
         float waitTime = 0.1f;

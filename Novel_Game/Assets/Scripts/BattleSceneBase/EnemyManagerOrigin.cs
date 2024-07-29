@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class EnemyManagerOrigin : MonoBehaviour
+public abstract class EnemyManagerOrigin : SystemManagerOrigin
 {
     protected int id;
     public int ID { get { return id; } }
@@ -106,16 +106,8 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
             yield return null;
         }
         //’…’eEÁ–Å
-        float waitTime = 0.05f;
-        float fadeTime = 0.5f;
-        float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
-        for (float alpha = 255.0f; alpha >= 0f; alpha -= alphaChangeAmount)
-        {
-            Color newColor = attackImage.color;
-            newColor.a = alpha / 255.0f;
-            attackImage.color = newColor;
-            yield return new WaitForSeconds(waitTime);
-        }
+        yield return null;
+        yield return StartCoroutine(FadeIn(0.5f, attackImage));
         //‰Šú‰»
         attackRect.anchoredPosition = new (-diffX, 0);
         attackRect.localScale = new Vector2(1, 1);
@@ -204,16 +196,7 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
     {
         isDied = true;
         bSManager.EnemyDied();
-        float waitTime = 0.1f;
-        float fadeTime = 1;
-        float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
-        for (float alpha = 255.0f; alpha >= 0f; alpha -= alphaChangeAmount)
-        {
-            Color newColor = myImage.color;
-            newColor.a = alpha / 255.0f;
-            myImage.color = newColor;
-            yield return new WaitForSeconds(waitTime);
-        }
+        yield return StartCoroutine(FadeIn(1, myImage));
         myAllObject.SetActive(false);
     }
     //UŒ‚‘ÎÛ‚Æ‚µ‚Ä‘I‘ğ‚³‚ê‚½‚Æ‚«‚ÌUIŠg‘åk¬
