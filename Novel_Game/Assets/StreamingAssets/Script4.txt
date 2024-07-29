@@ -53,7 +53,7 @@ Wipe2,CharacterChange,transparent,BackgroundChange,RoadNight
 
 その夜────────
 CharacterChange,vier
-
+フィア
 うーん、昨日と同じく、散発的に弱い異妖が出てくるだけだね。
 0
 剣羽和人
@@ -88,7 +88,7 @@ CharacterChange,vier
 Wipe1
 
 
-Wipe2,CharacterChange,vier_battle,BackgroundChange,NightSky
+Wipe2,CharacterChange,vier_battle,BackgroundChange,NightSky,Effect,WindEffectStart
 
 
 0
@@ -133,7 +133,7 @@ Wipe2,CharacterChange,vier_battle,BackgroundChange,NightSky
 0
 フィア
 了解。いくよ、リーダー！
-Wipe1
+Wipe1,Effect,WindEffectStop
 
 
 Wipe2,BackgroundChange,Rooftop

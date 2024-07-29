@@ -10595,7 +10595,7 @@ MonoBehaviour:
   HPText: {fileID: 1867109330}
   grayGage: {fileID: 21300000, guid: c7ea4fe3215e11748b24c8406f67bf8a, type: 3}
   redGage: {fileID: 21300000, guid: 696b8e2163d2a954ab91b390485f7339, type: 3}
-  maxHP: 3000
+  maxHP: 8000
   attack: 100
   damageText: {fileID: 1873970974}
   intervalText: {fileID: 2030508495}

@@ -66,7 +66,7 @@ public class Stage1Manager : StageManagerOrigin
             if (GameManager.instance.EXP != 0)
             {
                 function2.SetActive(true);
-                functionMessageText.text = "ステージセレクトに戻りますか";
+                functionMessageText.text = "ステージセレクトに戻りますか？";
                 functionNumber = 2;
             }
         }

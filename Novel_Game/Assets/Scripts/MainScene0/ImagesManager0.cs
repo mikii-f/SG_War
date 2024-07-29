@@ -31,6 +31,11 @@ public class ImagesManager0 : ImagesManagerOrigin
     {
 
     }
+
+    public override void Effect(int n)
+    {
+
+    }
     public override void ChangeScene()
     {
         SceneManager.LoadScene("BattleScene0");

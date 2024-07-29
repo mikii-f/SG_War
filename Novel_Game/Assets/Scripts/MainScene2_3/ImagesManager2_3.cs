@@ -51,6 +51,12 @@ public class ImagesManager2_3 : ImagesManagerOrigin
                 break;
         }
     }
+
+    public override void Effect(int n)
+    {
+
+    }
+
     public override void ChangeScene()
     {
         GameManager.instance.LineNumber = 0;

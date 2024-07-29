@@ -3,16 +3,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class EndRoal : MonoBehaviour
+public class EndRoal : SystemManagerOrigin
 {
-    [SerializeField] GameObject nextTitle;
-    [SerializeField] RectTransform endroalRect;
-    [SerializeField] Image black;
+    [SerializeField] private GameObject nextTitle;
+    [SerializeField] private RectTransform endroalRect;
+    [SerializeField] private Image white;
+    [SerializeField] private RectTransform skipSwitchRect;
+    private bool skip = false;
 
-    // Start is called before the first frame update
     void Start()
     {
-        black.color = new(1, 1, 1, 0);
         StartCoroutine(TitleToEndRoal());
     }
     private IEnumerator TitleToEndRoal()
@@ -28,18 +28,24 @@ public class EndRoal : MonoBehaviour
             yield return null;
         }
         yield return new WaitForSeconds(3);
-        float waitTime = 0.1f;
-        float alphaChangeAmount = 255.0f / (3 / waitTime);
-        for (float alpha = 0.0f; alpha <= 255.0f; alpha += alphaChangeAmount)
-        {
-            Color newColor = black.color;
-            newColor.a = alpha / 255.0f;
-            black.color = newColor;
-            yield return new WaitForSeconds(waitTime);
-        }
+        yield return StartCoroutine(FadeOut(3, white));
         GameManager.instance.SceneName = "AfterClear";
         GameManager.instance.Save();
         yield return new WaitForSeconds(2);
+        SceneManager.LoadScene("AfterClear");
+    }
+    public void Skip()
+    {
+        if (!skip)
+        {
+            skip = true;
+            StartCoroutine(ButtonAnim(skipSwitchRect));
+            StartCoroutine(SkipEndroal());
+        }
+    }
+    private IEnumerator SkipEndroal()
+    {
+        yield return StartCoroutine(FadeOut(1, white));
         SceneManager.LoadScene("AfterClear");
     }
 }

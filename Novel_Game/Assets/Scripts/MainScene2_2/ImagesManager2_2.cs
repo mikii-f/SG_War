@@ -55,6 +55,12 @@ public class ImagesManager2_2 : ImagesManagerOrigin
                 break;
         }
     }
+
+    public override void Effect(int n)
+    {
+
+    }
+
     public override void ChangeScene()
     {
         SceneManager.LoadScene("3DGameScene0");

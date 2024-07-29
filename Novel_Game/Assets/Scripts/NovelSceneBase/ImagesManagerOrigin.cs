@@ -146,6 +146,22 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
 
     }
 
+    public void CharacterMotion(string s)
+    {
+        switch (s)
+        {
+            case "Jump":
+                //座標移動とフェードでジャンプを表す
+                StartCoroutine(FadeIn(0.5f, _characterImage));
+                Vector2 temp = _characterRect.anchoredPosition;
+                temp.y += 200;
+                _characterRect.anchoredPosition = temp;
+                break;
+            default:
+                break;
+        }
+    }
+
     //ワイプはひとまとまりで使われるはずだが、万が一途中でセーブされてもいいようにする
     //ワイプ(前半)
     public IEnumerator Wipe1()
@@ -347,6 +363,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     public abstract void CharacterChange(int n);
     //背景について同上
     public abstract void BackgroundChange(int n);
+    public abstract void Effect(int n);
     //シーンごとにStartで異なる処理を(差分だけ)記述するための関数
     protected abstract void StartSet();
 }

@@ -173,7 +173,7 @@ CharacterChange,vier_battle,FadeIn,0.5,White,AnimAndGoNext,0.5
 
 
 0
-
+フィア
 リーダーの方こそ、ちゃんと指示お願いね！
 Save,MenuOff,FadeOut,2.0,Black,AnimAndGoNext,3.0
 

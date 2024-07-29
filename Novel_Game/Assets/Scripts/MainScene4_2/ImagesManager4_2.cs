@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,6 +17,9 @@ public class ImagesManager4_2 : ImagesManagerOrigin
     [SerializeField] private Sprite backgroundRooftop;
     [SerializeField] private Sprite backgroundRooftop2;
     [SerializeField] private Image backgroundImage2;
+    [SerializeField] private Image effectsImage;
+    [SerializeField] private Sprite bloodEffect;
+    [SerializeField] private Sprite jumpEffect;
 
     protected override void StartSet()
     {
@@ -80,6 +84,29 @@ public class ImagesManager4_2 : ImagesManagerOrigin
             default:
                 break;
         }
+    }
+
+    //エフェクト
+    public override void Effect(int n)
+    {
+        switch (n)
+        {
+            case 3:
+                StartCoroutine(BloodEffect());
+                break;
+            case 4:
+                effectsImage.sprite = jumpEffect;
+                StartCoroutine(FadeIn(0.5f, effectsImage));
+                break;
+            default:
+                break;
+        }
+    }
+    private IEnumerator BloodEffect()
+    {
+        effectsImage.sprite = bloodEffect;
+        yield return StartCoroutine(FadeOut(0.5f, effectsImage));
+        yield return StartCoroutine(FadeIn(0.5f, effectsImage));
     }
     public override void ChangeScene()
     {

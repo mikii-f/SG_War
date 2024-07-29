@@ -131,8 +131,8 @@ CharacterChange,vier_battle,FadeIn,0.5,White,AnimAndGoNext,0.5
 
 
 0
-
-そっちこそちゃんと援護お願いね！
+フィア
+そっちも援護、いけるよね！
 Save,MenuOff,TextPanelOff,FadeOut,1.0,Black,AnimAndGoNext,2.0
 
 

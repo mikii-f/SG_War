@@ -1274,7 +1274,7 @@ MonoBehaviour:
   HPText: {fileID: 1977324199}
   grayGage: {fileID: 21300000, guid: c7ea4fe3215e11748b24c8406f67bf8a, type: 3}
   redGage: {fileID: 21300000, guid: 696b8e2163d2a954ab91b390485f7339, type: 3}
-  maxHP: 300
+  maxHP: 400
   attack: 50
   damageText: {fileID: 1443358514}
   intervalText: {fileID: 1211691228}
@@ -6763,7 +6763,7 @@ MonoBehaviour:
   HPText: {fileID: 587874070}
   grayGage: {fileID: 21300000, guid: c7ea4fe3215e11748b24c8406f67bf8a, type: 3}
   redGage: {fileID: 21300000, guid: 696b8e2163d2a954ab91b390485f7339, type: 3}
-  maxHP: 200
+  maxHP: 300
   attack: 30
   damageText: {fileID: 1233636409}
   intervalText: {fileID: 1535988544}
@@ -8921,7 +8921,7 @@ MonoBehaviour:
   HPText: {fileID: 1377733443}
   grayGage: {fileID: 21300000, guid: c7ea4fe3215e11748b24c8406f67bf8a, type: 3}
   redGage: {fileID: 21300000, guid: 696b8e2163d2a954ab91b390485f7339, type: 3}
-  maxHP: 300
+  maxHP: 400
   attack: 50
   damageText: {fileID: 450736337}
   intervalText: {fileID: 1139037007}
@@ -11464,8 +11464,8 @@ MonoBehaviour:
   HPText: {fileID: 183360088}
   grayGage: {fileID: 21300000, guid: c7ea4fe3215e11748b24c8406f67bf8a, type: 3}
   redGage: {fileID: 21300000, guid: 696b8e2163d2a954ab91b390485f7339, type: 3}
-  maxHP: 300
-  attack: 50
+  maxHP: 500
+  attack: 60
   damageText: {fileID: 994487504}
   intervalText: {fileID: 45499482}
   gage1Image: {fileID: 1055755067}
@@ -18386,7 +18386,7 @@ MonoBehaviour:
   HPText: {fileID: 862631339}
   grayGage: {fileID: 21300000, guid: c7ea4fe3215e11748b24c8406f67bf8a, type: 3}
   redGage: {fileID: 21300000, guid: 696b8e2163d2a954ab91b390485f7339, type: 3}
-  maxHP: 200
+  maxHP: 300
   attack: 30
   damageText: {fileID: 2146412675}
   intervalText: {fileID: 1857148546}
@@ -21789,7 +21789,7 @@ MonoBehaviour:
   HPText: {fileID: 520220196}
   grayGage: {fileID: 21300000, guid: c7ea4fe3215e11748b24c8406f67bf8a, type: 3}
   redGage: {fileID: 21300000, guid: 696b8e2163d2a954ab91b390485f7339, type: 3}
-  maxHP: 500
+  maxHP: 600
   attack: 0
   damageText: {fileID: 1412363987}
   intervalText: {fileID: 1582811817}

@@ -37,7 +37,7 @@ CharacterColor
 0
 
 だから────────！
-CharacterReset
+CharacterReset,Effect,BloodEffect,AnimationWaitSet,2.0
 剣羽和人
 がっ──────────！
 0
@@ -55,7 +55,13 @@ CharacterChange,el_enemy
 0
 エル
 っ────────！
-CharacterChange,el_battle
+FadeOut,1.0,White,AnimAndGoNext,1.0
+
+
+CharacterChange,el_battle,FadeIn,1.0,White,AnimAndGoNext,1.0
+
+
+0
 エル
 ……………………フィア……？和人…………？
 0
@@ -91,10 +97,10 @@ CharacterChange,Command
 0
 統率個体
 お前たちはせいぜい「文明の守護」に勤しむことだ。
-0
+CharacterMotion,Jump,Effect,Jump,AnimationWaitSet,1
 剣羽和人
 待てこのやろ────────ぐっ！！
-CharacterChange,vier_battle
+CharacterReset,CharacterChange,vier_battle
 フィア
 和人！今はもう諦めよう。どうやったのかは分からないけど、もう感知できる範囲にあいつはいない。今はちゃんと治療しないと。
 CharacterChange,el_battle
@@ -172,13 +178,13 @@ CharacterChange,el_battle
 0
 エル
 …………うん。
-BackgroundChange,Rooftop2,AnimAndGoNext,2.0
+CharacterChange,transparent,BackgroundChange,Rooftop2,TextPanelOff,AnimAndGoNext,2.0
 
 
-0
+TextPanelOn
 剣羽和人
 よし！じゃあ家に帰るとするか！
-CharacterChange,transparent
+0
 
 こうして、新たな戦いの幕は上がった。
 0

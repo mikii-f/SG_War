@@ -70,6 +70,12 @@ public class ImagesManager3 : ImagesManagerOrigin
                 break;
         }
     }
+
+    public override void Effect(int n)
+    {
+
+    }
+
     public override void ChangeScene()
     {
         //s”‚ğ‰Šú‰»‚µ‚È‚¢

@@ -78,7 +78,7 @@ public class TitleManager : SystemManagerOrigin
     private IEnumerator ContinueGame()
     {
         yield return new WaitForSeconds(0.1f);
-        yield return StartCoroutine(FadeOut(2, black));
+        yield return StartCoroutine(FadeOut(1, black));
         GameManager.instance.Set();
         SceneManager.LoadScene(GameManager.instance.SceneName);
     }

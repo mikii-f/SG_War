@@ -241,6 +241,33 @@ public abstract class TextManagerOrigin : MonoBehaviour
                             break;
                     }
                     break;
+                case "CharacterMotion":
+                    i++;
+                    imagesManager.CharacterMotion(s[i]);
+                    break;
+                case "Effect":
+                    i++;
+                    switch (s[i])
+                    {
+                        case "Sword":
+                            imagesManager.Effect(0);
+                            break;
+                        case "WindEffectStart":
+                            imagesManager.Effect(1);
+                            break;
+                        case "WindEffectStop":
+                            imagesManager.Effect(2);
+                            break;
+                        case "BloodEffect":
+                            imagesManager.Effect(3);
+                            break;
+                        case "Jump":
+                            imagesManager.Effect(4);
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
                 case "Wipe1":
                     isAnimation = true;
                     StartCoroutine(imagesManager.Wipe1());

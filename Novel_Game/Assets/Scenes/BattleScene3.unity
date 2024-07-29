@@ -8169,8 +8169,8 @@ MonoBehaviour:
   HPText: {fileID: 2027512786}
   grayGage: {fileID: 21300000, guid: c7ea4fe3215e11748b24c8406f67bf8a, type: 3}
   redGage: {fileID: 21300000, guid: 696b8e2163d2a954ab91b390485f7339, type: 3}
-  maxHP: 2000
-  attack: 100
+  maxHP: 3000
+  attack: 90
   damageText: {fileID: 1346381294}
   intervalText: {fileID: 734834466}
   gage1Image: {fileID: 67296685}
@@ -12902,7 +12902,7 @@ MonoBehaviour:
   HPText: {fileID: 567627348}
   grayGage: {fileID: 21300000, guid: c7ea4fe3215e11748b24c8406f67bf8a, type: 3}
   redGage: {fileID: 21300000, guid: 696b8e2163d2a954ab91b390485f7339, type: 3}
-  maxHP: 300
+  maxHP: 400
   attack: 50
   damageText: {fileID: 503403018}
   intervalText: {fileID: 1031106345}
@@ -16422,7 +16422,7 @@ MonoBehaviour:
   HPText: {fileID: 911116092}
   grayGage: {fileID: 21300000, guid: c7ea4fe3215e11748b24c8406f67bf8a, type: 3}
   redGage: {fileID: 21300000, guid: 696b8e2163d2a954ab91b390485f7339, type: 3}
-  maxHP: 500
+  maxHP: 800
   attack: 0
   damageText: {fileID: 1665852413}
   intervalText: {fileID: 2013079720}
@@ -16917,8 +16917,8 @@ MonoBehaviour:
   HPText: {fileID: 320060245}
   grayGage: {fileID: 21300000, guid: c7ea4fe3215e11748b24c8406f67bf8a, type: 3}
   redGage: {fileID: 21300000, guid: 696b8e2163d2a954ab91b390485f7339, type: 3}
-  maxHP: 200
-  attack: 30
+  maxHP: 350
+  attack: 40
   damageText: {fileID: 1590549640}
   intervalText: {fileID: 1381885028}
   gage1Image: {fileID: 2067327260}

@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ImagesManager4 : ImagesManagerOrigin
 {
@@ -14,10 +16,15 @@ public class ImagesManager4 : ImagesManagerOrigin
     [SerializeField] private Sprite backgroundRooftop;
     [SerializeField] private Sprite backgroundRoadNight;
     [SerializeField] private Sprite backgroundNightSky;
+    [SerializeField] private Image effectsImage;
+    [SerializeField] private Sprite windEffect;
+    private Material _material;
+    private Coroutine _coroutine;
 
     protected override void StartSet()
     {
         blackAllImage.color = Color.clear;
+        _material = effectsImage.material;
     }
 
     //—§‚¿ŠGŠÖŒW
@@ -78,9 +85,41 @@ public class ImagesManager4 : ImagesManagerOrigin
                 break;
         }
     }
+
+    public override void Effect(int n)
+    {
+        switch (n)
+        {
+            case 1:
+                effectsImage.sprite = windEffect;
+                _coroutine = StartCoroutine(WindEffect());
+                break;
+            case 2:
+                StopCoroutine(_coroutine);
+                effectsImage.sprite = noneSprite;
+                effectsImage.color = Color.white;
+                _material.SetTextureOffset("_MainTex", Vector2.zero);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private IEnumerator WindEffect()
+    {
+        float timeCount = 0;
+        while (true)
+        {
+            //1•b‚ÅˆêŽü
+            float offset = Mathf.Repeat(timeCount, 1);
+            _material.SetTextureOffset("_MainTex", new(offset, 0));
+            yield return null;
+            timeCount += Time.deltaTime;
+        }
+    }
+
     public override void ChangeScene()
     {
-        GameManager.instance.LineNumber = 0;
         SceneManager.LoadScene("BattleScene3");
     }
 }
