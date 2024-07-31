@@ -17,7 +17,7 @@ public class ImagesManager3 : ImagesManagerOrigin
 
     protected override void StartSet()
     {
-        blackAllImage.color = Color.clear;
+        
     }
 
     //—§‚¿ŠGŠÖŒW

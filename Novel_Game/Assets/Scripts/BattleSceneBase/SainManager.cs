@@ -70,7 +70,6 @@ public class SainManager : SystemManagerOrigin
     private Coroutine commentCoroutine;
     private Coroutine damageCoroutine;
 
-    // Start is called before the first frame update
     void Start()
     {
         UnityEngine.Random.InitState(DateTime.Now.Millisecond);
@@ -78,6 +77,7 @@ public class SainManager : SystemManagerOrigin
         attack = Mathf.Max(GameManager.instance.SainAttack, 50);
         currentSG = Mathf.Max(GameManager.instance.SainSG, 20);
         currentHP = maxHP;
+        HPslider.value = 1;
         SGslider.value = (float)currentSG / maxSG;
         HPText.text = currentHP.ToString() + "/" + maxHP.ToString();
         SGText.text = currentSG.ToString() + "/" + maxSG.ToString();
@@ -117,7 +117,6 @@ public class SainManager : SystemManagerOrigin
         guardEffect.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!pause)

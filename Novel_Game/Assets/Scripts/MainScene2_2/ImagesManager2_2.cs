@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ImagesManager2_2 : ImagesManagerOrigin
 {
@@ -8,10 +10,15 @@ public class ImagesManager2_2 : ImagesManagerOrigin
     [SerializeField] private Sprite ghost1;
     [SerializeField] private Sprite backgroundMyRoom;
     [SerializeField] private Sprite backgroundRoad;
+    [SerializeField] private GameObject effectsObject;
+    private Image effectsImage;
+    private RectTransform effectsRect;
+    [SerializeField] private Sprite swordEffect;
 
     protected override void StartSet()
     {
-        
+        effectsImage = effectsObject.GetComponent<Image>();
+        effectsRect = effectsObject.GetComponent<RectTransform>();
     }
 
     //—§‚¿ŠGŠÖŒW
@@ -57,7 +64,33 @@ public class ImagesManager2_2 : ImagesManagerOrigin
 
     public override void Effect(int n)
     {
-
+        if (!skip)
+        {
+            switch (n)
+            {
+                case 0:
+                    StartCoroutine(SwordEffect());
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    private IEnumerator SwordEffect()
+    {
+        effectsRect.localScale = new(2, 2);
+        effectsImage.sprite = swordEffect;
+        StartCoroutine(FadeIn(0.5f, effectsImage));
+        while (effectsRect.localScale.x > 0.5)
+        {
+            yield return null;
+            float temp = effectsRect.localScale.x;
+            temp -= 3 * Time.deltaTime;
+            effectsRect.localScale = new(temp, temp);
+        }
+        effectsImage.sprite = noneSprite;
+        effectsRect.localScale = new(1, 1);
+        effectsImage.color = Color.white;
     }
 
     public override void ChangeScene()

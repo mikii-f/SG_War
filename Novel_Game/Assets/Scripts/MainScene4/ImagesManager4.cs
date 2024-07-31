@@ -8,6 +8,7 @@ public class ImagesManager4 : ImagesManagerOrigin
     [SerializeField] private Sprite vier;
     [SerializeField] private Sprite vier_battle;
     [SerializeField] private Sprite el;
+    [SerializeField] private Sprite el_battle;
     [SerializeField] private Sprite el_enemy;
     [SerializeField] private Sprite ghost1;
     [SerializeField] private Sprite command;
@@ -16,13 +17,17 @@ public class ImagesManager4 : ImagesManagerOrigin
     [SerializeField] private Sprite backgroundRooftop;
     [SerializeField] private Sprite backgroundRoadNight;
     [SerializeField] private Sprite backgroundNightSky;
-    [SerializeField] private Image effectsImage;
+    [SerializeField] private GameObject effectsObject;
+    private Image effectsImage;
+    private RectTransform effectsRect;
     [SerializeField] private Sprite windEffect;
     private Material _material;
     private Coroutine _coroutine;
 
     protected override void StartSet()
     {
+        effectsImage = effectsObject.GetComponent<Image>();
+        effectsRect = effectsObject.GetComponent<RectTransform>();
         blackAllImage.color = Color.clear;
         _material = effectsImage.material;
     }
@@ -43,6 +48,9 @@ public class ImagesManager4 : ImagesManagerOrigin
                 break;
             case 51:
                 _characterImage.sprite = el;
+                break;
+            case 71:
+                _characterImage.sprite = el_battle;
                 break;
             case 91:
                 _characterImage.sprite = el_enemy;
@@ -92,12 +100,14 @@ public class ImagesManager4 : ImagesManagerOrigin
         {
             case 1:
                 effectsImage.sprite = windEffect;
+                effectsRect.sizeDelta = new(3840, 1080);
                 _coroutine = StartCoroutine(WindEffect());
                 break;
             case 2:
                 StopCoroutine(_coroutine);
                 effectsImage.sprite = noneSprite;
                 effectsImage.color = Color.white;
+                effectsRect.sizeDelta = new(1920, 1080);
                 _material.SetTextureOffset("_MainTex", Vector2.zero);
                 break;
             default:

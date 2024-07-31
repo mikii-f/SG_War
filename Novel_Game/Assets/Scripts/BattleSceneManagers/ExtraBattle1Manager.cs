@@ -27,7 +27,7 @@ public class ExtraBattle1Manager : BattleSceneManagerOrigin
     {
         yield return new WaitForSeconds(2);
         tutorialPanel.SetActive(true);
-        tutorialText.text = "仮想空間なら今のエルも全力で戦うことができます。フィアと一緒に本気で特訓に臨みましょう。";
+        tutorialText.text = "仮想空間なら今のエルも全力で戦うことができます。フィアと共に本気で特訓に臨みましょう。";
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
         yield return null;
         tutorialPanel.SetActive(false);

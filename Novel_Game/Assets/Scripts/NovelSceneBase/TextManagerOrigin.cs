@@ -176,38 +176,7 @@ public abstract class TextManagerOrigin : MonoBehaviour
                     break;
                 case "CharacterChange":
                     i++;
-                    switch (s[i])
-                    {
-                        case "transparent":
-                            imagesManager.CharacterChange(0);
-                            break;
-                        case "vier":
-                            imagesManager.CharacterChange(1);
-                            break;
-                        case "vier_battle":
-                            imagesManager.CharacterChange(21);
-                            break;
-                        case "el":
-                            imagesManager.CharacterChange(51);
-                            break;
-                        case "el_battle":
-                            imagesManager.CharacterChange(71);
-                            break;
-                        case "el_enemy":
-                            imagesManager.CharacterChange(91);
-                            break;
-                        case "Ghost1":
-                            imagesManager.CharacterChange(101);
-                            break;
-                        case "Command":
-                            imagesManager.CharacterChange(106);
-                            break;
-                        case "Enemys":
-                            imagesManager.CharacterChange(111);
-                            break;
-                        default:
-                            break;
-                    }
+                    imagesManager.CharacterChange(CharacterFace(s[i]));
                     break;
                 case "BackgroundChange":
                     i++;
@@ -264,6 +233,12 @@ public abstract class TextManagerOrigin : MonoBehaviour
                         case "Jump":
                             imagesManager.Effect(4);
                             break;
+                        case "Heal":
+                            imagesManager.Effect(5);
+                            break;
+                        case "HealFinish":
+                            imagesManager.Effect(6);
+                            break;
                         default:
                             break;
                     }
@@ -288,6 +263,15 @@ public abstract class TextManagerOrigin : MonoBehaviour
                     break;
                 case "CharacterColor":
                     imagesManager.CharacterColor();
+                    break;
+                case "BackgroundColor":
+                    StartCoroutine(imagesManager.BackgroundColor());
+                    break;
+                case "FaceChangeDelay":
+                    i++;
+                    float t = float.Parse(s[i]);
+                    i++;
+                    StartCoroutine(imagesManager.FaceChangeDelay(t, CharacterFace(s[i])));
                     break;
                 case "CharacterRect":
                     i++;
@@ -422,5 +406,33 @@ public abstract class TextManagerOrigin : MonoBehaviour
         imagesManager.TextPanelOff();
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene("TitleScene");
+    }
+
+    //表情差分は多いためswitch文を外で処理(image側でもswitchするためよく考えれば二度手間、改善対象)
+    private int CharacterFace(string s)
+    {
+        switch (s)
+        {
+            case "transparent":
+                return 0;
+            case "vier":
+                return 1;
+            case "vier_battle":
+                return 21;
+            case "el":
+                return 51;
+            case "el_battle":
+                return 71;
+            case "el_enemy":
+                return 91;
+            case "Ghost1":
+                return 101;
+            case "Command":
+                return 106;
+            case "Enemys":
+                return 111;
+            default:
+                return 0;
+        }
     }
 }

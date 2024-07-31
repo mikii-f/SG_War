@@ -5,6 +5,7 @@ public class ImagesManager2 : ImagesManagerOrigin
 {
     [SerializeField] private Sprite vier;
     [SerializeField] private Sprite vier_battle;
+    [SerializeField] private Sprite el_battle;
     [SerializeField] private Sprite ghost1;
     [SerializeField] private Sprite backgroundMyRoom;
     [SerializeField] private Sprite backgroundRoad;
@@ -28,6 +29,9 @@ public class ImagesManager2 : ImagesManagerOrigin
                 break;
             case 21:
                 _characterImage.sprite = vier_battle;
+                break;
+            case 71:
+                _characterImage.sprite = el_battle;
                 break;
             case 101:
                 _characterImage.sprite = ghost1;

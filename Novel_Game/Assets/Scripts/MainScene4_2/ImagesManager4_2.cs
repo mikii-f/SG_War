@@ -17,13 +17,24 @@ public class ImagesManager4_2 : ImagesManagerOrigin
     [SerializeField] private Sprite backgroundRooftop;
     [SerializeField] private Sprite backgroundRooftop2;
     [SerializeField] private Image backgroundImage2;
-    [SerializeField] private Image effectsImage;
+    [SerializeField] private GameObject effectsObject;
+    private Image effectsImage;
+    private RectTransform effectsRect;
+    [SerializeField] private GameObject effectsObject2;
+    private Image effectsImage2;
+    private RectTransform effectsRect2;
+    [SerializeField] private Sprite swordEffect;
+    [SerializeField] private Sprite swordEffect2;
     [SerializeField] private Sprite bloodEffect;
     [SerializeField] private Sprite jumpEffect;
+    [SerializeField] private Sprite healEffect;
 
     protected override void StartSet()
     {
-        
+        effectsImage = effectsObject.GetComponent<Image>();
+        effectsRect = effectsObject.GetComponent<RectTransform>();
+        effectsImage2 = effectsObject2.GetComponent<Image>();
+        effectsRect2 = effectsObject2.GetComponent<RectTransform>();
     }
 
     //立ち絵関係
@@ -86,27 +97,93 @@ public class ImagesManager4_2 : ImagesManagerOrigin
         }
     }
 
-    //エフェクト
+    //エフェクト(透明度とかサイズの処理に注意 特にスキップした場合)
     public override void Effect(int n)
     {
-        switch (n)
+        if (!skip)
         {
-            case 3:
-                StartCoroutine(BloodEffect());
-                break;
-            case 4:
-                effectsImage.sprite = jumpEffect;
-                StartCoroutine(FadeIn(0.5f, effectsImage));
-                break;
-            default:
-                break;
+            switch (n)
+            {
+                case 0:
+                    StartCoroutine(SwordEffect());
+                    break;
+                case 3:
+                    StartCoroutine(BloodEffect());
+                    break;
+                case 4:
+                    effectsImage.sprite = jumpEffect;
+                    StartCoroutine(FadeIn(0.5f, effectsImage));
+                    break;
+                case 5:
+                    effectsImage.sprite = healEffect;
+                    effectsImage.color = new(1, 1, 1, 0.3f);
+                    effectsRect.localScale = new(1.6f, 1.6f);
+                    break;
+                case 6:
+                    StartCoroutine(HealFinish());
+                    break;
+                default:
+                    break;
+            }
         }
+    }
+    private IEnumerator SwordEffect()
+    {
+        StartCoroutine(Sword1());
+        yield return new WaitForSeconds(0.25f);
+        StartCoroutine(Sword2());
+    }
+    private IEnumerator Sword1()
+    {
+        effectsRect2.localScale = new(0.5f, 0.5f);
+        effectsImage.sprite = swordEffect2;
+        effectsRect.localEulerAngles = new(0, 0, 90);
+        while (effectsRect.localScale.x < 2)
+        {
+            yield return null;
+            float temp = effectsRect.localScale.x;
+            temp += 6 * Time.deltaTime;
+            effectsRect.localScale = new(temp, temp);
+        }
+        yield return StartCoroutine(FadeIn(0.25f, effectsImage));
+        effectsRect.localEulerAngles = Vector3.zero;
+        effectsRect.localScale = new(1, 1);
+        effectsImage.sprite = noneSprite;
+        effectsImage.color = Color.white;
+    }
+    private IEnumerator Sword2()
+    {
+        effectsRect2.localScale = new(3, 3);
+        effectsImage2.sprite = swordEffect;
+        StartCoroutine(FadeIn(0.5f, effectsImage2));
+        while(effectsRect2.localScale.x > 0.5f)
+        {
+            yield return null;
+            float temp = effectsRect2.localScale.x;
+            temp -= 5 * Time.deltaTime;
+            effectsRect2.localScale = new(temp, temp);
+        }
+        effectsRect2.localScale = new(1, 1);
+        effectsImage2.sprite = noneSprite;
+        effectsImage2.color = Color.white;
     }
     private IEnumerator BloodEffect()
     {
         effectsImage.sprite = bloodEffect;
         yield return StartCoroutine(FadeOut(0.5f, effectsImage));
         yield return StartCoroutine(FadeIn(0.5f, effectsImage));
+        effectsImage.sprite = noneSprite;
+        effectsImage.color = Color.white;
+    }
+    private IEnumerator HealFinish()
+    {
+        if (!skip)
+        {
+            yield return StartCoroutine(FadeIn(0.5f, effectsImage));
+        }
+        effectsImage.sprite = noneSprite;
+        effectsImage.color = Color.white;
+        effectsRect.localScale = new(1, 1);
     }
     public override void ChangeScene()
     {

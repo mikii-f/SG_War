@@ -59,6 +59,10 @@ public class SystemManager : SystemManagerOrigin
                     FunctionsClose();
                 }
             }
+            if (Input.GetKeyDown(KeyCode.Space) && functions.activeSelf && !isMessageDisplay)
+            {
+                FunctionsClose();
+            }
             //各ファンクション(ファンクションが開いていて、かつメッセージが表示されていないとき)
             if (functions.activeSelf && !isMessageDisplay)
             {
