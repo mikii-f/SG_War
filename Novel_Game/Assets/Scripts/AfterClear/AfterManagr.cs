@@ -21,6 +21,7 @@ public class AfterManagr : SystemManagerOrigin
     [SerializeField] private RectTransform noSwitch;
     [SerializeField] private Image black;
     private int messageNumber;
+    private bool isGoNext = false;
 
     // Start is called before the first frame update
     void Start()
@@ -54,50 +55,59 @@ public class AfterManagr : SystemManagerOrigin
         StartCoroutine(ButtonAnim(titleSwitchRect));
         systemMessage.text = "タイトルに戻りますか？";
         messageNumber = 0;
-        StartCoroutine(Delay(systemMessageObject));
+        StartCoroutine(Delay(systemMessageObject, true));
     }
     public void WordsSwitch()
     {
         StartCoroutine(ButtonAnim(wordsSwitchRect));
-        StartCoroutine(Delay(words2));
+        StartCoroutine(Delay(words2, true));
     }
     public void GrowSwitchRect()
     {
         StartCoroutine(ButtonAnim(growSwitchRect));
         systemMessage.text = "育成に向かいますか？";
         messageNumber = 1;
-        StartCoroutine(Delay(systemMessageObject));
+        StartCoroutine(Delay(systemMessageObject, true));
     }
     public void BonusSwitch()
     {
         StartCoroutine(ButtonAnim(bonusSwitchRect));
-        StartCoroutine(Delay(bonus));
+        StartCoroutine(Delay(bonus, true));
     }
     public void PlusAlphaSwitch()
     {
         StartCoroutine(ButtonAnim(plusAlphaSwitch));
-        StartCoroutine(Delay(battle));
+        StartCoroutine(Delay(battle, true));
     }
     public void YesSwitch()
     {
-        StartCoroutine(ButtonAnim(yesSwitch));
-        switch (messageNumber)
+        if (!isGoNext && !switchInterval)
         {
-            case 0:
-                StartCoroutine(GoBackTitle());
-                break;
-            case 1:
-                StartCoroutine(GoToGrow());
-                break;
+            StartCoroutine(ButtonAnim(yesSwitch));
+            switch (messageNumber)
+            {
+                case 0:
+                    isGoNext = true;
+                    StartCoroutine(GoBackTitle());
+                    break;
+                case 1:
+                    isGoNext = true;
+                    StartCoroutine(GoToGrow());
+                    break;
+            }
         }
     }
     public void NoSwitch()
     {
-        StartCoroutine(ButtonAnim(noSwitch));
-        StartCoroutine(Delay(systemMessageObject));
+        if (!isGoNext && !switchInterval)
+        {
+            StartCoroutine(SwitchInterval());
+            StartCoroutine(ButtonAnim(noSwitch));
+            StartCoroutine(Delay(systemMessageObject, false));
+        }
     }
-    //タイトルへ
-    private IEnumerator GoBackTitle()
+        //タイトルへ
+        private IEnumerator GoBackTitle()
     {
         black.color = new(0, 0, 0, 0);
         yield return new WaitForSeconds(0.1f);
@@ -115,8 +125,12 @@ public class AfterManagr : SystemManagerOrigin
     //バトル1へ
     public void Battle1Switch()
     {
-        StartCoroutine(ButtonAnim(battle1SwitchRect));
-        StartCoroutine(GoToBattle1());
+        if (!isGoNext)
+        {
+            isGoNext = true;
+            StartCoroutine(ButtonAnim(battle1SwitchRect));
+            StartCoroutine(GoToBattle1());
+        }
     }
     private IEnumerator GoToBattle1()
     {
@@ -129,7 +143,7 @@ public class AfterManagr : SystemManagerOrigin
     public void BattleClose()
     {
         StartCoroutine(ButtonAnim(backSwitchRect));
-        StartCoroutine(Delay(battle));
+        StartCoroutine(Delay(battle, false));
     }
     public void Close()
     {
