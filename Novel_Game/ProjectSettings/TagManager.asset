@@ -10,6 +10,7 @@ TagManager:
   - Bullet
   - Foot
   - FloatingField
+  - Medal
   layers:
   - Default
   - TransparentFX

@@ -3,27 +3,23 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class EnemyManagerOrigin : MonoBehaviour
+public abstract class EnemyManagerOrigin : SystemManagerOrigin
 {
     protected int id;
     public int ID { get { return id; } }
-    [SerializeField] private GameObject bSManagerObject;
-    protected BattleSceneManagerOrigin bSManager;
+    [SerializeField] protected BattleSceneManagerOrigin bSManager;
     [SerializeField] protected GameObject myAllObject;
     public bool AllObject { set { myAllObject.SetActive(value); } }
     [SerializeField] private GameObject myObject;
     protected RectTransform myRect;
     protected Image myImage;
     [SerializeField] private GameObject namePanel;
-    [SerializeField] private GameObject gagePanel;
     [SerializeField] private GameObject attackPanel;
     private RectTransform attackPanelRect;
     [SerializeField] private Text attackSubtitle;
-    private RectTransform gageRect;
-    [SerializeField] private GameObject HPbar;
-    protected Slider HPslider;
-    [SerializeField] private GameObject HPTextObject;
-    protected TMP_Text HPText;
+    [SerializeField] private RectTransform gageRect;
+    [SerializeField] protected Slider HPslider;
+    [SerializeField] protected TMP_Text HPText;
     [SerializeField] protected Sprite grayGage;
     [SerializeField] protected Sprite redGage;
     [SerializeField] protected int maxHP;
@@ -31,30 +27,26 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
     protected int maxGage;
     protected int currentHP;
     protected int currentGage;
-    [SerializeField] private GameObject intervalDisplay;
-    private Text intervalText;
+    [SerializeField] private TMP_Text damageText;
+    [SerializeField] protected Text intervalText;
     protected float interval;
     protected float intervalCount;
     protected bool isAttack = false;
     protected bool isDied = false;
     public bool Dead { get { return isDied; } }
-    private bool pause = true;
+    protected bool pause = true;
     public bool Pause { set { pause = value; } }
+    protected bool isShield = false;        //ã≠ìGÇÃïKéEíºëOÇÃÉVÅ[ÉãÉhèÛë‘
 
     // Start is called before the first frame update
     void Start()
     {
-        bSManager = bSManagerObject.GetComponent<BattleSceneManagerOrigin>();
         myRect = myObject.GetComponent<RectTransform>();
         myImage = myObject.GetComponent<Image>();
         attackPanelRect = attackPanel.GetComponent<RectTransform>();
         attackPanel.SetActive(false);
-        gageRect = gagePanel.GetComponent<RectTransform>();
-        HPslider = HPbar.GetComponent<Slider>();
-        HPText = HPTextObject.GetComponent<TMP_Text>();
         currentHP = maxHP;
         HPText.text = currentHP.ToString() + "/" + maxHP.ToString();
-        intervalText = intervalDisplay.GetComponent<Text>();
         StartSet();
     }
     protected abstract void StartSet();
@@ -99,7 +91,7 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
         float diffX = -attackRect.anchoredPosition.x;
         float diffY = -100;
         float diffScale = attackRect.localScale.x * 2;
-        while (true)
+        while (attackRect.anchoredPosition.y > -100)
         {
             Vector2 temp = attackRect.anchoredPosition;
             Vector2 temp2 = attackRect.localScale;
@@ -111,23 +103,11 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
             temp2.y += diffScale * Time.deltaTime * 2;
             attackRect.anchoredPosition = temp;
             attackRect.localScale = temp2;
-            if (temp.y <= -100)
-            {
-                break;
-            }
             yield return null;
         }
         //íÖíeÅEè¡ñ≈
-        float waitTime = 0.05f;
-        float fadeTime = 0.5f;
-        float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
-        for (float alpha = 255.0f; alpha >= 0f; alpha -= alphaChangeAmount)
-        {
-            Color newColor = attackImage.color;
-            newColor.a = alpha / 255.0f;
-            attackImage.color = newColor;
-            yield return new WaitForSeconds(waitTime);
-        }
+        yield return null;
+        yield return StartCoroutine(FadeIn(0.5f, attackImage));
         //èâä˙âª
         attackRect.anchoredPosition = new (-diffX, 0);
         attackRect.localScale = new Vector2(1, 1);
@@ -155,8 +135,9 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
     public void ReceiveDamage(int damage)
     {
         //ç°ÇÕéÄÇÒÇæìGÇ‡äÆëSÇ…è¡ñ≈Ç≥ÇπÇƒÇ¢Ç»Ç¢ÇΩÇﬂÅAèåèÇïtÇØÇ»Ç¢Ç∆ïKéEÇ≈2âÒñ⁄ÇÃè¡ñ≈îªíËÇ™ãNÇ´ÇÈ(ïKéEë§Ç≈Ç‡ëŒâûçœÇ›ÇæÇ™îOÇÃÇΩÇﬂ)
-        if (!isDied)
+        if (!isDied && !isShield)
         {
+            StartCoroutine(DamageDisplay(damage));
             currentHP = Mathf.Max(0, currentHP - damage);
             HPslider.value = (float)currentHP / maxHP;
             HPText.text = currentHP.ToString() + "/" + maxHP.ToString();
@@ -166,6 +147,21 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
                 StartCoroutine(Died());
             }
         }
+    }
+    //ïKéEÇ…ÇÊÇÈã≠ìGÇÃÉVÅ[ÉãÉhîjâÛ(ç°âÒÇÕÉGÉãÇÃÇ›Ç…Ç»ÇÈó\íË)
+    public void ShieldBreak()
+    {
+        if (isShield)
+        {
+            isShield = false;
+        }
+    }
+    //É_ÉÅÅ[ÉWï\é¶(è„ÇÃä÷êîÇÉRÉãÅ[É`ÉìâªÇµÇƒÇ‡Ç¢Ç¢)
+    private IEnumerator DamageDisplay(int damage)
+    {
+        damageText.text = damage.ToString();
+        yield return new WaitForSeconds(0.35f);
+        damageText.text = "";
     }
     //É_ÉÅÅ[ÉWéÛÇØéÊÇËéûÇÃóhÇÍ
     private IEnumerator DamageVibration()
@@ -190,7 +186,7 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
     }
     public void ReceiveDelay()
     {
-        if (!isAttack)
+        if (!isAttack && !isShield)
         {
             intervalCount += 1;
         }
@@ -200,29 +196,20 @@ public abstract class EnemyManagerOrigin : MonoBehaviour
     {
         isDied = true;
         bSManager.EnemyDied();
-        float waitTime = 0.1f;
-        float fadeTime = 1;
-        float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
-        for (float alpha = 255.0f; alpha >= 0f; alpha -= alphaChangeAmount)
-        {
-            Color newColor = myImage.color;
-            newColor.a = alpha / 255.0f;
-            myImage.color = newColor;
-            yield return new WaitForSeconds(waitTime);
-        }
+        yield return StartCoroutine(FadeIn(1, myImage));
         myAllObject.SetActive(false);
     }
     //çUåÇëŒè€Ç∆ÇµÇƒëIëÇ≥ÇÍÇΩÇ∆Ç´ÇÃUIägëÂèkè¨
     public void Select()
     {
         namePanel.SetActive(true);
-        HPTextObject.SetActive(true);
+        HPText.text = currentHP.ToString() + "/" + maxHP.ToString();
         gageRect.localScale = Vector3.one;
     }
     public void DisSelect()
     {
         namePanel.SetActive(false);
-        HPTextObject.SetActive(false);
+        HPText.text = "";
         gageRect.localScale = new(0.5f, 0.5f);
     }
 

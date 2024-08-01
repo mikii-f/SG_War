@@ -4,15 +4,16 @@ using UnityEngine;
 public class MedalManager : MonoBehaviour
 {
     private Transform _transform;
+    private Collider _collider;
 
-    // Start is called before the first frame update
     void Start()
     {
         _transform = GetComponent<Transform>();
-        StartCoroutine(Idling());
+        _collider = GetComponent<Collider>();
+        //StartCoroutine(Idling());
     }
-
-    private IEnumerator Idling()
+    //あまり見た目的には分からないため負荷軽減のためカット
+    /*private IEnumerator Idling()
     {
         while (true)
         {
@@ -35,12 +36,13 @@ public class MedalManager : MonoBehaviour
                 yield return null;
             }
         }
-    }
+    }*/
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            _collider.enabled = false;
             StartCoroutine(GetMedal());
         }
     }

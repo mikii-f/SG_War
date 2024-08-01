@@ -4,20 +4,18 @@ using UnityEngine.UI;
 
 public class CarnivoreEnemyManager : EnemyManagerOrigin
 {
-    [SerializeField] private GameObject gage1;
-    private Image gage1Image;
+    [SerializeField] private Image gage1Image;
     [SerializeField] private GameObject attackEffect;
-    protected RectTransform attackRect;
-    protected Image attackImage;
+    private RectTransform attackRect;
+    private Image attackImage;
     [SerializeField] private GameObject attackEffect2;
-    protected RectTransform attackRect2;
-    protected Image attackImage2;
+    private RectTransform attackRect2;
+    private Image attackImage2;
 
     // Start is called before the first frame update
     protected override void StartSet()
     {
         id = 2;
-        gage1Image = gage1.GetComponent<Image>();
         attackRect = attackEffect.GetComponent<RectTransform>();
         attackImage = attackEffect.GetComponent<Image>();
         attackImage.color = new(1, 1, 1, 0);
@@ -29,6 +27,7 @@ public class CarnivoreEnemyManager : EnemyManagerOrigin
         currentGage = 0;
         interval = 3;
         intervalCount = interval;
+        intervalText.text = intervalCount.ToString("F2");
     }
 
     //í èÌçUåÇ

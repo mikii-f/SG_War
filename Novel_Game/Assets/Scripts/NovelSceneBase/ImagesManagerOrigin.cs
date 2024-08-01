@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public abstract class ImagesManagerOrigin : MonoBehaviour
 {
@@ -27,7 +26,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     protected RectTransform _backgroundRect;
     [SerializeField] protected Sprite noneSprite;
     [SerializeField] protected Sprite backgroundBlack;
-    private bool skip = false;
+    protected bool skip = false;
     public bool Skip { set { skip = value; } }
     // Start is called before the first frame update
     void Start()
@@ -64,6 +63,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         }
     }
 
+    //かつてどこかで見つけたやつを流用し続けている気がするためそろそろ自分流で書き直してもいいかも
     protected IEnumerator FadeOut(float fadeTime, Image image)
     {
         if (!skip)
@@ -116,6 +116,9 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
             case "Black":
                 StartCoroutine(FadeOut(n, blackAllImage));
                 break;
+            case "White":
+                StartCoroutine(FadeOut(n, whiteImage));
+                break;
             case "Character":
                 StartCoroutine(FadeOut(n, _characterImage));
                 break;
@@ -131,6 +134,9 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
             case "Black":
                 StartCoroutine(FadeIn(n, blackAllImage));
                 break;
+            case "White":
+                StartCoroutine(FadeIn(n, whiteImage));
+                break;
             case "Character":
                 StartCoroutine(FadeIn(n, _characterImage));
                 break;
@@ -141,6 +147,146 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
 
     }
 
+    //コルーチンを呼び出すものばかりになるなら個別の関数だけにした方がいいか？
+    public void CharacterMotion(string s)
+    {
+        switch (s)
+        {
+            case "Jump":
+                //座標移動とフェードでジャンプを表す
+                StartCoroutine(FadeIn(0.5f, _characterImage));
+                Vector2 temp = _characterRect.anchoredPosition;
+                temp.y += 200;
+                _characterRect.anchoredPosition = temp;
+                break;
+            case "Bounce":
+                //ぴょんぴょん跳ねる
+                StartCoroutine(Bounce());
+                break;
+            case "Vibe":
+                StartCoroutine(Vibe());
+                break;
+            case "BackSlide":
+                StartCoroutine(BackSlide());
+                break;
+            case "HorizontalSlide":
+                StartCoroutine(HorizontalSlide());
+                break;
+            case "Approach":
+                StartCoroutine(Approach());
+                break;
+            default:
+                break;
+        }
+    }
+    private IEnumerator Bounce()
+    {
+        if (!skip)
+        {
+            while (_characterRect.anchoredPosition.y < -310)
+            {
+                Vector2 temp = _characterRect.anchoredPosition;
+                temp.y += 500 * Time.deltaTime;
+                _characterRect.anchoredPosition = temp;
+                yield return null;
+            }
+            while (_characterRect.anchoredPosition.y > -360)
+            {
+                Vector2 temp = _characterRect.anchoredPosition;
+                temp.y -= 500 * Time.deltaTime;
+                _characterRect.anchoredPosition = temp;
+                yield return null;
+            }
+            yield return new WaitForSeconds(0.1f);
+            while (_characterRect.anchoredPosition.y < -310)
+            {
+                Vector2 temp = _characterRect.anchoredPosition;
+                temp.y += 500 * Time.deltaTime;
+                _characterRect.anchoredPosition = temp;
+                yield return null;
+            }
+            while (_characterRect.anchoredPosition.y > -360)
+            {
+                Vector2 temp = _characterRect.anchoredPosition;
+                temp.y -= 500 * Time.deltaTime;
+                _characterRect.anchoredPosition = temp;
+                yield return null;
+            }
+        }
+        _characterRect.anchoredPosition = new(0, -360);
+    }
+    private IEnumerator Vibe()
+    {
+        if (!skip)
+        {
+            Vector2 temp = _characterRect.anchoredPosition;
+            temp.x += 20;
+            _characterRect.anchoredPosition = temp;
+            yield return new WaitForSeconds(0.1f);
+            temp.x -= 40;
+            _characterRect.anchoredPosition = temp;
+            yield return new WaitForSeconds(0.1f);
+            temp.x += 40;
+            _characterRect.anchoredPosition = temp;
+            yield return new WaitForSeconds(0.1f);
+            temp.x -= 40;
+            _characterRect.anchoredPosition = temp;
+            yield return new WaitForSeconds(0.1f);
+            temp.x = 0;
+            _characterRect.anchoredPosition = temp;
+        }
+    }
+    private IEnumerator BackSlide()
+    {
+        if (!skip)
+        {
+            StartCoroutine(FadeOut(0.5f, _characterImage));
+            _characterRect.localScale = new(2, 2);
+            while (_characterRect.localScale.x > 1)
+            {
+                yield return null;
+                float temp = _characterRect.localScale.x;
+                temp -= 2 * Time.deltaTime;
+                _characterRect.localScale = new(temp, temp);
+            }
+            _characterRect.localScale = new(1, 1);
+        }
+    }
+    private IEnumerator HorizontalSlide()
+    {
+        if (!skip)
+        {
+            _characterRect.anchoredPosition = new(960, -360);
+            StartCoroutine(FadeOut(0.5f, _characterImage));
+            while (_characterRect.anchoredPosition.x > 0)
+            {
+                yield return null;
+                Vector2 temp = _characterRect.anchoredPosition;
+                temp.x -= 1920 * Time.deltaTime;
+                _characterRect.anchoredPosition = temp;
+            }
+        }
+        _characterRect.anchoredPosition = new(0, -360);
+    }
+    private IEnumerator Approach()
+    {
+        if (!skip)
+        {
+            yield return new WaitForSeconds(0.2f);
+            while (_characterRect.localScale.x < 1.3f)
+            {
+                float temp = _characterRect.localScale.x;
+                Vector2 temp2 = _characterRect.anchoredPosition;
+                temp += 1.5f * Time.deltaTime;
+                temp2.y -= 1000 * Time.deltaTime;
+                _characterRect.localScale = new(temp, temp);
+                _characterRect.anchoredPosition = temp2;
+                yield return null;
+            }
+        }
+        _characterRect.localScale = new(1.3f, 1.3f);
+        _characterRect.anchoredPosition = new(0, -560);
+    }
     //ワイプはひとまとまりで使われるはずだが、万が一途中でセーブされてもいいようにする
     //ワイプ(前半)
     public IEnumerator Wipe1()
@@ -154,7 +300,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
             {
                 yield return null;
                 Vector2 pos = bARect.anchoredPosition;
-                pos.x += 960 * Time.deltaTime;
+                pos.x = Mathf.Min(0, pos.x + 960 * Time.deltaTime);
                 bARect.anchoredPosition = pos;
             }
             AnimationFinished(0);
@@ -173,16 +319,16 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         if (!skip)
         {
             yield return new WaitForSeconds(0.5f);
-            while (bARect.anchoredPosition.x < 1930)
+            while (bARect.anchoredPosition.x < 1920)
             {
                 yield return null;
                 Vector2 pos = bARect.anchoredPosition;
-                pos.x += 960 * Time.deltaTime;
+                pos.x = Mathf.Min(1920, pos.x + 960 * Time.deltaTime);
                 bARect.anchoredPosition = pos;
             }
-            yield return new WaitForSeconds(0.5f);
             blackAllImage.color = Color.clear;
             bARect.anchoredPosition = new(0, 0);
+            yield return new WaitForSeconds(0.5f);
             textPanel.SetActive(true);
             AnimationFinished(0);
         }
@@ -260,7 +406,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
             {
                 yield return null;
                 float temp = _backgroundRect.anchoredPosition.x;
-                temp += 96 * Time.deltaTime;
+                temp += 48 * Time.deltaTime;
                 _backgroundRect.anchoredPosition = new(temp, 0);
             }
         }
@@ -275,11 +421,44 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     {
         _backgroundRect.anchoredPosition = new(480, 0);
     }
-
+    //話していないキャラクターの暗転用
+    public void CharacterColor()
+    {
+        _characterImage.color = new(0.5f, 0.5f, 0.5f, 1);
+    }
+    //背景の暗転用(現状使う場面は多くないが、値を引数で指定するのもアリ)
+    public IEnumerator BackgroundColor()
+    {
+        float c = 1;
+        while (c > 0.3f)
+        {
+            c -= 0.7f * Time.deltaTime;
+            _backgroundImage.color = new(c, c, c, 1);
+            yield return null;
+        }
+    }
+    //1文の間で表情を切り替える用
+    public IEnumerator FaceChangeDelay(float t, int n)
+    {
+        if (!skip)
+        {
+            yield return new WaitForSeconds(t);
+            CharacterChange(n);
+        }
+        else
+        {
+            CharacterChange(n);
+        }
+    }
+    //キャラクターの位置を設定
+    public void CharacterRect(int x, int y)
+    {
+        _characterRect.anchoredPosition = new(x, y);
+    }
     //キャラクターのサイズ・位置・透明度をリセット
     public void CharacterReset()
     {
-        _characterRect.localScale = new(100, 100);
+        _characterRect.localScale = new(1, 1);
         _characterRect.anchoredPosition = new(0, -360);
         _characterImage.color = Color.white;
     }
@@ -318,14 +497,8 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         textPanel.SetActive(false);
     }
 
-    //シーン切り替え(進行度を自動で保存する)
-    public void ChangeScene(string sceneName)
-    {
-        GameManager.instance.SceneName = SceneManager.GetActiveScene().name;
-        GameManager.instance.LineNumber = 0;
-        GameManager.instance.Save();
-        SceneManager.LoadScene(sceneName);
-    }
+    //シーン切り替え
+    public abstract void ChangeScene();
 
     //アニメーションの終了を各テキストマネージャーに伝えるための関数
     protected void AnimationFinished(float waitTime)
@@ -333,12 +506,14 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         StartCoroutine(textManager.AnimationFinished(waitTime));
     }
 
-    //以下各クラスに必要だが異なる処理にするもの
+    //以下各クラスに必要だが異なる処理にするもの(主に全てのシーンで画像をアタッチしなくて良いように)
 
     //立ち絵の変更用(シーンごとに必要な分だけ記述)
     public abstract void CharacterChange(int n);
     //背景について同上
     public abstract void BackgroundChange(int n);
+    //共通で使うエフェクトが増えてきたら、Spriteだけ引数で与えるなり外で設定するなりで対応することにして機能は共通化した方が良さげ
+    public abstract void Effect(int n);
     //シーンごとにStartで異なる処理を(差分だけ)記述するための関数
     protected abstract void StartSet();
 }

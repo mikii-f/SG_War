@@ -1,18 +1,21 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ImagesManager : ImagesManagerOrigin
 {
     [SerializeField] private Sprite vier;
-    [SerializeField] private Sprite el;
+    [SerializeField] private Sprite vier5;
+    [SerializeField] private Sprite vier6;
+    [SerializeField] private Sprite vier7;
+    [SerializeField] private Sprite vier8;
+    [SerializeField] private Sprite el_battle2;
     [SerializeField] private Sprite backgroundMyRoom;
     [SerializeField] private Sprite backgroundRoad;
     [SerializeField] private Sprite backgroundCity;
 
     protected override void StartSet()
     {
-        blackAllImage.color = new(0, 0, 0, 0.7f);
+        blackAllImage.color = Color.clear;
     }
 
     //—§‚¿ŠGŠÖŒW
@@ -26,8 +29,20 @@ public class ImagesManager : ImagesManagerOrigin
             case 1:
                 _characterImage.sprite = vier;
                 break;
-            case 2:
-                _characterImage.sprite = el;
+            case 5:
+                _characterImage.sprite = vier5;
+                break;
+            case 6:
+                _characterImage.sprite = vier6;
+                break;
+            case 7:
+                _characterImage.sprite = vier7;
+                break;
+            case 8:
+                _characterImage.sprite = vier8;
+                break;
+            case 72:
+                _characterImage.sprite = el_battle2;
                 break;
             default:
                 break;
@@ -54,5 +69,16 @@ public class ImagesManager : ImagesManagerOrigin
             default:
                 break;
         }
+    }
+
+    public override void Effect(int n)
+    {
+
+    }
+
+    public override void ChangeScene()
+    {
+        GameManager.instance.LineNumber = 0;
+        SceneManager.LoadScene("MainScene2");
     }
 }

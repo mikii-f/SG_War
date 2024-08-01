@@ -1,8 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
-public abstract class BattleSceneManagerOrigin : MonoBehaviour
+public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
 {
     [SerializeField] protected SainManager sainManager;
     [SerializeField] protected LeaderManager leaderManager;
@@ -10,6 +11,8 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
     [SerializeField] protected GameObject blackObject;
     protected RectTransform blackRect;
     protected Image blackImage;
+    [SerializeField] protected GameObject explanation;
+    [SerializeField] protected TMP_Text battleStartAndFinishText;
     [SerializeField] private GameObject specialSkillAnimation;
     [SerializeField] private Text enemyNumberText;
     [SerializeField] private Text waveNumberText;
@@ -21,14 +24,22 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
     protected int numberOfCurrentWave = 0;      //配列のインデックスとして使うことが多いため0から
     protected int selectedEnemy = 0;
     protected bool isSpecialAttack = false;
+    private bool isEnemySpecialAttack = false;
     private bool isGameOver = false;
+    [SerializeField] private GameObject specialAttackPanel;
+    private RectTransform specialAttackPanelRect;
+    private Image specialAttackPanelImage;
 
     // Start is called before the first frame update
     void Start()
     {
         blackRect = blackObject.GetComponent<RectTransform>();
         blackImage = blackObject.GetComponent<Image>();
+        specialAttackPanelRect = specialAttackPanel.GetComponent<RectTransform>();
+        specialAttackPanelImage = specialAttackPanel.GetComponent<Image>();
+        specialAttackPanelImage.color = new(1, 1, 1, 0);
         specialSkillAnimation.SetActive(false);
+        explanation.SetActive(false);
         StartCoroutine(FadeIn(1, blackImage));
         StartSet();
     }
@@ -38,6 +49,10 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space) && explanation.activeSelf)
+        {
+            explanation.SetActive(false);
+        }
         //同時押しなどによるバグをなくすためには全てif-elseで繋ぐべきなのか？その場合どれの優先度を高くする？別スクリプトは？
         //攻撃対象の選択
         if (Input.GetKeyDown(KeyCode.A))
@@ -109,6 +124,55 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
     public void EnemyToSainAttack(int damage)
     {
         sainManager.ReceiveDamage(damage);
+    }
+    //敵からの必殺技(ガード・回避不可)
+    public IEnumerator EnemySpecialAttack(int damage)
+    {
+        sainManager.Pause = true;
+        leaderManager.Pause = true;
+        isEnemySpecialAttack = true;
+        for (int i = 0; i < numberOfEnemy[numberOfCurrentWave]; i++)
+        {
+            enemyComposition[numberOfCurrentWave][i].Pause = true;
+        }
+        yield return new WaitForSeconds(2);
+        //specialSkillAnimation.SetActive(true);
+        yield return new WaitForSeconds(2.5f);
+        //specialSkillAnimation.SetActive(false);
+        sainManager.ReceiveSpecialDamage(damage);
+        yield return new WaitForSeconds(2);
+        sainManager.Pause = false;
+        leaderManager.Pause = false;
+        isEnemySpecialAttack = false;
+        for (int i = 0; i < numberOfEnemy[numberOfCurrentWave]; i++)
+        {
+            enemyComposition[numberOfCurrentWave][i].Pause = false;
+        }
+    }
+    public IEnumerator SpecialAttackName(Sprite sprite)
+    {
+        specialAttackPanelImage.sprite = sprite;
+        StartCoroutine(FadeOut(0.25f, specialAttackPanelImage));
+        specialAttackPanelRect.anchoredPosition = new(-400, 0);
+        //0.25秒で400移動
+        while (specialAttackPanelRect.anchoredPosition.x < 0)
+        {
+            yield return null;
+            Vector2 pos = specialAttackPanelRect.anchoredPosition;
+            pos.x = Mathf.Min(pos.x + 1600 * Time.deltaTime, 0);
+            specialAttackPanelRect.anchoredPosition = pos;
+        }
+        specialAttackPanelImage.color = Color.white;
+        yield return new WaitForSeconds(1);
+        StartCoroutine(FadeIn(0.25f, specialAttackPanelImage));
+        while (specialAttackPanelRect.anchoredPosition.x < 400)
+        {
+            yield return null;
+            Vector2 pos = specialAttackPanelRect.anchoredPosition;
+            pos.x = Mathf.Min(pos.x + 1600 * Time.deltaTime, 400);
+            specialAttackPanelRect.anchoredPosition = pos;
+        }
+        specialAttackPanelImage.color = new(1, 1, 1, 0);
     }
     //敵への攻撃の着弾地点取得
     private float AttackPoint()
@@ -186,7 +250,7 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
     {
         attackImage.color = Color.white;
         float diffX = AttackPoint();
-        while (true)
+        while (attackRect.localScale.x > 0.5f)
         {
             Vector2 temp = attackRect.anchoredPosition;
             Vector2 temp2 = attackRect.localScale;
@@ -201,10 +265,6 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
             attackRect.anchoredPosition = temp;
             attackRect.localScale = temp2;
             attackRect.localEulerAngles = temp3;
-            if (temp2.x <= 0.5f)//普通にwhileの条件に入れられるやん
-            {
-                break;
-            }
             yield return null;
         }
         //着弾・消滅
@@ -243,6 +303,11 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
         {
             if (!deadEnemyComposition[numberOfCurrentWave][i])
             {
+                //強敵のバリア破壊
+                if (enemyComposition[numberOfCurrentWave][i].ID == 4)
+                {
+                    enemyComposition[numberOfCurrentWave][i].ShieldBreak();
+                }
                 enemyComposition[numberOfCurrentWave][i].ReceiveDamage(damage);
             }
         }
@@ -334,31 +399,6 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
         leaderManager.Pause = false;
     }
 
-    //戦闘開始時・終了時のフェード
-    protected IEnumerator FadeIn(float fadeTime, Image image)
-    {
-        float waitTime = 0.1f;
-        float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
-        for (float alpha = 255.0f; alpha >= 0f; alpha -= alphaChangeAmount)
-        {
-            Color newColor = image.color;
-            newColor.a = alpha / 255.0f;
-            image.color = newColor;
-            yield return new WaitForSeconds(waitTime);
-        }
-    }
-    protected IEnumerator FadeOut(float fadeTime, Image image)
-    {
-        float waitTime = 0.1f;
-        float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
-        for (float alpha = 0.0f; alpha <= 255.0f; alpha += alphaChangeAmount)
-        {
-            Color newColor = image.color;
-            newColor.a = alpha / 255.0f;
-            image.color = newColor;
-            yield return new WaitForSeconds(waitTime);
-        }
-    }
     //ウェーブ遷移時のワイプ(0.5+2+0.5秒)
     private IEnumerator Wipe()
     {
@@ -368,15 +408,15 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
         {
             yield return null;
             Vector2 pos = blackRect.anchoredPosition;
-            pos.x += 3840 * Time.deltaTime;
+            pos.x = Mathf.Min(0, pos.x + 3840 * Time.deltaTime);
             blackRect.anchoredPosition = pos;
         }
         yield return new WaitForSeconds(2);
-        while (blackRect.anchoredPosition.x < 1930)
+        while (blackRect.anchoredPosition.x < 1920)
         {
             yield return null;
             Vector2 pos = blackRect.anchoredPosition;
-            pos.x += 3860 * Time.deltaTime;
+            pos.x = Mathf.Min(1920, pos.x + 3840 * Time.deltaTime);
             blackRect.anchoredPosition = pos;
         }
         blackImage.color = Color.clear;
@@ -386,6 +426,8 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
     //ゲームオーバー処理
     public IEnumerator GameOver()
     {
+        //必殺技によって倒された場合にPause処理が競合するのを避けるため
+        yield return new WaitUntil(() => !isEnemySpecialAttack);
         isGameOver = true;
         sainManager.Pause = true;
         leaderManager.Pause = true;
@@ -405,9 +447,16 @@ public abstract class BattleSceneManagerOrigin : MonoBehaviour
         sainManager.Pause = true;
         leaderManager.Pause = true;
         battleSystemManager.MenuOff();
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
+        battleStartAndFinishText.text = "Battle Finish";
+        yield return new WaitForSeconds(2);
         yield return StartCoroutine(FadeOut(2, blackImage));
         SceneLoad();
+    }
+    //戦闘開始時の説明クローズ
+    public void Close()
+    {
+        explanation.SetActive(false);
     }
     //各シーンにおけるロード&強制スキップ用
     public abstract void SceneLoad();

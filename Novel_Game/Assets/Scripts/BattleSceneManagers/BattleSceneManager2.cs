@@ -1,31 +1,22 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class BattleSceneManager2 : BattleSceneManagerOrigin
 {
-    [SerializeField] private GameObject lLEnemyManagerObject1;
-    [SerializeField] private GameObject compEnemyManagerObject;
-    [SerializeField] private GameObject lLEnemyManagerObject2;
-    [SerializeField] private GameObject carnEnemyManagerObject1;
-    [SerializeField] private GameObject lLEnemyManagerObject3;
-    [SerializeField] private GameObject carnEnemyManagerObject2;
-    private LowLevelEnemyManager lLEnemyManager1;
-    private ComplexEnemyManager compEnemyManager;
-    private LowLevelEnemyManager lLEnemyManager2;
-    private CarnivoreEnemyManager carnEnemyManager1;
-    private LowLevelEnemyManager lLEnemyManager3;
-    private CarnivoreEnemyManager carnEnemyManager2;
+    [SerializeField] private LowLevelEnemyManager lLEnemyManager1;
+    [SerializeField] private ComplexEnemyManager compEnemyManager;
+    [SerializeField] private LowLevelEnemyManager lLEnemyManager2;
+    [SerializeField] private CarnivoreEnemyManager carnEnemyManager1;
+    [SerializeField] private LowLevelEnemyManager lLEnemyManager3;
+    [SerializeField] private CarnivoreEnemyManager carnEnemyManager2;
+    [SerializeField] private GameObject tutorialPanel;
+    [SerializeField] private Text tutorialText;
 
     // Start is called before the first frame update
     protected override void StartSet()
     {
-        lLEnemyManager1 = lLEnemyManagerObject1.GetComponent<LowLevelEnemyManager>();
-        compEnemyManager = compEnemyManagerObject.GetComponent<ComplexEnemyManager>();
-        lLEnemyManager2 = lLEnemyManagerObject2.GetComponent<LowLevelEnemyManager>();
-        carnEnemyManager1 = carnEnemyManagerObject1.GetComponent<CarnivoreEnemyManager>();
-        lLEnemyManager3 = lLEnemyManagerObject3.GetComponent<LowLevelEnemyManager>();
-        carnEnemyManager2 = carnEnemyManagerObject2.GetComponent<CarnivoreEnemyManager>();
         numberOfEnemy = new int[] {3, 3};
         numberOfWave = 2;
         enemyComposition = new EnemyManagerOrigin[2][];
@@ -35,6 +26,7 @@ public class BattleSceneManager2 : BattleSceneManagerOrigin
         deadEnemyComposition[0] = new bool[3];
         deadEnemyComposition[1] = new bool[3];
         numberOfArriveEnemy = numberOfEnemy[0];
+        tutorialPanel.SetActive(false);
         StartCoroutine(BattleStart());
     }
     private IEnumerator BattleStart()
@@ -48,7 +40,35 @@ public class BattleSceneManager2 : BattleSceneManagerOrigin
         {
             enemyComposition[1][i].AllObject = false;
         }
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
+        tutorialPanel.SetActive(true);
+        tutorialText.text = "今回は複数体の敵との戦闘となります。";
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
+        yield return null;
+        tutorialText.text = "敵の詳細を確認し、優先して倒すべき敵を見極めましょう。";
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
+        yield return null;
+        tutorialText.text = "A/Dキーにより敵ターゲットを切り替えることができます。";
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
+        yield return null;
+        tutorialText.text = "また、全ての攻撃をガードするのは困難です。強力な攻撃を重点的にガードするようにしましょう。";
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
+        yield return null;
+        tutorialText.text = "戦闘スキル3を使用して回避率を上げる、必殺技で一掃するといった戦略も有効です。";
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
+        yield return null;
+        tutorialPanel.SetActive(false);
+        explanation.SetActive(true);
+        yield return new WaitUntil(() => !explanation.activeSelf);
+        battleStartAndFinishText.text = "3";
+        yield return new WaitForSeconds(1);
+        battleStartAndFinishText.text = "2";
+        yield return new WaitForSeconds(1);
+        battleStartAndFinishText.text = "1";
+        yield return new WaitForSeconds(1);
+        battleStartAndFinishText.text = "Battle Start";
+        yield return new WaitForSeconds(1);
+        battleStartAndFinishText.text = "";
         sainManager.Pause = false;
         leaderManager.Pause = false;
         for (int i = 0; i < 3; i++)
@@ -60,6 +80,9 @@ public class BattleSceneManager2 : BattleSceneManagerOrigin
 
     public override void SceneLoad()
     {
+        GameManager.instance.SceneName = "MainScene3_2";
+        GameManager.instance.LineNumber = 0;
+        GameManager.instance.Save();
         SceneManager.LoadScene("MainScene3_2");
     }
 }

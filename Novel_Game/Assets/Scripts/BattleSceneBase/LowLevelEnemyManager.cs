@@ -4,23 +4,17 @@ using UnityEngine.UI;
 
 public class LowLevelEnemyManager : EnemyManagerOrigin
 {
-    [SerializeField] private GameObject gage1;
-    [SerializeField] private GameObject gage2;
-    [SerializeField] private GameObject gage3;
-    private Image gage1Image;
-    private Image gage2Image;
-    private Image gage3Image;
+    [SerializeField] private Image gage1Image;
+    [SerializeField] private Image gage2Image;
+    [SerializeField] private Image gage3Image;
     [SerializeField] private GameObject attackEffect;
-    protected RectTransform attackRect;
-    protected Image attackImage;
+    private RectTransform attackRect;
+    private Image attackImage;
 
     // Start is called before the first frame update
     protected override void StartSet()
     {
         id = 0;
-        gage1Image = gage1.GetComponent<Image>();
-        gage2Image = gage2.GetComponent<Image>();
-        gage3Image = gage3.GetComponent<Image>();
         attackRect = attackEffect.GetComponent<RectTransform>();
         attackImage = attackEffect.GetComponent<Image>();
         attackImage.color = new(1, 1, 1, 0);
@@ -28,6 +22,7 @@ public class LowLevelEnemyManager : EnemyManagerOrigin
         currentGage = 0;
         interval = 5;
         intervalCount = interval;
+        intervalText.text = intervalCount.ToString("F2");
     }
 
     //í èÌçUåÇ
