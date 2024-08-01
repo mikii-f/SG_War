@@ -4,6 +4,9 @@ using UnityEngine.SceneManagement;
 public class ImagesManager2_3 : ImagesManagerOrigin
 {
     [SerializeField] private Sprite vier;
+    [SerializeField] private Sprite vier3;
+    [SerializeField] private Sprite vier5;
+    [SerializeField] private Sprite vier8;
     [SerializeField] private Sprite ghost1;
     [SerializeField] private Sprite backgroundMyRoom;
     [SerializeField] private Sprite backgroundRoad;
@@ -23,6 +26,15 @@ public class ImagesManager2_3 : ImagesManagerOrigin
                 break;
             case 1:
                 _characterImage.sprite = vier;
+                break;
+            case 3:
+                _characterImage.sprite = vier3;
+                break;
+            case 5:
+                _characterImage.sprite = vier5;
+                break;
+            case 8:
+                _characterImage.sprite = vier8;
                 break;
             case 101:
                 _characterImage.sprite = ghost1;

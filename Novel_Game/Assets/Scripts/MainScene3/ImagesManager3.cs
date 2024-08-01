@@ -7,7 +7,13 @@ public class ImagesManager3 : ImagesManagerOrigin
     [SerializeField] private Image characterImage2;
     [SerializeField] private Image characterImage3;
     [SerializeField] private Sprite vier;
+    [SerializeField] private Sprite vier2;
+    [SerializeField] private Sprite vier3;
+    [SerializeField] private Sprite vier4;
+    [SerializeField] private Sprite vier5;
+    [SerializeField] private Sprite vier8;
     [SerializeField] private Sprite vier_battle;
+    [SerializeField] private Sprite vier_battle4;
     [SerializeField] private Sprite ghost1;
     [SerializeField] private Sprite ghost2;
     [SerializeField] private Sprite ghost3;
@@ -33,8 +39,26 @@ public class ImagesManager3 : ImagesManagerOrigin
             case 1:
                 _characterImage.sprite = vier;
                 break;
+            case 2:
+                _characterImage.sprite = vier2;
+                break;
+            case 3:
+                _characterImage.sprite = vier3;
+                break;
+            case 4:
+                _characterImage.sprite = vier4;
+                break;
+            case 5:
+                _characterImage.sprite = vier5;
+                break;
+            case 8:
+                _characterImage.sprite = vier8;
+                break;
             case 21:
                 _characterImage.sprite = vier_battle;
+                break;
+            case 24:
+                _characterImage.sprite = vier_battle4;
                 break;
             case 101:
                 _characterImage.sprite = ghost1;

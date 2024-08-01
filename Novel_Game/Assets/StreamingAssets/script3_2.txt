@@ -10,16 +10,16 @@ Effect,Sword,CharacterMotion,Vibe,FadeIn,2.0,Character,AnimAndGoNext,2.5
 CharacterChange,vier_battle,CharacterReset,FadeOut,1.0,White,AnimAndGoNext,1.0
 
 
-CharacterChange,vier,FadeIn,0.5,White,AnimAndGoNext,0.5
+CharacterChange,vier2,FadeIn,0.5,White,AnimAndGoNext,0.5
 
 
-TextPanelOn,MenuOn
+TextPanelOn,MenuOn,CharacterChange,vier4
 フィア
 よし、倒した！
 0
 剣羽和人
 お互い、今回はちゃんと戦えたな。だが……。
-0
+CharacterChange,vier2
 フィア
 うん。これだけの数の異妖が潜んでいたのに私が感知できないなんてやっぱりおかしい。もうちょっと見回りを続けたいんだけど、どうかな？
 0
@@ -52,7 +52,7 @@ CharacterChange,vier
 0
 剣羽和人
 異妖に感情はないって話だが、どことなく混乱しているような、そんな雰囲気を感じたな。
-0
+CharacterChange,vier8
 フィア
 混乱、かあ。うん、確かに私もそんな気がする。でも、それなら私たち以外を無差別に襲ったりしてないのはなんでかな？
 0
@@ -76,13 +76,13 @@ CharacterChange,vier
 0
 剣羽和人
 …………こりゃレポートは後回しだな。まあ、世界の危機とは比べるまでもねえか……。
-0
+CharacterChange,vier
 フィア
 ふふ、やる気なさそうなふりして結構正義感強いよね。私も、多分他のみんなも和人のそういうところ好きだよ。
 0
 剣羽和人
 やめてくれ。俺はそんなご大層な人間じゃないっての。ただ、自分が普通に生きていくためにやらなきゃいけないことならやるってだけだ。
-0
+CharacterColor
 
 セインのリーダーというものは各世界に一人までらしい。
 0
@@ -106,7 +106,7 @@ CharacterChange,vier
 0
 剣羽和人
 とまあ、そういうわけだ。久々の戦闘続きで疲れたし俺はもう寝るぞ。
-0
+CharacterReset
 フィア
 分かった。じゃあ、私はいつも通り消えておくねー。
 FadeIn,0.5,Character,AnimAndGoNext,0.5

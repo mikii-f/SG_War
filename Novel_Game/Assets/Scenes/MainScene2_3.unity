@@ -2276,6 +2276,9 @@ MonoBehaviour:
   noneSprite: {fileID: 21300000, guid: 199e3707cf3f9ac4f91be2a04aa6e369, type: 3}
   backgroundBlack: {fileID: 21300000, guid: 96f10c3d17a319c43a908e5ba537e43e, type: 3}
   vier: {fileID: 21300000, guid: 9839a3770c232d1438e08ccc60921534, type: 3}
+  vier3: {fileID: 21300000, guid: 0fc434cf7059fd44cbf4f156b0c58143, type: 3}
+  vier5: {fileID: 21300000, guid: ab8f425e880cb734694316a831a0430c, type: 3}
+  vier8: {fileID: 21300000, guid: 982214422a9ba7044b05ce0fcc7bade8, type: 3}
   ghost1: {fileID: 21300000, guid: f073aa36522233346981af266d175b33, type: 3}
   backgroundMyRoom: {fileID: 21300000, guid: 034ce8998b3d5c24ab3b6abc9c6281e8, type: 3}
   backgroundRoad: {fileID: 21300000, guid: 96017ba2085e54d41b9c87a53f91f1a8, type: 3}

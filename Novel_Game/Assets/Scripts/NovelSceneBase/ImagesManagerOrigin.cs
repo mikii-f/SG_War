@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditorInternal.ReorderableList;
 
 public abstract class ImagesManagerOrigin : MonoBehaviour
 {
@@ -407,7 +406,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
             {
                 yield return null;
                 float temp = _backgroundRect.anchoredPosition.x;
-                temp += 96 * Time.deltaTime;
+                temp += 48 * Time.deltaTime;
                 _backgroundRect.anchoredPosition = new(temp, 0);
             }
         }

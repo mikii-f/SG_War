@@ -1813,7 +1813,13 @@ MonoBehaviour:
   characterImage2: {fileID: 1308141675}
   characterImage3: {fileID: 1563734531}
   vier: {fileID: 21300000, guid: 9839a3770c232d1438e08ccc60921534, type: 3}
+  vier2: {fileID: 21300000, guid: b8b3742875808b94a9aebd23eeaded7a, type: 3}
+  vier3: {fileID: 21300000, guid: 0fc434cf7059fd44cbf4f156b0c58143, type: 3}
+  vier4: {fileID: 21300000, guid: b9393c6a17743294585e36f220a76d49, type: 3}
+  vier5: {fileID: 21300000, guid: ab8f425e880cb734694316a831a0430c, type: 3}
+  vier8: {fileID: 21300000, guid: 982214422a9ba7044b05ce0fcc7bade8, type: 3}
   vier_battle: {fileID: 21300000, guid: d46ef1afe15c19c419cc589d6e592a98, type: 3}
+  vier_battle4: {fileID: 21300000, guid: 63f2b3fbd9c41244db1901a5a3ddd99c, type: 3}
   ghost1: {fileID: 21300000, guid: f073aa36522233346981af266d175b33, type: 3}
   ghost2: {fileID: 21300000, guid: c08e6e32355eff5439820774466315a3, type: 3}
   ghost3: {fileID: 21300000, guid: c5a30e2d97aea9b4baa6c833c8e224b3, type: 3}

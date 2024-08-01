@@ -6,6 +6,10 @@ using UnityEngine.UI;
 public class ImagesManager2_2 : ImagesManagerOrigin
 {
     [SerializeField] private Sprite vier;
+    [SerializeField] private Sprite vier2;
+    [SerializeField] private Sprite vier4;
+    [SerializeField] private Sprite vier5;
+    [SerializeField] private Sprite vier8;
     [SerializeField] private Sprite vier_battle;
     [SerializeField] private Sprite ghost1;
     [SerializeField] private Sprite backgroundMyRoom;
@@ -31,6 +35,18 @@ public class ImagesManager2_2 : ImagesManagerOrigin
                 break;
             case 1:
                 _characterImage.sprite = vier;
+                break;
+            case 2:
+                _characterImage.sprite = vier2;
+                break;
+            case 4:
+                _characterImage.sprite = vier4;
+                break;
+            case 5:
+                _characterImage.sprite = vier5;
+                break;
+            case 8:
+                _characterImage.sprite = vier8;
                 break;
             case 21:
                 _characterImage.sprite = vier_battle;

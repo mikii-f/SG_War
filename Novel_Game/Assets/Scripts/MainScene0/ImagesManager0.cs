@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 public class ImagesManager0 : ImagesManagerOrigin
 {
     [SerializeField] private Sprite vier_battle;
+    [SerializeField] private Sprite vier_battle3;
+    [SerializeField] private Sprite vier_battle4;
     [SerializeField] private Sprite command;
     protected override void StartSet()
     {
@@ -19,6 +21,12 @@ public class ImagesManager0 : ImagesManagerOrigin
                 break;
             case 21:
                 _characterImage.sprite = vier_battle;
+                break;
+            case 23:
+                _characterImage.sprite = vier_battle3;
+                break;
+            case 24:
+                _characterImage.sprite = vier_battle4;
                 break;
             case 106:
                 _characterImage.sprite = command;

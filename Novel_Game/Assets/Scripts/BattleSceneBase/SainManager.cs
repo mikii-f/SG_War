@@ -157,7 +157,7 @@ public class SainManager : SystemManagerOrigin
                 if (intervalCount == 0)
                 {
                     //SG>=50‚ÅS3‚ðŽg—p
-                    if (currentSG >= 50)
+                    if (currentSG >= 50 && !isSkill3)
                     {
                         BattleSkill3Click();
                     }

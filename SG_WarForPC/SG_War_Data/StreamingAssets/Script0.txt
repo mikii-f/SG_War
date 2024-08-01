@@ -7,7 +7,7 @@ FadeIn,1.0,Black,AnimAndGoNext,1.5
 TextPanelOn,MenuOn
 
 とある夢の中────────────────────
-CharacterChange,vier_battle
+CharacterChange,vier_battle4
 ？？？
 ようやく追い詰めた！
 CharacterChange,Command
@@ -16,12 +16,12 @@ CharacterChange,Command
 CharacterChange,vier_battle,CharacterColor
 剣羽和人
 ああ！だが、辿り着けたのは俺たち2人だけか……！
-CharacterReset
+CharacterReset,CharacterChange,vier_battle3
 ？？？
-みんな自分の役目を果たしてる！私たちは私たちの役目を果たそう！／それに……私たち2人なら絶対勝てる、そうでしょ？
+みんなが道を切り開いてくれたんだから、私たちは私たちの役目を果たそう！／それに……私たち2人なら絶対勝てる、でしょ？「リーダー」！
 0
 剣羽和人
-もちろんだ！ここで、決着をつけるぞ！！
+もちろんだ！ここで決着をつけるぞ！！
 Save,MenuOff,FadeOut,2.0,Black,AnimAndGoNext,3.0
 
 

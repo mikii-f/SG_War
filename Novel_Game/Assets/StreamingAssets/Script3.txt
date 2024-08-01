@@ -13,19 +13,19 @@ MenuOn,TextPanelOn
 0
 
 俺たちはスイーツ店巡りを楽しんだ後だった。
-CharacterChange,vier
+CharacterChange,vier5
 フィア
 ん～～どれも美味しかった！結構高いやつもあったのに、ありがとね、和人！
 0
 剣羽和人
 ……ああ、喜んでくれたなら何よりだよ。
-0
+CharacterChange,vier8
 フィア
 …………やっぱり気になった？
 0
 剣羽和人
 そうだな……。「何がおかしい」って具体的に言えるわけじゃない。でも、今日一日ずっと違和感があった。フィアもそうか？
-0
+CharacterChange,vier2
 フィア
 うーん、私は半年もここで過ごしてないから自信は持てないけど、いつもより「静か」だなって感じたよ。
 0
@@ -46,7 +46,7 @@ CharacterChange,vier
 0
 フィア
 それに、今回の異妖の統率個体は人間を理解していくような進化をしてた。
-0
+CharacterChange,vier8
 フィア
 今出てきてるのがその残党とかなら、何か人間の精神に影響を与えるようになっててもおかしくはない……と思う。
 CharacterColor
@@ -82,10 +82,10 @@ CharacterColor
 0
 剣羽和人
 今はその可能性も警戒はしておく必要があるな。本当にこの違和感が異妖の仕業なら、もう一回勢力を拡大する前に叩かないとだ。
-CharacterReset
+CharacterReset,CharacterChange,vier
 フィア
 うん、私この世界のこと好きだし、できる限り早く対処しないとね。
-0
+CharacterChange,vier3
 フィア
 残党処理がここに私が残された理由なら、その後は今度こそお別れなのかもしれないけど……元々の使命なんだし！
 0
@@ -103,7 +103,7 @@ Wipe2,BackgroundChange,RoadNight,CharacterChange,transparent
 0
 
 そうして、夜。
-CharacterChange,vier
+CharacterChange,vier8
 フィア
 うーん、やっぱり感知はできないんだけど、なんか引っ掛かるような？そうでもないような？
 0
@@ -118,7 +118,7 @@ CharacterChange,vier
 CharacterChange,Enemys,TextPanelOff,AnimAndGoNext,1.5
 
 
-CharacterChange,transparent,CharacterChange,vier,TextPanelOn
+CharacterChange,transparent,CharacterChange,vier4,TextPanelOn
 フィア
 また出た！それも結構多い！／それとやっぱり感知できないままいきなり出てくるの気持ち悪い！
 0
@@ -133,7 +133,7 @@ FadeOut,1.0,White,AnimAndGoNext,1.0
 CharacterChange,vier_battle,FadeIn,0.5,White,AnimAndGoNext,0.5
 
 
-0
+CharacterChange,vier_battle4
 フィア
 そっちも援護、いけるよね！
 Save,MenuOff,TextPanelOff,FadeOut,1.0,Black,AnimAndGoNext,2.0

@@ -1216,8 +1216,11 @@ MonoBehaviour:
   noneSprite: {fileID: 21300000, guid: 199e3707cf3f9ac4f91be2a04aa6e369, type: 3}
   backgroundBlack: {fileID: 21300000, guid: 96f10c3d17a319c43a908e5ba537e43e, type: 3}
   vier: {fileID: 21300000, guid: 9839a3770c232d1438e08ccc60921534, type: 3}
-  el: {fileID: 21300000, guid: d8dea69a93d4849499c0b63a85f5a246, type: 3}
-  el_battle: {fileID: 21300000, guid: f08a47de66d23b94ca7a9ab63bc4f7ca, type: 3}
+  vier5: {fileID: 21300000, guid: ab8f425e880cb734694316a831a0430c, type: 3}
+  vier6: {fileID: 21300000, guid: 64f9e1d3a78546b49b6685e4546eaf1c, type: 3}
+  vier7: {fileID: 21300000, guid: 8a94fa4b6afaaaa4d85704f243f1a354, type: 3}
+  vier8: {fileID: 21300000, guid: 982214422a9ba7044b05ce0fcc7bade8, type: 3}
+  el_battle2: {fileID: 21300000, guid: a2cfdd1906d675c409882252741f1517, type: 3}
   backgroundMyRoom: {fileID: 21300000, guid: 034ce8998b3d5c24ab3b6abc9c6281e8, type: 3}
   backgroundRoad: {fileID: 21300000, guid: 96017ba2085e54d41b9c87a53f91f1a8, type: 3}
   backgroundCity: {fileID: 21300000, guid: c1abe65adeca8c040b326a7615bff7ab, type: 3}

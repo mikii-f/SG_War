@@ -16,7 +16,7 @@ TextPanelOn,MenuOn
 0
 ？？？
 ────て。──────い──
-CharacterChange,el_battle,CharacterColor
+CharacterChange,el_battle2,CharacterColor
 ？？？
 ──きて。起きて！まだ戦いは終わっていないの。お願い、どうか届いて──────
 CharacterReset,FadeIn,2.0,Character,AnimAndGoNext,3.0,MenuOff
@@ -43,13 +43,13 @@ BlackHalfOpen,AnimationWaitSet,2.0
 BlackHalfToWhite,AnimationWaitSet,4.0
 
 急な日光に目が眩む。寝起きにほんと容赦ないなこいつは──────！
-0
+CharacterChange,vier5
 ？？？
 よし、ちゃんと目も開いたね！おはよう、和人！
 0
 剣羽和人
 ああ、おはよう。賑やかな朝で何よりだよ、フィア。
-0
+CharacterChange,vier,CharacterColor
 
 俺は剣羽和人。ただの男子大学生だ。／数ヵ月前、セインと異妖の戦いに巻き込まれたという一点を除けば。
 0
@@ -70,19 +70,19 @@ BlackHalfToWhite,AnimationWaitSet,4.0
 0
 
 戦いが終わればセインは「星」に帰還する……はずだったのだが、フィアだけはなぜか今もここに残っている。
-0
+CharacterReset,CharacterChange,vier6
 フィア
 む。まだなんか寝ぼけてる？
 0
 剣羽和人
 いいや、あの頃を思い出してただけだよ。夢でなんとなく見た気がしてな。
-0
+CharacterChange,vier7
 フィア
 え、ほんとに？実は私もそれが気になってリーダーを起こしにきたんだ。
 0
 剣羽和人
 お前も？夢は見ないって話だったが……何か分かることはあるか？
-0
+CharacterChange,vier8
 フィア
 夢というより電波の受信、みたいな？私も初めてだったし、戦ってた頃のイメージが漠然と浮かんできただけだから、和人に確認したかったんだ。
 0
@@ -91,7 +91,7 @@ BlackHalfToWhite,AnimationWaitSet,4.0
 CharacterChange,vier
 フィア
 うーん。それなら、とりあえず頭の片隅に覚えておくだけにする！
-0
+CharacterChange,vier5
 フィア
 それより、今日が終わればまた週末！今週はどこに連れていってくれるのかな～？
 0
@@ -127,7 +127,7 @@ Wipe2,CharacterChange,vier,CharacterColor
 0
 剣羽和人
 ん？割と近いな。河川敷なら溺死辺りが多そうだが……原因不明、か。
-CharacterReset
+CharacterReset,CharacterChange,vier5
 フィア
 まだ発見されたばかりってだけじゃない？それよりほら、明日はここのパフェ食べにいこうよ！
 0
@@ -138,7 +138,7 @@ CharacterMotion,Bounce
 フィアが目を輝かせながらスマホでスイーツ店を検索している。
 0
 
-俺がスマホを買い替える際に古い方を譲ってやったのだが、情報生命体というだけあってすっかり使いこなしている。
+俺がスマホを買い替える際に古い方を譲ってやったのだが、情報生命体というだけあって(？)すっかり使いこなしている。
 0
 
 こうしているとまるで普通の人間のようだが、そもそもここに残っているのがバグのようなもの。いつの日か目が覚めたら消えていた、なんてこともあるかもしれない。
@@ -207,7 +207,7 @@ BackgroundReset,BackgroundChange,MyRoom,CharacterChange,vier
 すなわち、致命的でなければどれだけ被害が出ようとお構いなしというスタンスなのだろう。流石は高次の存在、人の心がない。
 0
 
-そして、セインにとっても指令を除けば「星」との意思疎通はできないらしい。そこで、彼女たちは自発的にもう一つ目標を追加した。
+そして、セインですら指令を除けば「星」との意思疎通はできないらしい。そこで、彼女たちは自発的にもう一つ目標を追加した。
 0
 
 「可能な限り現地の生命に被害を及ぼさないこと」

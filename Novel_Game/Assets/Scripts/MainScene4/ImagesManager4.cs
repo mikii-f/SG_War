@@ -6,8 +6,15 @@ using UnityEngine.UI;
 public class ImagesManager4 : ImagesManagerOrigin
 {
     [SerializeField] private Sprite vier;
+    [SerializeField] private Sprite vier3;
+    [SerializeField] private Sprite vier4;
+    [SerializeField] private Sprite vier7;
+    [SerializeField] private Sprite vier8;
     [SerializeField] private Sprite vier_battle;
-    [SerializeField] private Sprite el;
+    [SerializeField] private Sprite vier_battle2;
+    [SerializeField] private Sprite vier_battle3;
+    [SerializeField] private Sprite vier_battle4;
+    [SerializeField] private Sprite vier_battle8;
     [SerializeField] private Sprite el_battle;
     [SerializeField] private Sprite el_enemy;
     [SerializeField] private Sprite ghost1;
@@ -43,11 +50,32 @@ public class ImagesManager4 : ImagesManagerOrigin
             case 1:
                 _characterImage.sprite = vier;
                 break;
+            case 3:
+                _characterImage.sprite = vier3;
+                break;
+            case 4:
+                _characterImage.sprite = vier4;
+                break;
+            case 7:
+                _characterImage.sprite = vier7;
+                break;
+            case 8:
+                _characterImage.sprite = vier8;
+                break;
             case 21:
                 _characterImage.sprite = vier_battle;
                 break;
-            case 51:
-                _characterImage.sprite = el;
+            case 22:
+                _characterImage.sprite = vier_battle2;
+                break;
+            case 23:
+                _characterImage.sprite = vier_battle3;
+                break;
+            case 24:
+                _characterImage.sprite = vier_battle4;
+                break;
+            case 28:
+                _characterImage.sprite = vier_battle8;
                 break;
             case 71:
                 _characterImage.sprite = el_battle;

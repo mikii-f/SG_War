@@ -417,12 +417,48 @@ public abstract class TextManagerOrigin : MonoBehaviour
                 return 0;
             case "vier":
                 return 1;
+            case "vier2":
+                return 2;
+            case "vier3":
+                return 3;
+            case "vier4":
+                return 4;
+            case "vier5":
+                return 5;
+            case "vier6":
+                return 6;
+            case "vier7":
+                return 7;
+            case "vier8":
+                return 8;
             case "vier_battle":
                 return 21;
+            case "vier_battle2":
+                return 22;
+            case "vier_battle3":
+                return 23;
+            case "vier_battle4":
+                return 24;
+            case "vier_battle5":
+                return 25;
+            case "vier_battle6":
+                return 26;
+            case "vier_battle7":
+                return 27;
+            case "vier_battle8":
+                return 28;
             case "el":
                 return 51;
             case "el_battle":
                 return 71;
+            case "el_battle2":
+                return 72;
+            case "el_battle3":
+                return 73;
+            case "el_battle4":
+                return 74;
+            case "el_battle5":
+                return 75;
             case "el_enemy":
                 return 91;
             case "Ghost1":

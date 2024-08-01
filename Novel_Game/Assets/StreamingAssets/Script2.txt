@@ -43,13 +43,13 @@ Wipe2,CharacterReset,CharacterChange,vier,BackgroundChange,MyRoom,CharacterColor
 0
 剣羽和人
 ………………………………。
-CharacterReset
+CharacterReset,CharacterChange,vier4
 フィア
 ───と、和人！
 0
 剣羽和人
 ん！？ゴホッゴホッ……！ど、どうした、フィア？
-0
+CharacterChange,vier8
 フィア
 どうしたも何も、和人がぼーっとしてるから……。そっちこそどうかした？
 0
@@ -64,10 +64,10 @@ CharacterColor
 0
 剣羽和人
 ……なあフィア。セインは異妖の気配を感知できる。そしてその気配はあの戦いが終わってから一度も感じたことがない。それで良かったよな？
-CharacterReset
+CharacterReset,CharacterChange,vier7
 フィア
 ？そうだけど、それがどうかした？
-0
+CharacterChange,vier
 剣羽和人
 いや、なんとなく気になっただけだ。／────────そうだ、今夜はあの頃みたいに夜の見回り……じゃなかった、散歩にでも行かないか？
 CharacterColor
@@ -76,7 +76,7 @@ CharacterColor
 0
 
 この異妖の習性については、レイ辺りが／人知れず勢力を拡大するためにはそれが最適だと学習したのではないか、／と分析していたような気がする。
-CharacterReset
+CharacterReset,CharacterChange,vier3
 フィア
 夜の散歩か～。良いね、ご飯食べ終わったら行こっか！
 0
@@ -109,13 +109,13 @@ CharacterChange,vier
 0
 
 大都市の郊外ということもあり、この時間でもお互いの姿がよく見える程度の明かりがある。
-0
+CharacterChange,vier5
 フィア
 戦闘衣じゃなくこっちの服で夜に出歩くのって新鮮だな～。なんだかテンション上がっちゃう。
 0
 剣羽和人
 それは良かったよ。前は警戒態勢をとりつつだったもんな。
-0
+CharacterChange,vier
 フィア
 うんうん、3チームに分かれて異妖を捜索して、発見したチームに合流するって感じだったよね。
 0
@@ -127,7 +127,7 @@ CharacterChange,vier
 0
 剣羽和人
 ……………………。
-0
+CharacterChange,vier8
 フィア
 ……そうだね。エルちゃんがいなくなってからはやめたんだった。
 BackgroundChange,MyRoom,CharacterChange,el_battle
@@ -151,19 +151,19 @@ BackgroundChange,RoadNight,CharacterChange,vier
 0
 剣羽和人
 まあな。ただ、俺の命を守ってくれた少女がいたことぐらいは覚えておきたいと思ってる。
-0
+CharacterChange,vier5,FaceChangeDelay,2,vier7,AnimationWaitSet,2
 フィア
 うん！それならきっとエルちゃんも喜ぶ──────あれ？
-CharacterChange,Ghost1,TextPanelOff,AnimAndGoNext,1.5
+CharacterChange,Ghost1,TextPanelOff,AnimAndGoNext,2
 
 
-CharacterChange,vier,TextPanelOn
+CharacterChange,vier8,TextPanelOn
 フィア
 うそ……どうして……？さっきまで何も感知できなかったのに……！。
 0
 剣羽和人
-(嫌な予感が当たりやがった…………！)／フィア！とりあえず敵は一体だけだ！久々だがやれるな！？
-0
+(嫌な予感が当たりやがったか…………！)／フィア！とりあえず敵は一体だけだ！久々だがやれるな！？
+CharacterChange,vier4
 フィア
 う、うん！もちろん！
 FadeOut,1.0,White,AnimAndGoNext,1.0
@@ -172,7 +172,7 @@ FadeOut,1.0,White,AnimAndGoNext,1.0
 CharacterChange,vier_battle,FadeIn,0.5,White,AnimAndGoNext,0.5
 
 
-0
+CharacterChange,vier_battle4
 フィア
 リーダーの方こそ、ちゃんと指示お願いね！
 Save,MenuOff,FadeOut,2.0,Black,AnimAndGoNext,3.0

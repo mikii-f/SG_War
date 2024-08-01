@@ -10,7 +10,7 @@ Effect,Sword,AnimAndGoNext,0.5
 CharacterMotion,BackSlide,CharacterChange,el_enemy,TextPanelOn,MenuOn,AnimationWaitSet,1
 エル
 ────────！
-CharacterMotion,HorizontalSlide,CharacterChange,vier_battle
+CharacterMotion,HorizontalSlide,CharacterChange,vier_battle4
 フィア
 やっぱりエルちゃんの攻撃は鋭いなあ！／でも、元のエルちゃんの方が強かったよ！
 0
@@ -49,7 +49,7 @@ Effect,BloodEffect,AnimationWaitSet,2.0
 0
 剣羽和人
 完全に避けられるなんて自惚れちゃいねえよ……！／フィア！！いけるな！！？？
-CharacterReset,CharacterChange,vier_battle
+CharacterReset,CharacterChange,vier_battle4
 フィア
 当然！／エルちゃん！！
 CharacterChange,el_enemy
@@ -61,7 +61,7 @@ CharacterChange,el_enemy
 FadeOut,1.0,White,AnimAndGoNext,1.0
 
 
-CharacterChange,el_battle,FadeIn,1.0,White,AnimAndGoNext,1.0
+CharacterChange,el_battle,FadeIn,2.0,White,AnimAndGoNext,2.0
 
 
 0
@@ -70,7 +70,7 @@ CharacterChange,el_battle,FadeIn,1.0,White,AnimAndGoNext,1.0
 0
 剣羽和人
 …………！良かった、意識を取り戻したか、エル！
-CharacterChange,vier_battle
+CharacterChange,vier_battle5,FaceChangeDelay,1.5,vier_battle4,AnimationWaitSet,1.5
 フィア
 やった、大成功！それはそれとして和人は無茶しすぎ！まだ統率個体が残ってるのに！
 CharacterChange,Command
@@ -82,7 +82,7 @@ CharacterChange,Command
 0
 統率個体
 …………全く、私の力が押し流されただけでなく意識まで取り戻すとは。／ここまでセインの自我が強くなるのも貴様が求める変化なのか？「星」よ。
-CharacterChange,vier_battle
+CharacterChange,vier_battle4
 フィア
 え、今なんて……？
 CharacterChange,Command
@@ -103,13 +103,13 @@ CharacterChange,Command
 CharacterMotion,Jump,Effect,Jump,AnimationWaitSet,1
 剣羽和人
 待てこのやろ────────ぐっ！！
-CharacterReset,CharacterChange,vier_battle
+CharacterReset,CharacterChange,vier_battle4
 フィア
 和人！今はもう諦めよう。どうやったのかは分からないけど、もう感知できる範囲にあいつはいない。今はちゃんと治療しないと。
-CharacterChange,el_battle
+CharacterChange,el_battle3
 エル
 ごめんなさい、わたしのせいで……。わたしの力はほとんど統率個体にもっていかれたから、お願いできるかな、フィア。
-CharacterChange,vier_battle
+CharacterChange,vier_battle2
 フィア
 もちろんだよ。和人のメガネを通して、さっきみたいに私の力を流し込めば……。
 Effect,Heal
@@ -124,19 +124,19 @@ Effect,HealFinish
 0
 剣羽和人
 ああ、ありがとう、フィア。／それに、エルも。何度も俺たちに伝えようとしてくれただろう。
-CharacterChange,el_battle
+CharacterChange,el_battle3
 エル
 お礼なんて……。そもそもわたしが利用されなければこんな事態にはならなかった。今だって、もう少しで和人を死なせるところで……。
 0
 剣羽和人
 良いんだよ。俺は一度お前のおかげで生き延びてる。あの時は言う暇がなかったが……ありがとう、エル。こうしてまた話せて嬉しいよ。
-0
+CharacterChange,el_battle5,FaceChangeDelay,1.0,el_battle4
 エル
 …………！／……うん、わたしも、和人と話せて嬉しい。
-CharacterChange,vier_battle
+CharacterChange,vier_battle6
 フィア
 もう！二人で良い感じになっちゃって。／敵が分かったんだから、早く対策もしないとだよ！
-CharacterChange,el_battle
+CharacterChange,el_battle2
 エル
 うん。操られてた時の感覚から推測するなら、猶予は1ヶ月もないと思う。
 0
@@ -148,7 +148,7 @@ CharacterChange,el_battle
 0
 剣羽和人
 そうか。だったら、前よりももっと賑やかになるな。
-CharacterChange,vier_battle
+CharacterChange,vier_battle7
 フィア
 あれ、なんか余裕だね、和人。
 0
@@ -157,7 +157,7 @@ CharacterChange,vier_battle
 0
 剣羽和人
 人間は人間の生み出したモノで滅ぶとか言ってたが、核兵器でも持ち出されたらたまったもんじゃない。
-0
+CharacterChange,vier_battle8
 フィア
 私たちも成長する統率個体の完成はそんなに見たことがない。／…………ちょっとだけ不安だな。私たち、ちゃんとこの世界を守れるのかな。
 0
@@ -169,16 +169,16 @@ CharacterChange,vier_battle
 0
 剣羽和人
 それに、「星」の正体がなんであれ俺を、この世界を守ってくれてるのはお前らだ。それは変わらない。
-0
+CharacterChange,vier_battle3
 フィア
 …………うん、分かった！自分が何者だとしても、「私」はこの世界を守りたいって思ってる。だからできる限りやってみるよ！
-CharacterChange,el_battle
+CharacterChange,el_battle2
 エル
 わたしも。本格的な戦闘はもうできないかもしれないけど……和人を守ることぐらいはできると思うから。
 0
 剣羽和人
 ああ。でも、命を投げ出すようなことはもうやめてくれ。俺のために誰かが死ぬところをみるなんてまっぴらごめんだ。
-0
+CharacterChange,el_battle4
 エル
 …………うん。
 CharacterChange,transparent,BackgroundChange,Rooftop2,TextPanelOff,AnimAndGoNext,2.0

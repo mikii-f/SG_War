@@ -4,8 +4,11 @@ using UnityEngine.SceneManagement;
 public class ImagesManager : ImagesManagerOrigin
 {
     [SerializeField] private Sprite vier;
-    [SerializeField] private Sprite el;
-    [SerializeField] private Sprite el_battle;
+    [SerializeField] private Sprite vier5;
+    [SerializeField] private Sprite vier6;
+    [SerializeField] private Sprite vier7;
+    [SerializeField] private Sprite vier8;
+    [SerializeField] private Sprite el_battle2;
     [SerializeField] private Sprite backgroundMyRoom;
     [SerializeField] private Sprite backgroundRoad;
     [SerializeField] private Sprite backgroundCity;
@@ -26,11 +29,20 @@ public class ImagesManager : ImagesManagerOrigin
             case 1:
                 _characterImage.sprite = vier;
                 break;
-            case 51:
-                _characterImage.sprite = el;
+            case 5:
+                _characterImage.sprite = vier5;
                 break;
-            case 71:
-                _characterImage.sprite = el_battle;
+            case 6:
+                _characterImage.sprite = vier6;
+                break;
+            case 7:
+                _characterImage.sprite = vier7;
+                break;
+            case 8:
+                _characterImage.sprite = vier8;
+                break;
+            case 72:
+                _characterImage.sprite = el_battle2;
                 break;
             default:
                 break;

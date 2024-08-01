@@ -5115,10 +5115,19 @@ MonoBehaviour:
   background1: {fileID: 527771104}
   noneSprite: {fileID: 21300000, guid: 199e3707cf3f9ac4f91be2a04aa6e369, type: 3}
   backgroundBlack: {fileID: 21300000, guid: 96f10c3d17a319c43a908e5ba537e43e, type: 3}
-  vier: {fileID: 21300000, guid: 9839a3770c232d1438e08ccc60921534, type: 3}
   vier_battle: {fileID: 21300000, guid: d46ef1afe15c19c419cc589d6e592a98, type: 3}
-  el: {fileID: 21300000, guid: d8dea69a93d4849499c0b63a85f5a246, type: 3}
+  vier_battle2: {fileID: 21300000, guid: 4139bee294655694cb12598641bfab5b, type: 3}
+  vier_battle3: {fileID: 21300000, guid: 2e62aeaa630387244bc9b8215e450e22, type: 3}
+  vier_battle4: {fileID: 21300000, guid: 63f2b3fbd9c41244db1901a5a3ddd99c, type: 3}
+  vier_battle5: {fileID: 21300000, guid: ee903e3563eb5b243a1813b230df789c, type: 3}
+  vier_battle6: {fileID: 21300000, guid: c4dfb76052aeacc49bd7ad378b998403, type: 3}
+  vier_battle7: {fileID: 21300000, guid: 9a41d1e1cad232a49a762f4d7a75e7d1, type: 3}
+  vier_battle8: {fileID: 21300000, guid: 85178fe59993e924680ec03cc4be69ae, type: 3}
   el_battle: {fileID: 21300000, guid: f08a47de66d23b94ca7a9ab63bc4f7ca, type: 3}
+  el_battle2: {fileID: 21300000, guid: a2cfdd1906d675c409882252741f1517, type: 3}
+  el_battle3: {fileID: 21300000, guid: 4fecd96c927bd554fbf12cc2873c71e2, type: 3}
+  el_battle4: {fileID: 21300000, guid: 8969ca639cc87ca4eb9ac705be0260cb, type: 3}
+  el_battle5: {fileID: 21300000, guid: 4ae98c2a053c7254982d73ea05f3e155, type: 3}
   el_enemy: {fileID: 21300000, guid: 8f0d2c5153557224abf995b5453243f9, type: 3}
   ghost1: {fileID: 21300000, guid: f073aa36522233346981af266d175b33, type: 3}
   command: {fileID: 21300000, guid: f6563aeaba069f04884544e48e9f9bad, type: 3}

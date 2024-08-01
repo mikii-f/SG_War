@@ -8,6 +8,7 @@ public class Stage0Manager : StageManagerOrigin
     [SerializeField] private GameObject method;
     [SerializeField] private RectTransform nextSwitchRect;
     [SerializeField] private TMP_Text countDown;
+    [SerializeField] private GameObject enemy;
     private bool go = false;
     
     private void Update()
@@ -28,6 +29,7 @@ public class Stage0Manager : StageManagerOrigin
         {
             go = true;
             method.SetActive(false);
+            enemy.SetActive(false);
             StartCoroutine(ButtonAnim(nextSwitchRect));
             StartCoroutine(StartGame());
         }
