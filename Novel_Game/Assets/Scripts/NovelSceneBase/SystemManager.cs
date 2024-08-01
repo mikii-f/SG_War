@@ -25,6 +25,7 @@ public class SystemManager : SystemManagerOrigin
     private int messageNumber;
     private bool isMessageDisplay = false;
     private bool isFunctionAvailable = false;
+    private bool isGoNext = false;
 
     // Start is called before the first frame update
     void Start()
@@ -99,6 +100,7 @@ public class SystemManager : SystemManagerOrigin
             //メッセージへの応答
             if (Input.GetKeyDown(KeyCode.Y))
             {
+                //1回しか押せない
                 if (systemMessageObject.activeSelf)
                 {
                     YesSwitch();
@@ -140,7 +142,7 @@ public class SystemManager : SystemManagerOrigin
         StartCoroutine(ButtonAnim(skipSwitchRect));
         systemMessage.text = "このシーンをスキップしますか？";
         messageNumber = 0;
-        StartCoroutine(Delay(systemMessageObject));
+        StartCoroutine(Delay(systemMessageObject, true));
         isMessageDisplay = true;
     }
     public void LogSwitch() 
@@ -164,7 +166,7 @@ public class SystemManager : SystemManagerOrigin
         StartCoroutine(ButtonAnim(growSwitchRect));
         systemMessage.text = "育成に向かいますか？";
         messageNumber = 1;
-        StartCoroutine(Delay(systemMessageObject));
+        StartCoroutine(Delay(systemMessageObject, true));
         isMessageDisplay = true;
     }
     public void SaveSwitch()
@@ -172,7 +174,7 @@ public class SystemManager : SystemManagerOrigin
         StartCoroutine(ButtonAnim(saveSwitchRect));
         systemMessage.text = "進行度を保存しますか？";
         messageNumber = 2;
-        StartCoroutine(Delay(systemMessageObject));
+        StartCoroutine(Delay(systemMessageObject, true));
         isMessageDisplay = true;
     }
     public void TitleSwitch() 
@@ -180,7 +182,7 @@ public class SystemManager : SystemManagerOrigin
         StartCoroutine(ButtonAnim(titleSwitchRect));
         systemMessage.text = "タイトルに戻りますか？\n(自動でセーブされます)";
         messageNumber = 3;
-        StartCoroutine(Delay(systemMessageObject));
+        StartCoroutine(Delay(systemMessageObject, true));
         isMessageDisplay = true;
     }
     public void FunctionsClose()
@@ -195,36 +197,47 @@ public class SystemManager : SystemManagerOrigin
     }
     public void YesSwitch()
     {
-        StartCoroutine(ButtonAnim(yesSwitch));
-        switch (messageNumber)
+        //遷移が確定したら再び押されないように
+        if (!isGoNext && !switchInterval)
         {
-            //スキップ
-            case 0:
-                StartCoroutine(textManager.SceneSkip());
-                break;
-            //育成へ
-            case 1:
-                StartCoroutine(textManager.GoToGrow());
-                break;
-            //セーブ
-            case 2:
-                textManager.Save();
-                StartCoroutine(SaveSuccessed());
-                break;
-            //タイトルへ
-            case 3:
-                StartCoroutine(textManager.GoBackTitle());
-                break;
-            default:
-                break;
+            StartCoroutine(ButtonAnim(yesSwitch));
+            switch (messageNumber)
+            {
+                //スキップ
+                case 0:
+                    isGoNext = true;
+                    StartCoroutine(textManager.SceneSkip());
+                    break;
+                //育成へ
+                case 1:
+                    isGoNext = true;
+                    StartCoroutine(textManager.GoToGrow());
+                    break;
+                //セーブ
+                case 2:
+                    StartCoroutine(SwitchInterval());
+                    textManager.Save();
+                    StartCoroutine(SaveSuccessed());
+                    break;
+                //タイトルへ
+                case 3:
+                    isGoNext = true;
+                    StartCoroutine(textManager.GoBackTitle());
+                    break;
+                default:
+                    break;
+            }
         }
-
     }
     public void NoSwitch()
     {
-        StartCoroutine(ButtonAnim(noSwitch));
-        StartCoroutine(Delay(systemMessageObject));
-        isMessageDisplay = false;
+        if (!isGoNext && !switchInterval)
+        {
+            StartCoroutine(SwitchInterval());
+            StartCoroutine(ButtonAnim(noSwitch));
+            StartCoroutine(Delay(systemMessageObject, false));
+            isMessageDisplay = false;
+        }
     }
     //セーブ成功を伝えるメッセージ
     private IEnumerator SaveSuccessed()

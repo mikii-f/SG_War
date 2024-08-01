@@ -48,16 +48,19 @@ public class SelectSceneManager : SystemManagerOrigin
         if (!go)
         {
             StartCoroutine(ButtonAnim(NormalSwitchRect));
-            StartCoroutine(Delay(systemMessageObject));
+            StartCoroutine(Delay(systemMessageObject, true));
         }
     }
     //今はノーマルステージのみに対応
     public void YesSwitch()
     {
-        StartCoroutine(ButtonAnim(yesSwitch));
-        StartCoroutine(Delay(systemMessageObject));
-        StartCoroutine(StartGame());
-        go = true;
+        if (!go && !switchInterval)
+        {
+            StartCoroutine(ButtonAnim(yesSwitch));
+            StartCoroutine(Delay(systemMessageObject, false));
+            StartCoroutine(StartGame());
+            go = true;
+        }
     }
     //ゲーム開始
     private IEnumerator StartGame()
@@ -73,7 +76,12 @@ public class SelectSceneManager : SystemManagerOrigin
     }
     public void NoSwitch()
     {
-        StartCoroutine(Delay(systemMessageObject));
+        if (!go && !switchInterval)
+        {
+            StartCoroutine(SwitchInterval());
+            StartCoroutine(ButtonAnim(noSwitch));
+            StartCoroutine(Delay(systemMessageObject, false));
+        }
     }
     public void HardSwitch()
     {
@@ -93,6 +101,7 @@ public class SelectSceneManager : SystemManagerOrigin
     {
         if (!go)
         {
+            go = true;
             StartCoroutine(ButtonAnim(StorySwitchRect));
             StartCoroutine(GoToStory());
         }

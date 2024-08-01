@@ -23,6 +23,7 @@ public class BattleSystemManager : SystemManagerOrigin
     private int messageNumber;
     private bool isMessageDisplay = false;
     private bool isFunctionAvailable = true;
+    private bool isSelected = false;
 
     // Start is called before the first frame update
     void Start()
@@ -120,7 +121,7 @@ public class BattleSystemManager : SystemManagerOrigin
         yesText.text = "再挑戦(Y)";
         noText.text = "戻る(N)";
         messageNumber = 1;
-        StartCoroutine(Delay(systemMessageObject));
+        StartCoroutine(Delay(systemMessageObject, true));
         isMessageDisplay = true;
     }
     //撤退(メニューから選択)
@@ -131,7 +132,7 @@ public class BattleSystemManager : SystemManagerOrigin
         yesText.text = "撤退(Y)";
         noText.text = "戻る(N)";
         messageNumber = 2;
-        StartCoroutine(Delay(systemMessageObject));
+        StartCoroutine(Delay(systemMessageObject, true));
         isMessageDisplay = true;
     }
     //デバッグ用スキップ
@@ -142,56 +143,63 @@ public class BattleSystemManager : SystemManagerOrigin
         yesText.text = "スキップ(Y)";
         noText.text = "戻る(N)";
         messageNumber = 3;
-        StartCoroutine(Delay(systemMessageObject));
+        StartCoroutine(Delay(systemMessageObject, true));
         isMessageDisplay = true;
     }
 
     //Yesボタンを押したときの機能
     public void YesSwitch()
     {
-        StartCoroutine(ButtonAnim(yesSwitch));
-        switch (messageNumber)
+        if (!isSelected && !switchInterval)
         {
-            //ゲームオーバーからの再挑戦
-            case 0:
-                StartCoroutine(ReloadScene());
-                break;
-            //メニューからの再挑戦
-            case 1:
-                StartCoroutine(ReloadScene());
-                break;
-            //撤退し直前の場面に戻る
-            case 2:
-                StartCoroutine(GoBackStory());
-                break;
-            //デバッグ用スキップ
-            case 3:
-                StartCoroutine(SceneSkip());
-                StartCoroutine(Delay(systemMessageObject));
-                break;
-            default:
-                break;
+            isSelected = true;
+            StartCoroutine(ButtonAnim(yesSwitch));
+            switch (messageNumber)
+            {
+                //ゲームオーバーからの再挑戦
+                case 0:
+                    StartCoroutine(ReloadScene());
+                    break;
+                //メニューからの再挑戦
+                case 1:
+                    StartCoroutine(ReloadScene());
+                    break;
+                //撤退し直前の場面に戻る
+                case 2:
+                    StartCoroutine(GoBackStory());
+                    break;
+                //デバッグ用スキップ
+                case 3:
+                    StartCoroutine(SceneSkip());
+                    break;
+                default:
+                    break;
+            }
         }
     }
     //Noボタンを押したときの機能
     public void NoSwitch()
     {
-        switch (messageNumber)
+        if (!isSelected && !switchInterval)
         {
-            //ゲームオーバーから育成へ
-            case 0:
-                if (!growMask2.activeSelf)
-                {
+            StartCoroutine(SwitchInterval());
+            switch (messageNumber)
+            {
+                //ゲームオーバーから育成へ
+                case 0:
+                    if (!growMask2.activeSelf)
+                    {
+                        StartCoroutine(ButtonAnim(noSwitch));
+                        StartCoroutine(GoBackStory());
+                    }
+                    break;
+                //戻る
+                default:
                     StartCoroutine(ButtonAnim(noSwitch));
-                    StartCoroutine(GoBackStory());
-                }
-                break;
-            //戻る
-            default:
-                StartCoroutine(ButtonAnim(noSwitch));
-                StartCoroutine(Delay(systemMessageObject));
-                isMessageDisplay = false;
-                break;
+                    StartCoroutine(Delay(systemMessageObject, false));
+                    isMessageDisplay = false;
+                    break;
+            }
         }
     }
 

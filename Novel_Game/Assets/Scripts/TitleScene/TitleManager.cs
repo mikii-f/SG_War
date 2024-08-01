@@ -16,6 +16,7 @@ public class TitleManager : SystemManagerOrigin
     [SerializeField] private RectTransform noSwitch;
     [SerializeField] private Image black;
     [SerializeField] private GameObject continueSwitchMask;
+    private bool isGoNext = false;
 
     void Start()
     {
@@ -51,29 +52,40 @@ public class TitleManager : SystemManagerOrigin
     public void NewGameSwitch()
     {
         StartCoroutine(ButtonAnim(newGameSwitchRect));
-        StartCoroutine(Delay(systemMessageObject));
+        StartCoroutine(Delay(systemMessageObject, true));
     }
     public void YesSwitch()
     {
-        StartCoroutine(ButtonAnim(yesSwitch));
-        StartCoroutine(NewGame());
+        if (!isGoNext && !switchInterval)
+        {
+            isGoNext = true;
+            StartCoroutine(ButtonAnim(yesSwitch));
+            StartCoroutine(NewGame());
+        }
     }
     public void NoSwitch()
     {
-        StartCoroutine(ButtonAnim(noSwitch));
-        StartCoroutine(Delay(systemMessageObject));
+        if (!isGoNext)
+        {
+            StartCoroutine(SwitchInterval());
+            StartCoroutine(ButtonAnim(noSwitch));
+            StartCoroutine(Delay(systemMessageObject, false));
+        }
     }
     private IEnumerator NewGame()
     {
-        yield return new WaitForSeconds(0.1f);
         yield return StartCoroutine(FadeOut(2, black));
         GameManager.instance.Initialize();
         SceneManager.LoadScene(GameManager.instance.SceneName);
     }
     public void ContinueGameSwitch()
     {
-        StartCoroutine(ButtonAnim(continueGameSwitchRect));
-        StartCoroutine(ContinueGame());
+        if (!isGoNext)
+        {
+            isGoNext = true;
+            StartCoroutine(ButtonAnim(continueGameSwitchRect));
+            StartCoroutine(ContinueGame());
+        }
     }
     private IEnumerator ContinueGame()
     {
@@ -84,15 +96,21 @@ public class TitleManager : SystemManagerOrigin
     }
     public void WordsSwitch()
     {
-        StartCoroutine(ButtonAnim(wordsSwitchRect));
-        StartCoroutine(Delay(words1));
+        if (!isGoNext)
+        {
+            StartCoroutine(ButtonAnim(wordsSwitchRect));
+            StartCoroutine(Delay(words1, true));
+        }
     }
     public void MethodSwitch()
     {
-        StartCoroutine(ButtonAnim(methodSwitchRect));
-        StartCoroutine(Delay(method));
+        if (!isGoNext)
+        {
+            StartCoroutine(ButtonAnim(methodSwitchRect));
+            StartCoroutine(Delay(method, true));
+        }
     }
-    public void Close()
+        public void Close()
     {
         words1.SetActive(false);
         method.SetActive(false);
