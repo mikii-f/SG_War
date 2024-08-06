@@ -29,7 +29,10 @@ public class Stage0Manager : StageManagerOrigin
         {
             go = true;
             method.SetActive(false);
-            enemy.SetActive(false);
+            if (enemy != null)
+            {
+                enemy.SetActive(false);
+            }
             StartCoroutine(ButtonAnim(nextSwitchRect));
             StartCoroutine(StartGame());
         }
