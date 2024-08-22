@@ -11,7 +11,7 @@ public class PlayerManager : MonoBehaviour
     private Animator playerAnimator;
     private Rigidbody _rb;
     private Transform _transform;
-    private const float deathLine = -10;
+    private const float deathLine = -15;
     private const int gravity = -40;
     private const int jumpSpeed = 15;
     private const int continueUpForce = 10;
@@ -241,12 +241,12 @@ public class PlayerManager : MonoBehaviour
             }
         }
         //’ÊíUŒ‚
-        if (Input.GetMouseButtonDown(0) && attackPossible && !clear)
+        if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.LeftArrow)) && attackPossible && !clear)
         {
             StartCoroutine(NormalAttack());
         }
         //‹­UŒ‚
-        if (Input.GetMouseButtonDown(1) && attackPossible && attack2Count == 0)
+        if ((Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.RightArrow)) && attackPossible && attack2Count == 0)
         {
             StartCoroutine(StrongAttack());
         }
@@ -355,7 +355,7 @@ public class PlayerManager : MonoBehaviour
                 yield return null;
                 timeCount += Time.deltaTime;
                 //8•ûŒü‚ÉˆÚ“®‚Å‚«‚é(—Dæ‚Í‰E‚Æã)
-                if (Input.GetMouseButtonDown(1))
+                if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.RightArrow))
                 {
                     //‰Eã
                     if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D) && former != 3){
