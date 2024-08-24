@@ -36,3 +36,7 @@ sample3
 sample4
 
 3Dアクションパートの一部です。
+
+SG_War_Presentation
+
+発表に使用するプレゼン資料です。(2024/8/24作成)
