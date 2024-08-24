@@ -12,10 +12,11 @@ public class ImagesManager : ImagesManagerOrigin
     [SerializeField] private Sprite backgroundMyRoom;
     [SerializeField] private Sprite backgroundRoad;
     [SerializeField] private Sprite backgroundCity;
+    [SerializeField] private Sprite backgroundSilhouette;
 
     protected override void StartSet()
     {
-        blackAllImage.color = Color.clear;
+        
     }
 
     //—§‚¿ŠGŠÖŒW
@@ -65,6 +66,9 @@ public class ImagesManager : ImagesManagerOrigin
                 break;
             case 3:
                 _backgroundImage.sprite = backgroundCity;
+                break;
+            case 8:
+                _backgroundImage.sprite = backgroundSilhouette;
                 break;
             default:
                 break;

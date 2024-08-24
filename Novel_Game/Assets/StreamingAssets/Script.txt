@@ -1,6 +1,9 @@
 AnimAndGoNext,1.0
 
 
+FadeIn,1.0,Black,AnimAndGoNext,1.5,BackgroundChange,Silhouette
+
+
 TextPanelOn,MenuOn
 
 セイン、それはあらゆる世界に現れる「異妖」を浄化するため、高次に存在する「星」から派遣される情報生命体。
@@ -13,7 +16,7 @@ TextPanelOn,MenuOn
 0
 
 2020年代初頭、ここ地球にも異妖は現れた。しかし、地球におけるリーダーとセインは迅速に対応、人知れず戦いは終結し────────
-0
+BackgroundChange,Black
 ？？？
 ────て。──────い──
 CharacterChange,el_battle2,CharacterColor

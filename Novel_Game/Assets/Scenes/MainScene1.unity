@@ -1224,6 +1224,7 @@ MonoBehaviour:
   backgroundMyRoom: {fileID: 21300000, guid: 034ce8998b3d5c24ab3b6abc9c6281e8, type: 3}
   backgroundRoad: {fileID: 21300000, guid: 96017ba2085e54d41b9c87a53f91f1a8, type: 3}
   backgroundCity: {fileID: 21300000, guid: c1abe65adeca8c040b326a7615bff7ab, type: 3}
+  backgroundSilhouette: {fileID: 21300000, guid: 593475171f126dd40b436b5fff7dd21a, type: 3}
 --- !u!4 &353498502
 Transform:
   m_ObjectHideFlags: 0

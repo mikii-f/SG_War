@@ -206,6 +206,9 @@ public abstract class TextManagerOrigin : MonoBehaviour
                         case "Rooftop2":
                             imagesManager.BackgroundChange(7);
                             break;
+                        case "Silhouette":
+                            imagesManager.BackgroundChange(8);
+                            break;
                         default:
                             break;
                     }
