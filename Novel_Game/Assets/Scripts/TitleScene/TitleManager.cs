@@ -65,7 +65,7 @@ public class TitleManager : SystemManagerOrigin
     }
     public void NoSwitch()
     {
-        if (!isGoNext)
+        if (!isGoNext && !switchInterval)
         {
             StartCoroutine(SwitchInterval());
             StartCoroutine(ButtonAnim(noSwitch));
@@ -110,7 +110,7 @@ public class TitleManager : SystemManagerOrigin
             StartCoroutine(Delay(method, true));
         }
     }
-        public void Close()
+    public void Close()
     {
         words1.SetActive(false);
         method.SetActive(false);

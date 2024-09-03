@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -135,14 +134,14 @@ public class CommandManager : EnemyManagerOrigin
         float timeCount = 0;
         while (timeCount <= time)
         {
-            Vector3 temp = attackRect.localRotation.eulerAngles;
+            Vector3 temp = attackRect.localEulerAngles;
             //time•b‚Åangle“x‰ñ“]
             temp.z += (angle/time) * Time.deltaTime;
-            attackRect.localRotation = Quaternion.Euler(temp);
+            attackRect.localEulerAngles = temp;
             yield return null;
             timeCount += Time.deltaTime;
         }
-        attackRect.localRotation = Quaternion.Euler(0, 0, 0);
+        attackRect.localEulerAngles = Vector3.zero;
     }
     //‘½•ªŽg‚í‚È‚¢
     public override void Revive()

@@ -12,35 +12,35 @@ public class ImagesManager0 : ImagesManagerOrigin
         
     }
 
-    public override void CharacterChange(int n)
+    public override void CharacterChange(string image)
     {
-        switch (n)
+        switch (image)
         {
-            case 0:
+            case "transparent":
                 _characterImage.sprite = noneSprite;
                 break;
-            case 21:
+            case "vier_battle":
                 _characterImage.sprite = vier_battle;
                 break;
-            case 23:
+            case "vier_battle3":
                 _characterImage.sprite = vier_battle3;
                 break;
-            case 24:
+            case "vier_battle4":
                 _characterImage.sprite = vier_battle4;
                 break;
-            case 106:
+            case "Command":
                 _characterImage.sprite = command;
                 break;
             default:
                 break;
         }
     }
-    public override void BackgroundChange(int n)
+    public override void BackgroundChange(string image)
     {
 
     }
 
-    public override void Effect(int n)
+    public override void Effect(string image)
     {
 
     }

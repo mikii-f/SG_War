@@ -200,7 +200,7 @@ public class ElManager : EnemyManagerOrigin
         StartCoroutine(AttackSubtitle("Œ•‚Ì•‘"));
         attackImage.sprite = attack2Sprite;
         isAttack = true;
-        attackRect.localRotation = Quaternion.Euler(70, 30, 0);
+        attackRect.localEulerAngles = new (70, 30, 0);
         Vector2 temp = myRect.localScale;
         myRect.localScale = new(0.8f * temp.x, 0.8f * temp.y);
         yield return new WaitForSeconds(0.5f);
@@ -259,7 +259,7 @@ public class ElManager : EnemyManagerOrigin
                 break;
         }
         yield return new WaitForSeconds(1);
-        attackRect.localRotation = Quaternion.Euler(0, 0, 0);
+        attackRect.localEulerAngles = Vector3.zero;
     }
     private IEnumerator Skill2Rotate()
     {
@@ -267,10 +267,10 @@ public class ElManager : EnemyManagerOrigin
         float timeCount = 0;
         while (timeCount <= 0.5f)
         {
-            Vector3 temp = attackRect.localRotation.eulerAngles;
+            Vector3 temp = attackRect.localEulerAngles;
             //0.5•b‚Å720“x‰ñ“]
             temp.z += 1440 * Time.deltaTime;
-            attackRect.localRotation = Quaternion.Euler(temp);
+            attackRect.localEulerAngles = temp;
             yield return null;
             timeCount += Time.deltaTime;
         }
@@ -312,7 +312,7 @@ public class ElManager : EnemyManagerOrigin
         yield return new WaitForSeconds(1);
         isAttack = false;
     }
-    //•KŽE‹Z(Žb’èƒXƒLƒ‹2‚Æ“¯‚¶‰‰o)(’Êí‚Ì5”{ƒ_ƒ[ƒWAƒK[ƒhE‰ñ”ð•s‰Â)
+    //•KŽE‹Z(’Êí‚Ì5”{ƒ_ƒ[ƒWAƒK[ƒhE‰ñ”ð•s‰Â)
     protected override IEnumerator ChargeAttack()
     {
         int damage;

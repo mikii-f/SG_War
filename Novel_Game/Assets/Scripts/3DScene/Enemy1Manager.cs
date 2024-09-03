@@ -151,15 +151,16 @@ public class Enemy1Manager : MonoBehaviour
     //ˆµ‚¤‚Ì‚ªImage‚Å‚È‚¢‚½‚ß‹¤’Ê‰»FadeOut‚ÍŽg‚¦‚È‚¢
     private IEnumerator FadeOut()
     {
-        float waitTime = 0.1f;
         float fadeTime = 1;
-        float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
-        for (float alpha = 255.0f; alpha >= 0f; alpha -= alphaChangeAmount)
+        Color temp = spriteRenderer.color;
+        temp.a = 1;
+        spriteRenderer.color = temp;
+        while (spriteRenderer.color.a > 0)
         {
-            Color newColor = spriteRenderer.color;
-            newColor.a = alpha / 255.0f;
-            spriteRenderer.color = newColor;
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSeconds(0.1f);
+            temp = spriteRenderer.color;
+            temp.a = Mathf.Max(0, temp.a - 0.1f / fadeTime);
+            spriteRenderer.color = temp;
         }
     }
 }

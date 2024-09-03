@@ -121,7 +121,7 @@ public class SainManager : SystemManagerOrigin
     {
         if (!pause)
         {
-            //バフの持続時間計測用
+            //バフの持続時間計測用(流石にfloatの表現範囲超える可能性は考えなくていいはず……)
             buffTimer += Time.deltaTime;
             //インターバル管理
             if (intervalCount > 0)
@@ -391,10 +391,9 @@ public class SainManager : SystemManagerOrigin
         }
     }
 
-    //ダメージ表示(再表示できるように上の関数から分離)
+    //ダメージ表示(同時に2つの攻撃を受けた時も分かりやすいようにしたい)
     private IEnumerator DamageDisplay(int damage)
     {
-
         damageText.text = damage.ToString();
         yield return new WaitForSeconds(0.35f);
         damageText.text = "";
@@ -453,8 +452,9 @@ public class SainManager : SystemManagerOrigin
         float tempTimer = buffTimer;
         yield return new WaitUntil(() => buffTimer - tempTimer >= 0.5f);
         isGuard = false;
-        guardEffect.SetActive(false);    }
-    //体力アシストを受ける(暫定400回復)
+        guardEffect.SetActive(false);    
+    }
+    //体力アシストを受ける(暫定5割回復)
     public void ReceiveHPAssist()
     {
         currentHP = Mathf.Min(currentHP + maxHP/2, maxHP);

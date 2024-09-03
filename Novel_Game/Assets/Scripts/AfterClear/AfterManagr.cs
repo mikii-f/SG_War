@@ -106,8 +106,8 @@ public class AfterManagr : SystemManagerOrigin
             StartCoroutine(Delay(systemMessageObject, false));
         }
     }
-        //タイトルへ
-        private IEnumerator GoBackTitle()
+    //タイトルへ
+    private IEnumerator GoBackTitle()
     {
         black.color = new(0, 0, 0, 0);
         yield return new WaitForSeconds(0.1f);

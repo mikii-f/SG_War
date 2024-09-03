@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-//いずれは全体的な見直しが必要(非常にデバッグがしにくい)
+//できる限り見やすくしたい(コードを分けるのも手か？)
 
 public class PlayerManager : MonoBehaviour
 {
@@ -98,7 +98,7 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //ダメージを受けた直後、攻撃直後、クリア後は操作できない
+        //ダメージを受けた直後、攻撃直後は操作できない
         if (!isDamaged && !isAttacked)
         {
             //ジャンプ
@@ -147,7 +147,7 @@ public class PlayerManager : MonoBehaviour
         {
             isJumped = false;
         }
-        //速度マイナス検知(しゃがんでいるとき(若干浮いている可能性がある))
+        //速度マイナス検知(かつ、しゃがんでいないとき(しゃがみ姿勢でも若干浮いている可能性がある))
         if (_rb.velocity.y < -1e-4 && positionState != PositionState.DOWN && playerState != PlayerState.SQUAT)
         {
             positionState = PositionState.DOWN;
@@ -210,7 +210,7 @@ public class PlayerManager : MonoBehaviour
                 }
             }
         }
-        //待機時は動き始めた方向に合わせて方向転換(キー両押し→片方離すなどに対処するため) 強攻撃時は状態がリセットされるため方向を変えられないようにする
+        //待機時は動き始めた方向に合わせて方向転換(キー両押し→片方離すなどに対処するため) 強攻撃時はプレイヤーを一度非アクティブにする影響で状態がリセットされるため方向を変えられないようにする
         if (playerState == PlayerState.IDLING && !isAttack2)
         {
             if (_rb.velocity.x > 1e-4)
@@ -260,7 +260,7 @@ public class PlayerManager : MonoBehaviour
     //通常攻撃(終わる瞬間に着地したときに着地判定による状態変化と競合する……？)(地上でジャンプ姿勢だった時に待機へ強制的に戻す処理を追加)
     private IEnumerator NormalAttack()
     {
-        //ポーズの変更、1フレームの間当たり判定を出す、攻撃中状態・攻撃可能状態の管理
+        //ポーズの変更、0.05秒の間当たり判定を出す、攻撃中状態・攻撃可能状態の管理
         playerState = PlayerState.ATTACK1;
         playerAnimator.SetInteger("PlayerState", (int)(playerState));
         normalAttackCollider.enabled = true;
@@ -448,7 +448,7 @@ public class PlayerManager : MonoBehaviour
         Vector3 temp = _rb.rotation.eulerAngles;
         temp.z = 0;
         _rb.rotation = Quaternion.Euler(temp);
-        //回転によりめり込んだ場合に着地判定が出ないように
+        //回転によりめり込んだ場合に着地判定が出ないように(1フレームあればめり込みが解消される)
         yield return null;
         isAttack2 = false;
         isAttacked = false;
@@ -546,7 +546,7 @@ public class PlayerManager : MonoBehaviour
                 _rb.AddForce(new Vector3(0, gravity, 0));
             }
         }
-        //ダメージを受けた直後、攻撃直後、クリア後は操作できない
+        //ダメージを受けた直後、攻撃直後は操作できない
         if (!isDamaged && !isAttacked)
         {
             //右移動
@@ -636,7 +636,7 @@ public class PlayerManager : MonoBehaviour
             }
         }
         //通常攻撃後は強く摩擦をかける
-        if (isAttacked)
+        if (isAttacked && !isAttack2)
         {
             if (positionState == PositionState.GROUND)
             {
@@ -661,7 +661,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    //ダメージ時(ダメージ後の無敵時間および攻撃中を除く)&コイン獲得
+    //ダメージ時(ダメージ後の無敵時間および攻撃中を除く)&メダル獲得
     private void OnTriggerEnter(Collider other)
     {
         if ((other.CompareTag("Enemy") || other.CompareTag("Bullet")) && !isInvincible && !isAttacked)
@@ -692,7 +692,7 @@ public class PlayerManager : MonoBehaviour
         character.SetActive(true);
         playerAnimator.SetInteger("PlayerState", (int)playerState);
         yield return new WaitForSeconds(0.2f);
-        isDamaged = false;
+        isDamaged = false;                  //ここで操作は可能に
         character.SetActive(false);
         for (int i = 0; i < 3; i++)
         {
@@ -709,7 +709,7 @@ public class PlayerManager : MonoBehaviour
         character.SetActive(true);
         playerAnimator.SetInteger("PlayerState", (int)playerState);
     }
-    //強攻撃時用の地形衝突判定
+    //強攻撃時用の地形衝突判定(機能が増えないならプロパティでもいい)
     public void FieldDitected()
     {
         if (isAttack2)

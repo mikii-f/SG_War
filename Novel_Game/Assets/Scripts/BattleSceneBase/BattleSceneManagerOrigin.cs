@@ -212,6 +212,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
     {
         attackImage.color = Color.white;
         float diffX = AttackPoint();
+        int selected = selectedEnemy;       //çUåÇÇëIëÇµÇΩéûì_Ç≈ÇÃçUåÇëŒè€Çï€éù
         while (true)
         {
             Vector2 temp = attackRect.anchoredPosition;
@@ -230,17 +231,9 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
             yield return null;
         }
         //íÖíeÅEè¡ñ≈
-        enemyComposition[numberOfCurrentWave][selectedEnemy].ReceiveDamage(damage);
-        float waitTime = 0.05f;
-        float fadeTime = 0.5f;
-        float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
-        for (float alpha = 255.0f; alpha >= 0f; alpha -= alphaChangeAmount)
-        {
-            Color newColor = attackImage.color;
-            newColor.a = alpha / 255.0f;
-            attackImage.color = newColor;
-            yield return new WaitForSeconds(waitTime);
-        }
+        enemyComposition[numberOfCurrentWave][selected].ReceiveDamage(damage);
+        yield return new WaitForSeconds(0.1f);
+        yield return StartCoroutine(FadeIn(0.5f, attackImage));
         //èâä˙âª
         attackRect.anchoredPosition = new(0, 0);
         attackRect.localScale = new Vector2(1, 1);
@@ -250,6 +243,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
     {
         attackImage.color = Color.white;
         float diffX = AttackPoint();
+        int selected = selectedEnemy;       //çUåÇÇëIëÇµÇΩéûì_Ç≈ÇÃçUåÇëŒè€Çï€éù
         while (attackRect.localScale.x > 0.5f)
         {
             Vector2 temp = attackRect.anchoredPosition;
@@ -268,18 +262,10 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
             yield return null;
         }
         //íÖíeÅEè¡ñ≈
-        enemyComposition[numberOfCurrentWave][selectedEnemy].ReceiveDamage(damage);
-        enemyComposition[numberOfCurrentWave][selectedEnemy].ReceiveDelay();
-        float waitTime = 0.05f;
-        float fadeTime = 0.5f;
-        float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
-        for (float alpha = 255.0f; alpha >= 0f; alpha -= alphaChangeAmount)
-        {
-            Color newColor = attackImage.color;
-            newColor.a = alpha / 255.0f;
-            attackImage.color = newColor;
-            yield return new WaitForSeconds(waitTime);
-        }
+        enemyComposition[numberOfCurrentWave][selected].ReceiveDamage(damage);
+        enemyComposition[numberOfCurrentWave][selected].ReceiveDelay();
+        yield return new WaitForSeconds(0.1f);
+        yield return StartCoroutine(FadeIn(0.5f, attackImage));
         //èâä˙âª
         attackRect.anchoredPosition = new(0, 0);
         attackRect.localScale = new Vector2(1, 1);

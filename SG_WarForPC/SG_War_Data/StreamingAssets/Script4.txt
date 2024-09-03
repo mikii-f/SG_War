@@ -124,7 +124,7 @@ CharacterChange,vier_battle3
 0
 剣羽和人
 途中で異妖に遭遇する可能性がある時には、一般人を巻き込みにくいこっちのが都合が良いってだけだ。
-FaceChangeDelay,2,vier_battle,AnimationWaitSet,2
+FaceChangeDelay,1.5,vier_battle,AnimationWaitSet,2
 フィア
 もう、和人ったら照れちゃってー。私たちの仲なんだし────────！
 0

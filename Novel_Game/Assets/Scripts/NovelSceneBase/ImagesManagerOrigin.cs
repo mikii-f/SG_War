@@ -63,19 +63,20 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         }
     }
 
-    //かつてどこかで見つけたやつを流用し続けている気がするためそろそろ自分流で書き直してもいいかも
+    //ワイプなどの処理と比べて、少し粗い遷移の方が「それっぽい」気がするためyield return nullにしない
     protected IEnumerator FadeOut(float fadeTime, Image image)
     {
         if (!skip)
         {
-            float waitTime = 0.1f;
-            float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
-            for (float alpha = 0.0f; alpha <= 255.0f; alpha += alphaChangeAmount)
+            Color temp = image.color;
+            temp.a = 0;
+            image.color = temp;
+            while (image.color.a < 1)
             {
-                Color newColor = image.color;
-                newColor.a = alpha / 255.0f;
-                image.color = newColor;
-                yield return new WaitForSeconds(waitTime);
+                yield return new WaitForSeconds(0.1f);
+                temp = image.color;
+                temp.a = Mathf.Min(1, temp.a + 0.1f / fadeTime);
+                image.color = temp;
             }
         }
         //スキップ中の場合結果のみ反映
@@ -90,14 +91,15 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     {
         if (!skip)
         {
-            float waitTime = 0.1f;
-            float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
-            for (float alpha = 255.0f; alpha >= 0f; alpha -= alphaChangeAmount)
+            Color temp = image.color;
+            temp.a = 1;
+            image.color = temp;
+            while (image.color.a > 0)
             {
-                Color newColor = image.color;
-                newColor.a = alpha / 255.0f;
-                image.color = newColor;
-                yield return new WaitForSeconds(waitTime);
+                yield return new WaitForSeconds(0.1f);
+                temp = image.color;
+                temp.a = Mathf.Max(0, temp.a - 0.1f / fadeTime);
+                image.color = temp;
             }
         }
         //スキップ中の場合結果のみ反映
@@ -409,6 +411,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
                 temp += 48 * Time.deltaTime;
                 _backgroundRect.anchoredPosition = new(temp, 0);
             }
+            _backgroundRect.anchoredPosition = new(480, 0);
         }
         else
         {
@@ -438,16 +441,16 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         }
     }
     //1文の間で表情を切り替える用
-    public IEnumerator FaceChangeDelay(float t, int n)
+    public IEnumerator FaceChangeDelay(float t, string image)
     {
         if (!skip)
         {
             yield return new WaitForSeconds(t);
-            CharacterChange(n);
+            CharacterChange(image);
         }
         else
         {
-            CharacterChange(n);
+            CharacterChange(image);
         }
     }
     //キャラクターの位置を設定
@@ -465,7 +468,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     //背景のサイズおよび位置をリセット
     public void BackgroundReset()
     {
-        _backgroundRect.localScale = new(100, 100);
+        _backgroundRect.localScale = new(1, 1);
         _backgroundRect.anchoredPosition = new Vector2(0, 0);
     }
     //黒のオンオフ(別の方法を探したいが……)
@@ -509,11 +512,11 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     //以下各クラスに必要だが異なる処理にするもの(主に全てのシーンで画像をアタッチしなくて良いように)
 
     //立ち絵の変更用(シーンごとに必要な分だけ記述)
-    public abstract void CharacterChange(int n);
+    public abstract void CharacterChange(string image);
     //背景について同上
-    public abstract void BackgroundChange(int n);
+    public abstract void BackgroundChange(string image);
     //共通で使うエフェクトが増えてきたら、Spriteだけ引数で与えるなり外で設定するなりで対応することにして機能は共通化した方が良さげ
-    public abstract void Effect(int n);
+    public abstract void Effect(string image);
     //シーンごとにStartで異なる処理を(差分だけ)記述するための関数
     protected abstract void StartSet();
 }

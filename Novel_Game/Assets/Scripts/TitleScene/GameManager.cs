@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("sainAttack", 200);
         PlayerPrefs.SetInt("sainSG", 50);
         Set();
+        saveData = true;
     }
 
     //セーブデータと一時記憶の同期
