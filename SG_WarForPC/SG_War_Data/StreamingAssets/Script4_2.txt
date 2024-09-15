@@ -70,7 +70,7 @@ CharacterChange,el_battle,FadeIn,2.0,White,AnimAndGoNext,2.0
 0
 剣羽和人
 …………！良かった、意識を取り戻したか、エル！
-CharacterChange,vier_battle5,FaceChangeDelay,1.5,vier_battle4,AnimationWaitSet,1.5
+CharacterChange,vier_battle5,FaceChangeDelay,1,vier_battle4,AnimationWaitSet,1.5
 フィア
 やった、大成功！それはそれとして和人は無茶しすぎ！まだ統率個体が残ってるのに！
 CharacterChange,Command

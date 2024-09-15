@@ -48,13 +48,4 @@ public class Stage0Manager : StageManagerOrigin
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene("3DGameScene1");
     }
-
-    //ボタンのアニメーション
-    private IEnumerator ButtonAnim(RectTransform rect)
-    {
-        Vector2 temp = rect.localScale;
-        rect.localScale = new(0.9f * temp.x, 0.9f * temp.y);
-        yield return new WaitForSeconds(0.08f);
-        rect.localScale = temp;
-    }
 }

@@ -151,7 +151,7 @@ BackgroundChange,RoadNight,CharacterChange,vier
 0
 剣羽和人
 まあな。ただ、俺の命を守ってくれた少女がいたことぐらいは覚えておきたいと思ってる。
-CharacterChange,vier5,FaceChangeDelay,2,vier7,AnimationWaitSet,2
+CharacterChange,vier5,FaceChangeDelay,1.5,vier7,AnimationWaitSet,2
 フィア
 うん！それならきっとエルちゃんも喜ぶ──────あれ？
 CharacterChange,Ghost1,TextPanelOff,AnimAndGoNext,2

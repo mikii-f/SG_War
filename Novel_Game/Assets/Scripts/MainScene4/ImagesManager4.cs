@@ -40,53 +40,53 @@ public class ImagesManager4 : ImagesManagerOrigin
     }
 
     //óßÇøäGä÷åW
-    public override void CharacterChange(int n)
+    public override void CharacterChange(string image)
     {
-        switch (n)
+        switch (image)
         {
-            case 0:
+            case "transparent":
                 _characterImage.sprite = noneSprite;
                 break;
-            case 1:
+            case "vier":
                 _characterImage.sprite = vier;
                 break;
-            case 3:
+            case "vier3":
                 _characterImage.sprite = vier3;
                 break;
-            case 4:
+            case "vier4":
                 _characterImage.sprite = vier4;
                 break;
-            case 7:
+            case "vier7":
                 _characterImage.sprite = vier7;
                 break;
-            case 8:
+            case "vier8":
                 _characterImage.sprite = vier8;
                 break;
-            case 21:
+            case "vier_battle":
                 _characterImage.sprite = vier_battle;
                 break;
-            case 22:
+            case "vier_battle2":
                 _characterImage.sprite = vier_battle2;
                 break;
-            case 23:
+            case "vier_battle3":
                 _characterImage.sprite = vier_battle3;
                 break;
-            case 24:
+            case "vier_battle4":
                 _characterImage.sprite = vier_battle4;
                 break;
-            case 28:
+            case "vier_battle8":
                 _characterImage.sprite = vier_battle8;
                 break;
-            case 71:
+            case "el_battle":
                 _characterImage.sprite = el_battle;
                 break;
-            case 91:
+            case "el_enemy":
                 _characterImage.sprite = el_enemy;
                 break;
-            case 101:
+            case "Ghost1":
                 _characterImage.sprite = ghost1;
                 break;
-            case 106:
+            case "Command":
                 _characterImage.sprite = command;
                 break;
             default:
@@ -95,26 +95,26 @@ public class ImagesManager4 : ImagesManagerOrigin
     }
 
     //îwåiêÿÇËë÷Ç¶
-    public override void BackgroundChange(int n)
+    public override void BackgroundChange(string image)
     {
-        switch (n)
+        switch (image)
         {
-            case 0:
+            case "Black":
                 _backgroundImage.sprite = backgroundBlack;
                 break;
-            case 1:
+            case "MyRoom":
                 _backgroundImage.sprite = backgroundMyRoom;
                 break;
-            case 2:
+            case "Road":
                 _backgroundImage.sprite = backgroundRoad;
                 break;
-            case 4:
+            case "Rooftop":
                 _backgroundImage.sprite = backgroundRooftop;
                 break;
-            case 5:
+            case "RoadNight":
                 _backgroundImage.sprite = backgroundRoadNight;
                 break;
-            case 6:
+            case "NightSky":
                 _backgroundImage.sprite = backgroundNightSky;
                 break;
             default:
@@ -122,16 +122,16 @@ public class ImagesManager4 : ImagesManagerOrigin
         }
     }
 
-    public override void Effect(int n)
+    public override void Effect(string image)
     {
-        switch (n)
+        switch (image)
         {
-            case 1:
+            case "WindEffectStart":
                 effectsImage.sprite = windEffect;
                 effectsRect.sizeDelta = new(3840, 1080);
                 _coroutine = StartCoroutine(WindEffect());
                 break;
-            case 2:
+            case "WindEffectStop":
                 StopCoroutine(_coroutine);
                 effectsImage.sprite = noneSprite;
                 effectsImage.color = Color.white;

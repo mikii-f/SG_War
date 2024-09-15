@@ -12,7 +12,7 @@ public class MedalManager : MonoBehaviour
         _collider = GetComponent<Collider>();
         //StartCoroutine(Idling());
     }
-    //あまり見た目的には分からないため負荷軽減のためカット
+    //あまり見た目的には分からないためカット
     /*private IEnumerator Idling()
     {
         while (true)

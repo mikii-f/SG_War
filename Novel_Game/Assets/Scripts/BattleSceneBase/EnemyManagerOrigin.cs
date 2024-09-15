@@ -21,7 +21,7 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
     [SerializeField] protected Slider HPslider;
     [SerializeField] protected TMP_Text HPText;
     [SerializeField] protected Sprite grayGage;
-    [SerializeField] protected Sprite redGage;
+    [SerializeField] protected Sprite redGage;      //画像ごと変えるのではなくImageのColorをいじるだけで良いようにすれば楽になりそう
     [SerializeField] protected int maxHP;
     [SerializeField] protected int attack;
     protected int maxGage;
@@ -106,7 +106,7 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
             yield return null;
         }
         //着弾・消滅
-        yield return null;
+        yield return new WaitForSeconds(0.1f);
         yield return StartCoroutine(FadeIn(0.5f, attackImage));
         //初期化
         attackRect.anchoredPosition = new (-diffX, 0);
@@ -156,7 +156,7 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
             isShield = false;
         }
     }
-    //ダメージ表示(上の関数をコルーチン化してもいい)
+    //ダメージ表示
     private IEnumerator DamageDisplay(int damage)
     {
         damageText.text = damage.ToString();

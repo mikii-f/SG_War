@@ -25,29 +25,29 @@ public class ImagesManager3_2 : ImagesManagerOrigin
     }
 
     //óßÇøäGä÷åW
-    public override void CharacterChange(int n)
+    public override void CharacterChange(string image)
     {
-        switch (n)
+        switch (image)
         {
-            case 0:
+            case "transparent":
                 _characterImage.sprite = noneSprite;
                 break;
-            case 1:
+            case "vier":
                 _characterImage.sprite = vier;
                 break;
-            case 2:
+            case "vier2":
                 _characterImage.sprite = vier2;
                 break;
-            case 4:
+            case "vier4":
                 _characterImage.sprite = vier4;
                 break;
-            case 8:
+            case "vier8":
                 _characterImage.sprite = vier8;
                 break;
-            case 21:
+            case "vier_battle":
                 _characterImage.sprite = vier_battle;
                 break;
-            case 101:
+            case "Ghost1":
                 _characterImage.sprite = ghost1;
                 break;
             default:
@@ -56,17 +56,17 @@ public class ImagesManager3_2 : ImagesManagerOrigin
     }
 
     //îwåiêÿÇËë÷Ç¶
-    public override void BackgroundChange(int n)
+    public override void BackgroundChange(string image)
     {
-        switch (n)
+        switch (image)
         {
-            case 0:
+            case "Black":
                 _backgroundImage.sprite = backgroundBlack;
                 break;
-            case 1:
+            case "MyRoom":
                 _backgroundImage.sprite = backgroundMyRoom;
                 break;
-            case 2:
+            case "Road":
                 _backgroundImage.sprite = backgroundRoad;
                 break;
             default:
@@ -74,13 +74,13 @@ public class ImagesManager3_2 : ImagesManagerOrigin
         }
     }
 
-    public override void Effect(int n)
+    public override void Effect(string image)
     {
         if (!skip)
         {
-            switch (n)
+            switch (image)
             {
-                case 0:
+                case "Sword":
                     StartCoroutine(SwordEffect());
                     break;
                 default:

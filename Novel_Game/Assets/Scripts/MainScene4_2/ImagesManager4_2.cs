@@ -47,59 +47,59 @@ public class ImagesManager4_2 : ImagesManagerOrigin
     }
 
     //立ち絵関係
-    public override void CharacterChange(int n)
+    public override void CharacterChange(string image)
     {
-        switch (n)
+        switch (image)
         {
-            case 0:
+            case "transparent":
                 _characterImage.sprite = noneSprite;
                 break;
-            case 21:
+            case "vier_battle":
                 _characterImage.sprite = vier_battle;
                 break;
-            case 22:
+            case "vier_battle2":
                 _characterImage.sprite = vier_battle2;
                 break;
-            case 23:
+            case "vier_battle3":
                 _characterImage.sprite = vier_battle3;
                 break;
-            case 24:
+            case "vier_battle4":
                 _characterImage.sprite = vier_battle4;
                 break;
-            case 25:
+            case "vier_battle5":
                 _characterImage.sprite = vier_battle5;
                 break;
-            case 26:
+            case "vier_battle6":
                 _characterImage.sprite = vier_battle6;
                 break;
-            case 27:
+            case "vier_battle7":
                 _characterImage.sprite = vier_battle7;
                 break;
-            case 28:
+            case "vier_battle8":
                 _characterImage.sprite = vier_battle8;
                 break;
-            case 71:
+            case "el_battle":
                 _characterImage.sprite = el_battle;
                 break;
-            case 72:
+            case "el_battle2":
                 _characterImage.sprite = el_battle2;
                 break;
-            case 73:
+            case "el_battle3":
                 _characterImage.sprite = el_battle3;
                 break;
-            case 74:
+            case "el_battle4":
                 _characterImage.sprite = el_battle4;
                 break;
-            case 75:
+            case "el_battle5":
                 _characterImage.sprite = el_battle5;
                 break;
-            case 91:
+            case "el_enemy":
                 _characterImage.sprite = el_enemy;
                 break;
-            case 101:
+            case "Ghost1":
                 _characterImage.sprite = ghost1;
                 break;
-            case 106:
+            case "Command":
                 _characterImage.sprite = command;
                 break;
             default:
@@ -108,23 +108,23 @@ public class ImagesManager4_2 : ImagesManagerOrigin
     }
 
     //背景切り替え
-    public override void BackgroundChange(int n)
+    public override void BackgroundChange(string image)
     {
-        switch (n)
+        switch (image)
         {
-            case 0:
+            case "Black":
                 _backgroundImage.sprite = backgroundBlack;
                 break;
-            case 1:
+            case "MyRoom":
                 _backgroundImage.sprite = backgroundMyRoom;
                 break;
-            case 2:
+            case "Road":
                 _backgroundImage.sprite = backgroundRoad;
                 break;
-            case 4:
+            case "Rooftop":
                 _backgroundImage.sprite = backgroundRooftop;
                 break;
-            case 7:
+            case "Rooftop2":
                 StartCoroutine(FadeOut(3.0f, backgroundImage2));
                 backgroundImage2.sprite = backgroundRooftop2;
                 break;
@@ -134,28 +134,28 @@ public class ImagesManager4_2 : ImagesManagerOrigin
     }
 
     //エフェクト(透明度とかサイズの処理に注意 特にスキップした場合)
-    public override void Effect(int n)
+    public override void Effect(string image)
     {
         if (!skip)
         {
-            switch (n)
+            switch (image)
             {
-                case 0:
+                case "Sword":
                     StartCoroutine(SwordEffect());
                     break;
-                case 3:
+                case "BloodEffect":
                     StartCoroutine(BloodEffect());
                     break;
-                case 4:
+                case "Jump":
                     effectsImage.sprite = jumpEffect;
                     StartCoroutine(FadeIn(0.5f, effectsImage));
                     break;
-                case 5:
+                case "Heal":
                     effectsImage.sprite = healEffect;
                     effectsImage.color = new(1, 1, 1, 0.3f);
                     effectsRect.localScale = new(1.6f, 1.6f);
                     break;
-                case 6:
+                case "HealFinish":
                     StartCoroutine(HealFinish());
                     break;
                 default:

@@ -1,9 +1,8 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class LeaderManager : MonoBehaviour
+public class LeaderManager : SystemManagerOrigin
 {
     [SerializeField] private SainManager sainManager;
     [SerializeField] private GameObject autoObject;
@@ -21,8 +20,8 @@ public class LeaderManager : MonoBehaviour
     private Text attackIntervalText;
     private Text speedIntervalText;
     private Text guardIntervalText;
-    private float assistInterval = 60f;
-    private float guardInterval = 4f;
+    private const float assistInterval = 60f;
+    private const float guardInterval = 4f;
     private float HPIntervalCount = 0f;
     private float attackIntervalCount = 0f;
     private float speedIntervalCount = 0f;
@@ -183,14 +182,5 @@ public class LeaderManager : MonoBehaviour
                 autoImage.color = new(100f / 255, 100f / 255, 100f / 255, 1f);
             }
         }
-    }
-
-    //ボタンのアニメーション
-    private IEnumerator ButtonAnim(RectTransform rect)
-    {
-        Vector2 temp = rect.localScale;
-        rect.localScale = new(0.9f * temp.x, 0.9f * temp.y);
-        yield return new WaitForSeconds(0.1f);
-        rect.localScale = temp;
     }
 }
