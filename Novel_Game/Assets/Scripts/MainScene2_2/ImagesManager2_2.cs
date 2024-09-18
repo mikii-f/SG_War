@@ -18,6 +18,9 @@ public class ImagesManager2_2 : ImagesManagerOrigin
     private Image effectsImage;
     private RectTransform effectsRect;
     [SerializeField] private Sprite swordEffect;
+    [SerializeField] private AudioClip bgmThinking;
+    [SerializeField] private AudioClip bgmEncounter;
+    [SerializeField] private AudioClip bgmComedy;
 
     protected override void StartSet()
     {
@@ -77,7 +80,26 @@ public class ImagesManager2_2 : ImagesManagerOrigin
                 break;
         }
     }
-
+    public override void BGMChange(string bgm)
+    {
+        switch (bgm)
+        {
+            case "Thinking":
+                audioSource.clip = bgmThinking;
+                audioSource.Play();
+                break;
+            case "Encounter":
+                audioSource.clip = bgmEncounter;
+                audioSource.Play();
+                break;
+            case "Comedy":
+                audioSource.clip = bgmComedy;
+                audioSource.Play();
+                break;
+            default:
+                break;
+        }
+    }
     public override void Effect(string image)
     {
         if (!skip)

@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    //順当にいけば値がnullになって問題が起きることはないはずだが、初期化については深く考えるべきなのかどうか
     public static GameManager instance;
+    //これプロパティ使う意味ある……？
     private static string sceneName;
     public string SceneName { set { sceneName = value; } get { return sceneName; } }
     private static int lineNumber;
@@ -18,7 +18,9 @@ public class GameManager : MonoBehaviour
     public int SainSG { set { sainSG = value; } get { return sainSG; } }
     private bool saveData = false;
     public bool SaveData { get { return saveData; } }
-    //そのうちステータスも
+    private float bgmVolume = 0.25f;
+    public float BgmVolume { get { return bgmVolume; } set { bgmVolume = value; } }
+
     private void Awake()
     {
         if (instance == null)

@@ -6,6 +6,7 @@ using System.Collections;
 
 public class Stage1Manager : StageManagerOrigin
 {
+    [SerializeField] Image black;
     [SerializeField] TMP_Text goalText;
     [SerializeField] GameObject transparentWall;
     private MeshRenderer wallMeshRenderer;
@@ -20,6 +21,7 @@ public class Stage1Manager : StageManagerOrigin
     [SerializeField] GameObject function2;
     [SerializeField] Text functionMessageText;
     private int functionNumber = 0;
+    private AudioSource audioSource;
 
     private void Start()
     {
@@ -30,6 +32,8 @@ public class Stage1Manager : StageManagerOrigin
         messagePanel.SetActive(false);
         function.SetActive(false);
         function2.SetActive(false);
+        audioSource = GetComponent<AudioSource>();
+        audioSource.volume = GameManager.instance.BgmVolume;
         if (GameManager.instance.EXP == 0)
         {
             functionText2.text = "";
@@ -214,6 +218,8 @@ public class Stage1Manager : StageManagerOrigin
             GameManager.instance.Save();
         }
         yield return new WaitUntil(() => Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space));
+        StartCoroutine(VolumeFadeOut(1, audioSource));
+        yield return StartCoroutine(FadeOut(1, black));
         SceneManager.LoadScene("3DGameSelectScene");
     }
 }

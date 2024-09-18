@@ -39,7 +39,10 @@ public class ImagesManager0 : ImagesManagerOrigin
     {
 
     }
-
+    public override void BGMChange(string bgm)
+    {
+        
+    }
     public override void Effect(string image)
     {
 

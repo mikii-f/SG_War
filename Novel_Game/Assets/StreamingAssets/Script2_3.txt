@@ -49,7 +49,7 @@ CharacterChange,vier5
 CharacterChange,vier
 フィア
 うん、おやすみ！
-CharacterChange,transparent,BackgroundColor
+CharacterChange,transparent,BackgroundColor,VolumeFadeOut,4.0
 
 そうして俺たちは一日を終えた。
 0

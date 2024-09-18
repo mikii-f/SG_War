@@ -20,6 +20,10 @@ public class ImagesManager3 : ImagesManagerOrigin
     [SerializeField] private Sprite backgroundMyRoom;
     [SerializeField] private Sprite backgroundRoad;
     [SerializeField] private Sprite backgroundRoadNight;
+    [SerializeField] private AudioClip bgmChapter;
+    [SerializeField] private AudioClip bgmRoadNight;
+    [SerializeField] private AudioClip bgmEncounter;
+    [SerializeField] private AudioClip bgmMemory;
 
     protected override void StartSet()
     {
@@ -94,7 +98,30 @@ public class ImagesManager3 : ImagesManagerOrigin
                 break;
         }
     }
-
+    public override void BGMChange(string bgm)
+    {
+        switch (bgm)
+        {
+            case "Chapter":
+                audioSource.clip = bgmChapter;
+                audioSource.Play();
+                break;
+            case "RoadNight":
+                audioSource.clip = bgmRoadNight;
+                audioSource.Play();
+                break;
+            case "Encounter":
+                audioSource.clip = bgmEncounter;
+                audioSource.Play();
+                break;
+            case "Memory":
+                audioSource.clip = bgmMemory;
+                audioSource.Play();
+                break;
+            default:
+                break;
+        }
+    }
     public override void Effect(string image)
     {
 

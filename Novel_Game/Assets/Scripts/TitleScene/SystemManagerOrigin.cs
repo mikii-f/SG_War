@@ -52,4 +52,27 @@ public abstract class SystemManagerOrigin : MonoBehaviour
             image.color = temp;
         }
     }
+
+    //BGMのフェード
+    protected IEnumerator VolumeFadeOut(float fadeTime, AudioSource audioSource)
+    {
+        while (audioSource.volume > 0)
+        {
+            float v = audioSource.volume;
+            v = Mathf.Max(0, v - GameManager.instance.BgmVolume * Time.deltaTime / fadeTime);
+            audioSource.volume = v;
+            yield return null;
+        }
+    }
+    protected IEnumerator VolumeFadeIn(float fadeTime, AudioSource audioSource)
+    {
+        float targetVolume = GameManager.instance.BgmVolume;
+        while (audioSource.volume < targetVolume)
+        {
+            float v = audioSource.volume;
+            v = Mathf.Min(targetVolume, v + targetVolume * Time.deltaTime / fadeTime);
+            audioSource.volume = v;
+            yield return null;
+        }
+    }
 }

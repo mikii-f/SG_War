@@ -16,6 +16,12 @@ public class ImagesManager2 : ImagesManagerOrigin
     [SerializeField] private Sprite backgroundMyRoom;
     [SerializeField] private Sprite backgroundRoad;
     [SerializeField] private Sprite backgroundRoadNight;
+    [SerializeField] private AudioClip bgmChapter;
+    [SerializeField] private AudioClip bgmHome;
+    [SerializeField] private AudioClip bgmRoad;
+    [SerializeField] private AudioClip bgmRoadNight;
+    [SerializeField] private AudioClip bgmThinking;
+    [SerializeField] private AudioClip bgmEncounter;
 
     //この程度の処理ならスクリプト側から対応できるが、時折GetComponentなども使うため必要
     protected override void StartSet()
@@ -86,7 +92,38 @@ public class ImagesManager2 : ImagesManagerOrigin
                 break;
         }
     }
-
+    public override void BGMChange(string bgm)
+    {
+        switch (bgm)
+        {
+            case "Chapter":
+                audioSource.clip = bgmChapter;
+                audioSource.Play();
+                break;
+            case "Home":
+                audioSource.clip = bgmHome;
+                audioSource.Play();
+                break;
+            case "Road":
+                audioSource.clip = bgmRoad;
+                audioSource.Play();
+                break;
+            case "RoadNight":
+                audioSource.clip = bgmRoadNight;
+                audioSource.Play();
+                break;
+            case "Thinking":
+                audioSource.clip = bgmThinking;
+                audioSource.Play();
+                break;
+            case "Encounter":
+                audioSource.clip = bgmEncounter;
+                audioSource.Play();
+                break;
+            default:
+                break;
+        }
+    }
     public override void Effect(string image)
     {
 

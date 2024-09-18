@@ -37,6 +37,10 @@ public class ImagesManager4_2 : ImagesManagerOrigin
     [SerializeField] private Sprite bloodEffect;
     [SerializeField] private Sprite jumpEffect;
     [SerializeField] private Sprite healEffect;
+    [SerializeField] private AudioClip bgmCommand;
+    [SerializeField] private AudioClip bgmMemory;
+    [SerializeField] private AudioClip bgmPiano;
+    [SerializeField] private AudioClip bgmFeel;
 
     protected override void StartSet()
     {
@@ -132,7 +136,30 @@ public class ImagesManager4_2 : ImagesManagerOrigin
                 break;
         }
     }
-
+    public override void BGMChange(string bgm)
+    {
+        switch (bgm)
+        {
+            case "Command":
+                audioSource.clip = bgmCommand;
+                audioSource.Play();
+                break;
+            case "Memory":
+                audioSource.clip = bgmMemory;
+                audioSource.Play();
+                break;
+            case "Piano":
+                audioSource.clip = bgmPiano;
+                audioSource.Play();
+                break;
+            case "Feel":
+                audioSource.clip = bgmFeel;
+                audioSource.Play();
+                break;
+            default:
+                break;
+        }
+    }
     //エフェクト(透明度とかサイズの処理に注意 特にスキップした場合)
     public override void Effect(string image)
     {

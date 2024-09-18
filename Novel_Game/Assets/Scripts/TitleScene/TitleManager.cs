@@ -16,6 +16,7 @@ public class TitleManager : SystemManagerOrigin
     [SerializeField] private RectTransform noSwitch;
     [SerializeField] private Image black;
     [SerializeField] private GameObject continueSwitchMask;
+    private AudioSource audioSource;
     private bool isGoNext = false;
 
     void Start()
@@ -23,6 +24,8 @@ public class TitleManager : SystemManagerOrigin
         words1.SetActive(false);
         method.SetActive(false);
         systemMessageObject.SetActive(false);
+        audioSource = GetComponent<AudioSource>();
+        audioSource.volume = GameManager.instance.BgmVolume;
         StartCoroutine(FadeIn(0.5f, black));
         if (GameManager.instance.SaveData)
         {
@@ -74,6 +77,7 @@ public class TitleManager : SystemManagerOrigin
     }
     private IEnumerator NewGame()
     {
+        StartCoroutine(VolumeFadeOut(1, audioSource));
         yield return StartCoroutine(FadeOut(2, black));
         GameManager.instance.Initialize();
         SceneManager.LoadScene(GameManager.instance.SceneName);
@@ -89,6 +93,7 @@ public class TitleManager : SystemManagerOrigin
     }
     private IEnumerator ContinueGame()
     {
+        StartCoroutine(VolumeFadeOut(1, audioSource));
         yield return new WaitForSeconds(0.1f);
         yield return StartCoroutine(FadeOut(1, black));
         GameManager.instance.Set();

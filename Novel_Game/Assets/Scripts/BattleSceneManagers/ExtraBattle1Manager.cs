@@ -8,6 +8,7 @@ public class ExtraBattle1Manager : BattleSceneManagerOrigin
     [SerializeField] private ElManager elManager;
     [SerializeField] private GameObject tutorialPanel;
     [SerializeField] private Text tutorialText;
+    [SerializeField] private AudioClip bgmEl;
 
     // Start is called before the first frame update
     protected override void StartSet()
@@ -33,6 +34,7 @@ public class ExtraBattle1Manager : BattleSceneManagerOrigin
         tutorialPanel.SetActive(false);
         explanation.SetActive(true);
         yield return new WaitUntil(() => !explanation.activeSelf);
+        StartCoroutine(VolumeFadeOut(2, audioSource));
         battleStartAndFinishText.text = "3";
         yield return new WaitForSeconds(1);
         battleStartAndFinishText.text = "2";
@@ -42,6 +44,9 @@ public class ExtraBattle1Manager : BattleSceneManagerOrigin
         battleStartAndFinishText.text = "Battle Start";
         yield return new WaitForSeconds(1);
         battleStartAndFinishText.text = "";
+        audioSource.clip = bgmEl;
+        audioSource.volume = GameManager.instance.BgmVolume;
+        audioSource.Play();
         sainManager.Pause = false;
         leaderManager.Pause = false;
         elManager.Pause = false;

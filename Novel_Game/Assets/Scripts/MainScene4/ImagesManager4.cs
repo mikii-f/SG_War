@@ -30,6 +30,14 @@ public class ImagesManager4 : ImagesManagerOrigin
     [SerializeField] private Sprite windEffect;
     private Material _material;
     private Coroutine _coroutine;
+    [SerializeField] private AudioClip bgmTitle;
+    [SerializeField] private AudioClip bgmReach;
+    [SerializeField] private AudioClip bgmChapter;
+    [SerializeField] private AudioClip bgmRoad;
+    [SerializeField] private AudioClip bgmRoadNight;
+    [SerializeField] private AudioClip bgmEncounter;
+    [SerializeField] private AudioClip bgmComedy;
+    [SerializeField] private AudioClip bgmSurprise;
 
     protected override void StartSet()
     {
@@ -121,7 +129,46 @@ public class ImagesManager4 : ImagesManagerOrigin
                 break;
         }
     }
-
+    public override void BGMChange(string bgm)
+    {
+        switch (bgm)
+        {
+            case "Title":
+                audioSource.clip = bgmTitle;
+                audioSource.Play();
+                break;
+            case "Reach":
+                audioSource.clip = bgmReach;
+                audioSource.Play();
+                break;
+            case "Chapter":
+                audioSource.clip = bgmChapter;
+                audioSource.Play();
+                break;
+            case "Road":
+                audioSource.clip = bgmRoad;
+                audioSource.Play();
+                break;
+            case "RoadNight":
+                audioSource.clip = bgmRoadNight;
+                audioSource.Play();
+                break;
+            case "Encounter":
+                audioSource.clip = bgmEncounter;
+                audioSource.Play();
+                break;
+            case "Comedy":
+                audioSource.clip = bgmComedy;
+                audioSource.Play();
+                break;
+            case "Surprise":
+                audioSource.clip = bgmSurprise;
+                audioSource.Play();
+                break;
+            default:
+                break;
+        }
+    }
     public override void Effect(string image)
     {
         switch (image)

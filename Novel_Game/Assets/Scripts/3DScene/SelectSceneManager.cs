@@ -16,12 +16,15 @@ public class SelectSceneManager : SystemManagerOrigin
     [SerializeField] private GameObject developingMessage;
     [SerializeField] private Image black;
     [SerializeField] private TMP_Text countDown;
+    private AudioSource audioSource;
     private bool go = false;
 
     private void Start()
     {
         systemMessageObject.SetActive(false);
         developingMessage.SetActive(false);
+        audioSource = GetComponent<AudioSource>();
+        audioSource.volume = GameManager.instance.BgmVolume;
         statusText.text = "体力\n" + GameManager.instance.SainHP.ToString() + "\n初期SG\n" + GameManager.instance.SainSG.ToString() + "\n攻撃力\n" + GameManager.instance.SainAttack.ToString() + "\n経験値\n" + GameManager.instance.EXP.ToString();
     }
 
@@ -109,6 +112,7 @@ public class SelectSceneManager : SystemManagerOrigin
     private IEnumerator GoToStory()
     {
         yield return new WaitForSeconds(0.1f);
+        StartCoroutine(VolumeFadeOut(1, audioSource));
         yield return StartCoroutine(FadeOut(1f, black));
         //本来起こらない状況と思われるが暫定措置
         if (GameManager.instance.SceneName == null)

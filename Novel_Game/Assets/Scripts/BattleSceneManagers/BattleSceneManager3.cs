@@ -11,6 +11,7 @@ public class BattleSceneManager3 : BattleSceneManagerOrigin
     [SerializeField] private ElManager elManager;
     [SerializeField] private GameObject tutorialPanel;
     [SerializeField] private Text tutorialText;
+    [SerializeField] private AudioClip bgmEl;
 
     // Start is called before the first frame update
     protected override void StartSet()
@@ -26,6 +27,7 @@ public class BattleSceneManager3 : BattleSceneManagerOrigin
         numberOfArriveEnemy = numberOfEnemy[0];
         tutorialPanel.SetActive(false);
         StartCoroutine(BattleStart());
+        StartCoroutine(BGMChange());
     }
     private IEnumerator BattleStart()
     {
@@ -76,6 +78,12 @@ public class BattleSceneManager3 : BattleSceneManagerOrigin
         }
     }
 
+    private IEnumerator BGMChange()
+    {
+        yield return new WaitUntil(() => numberOfCurrentWave == 1);
+        audioSource.clip = bgmEl;
+        audioSource.Play();
+    }
 
     public override void SceneLoad()
     {

@@ -13,6 +13,7 @@ public class BattleSceneManager2 : BattleSceneManagerOrigin
     [SerializeField] private CarnivoreEnemyManager carnEnemyManager2;
     [SerializeField] private GameObject tutorialPanel;
     [SerializeField] private Text tutorialText;
+    [SerializeField] private AudioClip bgmBattle;
 
     // Start is called before the first frame update
     protected override void StartSet()
@@ -60,6 +61,7 @@ public class BattleSceneManager2 : BattleSceneManagerOrigin
         tutorialPanel.SetActive(false);
         explanation.SetActive(true);
         yield return new WaitUntil(() => !explanation.activeSelf);
+        StartCoroutine(VolumeFadeOut(2, audioSource));
         battleStartAndFinishText.text = "3";
         yield return new WaitForSeconds(1);
         battleStartAndFinishText.text = "2";
@@ -69,6 +71,9 @@ public class BattleSceneManager2 : BattleSceneManagerOrigin
         battleStartAndFinishText.text = "Battle Start";
         yield return new WaitForSeconds(1);
         battleStartAndFinishText.text = "";
+        audioSource.clip = bgmBattle;
+        audioSource.volume = GameManager.instance.BgmVolume;
+        audioSource.Play();
         sainManager.Pause = false;
         leaderManager.Pause = false;
         for (int i = 0; i < 3; i++)

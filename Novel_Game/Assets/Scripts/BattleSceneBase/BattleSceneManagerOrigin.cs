@@ -29,6 +29,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
     [SerializeField] private GameObject specialAttackPanel;
     private RectTransform specialAttackPanelRect;
     private Image specialAttackPanelImage;
+    protected AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +38,8 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         blackImage = blackObject.GetComponent<Image>();
         specialAttackPanelRect = specialAttackPanel.GetComponent<RectTransform>();
         specialAttackPanelImage = specialAttackPanel.GetComponent<Image>();
+        audioSource = GetComponent<AudioSource>();
+        audioSource.volume = GameManager.instance.BgmVolume;
         specialAttackPanelImage.color = new(1, 1, 1, 0);
         specialSkillAnimation.SetActive(false);
         explanation.SetActive(false);
@@ -436,6 +439,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         yield return new WaitForSeconds(2);
         battleStartAndFinishText.text = "Battle Finish";
         yield return new WaitForSeconds(2);
+        StartCoroutine(VolumeFadeOut(2, audioSource));
         yield return StartCoroutine(FadeOut(2, blackImage));
         SceneLoad();
     }

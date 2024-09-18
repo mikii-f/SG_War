@@ -9,10 +9,13 @@ public class EndRoal : SystemManagerOrigin
     [SerializeField] private RectTransform endroalRect;
     [SerializeField] private Image white;
     [SerializeField] private RectTransform skipSwitchRect;
+    private AudioSource audiosource;
     private bool skip = false;
 
     void Start()
     {
+        audiosource = GetComponent<AudioSource>();
+        audiosource.volume = GameManager.instance.BgmVolume;
         StartCoroutine(TitleToEndRoal());
     }
     private IEnumerator TitleToEndRoal()
@@ -20,7 +23,7 @@ public class EndRoal : SystemManagerOrigin
         yield return new WaitForSeconds(6);
         nextTitle.SetActive(false);
         yield return new WaitForSeconds(2);
-        while (endroalRect.anchoredPosition.y < 2200)
+        while (endroalRect.anchoredPosition.y < 2500)
         {
             Vector2 temp = endroalRect.anchoredPosition;
             temp.y += 210 * Time.deltaTime;
@@ -31,6 +34,7 @@ public class EndRoal : SystemManagerOrigin
         yield return StartCoroutine(FadeOut(3, white));
         GameManager.instance.SceneName = "AfterClear";
         GameManager.instance.Save();
+        StartCoroutine(VolumeFadeOut(2, audiosource));
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene("AfterClear");
     }

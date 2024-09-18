@@ -27,6 +27,7 @@ public abstract class TextManagerOrigin : MonoBehaviour
     private bool isSpeedUp = false;
     public bool IsSpeedUp { set { isSpeedUp = value; TextFill(); } get { return isSpeedUp; } }
     private Coroutine slideCoroutine;
+    private Coroutine audioCoroutine;
     private bool skip = false;  //セーブデータなどから復帰する際に任意の行から始める用
 
     void Start()
@@ -182,6 +183,10 @@ public abstract class TextManagerOrigin : MonoBehaviour
                     i++;
                     imagesManager.BackgroundChange(s[i]);
                     break;
+                case "BGMChange":
+                    i++;
+                    imagesManager.BGMChange(s[i]);
+                    break;
                 case "CharacterMotion":
                     i++;
                     imagesManager.CharacterMotion(s[i]);
@@ -232,6 +237,22 @@ public abstract class TextManagerOrigin : MonoBehaviour
                     break;
                 case "BackgroundReset":
                     imagesManager.BackgroundReset();
+                    break;
+                case "VolumeFadeOut":
+                    if (audioCoroutine != null)
+                    {
+                        StopCoroutine(audioCoroutine);
+                    }
+                    i++;
+                    audioCoroutine = StartCoroutine(imagesManager.VolumeFadeOut(float.Parse(s[i])));
+                    break;
+                case "VolumeFadeIn":
+                    if (audioCoroutine != null)
+                    {
+                        StopCoroutine(audioCoroutine);
+                    }
+                    i++;
+                    audioCoroutine = StartCoroutine(imagesManager.VolumeFadeIn(float.Parse(s[i])));
                     break;
                 case "AnimAndGoNext":
                     i++;

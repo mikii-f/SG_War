@@ -62,7 +62,10 @@ public class ImagesManager2_3 : ImagesManagerOrigin
                 break;
         }
     }
+    public override void BGMChange(string bgm)
+    {
 
+    }
     public override void Effect(string image)
     {
 
