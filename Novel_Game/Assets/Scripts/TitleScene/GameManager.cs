@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     public bool SaveData { get { return saveData; } }
     private float bgmVolume = 0.25f;
     public float BgmVolume { get { return bgmVolume; } set { bgmVolume = value; } }
+    private float seVolume = 0.25f;
+    public float SeVolume { get {return seVolume; } set { seVolume = value; } }
 
     private void Awake()
     {

@@ -5,6 +5,10 @@ using UnityEngine.UI;
 public abstract class SystemManagerOrigin : MonoBehaviour
 {
     protected bool switchInterval = false;  //メッセージを閉じるときなどにスイッチのアニメーションが見えてから閉じるようにするとその間にまだスイッチが押せてしまうため、それを防ぐ
+    [SerializeField] protected AudioSource seSource;
+    [SerializeField] protected AudioClip seUIClick;
+    [SerializeField] protected AudioClip seUIBack;
+    [SerializeField] protected AudioClip seUIUnactive;
     protected IEnumerator SwitchInterval()
     {
         switchInterval = true;

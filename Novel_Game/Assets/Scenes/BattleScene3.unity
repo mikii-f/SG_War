@@ -337,6 +337,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf8ae6f69dad7846b424fbf08f53b35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seSource: {fileID: 0}
+  seUIClick: {fileID: 0}
+  seUIBack: {fileID: 0}
+  seUIUnactive: {fileID: 0}
   sainManager: {fileID: 158604480}
   leaderManager: {fileID: 569791865}
   battleSystemManager: {fileID: 1190091273}
@@ -1800,6 +1804,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78a68c60e13e01e40a33d7d4ce8baf3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seSource: {fileID: 0}
+  seUIClick: {fileID: 0}
+  seUIBack: {fileID: 0}
+  seUIUnactive: {fileID: 0}
   bSManager: {fileID: 20221464}
   myRect: {fileID: 533357713}
   HPText: {fileID: 972307082}
@@ -5292,6 +5300,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b680af691b7745645aed0ac7aacdab42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seSource: {fileID: 0}
+  seUIClick: {fileID: 0}
+  seUIBack: {fileID: 0}
+  seUIUnactive: {fileID: 0}
   sainManager: {fileID: 158604480}
   autoObject: {fileID: 1193912589}
   HPRect: {fileID: 688661361}
@@ -8256,6 +8268,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 950caf2957b6a864e86b44d7170f04fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seSource: {fileID: 0}
+  seUIClick: {fileID: 0}
+  seUIBack: {fileID: 0}
+  seUIUnactive: {fileID: 0}
   bSManager: {fileID: 20221464}
   myAllObject: {fileID: 62137044}
   myObject: {fileID: 1214904648}
@@ -10293,6 +10309,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1190091274}
   - component: {fileID: 1190091273}
+  - component: {fileID: 1190091275}
   m_Layer: 0
   m_Name: BattleSystemManager
   m_TagString: Untagged
@@ -10312,6 +10329,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1a32d9fba8be9c4f923093aef16c988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seSource: {fileID: 0}
+  seUIClick: {fileID: 8300000, guid: a2b0e26fae279f8418c0f949af727dee, type: 3}
+  seUIBack: {fileID: 8300000, guid: 314a41f973066624b99da80167d5ba09, type: 3}
+  seUIUnactive: {fileID: 8300000, guid: 7e78c795ce29e9c47842347ddbbd3c24, type: 3}
   bSManager: {fileID: 20221464}
   menu: {fileID: 859458322}
   functions: {fileID: 1607261354}
@@ -10342,6 +10363,102 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1190091275
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190091272}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.25
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1190111645
 GameObject:
   m_ObjectHideFlags: 0
@@ -12989,6 +13106,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a87be1c762ace5b469e0cf1708b64346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seSource: {fileID: 0}
+  seUIClick: {fileID: 0}
+  seUIBack: {fileID: 0}
+  seUIUnactive: {fileID: 0}
   bSManager: {fileID: 20221464}
   myAllObject: {fileID: 369727642}
   myObject: {fileID: 1436517282}
@@ -16509,6 +16630,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb4c9f8a90820ae4087062d5b1a1d02d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seSource: {fileID: 0}
+  seUIClick: {fileID: 0}
+  seUIBack: {fileID: 0}
+  seUIUnactive: {fileID: 0}
   bSManager: {fileID: 20221464}
   myAllObject: {fileID: 1472835062}
   myObject: {fileID: 1271555853}
@@ -17004,6 +17129,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ead94b92ca9b3448a315077d39be61a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seSource: {fileID: 0}
+  seUIClick: {fileID: 0}
+  seUIBack: {fileID: 0}
+  seUIUnactive: {fileID: 0}
   bSManager: {fileID: 20221464}
   myAllObject: {fileID: 907735538}
   myObject: {fileID: 2075624010}

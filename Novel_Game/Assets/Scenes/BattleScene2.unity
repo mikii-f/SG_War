@@ -1263,6 +1263,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a87be1c762ace5b469e0cf1708b64346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seSource: {fileID: 0}
+  seUIClick: {fileID: 0}
+  seUIBack: {fileID: 0}
+  seUIUnactive: {fileID: 0}
   bSManager: {fileID: 1887379711}
   myAllObject: {fileID: 188476703}
   myObject: {fileID: 620138691}
@@ -6752,6 +6756,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ead94b92ca9b3448a315077d39be61a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seSource: {fileID: 0}
+  seUIClick: {fileID: 0}
+  seUIBack: {fileID: 0}
+  seUIUnactive: {fileID: 0}
   bSManager: {fileID: 1887379711}
   myAllObject: {fileID: 1054699668}
   myObject: {fileID: 161000140}
@@ -8910,6 +8918,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a87be1c762ace5b469e0cf1708b64346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seSource: {fileID: 0}
+  seUIClick: {fileID: 0}
+  seUIBack: {fileID: 0}
+  seUIUnactive: {fileID: 0}
   bSManager: {fileID: 1887379711}
   myAllObject: {fileID: 424004384}
   myObject: {fileID: 1275558963}
@@ -11453,6 +11465,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a87be1c762ace5b469e0cf1708b64346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seSource: {fileID: 0}
+  seUIClick: {fileID: 0}
+  seUIBack: {fileID: 0}
+  seUIUnactive: {fileID: 0}
   bSManager: {fileID: 1887379711}
   myAllObject: {fileID: 1794619596}
   myObject: {fileID: 474901923}
@@ -14692,6 +14708,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1443028052}
   - component: {fileID: 1443028051}
+  - component: {fileID: 1443028053}
   m_Layer: 0
   m_Name: BattleSystemManager
   m_TagString: Untagged
@@ -14711,6 +14728,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1a32d9fba8be9c4f923093aef16c988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seSource: {fileID: 0}
+  seUIClick: {fileID: 8300000, guid: a2b0e26fae279f8418c0f949af727dee, type: 3}
+  seUIBack: {fileID: 8300000, guid: 314a41f973066624b99da80167d5ba09, type: 3}
+  seUIUnactive: {fileID: 8300000, guid: 7e78c795ce29e9c47842347ddbbd3c24, type: 3}
   bSManager: {fileID: 1887379711}
   menu: {fileID: 810772527}
   functions: {fileID: 93746039}
@@ -14741,6 +14762,102 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1443028053
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443028050}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.25
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1443358512
 GameObject:
   m_ObjectHideFlags: 0
@@ -18375,6 +18492,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ead94b92ca9b3448a315077d39be61a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seSource: {fileID: 0}
+  seUIClick: {fileID: 0}
+  seUIBack: {fileID: 0}
+  seUIUnactive: {fileID: 0}
   bSManager: {fileID: 1887379711}
   myAllObject: {fileID: 1878155232}
   myObject: {fileID: 93466764}
@@ -18756,6 +18877,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b680af691b7745645aed0ac7aacdab42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seSource: {fileID: 0}
+  seUIClick: {fileID: 0}
+  seUIBack: {fileID: 0}
+  seUIUnactive: {fileID: 0}
   sainManager: {fileID: 2002315945}
   autoObject: {fileID: 826532891}
   HPRect: {fileID: 1127288376}
@@ -18867,6 +18992,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3abc266e50bb09d46b73e1471d431206, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seSource: {fileID: 0}
+  seUIClick: {fileID: 0}
+  seUIBack: {fileID: 0}
+  seUIUnactive: {fileID: 0}
   sainManager: {fileID: 2002315945}
   leaderManager: {fileID: 1866081842}
   battleSystemManager: {fileID: 1443028051}
@@ -20456,6 +20585,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78a68c60e13e01e40a33d7d4ce8baf3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seSource: {fileID: 0}
+  seUIClick: {fileID: 0}
+  seUIBack: {fileID: 0}
+  seUIUnactive: {fileID: 0}
   bSManager: {fileID: 1887379711}
   myRect: {fileID: 1694442164}
   HPText: {fileID: 1492690323}
@@ -21876,6 +22009,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb4c9f8a90820ae4087062d5b1a1d02d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seSource: {fileID: 0}
+  seUIClick: {fileID: 0}
+  seUIBack: {fileID: 0}
+  seUIUnactive: {fileID: 0}
   bSManager: {fileID: 1887379711}
   myAllObject: {fileID: 1736217227}
   myObject: {fileID: 1436966227}

@@ -25,6 +25,7 @@ public class SelectSceneManager : SystemManagerOrigin
         developingMessage.SetActive(false);
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = GameManager.instance.BgmVolume;
+        seSource.volume = GameManager.instance.SeVolume;
         statusText.text = "体力\n" + GameManager.instance.SainHP.ToString() + "\n初期SG\n" + GameManager.instance.SainSG.ToString() + "\n攻撃力\n" + GameManager.instance.SainAttack.ToString() + "\n経験値\n" + GameManager.instance.EXP.ToString();
     }
 
@@ -52,6 +53,8 @@ public class SelectSceneManager : SystemManagerOrigin
         {
             StartCoroutine(ButtonAnim(NormalSwitchRect));
             StartCoroutine(Delay(systemMessageObject, true));
+            seSource.clip = seUIClick;
+            seSource.Play();
         }
     }
     //今はノーマルステージのみに対応
@@ -63,6 +66,8 @@ public class SelectSceneManager : SystemManagerOrigin
             StartCoroutine(Delay(systemMessageObject, false));
             StartCoroutine(StartGame());
             go = true;
+            seSource.clip = seUIClick;
+            seSource.Play();
         }
     }
     //ゲーム開始
@@ -84,6 +89,8 @@ public class SelectSceneManager : SystemManagerOrigin
             StartCoroutine(SwitchInterval());
             StartCoroutine(ButtonAnim(noSwitch));
             StartCoroutine(Delay(systemMessageObject, false));
+            seSource.clip = seUIBack;
+            seSource.Play();
         }
     }
     public void HardSwitch()
@@ -92,6 +99,8 @@ public class SelectSceneManager : SystemManagerOrigin
         {
             StartCoroutine(ButtonAnim(HardSwitchRect));
             StartCoroutine(Developing());
+            seSource.clip = seUIUnactive;
+            seSource.Play();
         }
     }
     private IEnumerator Developing()
@@ -107,6 +116,8 @@ public class SelectSceneManager : SystemManagerOrigin
             go = true;
             StartCoroutine(ButtonAnim(StorySwitchRect));
             StartCoroutine(GoToStory());
+            seSource.clip = seUIClick;
+            seSource.Play();
         }
     }
     private IEnumerator GoToStory()

@@ -26,6 +26,7 @@ public class TitleManager : SystemManagerOrigin
         systemMessageObject.SetActive(false);
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = GameManager.instance.BgmVolume;
+        seSource.volume = GameManager.instance.SeVolume;
         StartCoroutine(FadeIn(0.5f, black));
         if (GameManager.instance.SaveData)
         {
@@ -56,6 +57,8 @@ public class TitleManager : SystemManagerOrigin
     {
         StartCoroutine(ButtonAnim(newGameSwitchRect));
         StartCoroutine(Delay(systemMessageObject, true));
+        seSource.clip = seUIClick;
+        seSource.Play();
     }
     public void YesSwitch()
     {
@@ -64,6 +67,8 @@ public class TitleManager : SystemManagerOrigin
             isGoNext = true;
             StartCoroutine(ButtonAnim(yesSwitch));
             StartCoroutine(NewGame());
+            seSource.clip = seUIClick;
+            seSource.Play();
         }
     }
     public void NoSwitch()
@@ -73,6 +78,8 @@ public class TitleManager : SystemManagerOrigin
             StartCoroutine(SwitchInterval());
             StartCoroutine(ButtonAnim(noSwitch));
             StartCoroutine(Delay(systemMessageObject, false));
+            seSource.clip = seUIBack;
+            seSource.Play();
         }
     }
     private IEnumerator NewGame()
@@ -89,6 +96,8 @@ public class TitleManager : SystemManagerOrigin
             isGoNext = true;
             StartCoroutine(ButtonAnim(continueGameSwitchRect));
             StartCoroutine(ContinueGame());
+            seSource.clip = seUIClick;
+            seSource.Play();
         }
     }
     private IEnumerator ContinueGame()
@@ -105,6 +114,8 @@ public class TitleManager : SystemManagerOrigin
         {
             StartCoroutine(ButtonAnim(wordsSwitchRect));
             StartCoroutine(Delay(words1, true));
+            seSource.clip = seUIClick;
+            seSource.Play();
         }
     }
     public void MethodSwitch()
@@ -113,11 +124,15 @@ public class TitleManager : SystemManagerOrigin
         {
             StartCoroutine(ButtonAnim(methodSwitchRect));
             StartCoroutine(Delay(method, true));
+            seSource.clip = seUIClick;
+            seSource.Play();
         }
     }
     public void Close()
     {
         words1.SetActive(false);
         method.SetActive(false);
+        seSource.clip = seUIBack;
+        seSource.Play();
     }
 }

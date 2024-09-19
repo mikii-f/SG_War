@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class Stage0Manager : StageManagerOrigin
 {
@@ -10,7 +11,12 @@ public class Stage0Manager : StageManagerOrigin
     [SerializeField] private TMP_Text countDown;
     [SerializeField] private GameObject enemy;
     private bool go = false;
-    
+
+    private void Start()
+    {
+        seSource.volume = GameManager.instance.SeVolume;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.M) && !go)
@@ -35,6 +41,8 @@ public class Stage0Manager : StageManagerOrigin
             }
             StartCoroutine(ButtonAnim(nextSwitchRect));
             StartCoroutine(StartGame());
+            seSource.clip = seUIClick;
+            seSource.Play();
         }
     }
     //ÉQÅ[ÉÄäJén

@@ -16,6 +16,7 @@ public class EndRoal : SystemManagerOrigin
     {
         audiosource = GetComponent<AudioSource>();
         audiosource.volume = GameManager.instance.BgmVolume;
+        seSource.volume = GameManager.instance.SeVolume;
         StartCoroutine(TitleToEndRoal());
     }
     private IEnumerator TitleToEndRoal()
@@ -45,6 +46,8 @@ public class EndRoal : SystemManagerOrigin
             skip = true;
             StartCoroutine(ButtonAnim(skipSwitchRect));
             StartCoroutine(SkipEndroal());
+            seSource.clip = seUIClick;
+            seSource.Play();
         }
     }
     private IEnumerator SkipEndroal()

@@ -34,6 +34,7 @@ public class Stage1Manager : StageManagerOrigin
         function2.SetActive(false);
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = GameManager.instance.BgmVolume;
+        seSource.volume = GameManager.instance.SeVolume;
         if (GameManager.instance.EXP == 0)
         {
             functionText2.text = "";
@@ -52,10 +53,14 @@ public class Stage1Manager : StageManagerOrigin
             if (!function.activeSelf)
             {
                 function.SetActive(true);
+                seSource.clip = seUIClick;
+                seSource.Play();
             }
             else if (!function2.activeSelf)
             {
                 function.SetActive(false);
+                seSource.clip = seUIBack;
+                seSource.Play();
             }
         }
         //各機能
@@ -64,6 +69,8 @@ public class Stage1Manager : StageManagerOrigin
             function2.SetActive(true);
             functionMessageText.text = "再挑戦しますか？";
             functionNumber = 1;
+            seSource.clip = seUIClick;
+            seSource.Play();
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2) && function.activeSelf && !function2.activeSelf)
         {
@@ -72,6 +79,8 @@ public class Stage1Manager : StageManagerOrigin
                 function2.SetActive(true);
                 functionMessageText.text = "ステージセレクトに戻りますか？";
                 functionNumber = 2;
+                seSource.clip = seUIClick;
+                seSource.Play();
             }
         }
         else if (Input.GetKeyDown(KeyCode.Alpha0) && function.activeSelf && !function2.activeSelf)
@@ -79,12 +88,16 @@ public class Stage1Manager : StageManagerOrigin
             function2.SetActive(true);
             functionMessageText.text = "(ゲームを評価してくださる方向けの機能です)\nスキップしてスコア3000を獲得しますか？";
             functionNumber = 0;
+            seSource.clip = seUIClick;
+            seSource.Play();
         }
         //YesNo選択
         if (function2.activeSelf)
         {
             if (Input.GetKeyDown(KeyCode.Y))
             {
+                seSource.clip = seUIClick;
+                seSource.Play();
                 switch (functionNumber)
                 {
                     case 1:
@@ -102,6 +115,8 @@ public class Stage1Manager : StageManagerOrigin
             else if (Input.GetKeyDown(KeyCode.N))
             {
                 function2.SetActive(false);
+                seSource.clip = seUIBack;
+                seSource.Play();
             }
         }
     }
@@ -151,6 +166,8 @@ public class Stage1Manager : StageManagerOrigin
             messagePanel.SetActive(true);
             yield return new WaitUntil(() => Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space));
             messagePanel.SetActive(false);
+            seSource.clip = seUIClick;
+            seSource.Play();
             yield return new WaitForSeconds(1);
         }
         else if (GameManager.instance.EXP < 5000)
@@ -166,6 +183,8 @@ public class Stage1Manager : StageManagerOrigin
                 messagePanel.SetActive(true);
                 yield return new WaitUntil(() => Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space));
                 messagePanel.SetActive(false);
+                seSource.clip = seUIClick;
+                seSource.Play();
                 yield return new WaitForSeconds(1);
             }
             else
@@ -185,6 +204,8 @@ public class Stage1Manager : StageManagerOrigin
                 messagePanel.SetActive(true);
                 yield return new WaitUntil(() => Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space));
                 messagePanel.SetActive(false);
+                seSource.clip = seUIClick;
+                seSource.Play();
                 yield return new WaitForSeconds(1);
             }
             else
@@ -205,6 +226,8 @@ public class Stage1Manager : StageManagerOrigin
                 messagePanel.SetActive(true);
                 yield return new WaitUntil(() => Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space));
                 messagePanel.SetActive(false);
+                seSource.clip = seUIClick;
+                seSource.Play();
                 yield return new WaitForSeconds(1);
             }
             else
@@ -219,6 +242,8 @@ public class Stage1Manager : StageManagerOrigin
         }
         yield return new WaitUntil(() => Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space));
         StartCoroutine(VolumeFadeOut(1, audioSource));
+        seSource.clip = seUIClick;
+        seSource.Play();
         yield return StartCoroutine(FadeOut(1, black));
         SceneManager.LoadScene("3DGameSelectScene");
     }
