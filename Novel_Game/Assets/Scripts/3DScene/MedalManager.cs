@@ -5,11 +5,15 @@ public class MedalManager : MonoBehaviour
 {
     private Transform _transform;
     private Collider _collider;
+    private AudioSource seSource;
+    [SerializeField] AudioClip seMedal;
 
     void Start()
     {
         _transform = GetComponent<Transform>();
         _collider = GetComponent<Collider>();
+        seSource = GetComponent<AudioSource>();
+        seSource.volume = GameManager.instance.SeVolume;
         //StartCoroutine(Idling());
     }
     //‚ ‚Ü‚èŒ©‚½–Ú“I‚É‚Í•ª‚©‚ç‚È‚¢‚½‚ßƒJƒbƒg
@@ -48,6 +52,8 @@ public class MedalManager : MonoBehaviour
     }
     private IEnumerator GetMedal()
     {
+        seSource.clip = seMedal;
+        seSource.Play();
         float timeCount = 0;
         //0.2•b‚Å3‰ñ“]
         while (timeCount < 0.2f)

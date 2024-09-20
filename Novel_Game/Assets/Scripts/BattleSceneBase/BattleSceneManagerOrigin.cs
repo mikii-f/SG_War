@@ -30,6 +30,8 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
     private RectTransform specialAttackPanelRect;
     private Image specialAttackPanelImage;
     protected AudioSource audioSource;
+    [SerializeField] protected AudioClip seChange;
+    [SerializeField] private AudioClip seSword;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +42,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         specialAttackPanelImage = specialAttackPanel.GetComponent<Image>();
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = GameManager.instance.BgmVolume;
+        seSource.volume = GameManager.instance.SeVolume;
         specialAttackPanelImage.color = new(1, 1, 1, 0);
         specialSkillAnimation.SetActive(false);
         explanation.SetActive(false);
@@ -56,7 +59,6 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         {
             explanation.SetActive(false);
         }
-        //同時押しなどによるバグをなくすためには全てif-elseで繋ぐべきなのか？その場合どれの優先度を高くする？別スクリプトは？
         //攻撃対象の選択
         if (Input.GetKeyDown(KeyCode.A))
         {
@@ -78,6 +80,8 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
                 enemyComposition[numberOfCurrentWave][selectedEnemy].DisSelect();
                 selectedEnemy--;
                 enemyComposition[numberOfCurrentWave][selectedEnemy].Select();
+                seSource.clip = seUIClick;
+                seSource.Play();
             }
             //二つ左(右端から左端、真ん中の敵が死んでいる場合)に移動
             else if (selectedEnemy == 2 && !deadEnemyComposition[numberOfCurrentWave][0])
@@ -85,6 +89,8 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
                 enemyComposition[numberOfCurrentWave][selectedEnemy].DisSelect();
                 selectedEnemy = 0;
                 enemyComposition[numberOfCurrentWave][selectedEnemy].Select();
+                seSource.clip = seUIClick;
+                seSource.Play();
             }
         }
     }
@@ -98,6 +104,8 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
                 enemyComposition[numberOfCurrentWave][selectedEnemy].DisSelect();
                 selectedEnemy++;
                 enemyComposition[numberOfCurrentWave][selectedEnemy].Select();
+                seSource.clip = seUIClick;
+                seSource.Play();
             }
             //二つ右に移動
             else if (selectedEnemy == 0 && !deadEnemyComposition[numberOfCurrentWave][numberOfEnemy[numberOfCurrentWave] - 1])
@@ -105,6 +113,8 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
                 enemyComposition[numberOfCurrentWave][selectedEnemy].DisSelect();
                 selectedEnemy = numberOfEnemy[numberOfCurrentWave] - 1;
                 enemyComposition[numberOfCurrentWave][selectedEnemy].Select();
+                seSource.clip = seUIClick;
+                seSource.Play();
             }
         }
     }
@@ -213,6 +223,8 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
     //戦闘スキル1
     public IEnumerator SainSkill1(int damage, RectTransform attackRect, Image attackImage)
     {
+        seSource.clip = seSword;
+        seSource.Play();
         attackImage.color = Color.white;
         float diffX = AttackPoint();
         int selected = selectedEnemy;       //攻撃を選択した時点での攻撃対象を保持
@@ -244,6 +256,8 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
     //戦闘スキル2
     public IEnumerator SainSkill2(int damage, RectTransform attackRect, Image attackImage)
     {
+        seSource.clip = seSword;
+        seSource.Play();
         attackImage.color = Color.white;
         float diffX = AttackPoint();
         int selected = selectedEnemy;       //攻撃を選択した時点での攻撃対象を保持

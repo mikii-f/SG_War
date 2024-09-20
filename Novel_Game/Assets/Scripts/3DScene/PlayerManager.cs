@@ -41,6 +41,9 @@ public class PlayerManager : MonoBehaviour
     private const float attack2reception = 0.12f;
     private bool clear = false;
     public bool Clear { set { clear = value; } }
+    private AudioSource seSource;
+    [SerializeField] private AudioClip seSword;
+    [SerializeField] private AudioClip seDamage;
     //プレイヤーのアニメーション(ポーズ)を管理
     private enum PlayerState
     {
@@ -93,6 +96,8 @@ public class PlayerManager : MonoBehaviour
             attack2Effects[i] = attack2EffectsFolder.transform.GetChild(i).gameObject;
             attack2Effects[i].SetActive(false);
         }
+        seSource = GetComponent<AudioSource>();
+        seSource.volume = GameManager.instance.SeVolume;
     }
 
     // Update is called once per frame
@@ -260,10 +265,12 @@ public class PlayerManager : MonoBehaviour
     //通常攻撃(終わる瞬間に着地したときに着地判定による状態変化と競合する……？)(地上でジャンプ姿勢だった時に待機へ強制的に戻す処理を追加)
     private IEnumerator NormalAttack()
     {
-        //ポーズの変更、0.05秒の間当たり判定を出す、攻撃中状態・攻撃可能状態の管理
+        //ポーズの変更、0.05秒の間当たり判定を出す、攻撃中状態・攻撃可能状態の管理、SE
         playerState = PlayerState.ATTACK1;
         playerAnimator.SetInteger("PlayerState", (int)(playerState));
         normalAttackCollider.enabled = true;
+        seSource.clip = seSword;
+        seSource.Play();
         //エフェクトをその場に留める
         StartCoroutine(StopEffect(normalAttackEffect, attack1Interval));
         isAttacked = true;
@@ -498,6 +505,8 @@ public class PlayerManager : MonoBehaviour
         attack2Stop = false;
         while (attackCount < attack2EffectsCount)
         {
+            seSource.clip = seSword;
+            seSource.Play();
             if (attack2Stop)
             {
                 _rb.velocity = Vector3.zero;
@@ -678,6 +687,8 @@ public class PlayerManager : MonoBehaviour
             Vector3 decreasedVelocity = new(0.2f * _rb.velocity.x, 0.2f * _rb.velocity.y, 0.2f * _rb.velocity.z);
             _rb.velocity = decreasedVelocity;
             StartCoroutine(Damage());
+            seSource.clip = seDamage;
+            seSource.Play();
         }
         if (other.CompareTag("Medal"))
         {

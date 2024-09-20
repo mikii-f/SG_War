@@ -7,7 +7,7 @@ TitleCoal
 FadeIn,1.0,Black,AnimAndGoNext,1.5,BackgroundChange,Road
 
 
-MenuOn,TextPanelOn
+MenuOn,TextPanelOn,BGMChange,Memory,VolumeFadeIn,0
 
 土曜日。時刻はそろそろ夕方といったところ。
 0
@@ -94,13 +94,13 @@ CharacterChange,vier3
 0
 剣羽和人
 対処については、とりあえず今夜の見回りからだ。
-Wipe1,
+Wipe1,VolumeFadeOut,2.0
 
 
 Wipe2,BackgroundChange,RoadNight,CharacterChange,transparent
 
 
-0
+BGMChange,RoadNight,VolumeFadeIn,0
 
 そうして、夜。
 CharacterChange,vier8
@@ -115,10 +115,10 @@ CharacterChange,vier8
 0
 剣羽和人
 感知できない異妖、なあ。お前らのことをちゃんと理解してるわけじゃないが、いったいどんな手を使えば──────と。
-CharacterChange,Enemys,TextPanelOff,AnimAndGoNext,1.5
+CharacterChange,Enemys,TextPanelOff,VolumeFadeOut,1.0,AnimAndGoNext,1.5
 
 
-CharacterChange,transparent,CharacterChange,vier4,TextPanelOn
+CharacterChange,transparent,CharacterChange,vier4,TextPanelOn,BGMChange,Encounter,VolumeFadeIn,0
 フィア
 また出た！それも結構多い！／それとやっぱり感知できないままいきなり出てくるの気持ち悪い！
 0
@@ -136,7 +136,7 @@ CharacterChange,vier_battle,FadeIn,0.5,White,AnimAndGoNext,0.5
 CharacterChange,vier_battle4
 フィア
 そっちも援護、いけるよね！
-Save,MenuOff,TextPanelOff,FadeOut,1.0,Black,AnimAndGoNext,2.0
+Save,MenuOff,TextPanelOff,FadeOut,1.0,Black,VolumeFadeOut,1.0,AnimAndGoNext,2.0
 
 
 ChangeScene

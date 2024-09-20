@@ -1,7 +1,7 @@
 AnimAndGoNext,1.0
 
 
-FadeIn,1.0,Black,AnimAndGoNext,1.5
+FadeIn,1.0,Black,AnimAndGoNext,1.5,BGMChange,Encounter
 
 
 Effect,Sword,CharacterMotion,Vibe,FadeIn,2.0,Character,AnimAndGoNext,2.5
@@ -13,10 +13,10 @@ CharacterChange,vier_battle,CharacterReset,FadeOut,1.0,White,AnimAndGoNext,1.0
 CharacterChange,vier2,FadeIn,0.5,White,AnimAndGoNext,0.5
 
 
-TextPanelOn,MenuOn
+TextPanelOn,MenuOn,VolumeFadeOut,1.0
 フィア
 倒した、けど……。
-CharacterChange,vier4
+CharacterChange,vier4,BGMChange,Comedy,VolumeFadeIn,0
 フィア
 私たち、なんだか弱くなってなかった！？
 0
@@ -25,10 +25,10 @@ CharacterChange,vier4
 CharacterChange,vier8
 フィア
 それもあるけど、これは……「星」からのバックアップがほとんどなくなってる、かな？
-0
+VolumeFadeOut,2.0
 剣羽和人
 なんだそれ、フィア一人残しておいて支援は切ってるっていうのか。
-0
+BGMChange,Thinking,VolumeFadeIn,0
 フィア
 「星」のリソースも無限じゃないみたいだからね。だから異妖の規模に応じて派遣される人数が変わったりするんだけど……。
 0
@@ -61,7 +61,7 @@ CharacterChange,vier5
 0
 剣羽和人
 さあな。じゃあ、とりあえず家に帰ってそれをやるところからだ。
-Save,MenuOff,FadeOut,2.0,Black,AnimAndGoNext,3.0
+Save,MenuOff,FadeOut,2.0,Black,VolumeFadeOut,2.0,AnimAndGoNext,3.0
 
 
 TextPanelOff,AnimAndGoNext,1.0
