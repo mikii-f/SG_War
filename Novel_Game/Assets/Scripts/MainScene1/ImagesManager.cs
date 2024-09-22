@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,6 +17,10 @@ public class ImagesManager : ImagesManagerOrigin
     [SerializeField] private AudioClip bgmChapter;
     [SerializeField] private AudioClip bgmHome;
     [SerializeField] private AudioClip bgmRoad;
+    [SerializeField] private AudioClip seNoise;
+    [SerializeField] private AudioClip seBright;
+    [SerializeField] private AudioClip seMeal;
+    [SerializeField] private AudioClip seNews;
 
     protected override void StartSet()
     {
@@ -101,7 +106,40 @@ public class ImagesManager : ImagesManagerOrigin
     {
 
     }
-
+    public override void SoundEffect(string se)
+    {
+        if (!skip)
+        {
+            switch (se)
+            {
+                case "Noise":
+                    seSource.clip = seNoise;
+                    seSource.Play();
+                    break;
+                case "Bright":
+                    seSource.clip = seBright;
+                    seSource.Play();
+                    break;
+                case "Meal":
+                    StartCoroutine(Meal());
+                    break;
+                case "News":
+                    seSource.clip = seNews;
+                    seSource.Play();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    private IEnumerator Meal()
+    {
+        seSource.clip = seMeal;
+        seSource.Play();
+        yield return new WaitForSeconds(0.4f);
+        seSource.clip = seMeal;
+        seSource.Play();
+    }
     public override void ChangeScene()
     {
         GameManager.instance.LineNumber = 0;

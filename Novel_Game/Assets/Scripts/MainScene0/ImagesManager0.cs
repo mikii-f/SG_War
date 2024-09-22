@@ -47,6 +47,10 @@ public class ImagesManager0 : ImagesManagerOrigin
     {
 
     }
+    public override void SoundEffect(string se)
+    {
+        
+    }
     public override void ChangeScene()
     {
         SceneManager.LoadScene("BattleScene0");

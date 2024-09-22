@@ -17,6 +17,7 @@ public class SelectSceneManager : SystemManagerOrigin
     [SerializeField] private Image black;
     [SerializeField] private TMP_Text countDown;
     private AudioSource audioSource;
+    [SerializeField] private AudioClip seCountDown;
     private bool go = false;
 
     private void Start()
@@ -77,8 +78,12 @@ public class SelectSceneManager : SystemManagerOrigin
         countDown.text = "3";
         yield return new WaitForSeconds(1);
         countDown.text = "2";
+        seSource.clip = seCountDown;
+        seSource.Play();
         yield return new WaitForSeconds(1);
         countDown.text = "1";
+        seSource.clip = seCountDown;
+        seSource.Play();
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene("3DGameScene1");
     }

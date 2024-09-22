@@ -69,7 +69,6 @@ public class SainManager : SystemManagerOrigin
     public bool Auto { set { auto = value; } get { return auto; } }
     private Coroutine commentCoroutine;
     private Coroutine damageCoroutine;
-    [SerializeField] AudioClip seBattleUISpecial;
     [SerializeField] AudioClip seDamage;
     [SerializeField] AudioClip seSpecialDamage;
     [SerializeField] AudioClip seGuard;
@@ -309,8 +308,6 @@ public class SainManager : SystemManagerOrigin
             StartCoroutine(bSManager.SainToAllAttack(5*attack * attackFactor / 10));
             currentSG -= 100;
             SGCheck();
-            seSource.clip = seBattleUISpecial;
-            seSource.Play();
         }
         else if (!pause)
         {

@@ -115,7 +115,7 @@ CharacterChange,vier8
 0
 剣羽和人
 感知できない異妖、なあ。お前らのことをちゃんと理解してるわけじゃないが、いったいどんな手を使えば──────と。
-CharacterChange,Enemys,TextPanelOff,VolumeFadeOut,1.0,AnimAndGoNext,1.5
+CharacterChange,Enemys,TextPanelOff,VolumeFadeOut,1.0,AnimAndGoNext,1.5,SE,Roar
 
 
 CharacterChange,transparent,CharacterChange,vier4,TextPanelOn,BGMChange,Encounter,VolumeFadeIn,0
@@ -127,10 +127,10 @@ CharacterChange,transparent,CharacterChange,vier4,TextPanelOn,BGMChange,Encounte
 0
 フィア
 もちろん！
-FadeOut,1.0,White,AnimAndGoNext,1.0
+FadeOut,1.0,White,AnimAndGoNext,1.0,SE,Bright
 
 
-CharacterChange,vier_battle,FadeIn,0.5,White,AnimAndGoNext,0.5
+CharacterChange,vier_battle,FadeIn,0.5,White,AnimAndGoNext,0.5,SE,Change
 
 
 CharacterChange,vier_battle4

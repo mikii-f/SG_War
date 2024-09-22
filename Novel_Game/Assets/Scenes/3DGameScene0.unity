@@ -867,6 +867,7 @@ MonoBehaviour:
   attack2EffectsFolder: {fileID: 330189021}
   seSword: {fileID: 8300000, guid: aa72fc54a72afc54595338a069a43eef, type: 3}
   seDamage: {fileID: 8300000, guid: 18f69093fcc47814ab08dc0b0bf3ca6e, type: 3}
+  seGround: {fileID: 8300000, guid: 1b01e35b49f8f2c45ac1609b411dc852, type: 3}
 --- !u!4 &420601204
 Transform:
   m_ObjectHideFlags: 0
@@ -2654,6 +2655,7 @@ MonoBehaviour:
   nextSwitchRect: {fileID: 1118530123}
   countDown: {fileID: 1533321651}
   enemy: {fileID: 1161982}
+  seCountDown: {fileID: 8300000, guid: 8d8a444b56207bc47bc445279052ec53, type: 3}
 --- !u!4 &1285380434
 Transform:
   m_ObjectHideFlags: 0

@@ -205,7 +205,7 @@ CharacterChange,vier_battle,CharacterReset
 CharacterChange,Command
 統率個体
 残念だがそうはいかない。この身は未だ完成に至らず、私の成長は私自身の戦闘性能を直接引き上げるものではないからな。
-CharacterChange,el_enemy,BGMChange,Reach
+CharacterChange,el_enemy,BGMChange,Reach,SE,Slide
 統率個体
 まずは、この骸を打ち倒してもらうとしよう。
 CharacterChange,vier_battle4
@@ -226,7 +226,7 @@ CharacterChange,vier_battle8
 CharacterChange,vier_battle
 フィア
 分かった。信じるよ。
-CharacterChange,vier_battle4
+CharacterChange,vier_battle4,SE,Foot
 フィア
 さあエルちゃん、初めての真剣勝負といくよ！
 Save,MenuOff,TextPanelOff,FadeOut,1.0,Black,VolumeFadeOut,1.0,AnimAndGoNext,2.0

@@ -16,17 +16,23 @@ public class ImagesManager3_2 : ImagesManagerOrigin
     [SerializeField] private GameObject effectsObject;
     private Image effectsImage;
     private RectTransform effectsRect;
+    private AudioSource effectsAudio;
     [SerializeField] private Sprite swordEffect;
     [SerializeField] private AudioClip bgmHome;
     [SerializeField] private AudioClip bgmRoadNight;
     [SerializeField] private AudioClip bgmEncounter;
     [SerializeField] private AudioClip bgmThinking;
     [SerializeField] private AudioClip bgmVision;
+    [SerializeField] private AudioClip seBright;
+    [SerializeField] private AudioClip seRoar;
+    [SerializeField] private AudioClip seChange;
+    [SerializeField] private AudioClip seSwitchOff;
 
     protected override void StartSet()
     {
         effectsImage = effectsObject.GetComponent<Image>();
         effectsRect = effectsObject.GetComponent<RectTransform>();
+        effectsAudio = effectsObject.GetComponent<AudioSource>();
     }
 
     //—§‚¿ŠGŠÖŒW
@@ -123,6 +129,7 @@ public class ImagesManager3_2 : ImagesManagerOrigin
 
     private IEnumerator SwordEffect()
     {
+        effectsAudio.Play();
         effectsRect.localScale = new(2, 2);
         effectsImage.sprite = swordEffect;
         StartCoroutine(FadeIn(0.5f, effectsImage));
@@ -140,7 +147,33 @@ public class ImagesManager3_2 : ImagesManagerOrigin
         effectsImage.color = Color.white;
         effectsRect.localScale = new(1, 1);
     }
-
+    public override void SoundEffect(string se)
+    {
+        if (!skip)
+        {
+            switch (se)
+            {
+                case "Bright":
+                    seSource.clip = seBright;
+                    seSource.Play();
+                    break;
+                case "Roar":
+                    seSource.clip = seRoar;
+                    seSource.Play();
+                    break;
+                case "Change":
+                    seSource.clip = seChange;
+                    seSource.Play();
+                    break;
+                case "SwitchOff":
+                    seSource.clip = seSwitchOff;
+                    seSource.Play();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
     public override void ChangeScene()
     {
         GameManager.instance.LineNumber = 0;

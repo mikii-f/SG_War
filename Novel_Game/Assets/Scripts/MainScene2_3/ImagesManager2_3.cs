@@ -10,6 +10,7 @@ public class ImagesManager2_3 : ImagesManagerOrigin
     [SerializeField] private Sprite ghost1;
     [SerializeField] private Sprite backgroundMyRoom;
     [SerializeField] private Sprite backgroundRoad;
+    [SerializeField] private AudioClip seSwitchOff;
 
     protected override void StartSet()
     {
@@ -70,7 +71,21 @@ public class ImagesManager2_3 : ImagesManagerOrigin
     {
 
     }
-
+    public override void SoundEffect(string se)
+    {
+        if (!skip)
+        {
+            switch (se)
+            {
+                case "SwitchOff":
+                    seSource.clip = seSwitchOff;
+                    seSource.Play();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
     public override void ChangeScene()
     {
         GameManager.instance.LineNumber = 0;

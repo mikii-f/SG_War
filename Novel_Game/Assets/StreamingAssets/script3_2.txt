@@ -4,13 +4,13 @@ AnimAndGoNext,1.0
 FadeIn,1.0,Black,AnimAndGoNext,1.5,BGMChange,Encounter
 
 
-Effect,Sword,CharacterMotion,Vibe,FadeIn,2.0,Character,AnimAndGoNext,2.5
+Effect,Sword,CharacterMotion,Vibe,FadeIn,2.0,Character,AnimAndGoNext,2.5,SE,Roar
 
 
-CharacterChange,vier_battle,CharacterReset,FadeOut,1.0,White,AnimAndGoNext,1.0
+CharacterChange,vier_battle,CharacterReset,FadeOut,1.0,White,AnimAndGoNext,1.0,SE,Bright
 
 
-CharacterChange,vier2,FadeIn,0.5,White,AnimAndGoNext,0.5
+CharacterChange,vier2,FadeIn,0.5,White,AnimAndGoNext,0.5,Change
 
 
 TextPanelOn,MenuOn,CharacterChange,vier4
@@ -109,13 +109,13 @@ CharacterColor
 CharacterReset
 フィア
 分かった。じゃあ、私はいつも通り消えておくねー。
-FadeIn,0.5,Character,AnimAndGoNext,0.5
+FadeIn,0.5,Character,AnimAndGoNext,0.5,
 
 
 0
 剣羽和人
 ……全く、便利なやつらだよな。こちとら寝付きの悪さに悩んでるってのに。
-BackgroundColor,VolumeFadeOut,2.0
+BackgroundColor,VolumeFadeOut,2.0,SE,SwitchOff
 
 などと言いつつ、自分で思っている以上に疲れていたのか消灯後すぐに眠りは訪れた。
 0

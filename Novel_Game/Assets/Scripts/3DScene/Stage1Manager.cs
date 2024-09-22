@@ -22,6 +22,7 @@ public class Stage1Manager : StageManagerOrigin
     [SerializeField] Text functionMessageText;
     private int functionNumber = 0;
     private AudioSource audioSource;
+    [SerializeField] private AudioClip seCymbal;
 
     private void Start()
     {
@@ -134,6 +135,8 @@ public class Stage1Manager : StageManagerOrigin
         playerManager.Clear = true;
         clear = true;
         goalText.text = "GOAL";
+        seSource.clip = seCymbal;
+        seSource.Play();
         score = Mathf.Max((int)(2000 * medalCount / 100 * 60 / time), 1);
         yield return new WaitForSeconds(4);
         goalText.text = "";
@@ -158,6 +161,8 @@ public class Stage1Manager : StageManagerOrigin
         yield return new WaitForSeconds(2);
         if (GameManager.instance.EXP == 0)
         {
+            seSource.clip = seCymbal;
+            seSource.Play();
             GameManager.instance.EXP += score;
             GameManager.instance.LineNumber = 0;
             GameManager.instance.SceneName = "MainScene2_3";
@@ -175,6 +180,8 @@ public class Stage1Manager : StageManagerOrigin
             GameManager.instance.EXP += score;
             if (GameManager.instance.EXP >= 5000)
             {
+                seSource.clip = seCymbal;
+                seSource.Play();
                 GameManager.instance.SainHP = 1400;
                 GameManager.instance.SainAttack = 90;
                 GameManager.instance.SainSG = 30;
@@ -197,6 +204,8 @@ public class Stage1Manager : StageManagerOrigin
             GameManager.instance.EXP += score;
             if (GameManager.instance.EXP >= 10000)
             {
+                seSource.clip = seCymbal;
+                seSource.Play();
                 GameManager.instance.SainHP = 1700;
                 GameManager.instance.SainAttack = 120;
                 GameManager.instance.Save();
@@ -218,6 +227,8 @@ public class Stage1Manager : StageManagerOrigin
             GameManager.instance.EXP += score;
             if (GameManager.instance.EXP >= 15000)
             {
+                seSource.clip = seCymbal;
+                seSource.Play();
                 GameManager.instance.SainHP = 2000;
                 GameManager.instance.SainAttack = 150;
                 GameManager.instance.SainSG = 40;

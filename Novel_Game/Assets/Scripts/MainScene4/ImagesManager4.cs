@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -27,6 +28,7 @@ public class ImagesManager4 : ImagesManagerOrigin
     [SerializeField] private GameObject effectsObject;
     private Image effectsImage;
     private RectTransform effectsRect;
+    private AudioSource effectsAudio;
     [SerializeField] private Sprite windEffect;
     private Material _material;
     private Coroutine _coroutine;
@@ -38,11 +40,14 @@ public class ImagesManager4 : ImagesManagerOrigin
     [SerializeField] private AudioClip bgmEncounter;
     [SerializeField] private AudioClip bgmComedy;
     [SerializeField] private AudioClip bgmSurprise;
+    [SerializeField] private AudioClip seSlide;
+    [SerializeField] private AudioClip seFoot;
 
     protected override void StartSet()
     {
         effectsImage = effectsObject.GetComponent<Image>();
         effectsRect = effectsObject.GetComponent<RectTransform>();
+        effectsAudio = effectsObject.GetComponent<AudioSource>();
         blackAllImage.color = Color.clear;
         _material = effectsImage.material;
     }
@@ -177,6 +182,7 @@ public class ImagesManager4 : ImagesManagerOrigin
                 effectsImage.sprite = windEffect;
                 effectsRect.sizeDelta = new(3840, 1080);
                 _coroutine = StartCoroutine(WindEffect());
+                effectsAudio.Play();
                 break;
             case "WindEffectStop":
                 StopCoroutine(_coroutine);
@@ -184,6 +190,7 @@ public class ImagesManager4 : ImagesManagerOrigin
                 effectsImage.color = Color.white;
                 effectsRect.sizeDelta = new(1920, 1080);
                 _material.SetTextureOffset("_MainTex", Vector2.zero);
+                effectsAudio.clip = null;
                 break;
             default:
                 break;
@@ -202,7 +209,25 @@ public class ImagesManager4 : ImagesManagerOrigin
             timeCount += Time.deltaTime;
         }
     }
-
+    public override void SoundEffect(string se)
+    {
+        if (!skip)
+        {
+            switch (se)
+            {
+                case "Slide":
+                    seSource.clip = seSlide;
+                    seSource.Play();
+                    break;
+                case "Foot":
+                    seSource.clip = seFoot;
+                    seSource.Play();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
     public override void ChangeScene()
     {
         SceneManager.LoadScene("BattleScene3");

@@ -30,8 +30,14 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
     private RectTransform specialAttackPanelRect;
     private Image specialAttackPanelImage;
     protected AudioSource audioSource;
-    [SerializeField] protected AudioClip seChange;
+    [SerializeField] protected AudioClip seCountDown;
+    [SerializeField] protected AudioClip seWhistle;
     [SerializeField] private AudioClip seSword;
+    [SerializeField] private AudioClip seWind;
+    [SerializeField] private AudioClip seSpecialOn;
+    [SerializeField] private AudioClip seSpecialFinish;
+    [SerializeField] private AudioClip seSpecialDamage;
+    [SerializeField] private AudioClip seCymbal;
 
     // Start is called before the first frame update
     void Start()
@@ -164,6 +170,8 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
     }
     public IEnumerator SpecialAttackName(Sprite sprite)
     {
+        seSource.clip = seSpecialOn;
+        seSource.Play();
         specialAttackPanelImage.sprite = sprite;
         StartCoroutine(FadeOut(0.25f, specialAttackPanelImage));
         specialAttackPanelRect.anchoredPosition = new(-400, 0);
@@ -256,7 +264,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
     //êÌì¨ÉXÉLÉã2
     public IEnumerator SainSkill2(int damage, RectTransform attackRect, Image attackImage)
     {
-        seSource.clip = seSword;
+        seSource.clip = seWind;
         seSource.Play();
         attackImage.color = Color.white;
         float diffX = AttackPoint();
@@ -300,6 +308,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         }
         yield return new WaitForSeconds(2);
         specialSkillAnimation.SetActive(true);
+        StartCoroutine(SpecialSE());
         yield return new WaitForSeconds(2.5f);
         specialSkillAnimation.SetActive(false);
         for (int i=0; i < numberOfEnemy[numberOfCurrentWave]; i++)
@@ -322,6 +331,23 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         {
             enemyComposition[numberOfCurrentWave][i].Pause = false;
         }
+    }
+    private IEnumerator SpecialSE()
+    {
+        seSource.clip = seWind;
+        yield return new WaitForSeconds(0.8f);
+        for (int i=0; i<5; i++)
+        {
+            seSource.clip = seSword;
+            seSource.Play();
+            yield return new WaitForSeconds(0.1f);
+        }
+        yield return new WaitForSeconds(0.3f);
+        seSource.clip = seSpecialFinish;
+        seSource.Play();
+        yield return new WaitForSeconds(0.9f);
+        seSource.clip = seSpecialDamage;
+        seSource.Play();
     }
     //ìGÇ™éÄÇÒÇæÇ±Ç∆ÇÃéÛÇØéÊÇË
     public void EnemyDied()
@@ -452,6 +478,8 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         battleSystemManager.MenuOff();
         yield return new WaitForSeconds(2);
         battleStartAndFinishText.text = "Battle Finish";
+        seSource.clip = seCymbal;
+        seSource.Play();
         yield return new WaitForSeconds(2);
         StartCoroutine(VolumeFadeOut(2, audioSource));
         yield return StartCoroutine(FadeOut(2, blackImage));

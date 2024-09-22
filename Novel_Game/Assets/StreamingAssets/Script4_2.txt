@@ -7,10 +7,10 @@ FadeIn,1.0,Black,AnimAndGoNext,1.5,BGMChange,Command
 Effect,Sword,AnimAndGoNext,0.5
 
 
-CharacterMotion,BackSlide,CharacterChange,el_enemy,TextPanelOn,MenuOn,AnimationWaitSet,1
+CharacterMotion,BackSlide,CharacterChange,el_enemy,TextPanelOn,MenuOn,AnimationWaitSet,1,SE,Sliding
 エル
 ────────！
-CharacterMotion,HorizontalSlide,CharacterChange,vier_battle4
+CharacterMotion,HorizontalSlide,CharacterChange,vier_battle4,SE,Sliding
 フィア
 やっぱりエルちゃんの攻撃は鋭いなあ！／でも、元のエルちゃんの方が強かったよ！
 0
@@ -28,10 +28,10 @@ CharacterColor
 CharacterReset
 フィア
 りょうか──────え、和人！？
-CharacterColor
+CharacterColor,SE,Run
 
 俺はフィアの前に躍り出た。
-CharacterChange,el_enemy,CharacterReset,CharacterMotion,Approach
+CharacterChange,el_enemy,CharacterReset,CharacterMotion,Approach,SE,Foot
 
 当然、今のエルは俺を殺すため一直線に向かってくる。
 CharacterColor
@@ -58,10 +58,10 @@ CharacterChange,el_enemy
 0
 エル
 っ────────！
-FadeOut,1.0,White,AnimAndGoNext,1.0,VolumeFadeOut,1.0
+FadeOut,1.0,White,AnimAndGoNext,1.0,VolumeFadeOut,1.0,SE,Bright
 
 
-CharacterChange,el_battle,FadeIn,2.0,White,AnimAndGoNext,2.0
+CharacterChange,el_battle,FadeIn,2.0,White,AnimAndGoNext,2.0,SE,Change
 
 
 0
@@ -100,7 +100,7 @@ CharacterChange,Command
 0
 統率個体
 お前たちはせいぜい「文明の守護」に勤しむことだ。
-CharacterMotion,Jump,Effect,Jump,AnimationWaitSet,1.0,VolumeFadeOut,1.0
+CharacterMotion,Jump,Effect,Jump,AnimationWaitSet,1.0,VolumeFadeOut,1.0,SE,Blood
 剣羽和人
 待てこのやろ────────ぐっ！！
 CharacterReset,CharacterChange,vier_battle4,BGMChange,Memory,VolumeFadeIn,0
@@ -181,7 +181,7 @@ CharacterChange,el_battle2
 CharacterChange,el_battle4,VolumeFadeOut,3.0
 エル
 …………うん。
-CharacterChange,transparent,BackgroundChange,Rooftop2,TextPanelOff,AnimAndGoNext,2.0,BGMChange,Feel,VolumeFadeIn,0
+CharacterChange,transparent,BackgroundChange,Rooftop2,TextPanelOff,AnimAndGoNext,2.0,BGMChange,Feel,VolumeFadeIn,0,SE,Bright
 
 
 TextPanelOn

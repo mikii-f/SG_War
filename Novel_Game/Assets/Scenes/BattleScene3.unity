@@ -351,8 +351,14 @@ MonoBehaviour:
   enemyNumberText: {fileID: 948780014}
   waveNumberText: {fileID: 1645914417}
   specialAttackPanel: {fileID: 1205786324}
-  seChange: {fileID: 8300000, guid: e9869169896b701499798b67159d3a56, type: 3}
+  seCountDown: {fileID: 8300000, guid: 8d8a444b56207bc47bc445279052ec53, type: 3}
+  seWhistle: {fileID: 8300000, guid: ead5dd54b47c6e140b22fd888a4199bb, type: 3}
   seSword: {fileID: 8300000, guid: aa72fc54a72afc54595338a069a43eef, type: 3}
+  seWind: {fileID: 8300000, guid: a1d74aea112dd0347b862d6742b18d64, type: 3}
+  seSpecialOn: {fileID: 8300000, guid: 7b6428847d16f0c4a81a4d5ad5139f9a, type: 3}
+  seSpecialFinish: {fileID: 8300000, guid: fa32ba5f00d91094f90e08034813bbc5, type: 3}
+  seSpecialDamage: {fileID: 8300000, guid: 96c12a91d14f7224887a92d71eeadbb3, type: 3}
+  seCymbal: {fileID: 8300000, guid: 17e78cff18879024da7894e3c2a5e8f1, type: 3}
   lLEnemyManager: {fileID: 1528457816}
   compEnemyManager: {fileID: 1787383152}
   carnEnemyManager: {fileID: 1880182433}
@@ -1839,7 +1845,6 @@ MonoBehaviour:
   commentPanel: {fileID: 345014849}
   comment: {fileID: 1627036727}
   specialAttackNameSprite: {fileID: 21300000, guid: 91b7dc8bcaaa652459605e73b65f0dcf, type: 3}
-  seBattleUISpecial: {fileID: 8300000, guid: 7b6428847d16f0c4a81a4d5ad5139f9a, type: 3}
   seDamage: {fileID: 8300000, guid: 18f69093fcc47814ab08dc0b0bf3ca6e, type: 3}
   seSpecialDamage: {fileID: 8300000, guid: 96c12a91d14f7224887a92d71eeadbb3, type: 3}
   seGuard: {fileID: 8300000, guid: 062ea73f26ab21d4b8b72d5d18133a5d, type: 3}
@@ -8493,6 +8498,7 @@ MonoBehaviour:
   intervalText: {fileID: 734834466}
   seDamage: {fileID: 8300000, guid: 18f69093fcc47814ab08dc0b0bf3ca6e, type: 3}
   sePanel: {fileID: 8300000, guid: f2dcc765bb801f84a9b667c48931ae98, type: 3}
+  seGuard: {fileID: 8300000, guid: 062ea73f26ab21d4b8b72d5d18133a5d, type: 3}
   gage1Image: {fileID: 67296685}
   gage2Image: {fileID: 1595268574}
   gage3Image: {fileID: 1595611724}
@@ -8506,6 +8512,8 @@ MonoBehaviour:
   buff: {fileID: 1241611815}
   specialAttackNameSprite: {fileID: 21300000, guid: cdaf3e4146844ab42af377021314370c, type: 3}
   specialAttackAnimation: {fileID: 367820482}
+  seRond: {fileID: 8300000, guid: 61321daef8f7445429957f7ca66fa530, type: 3}
+  seSpecialFinish: {fileID: 8300000, guid: fa32ba5f00d91094f90e08034813bbc5, type: 3}
 --- !u!82 &958464100
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13558,6 +13566,7 @@ MonoBehaviour:
   intervalText: {fileID: 1031106345}
   seDamage: {fileID: 8300000, guid: 18f69093fcc47814ab08dc0b0bf3ca6e, type: 3}
   sePanel: {fileID: 8300000, guid: f2dcc765bb801f84a9b667c48931ae98, type: 3}
+  seGuard: {fileID: 0}
   gage1Image: {fileID: 18604872}
   gage2Image: {fileID: 389500339}
   gage3Image: {fileID: 55684097}
@@ -17181,6 +17190,7 @@ MonoBehaviour:
   intervalText: {fileID: 2013079720}
   seDamage: {fileID: 8300000, guid: 18f69093fcc47814ab08dc0b0bf3ca6e, type: 3}
   sePanel: {fileID: 8300000, guid: f2dcc765bb801f84a9b667c48931ae98, type: 3}
+  seGuard: {fileID: 0}
   gage1Image: {fileID: 158566823}
   gage2Image: {fileID: 1049199035}
 --- !u!82 &1787383153
@@ -17779,6 +17789,7 @@ MonoBehaviour:
   intervalText: {fileID: 1381885028}
   seDamage: {fileID: 8300000, guid: 18f69093fcc47814ab08dc0b0bf3ca6e, type: 3}
   sePanel: {fileID: 8300000, guid: f2dcc765bb801f84a9b667c48931ae98, type: 3}
+  seGuard: {fileID: 0}
   gage1Image: {fileID: 2067327260}
   attackEffect: {fileID: 372640314}
   attackEffect2: {fileID: 1194445505}

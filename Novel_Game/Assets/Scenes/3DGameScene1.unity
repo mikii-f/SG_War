@@ -10572,6 +10572,7 @@ MonoBehaviour:
   functionText2: {fileID: 462560093}
   function2: {fileID: 751047493}
   functionMessageText: {fileID: 1340886754}
+  seCymbal: {fileID: 8300000, guid: 17e78cff18879024da7894e3c2a5e8f1, type: 3}
 --- !u!82 &1474115480
 AudioSource:
   m_ObjectHideFlags: 0
@@ -14503,6 +14504,7 @@ MonoBehaviour:
   attack2EffectsFolder: {fileID: 556701899}
   seSword: {fileID: 8300000, guid: aa72fc54a72afc54595338a069a43eef, type: 3}
   seDamage: {fileID: 8300000, guid: 18f69093fcc47814ab08dc0b0bf3ca6e, type: 3}
+  seGround: {fileID: 8300000, guid: 1b01e35b49f8f2c45ac1609b411dc852, type: 3}
 --- !u!82 &1943369078
 AudioSource:
   m_ObjectHideFlags: 0

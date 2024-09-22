@@ -81,7 +81,7 @@ public class SystemManager : SystemManagerOrigin
                 {
                     LogSwitch();
                 }
-                else if (Input.GetKeyDown(KeyCode.Alpha4) && !growMask.activeSelf)
+                else if (Input.GetKeyDown(KeyCode.Alpha4))
                 {
                     GrowSwitch();
                 }
@@ -185,13 +185,21 @@ public class SystemManager : SystemManagerOrigin
     }
     public void GrowSwitch()
     {
-        StartCoroutine(ButtonAnim(growSwitchRect));
-        systemMessage.text = "育成に向かいますか？";
-        messageNumber = 1;
-        StartCoroutine(Delay(systemMessageObject, true));
-        isMessageDisplay = true;
-        seSource.clip = seUIClick;
-        seSource.Play();
+        if (!growMask.activeSelf)
+        {
+            StartCoroutine(ButtonAnim(growSwitchRect));
+            systemMessage.text = "育成に向かいますか？";
+            messageNumber = 1;
+            StartCoroutine(Delay(systemMessageObject, true));
+            isMessageDisplay = true;
+            seSource.clip = seUIClick;
+            seSource.Play();
+        }
+        else
+        {
+            seSource.clip = seUIUnactive;
+            seSource.Play();
+        }
     }
     public void SaveSwitch()
     {
@@ -217,6 +225,8 @@ public class SystemManager : SystemManagerOrigin
     {
         functions.SetActive(false);
         StartCoroutine(CloseInterval());
+        seSource.clip = seUIBack;
+        seSource.Play();
     }
     private IEnumerator CloseInterval() //閉じた時点ではテキストが進まないようにする
     {

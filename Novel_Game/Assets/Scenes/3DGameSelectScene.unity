@@ -690,6 +690,7 @@ MonoBehaviour:
   developingMessage: {fileID: 1771785437}
   black: {fileID: 2004572468}
   countDown: {fileID: 1276526887}
+  seCountDown: {fileID: 8300000, guid: 8d8a444b56207bc47bc445279052ec53, type: 3}
 --- !u!4 &518955309
 Transform:
   m_ObjectHideFlags: 0

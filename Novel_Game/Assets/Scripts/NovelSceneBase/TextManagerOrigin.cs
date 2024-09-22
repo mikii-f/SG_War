@@ -195,6 +195,10 @@ public abstract class TextManagerOrigin : MonoBehaviour
                     i++;
                     imagesManager.Effect(s[i]);
                     break;
+                case "SE":
+                    i++;
+                    imagesManager.SoundEffect(s[i]);
+                    break;
                 case "Wipe1":
                     isAnimation = true;
                     StartCoroutine(imagesManager.Wipe1());

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -91,12 +92,17 @@ public class TitleManager : SystemManagerOrigin
     }
     public void ContinueGameSwitch()
     {
-        if (!isGoNext)
+        if (!isGoNext && !continueSwitchMask.activeSelf)
         {
             isGoNext = true;
             StartCoroutine(ButtonAnim(continueGameSwitchRect));
             StartCoroutine(ContinueGame());
             seSource.clip = seUIClick;
+            seSource.Play();
+        }
+        else if (continueSwitchMask.activeSelf)
+        {
+            seSource.clip = seUIUnactive;
             seSource.Play();
         }
     }

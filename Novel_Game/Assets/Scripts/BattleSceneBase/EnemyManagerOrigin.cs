@@ -39,6 +39,7 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
     protected bool isShield = false;        //強敵の必殺直前のシールド状態
     [SerializeField] private AudioClip seDamage;
     [SerializeField] private AudioClip sePanel;
+    [SerializeField] private AudioClip seGuard;
 
     // Start is called before the first frame update
     void Start()
@@ -154,6 +155,11 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
             {
                 StartCoroutine(Died());
             }
+        }
+        else if (isShield)
+        {
+            seSource.clip = seGuard;
+            seSource.Play();
         }
     }
     //必殺による強敵のシールド破壊(今回はエルのみになる予定)

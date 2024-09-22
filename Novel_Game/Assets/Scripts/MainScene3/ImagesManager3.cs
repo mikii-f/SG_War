@@ -24,6 +24,9 @@ public class ImagesManager3 : ImagesManagerOrigin
     [SerializeField] private AudioClip bgmRoadNight;
     [SerializeField] private AudioClip bgmEncounter;
     [SerializeField] private AudioClip bgmMemory;
+    [SerializeField] private AudioClip seBright;
+    [SerializeField] private AudioClip seRoar;
+    [SerializeField] private AudioClip seChange;
 
     protected override void StartSet()
     {
@@ -126,7 +129,29 @@ public class ImagesManager3 : ImagesManagerOrigin
     {
 
     }
-
+    public override void SoundEffect(string se)
+    {
+        if (!skip)
+        {
+            switch (se)
+            {
+                case "Bright":
+                    seSource.clip = seBright;
+                    seSource.Play();
+                    break;
+                case "Roar":
+                    seSource.clip = seRoar;
+                    seSource.Play();
+                    break;
+                case "Change":
+                    seSource.clip = seChange;
+                    seSource.Play();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
     public override void ChangeScene()
     {
         //çsêîÇèâä˙âªÇµÇ»Ç¢

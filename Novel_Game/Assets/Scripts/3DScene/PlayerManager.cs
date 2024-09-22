@@ -44,6 +44,7 @@ public class PlayerManager : MonoBehaviour
     private AudioSource seSource;
     [SerializeField] private AudioClip seSword;
     [SerializeField] private AudioClip seDamage;
+    [SerializeField] private AudioClip seGround;
     //プレイヤーのアニメーション(ポーズ)を管理
     private enum PlayerState
     {
@@ -739,6 +740,8 @@ public class PlayerManager : MonoBehaviour
             {
                 playerState = PlayerState.SQUAT;
                 playerAnimator.SetInteger("PlayerState", (int)playerState);
+                seSource.clip = seGround;
+                seSource.Play();
             }
             positionState = PositionState.GROUND;
             floatingTime = 0;

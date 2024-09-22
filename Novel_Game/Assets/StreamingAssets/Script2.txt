@@ -37,7 +37,7 @@ Wipe2,CharacterReset,CharacterChange,vier,BackgroundChange,MyRoom,CharacterColor
 BGMChange,Home,VolumeFadeIn,0
 
 テレビで適当な番組を流しつつ、フィアと共に夕食をとる。
-0
+SE,News
 フィア
 ────、────？
 0
@@ -154,7 +154,7 @@ BackgroundChange,RoadNight,CharacterChange,vier
 CharacterChange,vier5,FaceChangeDelay,1.5,vier7,VolumeFadeOut,1.5,AnimationWaitSet,2
 フィア
 うん！それならきっとエルちゃんも喜ぶ──────あれ？
-CharacterChange,Ghost1,TextPanelOff,AnimAndGoNext,2
+CharacterChange,Ghost1,TextPanelOff,AnimAndGoNext,2,SE,Roar
 
 
 CharacterChange,vier8,TextPanelOn,BGMChange,Encounter,VolumeFadeIn,0
@@ -166,10 +166,10 @@ CharacterChange,vier8,TextPanelOn,BGMChange,Encounter,VolumeFadeIn,0
 CharacterChange,vier4
 フィア
 う、うん！もちろん！
-FadeOut,1.0,White,AnimAndGoNext,1.0
+FadeOut,1.0,White,AnimAndGoNext,1.0,SE,Bright
 
 
-CharacterChange,vier_battle,FadeIn,0.5,White,AnimAndGoNext,0.5
+CharacterChange,vier_battle,FadeIn,0.5,White,AnimAndGoNext,0.5,SE,Change
 
 
 CharacterChange,vier_battle4

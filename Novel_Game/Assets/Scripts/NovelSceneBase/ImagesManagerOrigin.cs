@@ -27,6 +27,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     [SerializeField] protected Sprite noneSprite;
     [SerializeField] protected Sprite backgroundBlack;
     protected AudioSource audioSource;
+    [SerializeField] protected AudioSource seSource;
     protected bool skip = false;
     public bool Skip { set { skip = value; } }
     // Start is called before the first frame update
@@ -45,6 +46,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         _backgroundRect = background1.GetComponent<RectTransform>();
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = GameManager.instance.BgmVolume;
+        seSource.volume = GameManager.instance.SeVolume;
         whiteImage.color = new(1, 1, 1, 0);
         blackOverImage.color = Color.clear;
         blackUnderImage.color = Color.clear;
@@ -552,6 +554,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     }
 
     //以下各クラスに必要だが異なる処理にするもの(主に全てのシーンで画像をアタッチしなくて良いように)
+    //よく考えれば画像などはアタッチしなくてもエラーにならないのだから大した手間ではなかったが……
 
     //立ち絵の変更用(シーンごとに必要な分だけ記述)
     public abstract void CharacterChange(string image);
@@ -559,8 +562,10 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     public abstract void BackgroundChange(string image);
     //BGMについて同上
     public abstract void BGMChange(string bgm);
-    //共通で使うエフェクトが増えてきたら、Spriteだけ引数で与えるなり外で設定するなりで対応することにして機能は共通化した方が良さげ
+    //エフェクト
     public abstract void Effect(string image);
+    //SE
+    public abstract void SoundEffect(string se);
     //シーンごとにStartで異なる処理を(差分だけ)記述するための関数
     protected abstract void StartSet();
 }

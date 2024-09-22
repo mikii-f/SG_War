@@ -64,7 +64,7 @@ public class BattleSystemManager : SystemManagerOrigin
                 {
                     RestartMenuSwitch();
                 }
-                else if (Input.GetKeyDown(KeyCode.Alpha9) && !growMask1.activeSelf)
+                else if (Input.GetKeyDown(KeyCode.Alpha9))
                 {
                     RetreatMenuSwitch();
                 }
@@ -110,9 +110,13 @@ public class BattleSystemManager : SystemManagerOrigin
         if (GameManager.instance.EXP == 0)
         {
             growMask2.SetActive(true);
+            systemMessage.text = "GAME OVER\n再挑戦しますか？";
+        }
+        else
+        {
+            systemMessage.text = "GAME OVER\n再挑戦しますか？\n直前の場面に戻り育成しますか？";
         }
         isFunctionAvailable = true;
-        systemMessage.text = "GAME OVER\n再挑戦しますか？";
         yesText.text = "再挑戦(Y)";
         noText.text = "育成へ(N)";
         messageNumber = 0;
@@ -135,15 +139,23 @@ public class BattleSystemManager : SystemManagerOrigin
     //撤退(メニューから選択)
     public void RetreatMenuSwitch()
     {
-        StartCoroutine(ButtonAnim(retreatSwitchRect));
-        systemMessage.text = "撤退しますか？\n(直前の場面に移り育成が行えます)";
-        yesText.text = "撤退(Y)";
-        noText.text = "戻る(N)";
-        messageNumber = 2;
-        StartCoroutine(Delay(systemMessageObject, true));
-        isMessageDisplay = true;
-        seSource.clip = seUIClick;
-        seSource.Play();
+        if (!growMask1.activeSelf)
+        {
+            StartCoroutine(ButtonAnim(retreatSwitchRect));
+            systemMessage.text = "撤退しますか？\n(直前の場面に移り育成が行えます)";
+            yesText.text = "撤退(Y)";
+            noText.text = "戻る(N)";
+            messageNumber = 2;
+            StartCoroutine(Delay(systemMessageObject, true));
+            isMessageDisplay = true;
+            seSource.clip = seUIClick;
+            seSource.Play();
+        }
+        else
+        {
+            seSource.clip = seUIUnactive;
+            seSource.Play();
+        }
     }
     //デバッグ用スキップ
     public void DebugMenuSwitch()
@@ -207,6 +219,11 @@ public class BattleSystemManager : SystemManagerOrigin
                     {
                         StartCoroutine(ButtonAnim(noSwitch));
                         StartCoroutine(GoBackStory());
+                    }
+                    else
+                    {
+                        seSource.clip = seUIUnactive;
+                        seSource.Play();
                     }
                     break;
                 //戻る

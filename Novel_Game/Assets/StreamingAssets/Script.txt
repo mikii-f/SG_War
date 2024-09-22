@@ -37,13 +37,13 @@ TextPanelOn,MenuOn,BlackOUOn,BackgroundChange,MyRoom,CharacterChange,vier,Charac
 0
 
 ──────仕方ない。とりあえず起きるとしよう。
-BlackHalfOpen,AnimationWaitSet,2.0
+BlackHalfOpen,AnimationWaitSet,2.0,SE,Noise
 
 目を半分ほど開ける。／………………誰だ俺の寝顔を見ていた不届き者は。いや同居人の心当たりなど一人しかいないのだが。
 0
 ？？？
 あ、やっと起きた？それじゃあカーテン、開けちゃうね！
-BlackHalfToWhite,AnimationWaitSet,4.0
+BlackHalfToWhite,AnimationWaitSet,4.0,SE,Bright
 
 急な日光に目が眩む。寝起きにほんと容赦ないなこいつは──────！
 CharacterChange,vier5,BGMChange,Home,VolumeFadeIn,0
@@ -106,7 +106,7 @@ Wipe1
 Wipe2,CharacterChange,vier,CharacterColor
 
 
-0
+SE,Meal
 
 フィアと一緒に軽く朝食をとる。
 0
@@ -124,7 +124,7 @@ Wipe2,CharacterChange,vier,CharacterColor
 0
 
 今はフィア一人となり余裕もできたため、週末は近所の案内などをしている。セインは常時実体化している必要はないのだが、実際に歩いて見て回りたいらしい。
-0
+SE,News
 (ニュース音声)
 ──────今朝未明、A県のK川沿いの河川敷にて、遺体が発見されました。原因は不明とのことで、現在調査が──────
 0

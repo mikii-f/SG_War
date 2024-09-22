@@ -29,9 +29,11 @@ public class ImagesManager4_2 : ImagesManagerOrigin
     [SerializeField] private GameObject effectsObject;
     private Image effectsImage;
     private RectTransform effectsRect;
+    private AudioSource effectsAudio;
     [SerializeField] private GameObject effectsObject2;
     private Image effectsImage2;
     private RectTransform effectsRect2;
+    private AudioSource effectsAudio2;
     [SerializeField] private Sprite swordEffect;
     [SerializeField] private Sprite swordEffect2;
     [SerializeField] private Sprite bloodEffect;
@@ -41,13 +43,22 @@ public class ImagesManager4_2 : ImagesManagerOrigin
     [SerializeField] private AudioClip bgmMemory;
     [SerializeField] private AudioClip bgmPiano;
     [SerializeField] private AudioClip bgmFeel;
+    [SerializeField] private AudioClip seBright;
+    [SerializeField] private AudioClip seChange;
+    [SerializeField] private AudioClip seFoot;
+    [SerializeField] private AudioClip seSword;
+    [SerializeField] private AudioClip seSliding;
+    [SerializeField] private AudioClip seBlood;
+    [SerializeField] private AudioClip seHeal;
 
     protected override void StartSet()
     {
         effectsImage = effectsObject.GetComponent<Image>();
         effectsRect = effectsObject.GetComponent<RectTransform>();
+        effectsAudio = effectsObject2.GetComponent<AudioSource>();
         effectsImage2 = effectsObject2.GetComponent<Image>();
         effectsRect2 = effectsObject2.GetComponent<RectTransform>();
+        effectsAudio2 = effectsObject2.GetComponent<AudioSource>();
     }
 
     //—§‚¿ŠGŠÖŒW
@@ -181,9 +192,13 @@ public class ImagesManager4_2 : ImagesManagerOrigin
                     effectsImage.sprite = healEffect;
                     effectsImage.color = new(1, 1, 1, 0.3f);
                     effectsRect.localScale = new(1.6f, 1.6f);
+                    effectsAudio.clip = seBright;
+                    effectsAudio.Play();
                     break;
                 case "HealFinish":
                     StartCoroutine(HealFinish());
+                    effectsAudio.clip = seHeal;
+                    effectsAudio.Play();
                     break;
                 default:
                     break;
@@ -198,7 +213,9 @@ public class ImagesManager4_2 : ImagesManagerOrigin
     }
     private IEnumerator Sword1()
     {
-        effectsRect2.localScale = new(0.5f, 0.5f);
+        effectsAudio.clip = seSword;
+        effectsAudio.Play();
+        effectsRect.localScale = new(0.5f, 0.5f);
         effectsImage.sprite = swordEffect2;
         effectsRect.localEulerAngles = new(0, 0, 90);
         while (effectsRect.localScale.x < 2)
@@ -216,6 +233,7 @@ public class ImagesManager4_2 : ImagesManagerOrigin
     }
     private IEnumerator Sword2()
     {
+        effectsAudio2.Play();
         effectsRect2.localScale = new(3, 3);
         effectsImage2.sprite = swordEffect;
         StartCoroutine(FadeIn(0.5f, effectsImage2));
@@ -232,6 +250,8 @@ public class ImagesManager4_2 : ImagesManagerOrigin
     }
     private IEnumerator BloodEffect()
     {
+        effectsAudio.clip = seBlood;
+        effectsAudio.Play();
         effectsImage.sprite = bloodEffect;
         yield return StartCoroutine(FadeOut(0.5f, effectsImage));
         yield return StartCoroutine(FadeIn(0.5f, effectsImage));
@@ -247,6 +267,49 @@ public class ImagesManager4_2 : ImagesManagerOrigin
         effectsImage.sprite = noneSprite;
         effectsImage.color = Color.white;
         effectsRect.localScale = new(1, 1);
+    }
+    public override void SoundEffect(string se)
+    {
+        if (!skip)
+        {
+            switch (se)
+            {
+                case "Bright":
+                    seSource.clip = seBright;
+                    seSource.Play();
+                    break;
+                case "Change":
+                    seSource.clip = seChange;
+                    seSource.Play();
+                    break;
+                case "Foot":
+                    seSource.clip = seFoot;
+                    seSource.Play();
+                    break;
+                case "Sliding":
+                    seSource.clip = seSliding;
+                    seSource.Play();
+                    break;
+                case "Run":
+                    StartCoroutine(Run());
+                    break;
+                case "Blood":
+                    seSource.clip = seBlood;
+                    seSource.Play();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    private IEnumerator Run()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            seSource.clip = seFoot;
+            seSource.Play();
+            yield return new WaitForSeconds(0.25f);
+        }
     }
     public override void ChangeScene()
     {

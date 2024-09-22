@@ -42,15 +42,15 @@ public class ExtraBattle1Manager : BattleSceneManagerOrigin
         seSource.Play();
         yield return new WaitForSeconds(1);
         battleStartAndFinishText.text = "2";
-        seSource.clip = seUIUnactive;
+        seSource.clip = seCountDown;
         seSource.Play();
         yield return new WaitForSeconds(1);
         battleStartAndFinishText.text = "1";
-        seSource.clip = seUIUnactive;
+        seSource.clip = seCountDown;
         seSource.Play();
         yield return new WaitForSeconds(1);
         battleStartAndFinishText.text = "Battle Start";
-        seSource.clip = seChange;
+        seSource.clip = seWhistle;
         seSource.Play();
         yield return new WaitForSeconds(1);
         battleStartAndFinishText.text = "";

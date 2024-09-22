@@ -1285,6 +1285,7 @@ MonoBehaviour:
   intervalText: {fileID: 1211691228}
   seDamage: {fileID: 8300000, guid: 18f69093fcc47814ab08dc0b0bf3ca6e, type: 3}
   sePanel: {fileID: 8300000, guid: f2dcc765bb801f84a9b667c48931ae98, type: 3}
+  seGuard: {fileID: 0}
   gage1Image: {fileID: 1836466714}
   gage2Image: {fileID: 1452550749}
   gage3Image: {fileID: 18186294}
@@ -6877,6 +6878,7 @@ MonoBehaviour:
   intervalText: {fileID: 1535988544}
   seDamage: {fileID: 8300000, guid: 18f69093fcc47814ab08dc0b0bf3ca6e, type: 3}
   sePanel: {fileID: 8300000, guid: f2dcc765bb801f84a9b667c48931ae98, type: 3}
+  seGuard: {fileID: 0}
   gage1Image: {fileID: 1026100206}
   attackEffect: {fileID: 1749525945}
   attackEffect2: {fileID: 795096311}
@@ -9138,6 +9140,7 @@ MonoBehaviour:
   intervalText: {fileID: 1139037007}
   seDamage: {fileID: 8300000, guid: 18f69093fcc47814ab08dc0b0bf3ca6e, type: 3}
   sePanel: {fileID: 8300000, guid: f2dcc765bb801f84a9b667c48931ae98, type: 3}
+  seGuard: {fileID: 0}
   gage1Image: {fileID: 1029624976}
   gage2Image: {fileID: 1893541025}
   gage3Image: {fileID: 1664023961}
@@ -11784,6 +11787,7 @@ MonoBehaviour:
   intervalText: {fileID: 45499482}
   seDamage: {fileID: 8300000, guid: 18f69093fcc47814ab08dc0b0bf3ca6e, type: 3}
   sePanel: {fileID: 8300000, guid: f2dcc765bb801f84a9b667c48931ae98, type: 3}
+  seGuard: {fileID: 0}
   gage1Image: {fileID: 1055755067}
   gage2Image: {fileID: 1425810654}
   gage3Image: {fileID: 1260941166}
@@ -19038,6 +19042,7 @@ MonoBehaviour:
   intervalText: {fileID: 1857148546}
   seDamage: {fileID: 8300000, guid: 18f69093fcc47814ab08dc0b0bf3ca6e, type: 3}
   sePanel: {fileID: 8300000, guid: f2dcc765bb801f84a9b667c48931ae98, type: 3}
+  seGuard: {fileID: 0}
   gage1Image: {fileID: 338664481}
   attackEffect: {fileID: 1778342625}
   attackEffect2: {fileID: 2065181282}
@@ -19726,8 +19731,14 @@ MonoBehaviour:
   enemyNumberText: {fileID: 508758961}
   waveNumberText: {fileID: 829898156}
   specialAttackPanel: {fileID: 1634144107}
-  seChange: {fileID: 8300000, guid: e9869169896b701499798b67159d3a56, type: 3}
+  seCountDown: {fileID: 8300000, guid: 8d8a444b56207bc47bc445279052ec53, type: 3}
+  seWhistle: {fileID: 8300000, guid: ead5dd54b47c6e140b22fd888a4199bb, type: 3}
   seSword: {fileID: 8300000, guid: aa72fc54a72afc54595338a069a43eef, type: 3}
+  seWind: {fileID: 8300000, guid: a1d74aea112dd0347b862d6742b18d64, type: 3}
+  seSpecialOn: {fileID: 8300000, guid: 7b6428847d16f0c4a81a4d5ad5139f9a, type: 3}
+  seSpecialFinish: {fileID: 8300000, guid: fa32ba5f00d91094f90e08034813bbc5, type: 3}
+  seSpecialDamage: {fileID: 8300000, guid: 96c12a91d14f7224887a92d71eeadbb3, type: 3}
+  seCymbal: {fileID: 8300000, guid: 17e78cff18879024da7894e3c2a5e8f1, type: 3}
   lLEnemyManager1: {fileID: 861471353}
   compEnemyManager: {fileID: 2137434026}
   lLEnemyManager2: {fileID: 157632544}
@@ -21340,7 +21351,6 @@ MonoBehaviour:
   commentPanel: {fileID: 393513325}
   comment: {fileID: 1266170253}
   specialAttackNameSprite: {fileID: 21300000, guid: 91b7dc8bcaaa652459605e73b65f0dcf, type: 3}
-  seBattleUISpecial: {fileID: 8300000, guid: 7b6428847d16f0c4a81a4d5ad5139f9a, type: 3}
   seDamage: {fileID: 8300000, guid: 18f69093fcc47814ab08dc0b0bf3ca6e, type: 3}
   seSpecialDamage: {fileID: 8300000, guid: 96c12a91d14f7224887a92d71eeadbb3, type: 3}
   seGuard: {fileID: 8300000, guid: 062ea73f26ab21d4b8b72d5d18133a5d, type: 3}
@@ -22857,6 +22867,7 @@ MonoBehaviour:
   intervalText: {fileID: 1582811817}
   seDamage: {fileID: 8300000, guid: 18f69093fcc47814ab08dc0b0bf3ca6e, type: 3}
   sePanel: {fileID: 8300000, guid: f2dcc765bb801f84a9b667c48931ae98, type: 3}
+  seGuard: {fileID: 0}
   gage1Image: {fileID: 1394051205}
   gage2Image: {fileID: 594452405}
 --- !u!82 &2137434027
