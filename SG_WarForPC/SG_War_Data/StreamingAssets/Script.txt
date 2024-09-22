@@ -16,7 +16,7 @@ TextPanelOn,MenuOn
 0
 
 2020年代初頭、ここ地球にも異妖は現れた。しかし、地球におけるリーダーとセインは迅速に対応、人知れず戦いは終結し────────
-BackgroundChange,Black
+BackgroundChange,Black,VolumeFadeOut,1.0
 ？？？
 ────て。──────い──
 CharacterChange,el_battle2,CharacterColor
@@ -37,16 +37,16 @@ TextPanelOn,MenuOn,BlackOUOn,BackgroundChange,MyRoom,CharacterChange,vier,Charac
 0
 
 ──────仕方ない。とりあえず起きるとしよう。
-BlackHalfOpen,AnimationWaitSet,2.0
+BlackHalfOpen,AnimationWaitSet,2.0,SE,Noise
 
 目を半分ほど開ける。／………………誰だ俺の寝顔を見ていた不届き者は。いや同居人の心当たりなど一人しかいないのだが。
 0
 ？？？
 あ、やっと起きた？それじゃあカーテン、開けちゃうね！
-BlackHalfToWhite,AnimationWaitSet,4.0
+BlackHalfToWhite,AnimationWaitSet,4.0,SE,Bright
 
 急な日光に目が眩む。寝起きにほんと容赦ないなこいつは──────！
-CharacterChange,vier5
+CharacterChange,vier5,BGMChange,Home,VolumeFadeIn,0
 ？？？
 よし、ちゃんと目も開いたね！おはよう、和人！
 0
@@ -106,7 +106,7 @@ Wipe1
 Wipe2,CharacterChange,vier,CharacterColor
 
 
-0
+SE,Meal
 
 フィアと一緒に軽く朝食をとる。
 0
@@ -124,13 +124,13 @@ Wipe2,CharacterChange,vier,CharacterColor
 0
 
 今はフィア一人となり余裕もできたため、週末は近所の案内などをしている。セインは常時実体化している必要はないのだが、実際に歩いて見て回りたいらしい。
-0
+SE,News
 (ニュース音声)
 ──────今朝未明、A県のK川沿いの河川敷にて、遺体が発見されました。原因は不明とのことで、現在調査が──────
 0
 剣羽和人
 ん？割と近いな。河川敷なら溺死辺りが多そうだが……原因不明、か。
-CharacterReset,CharacterChange,vier5
+CharacterReset,CharacterChange,vier1,FaceChangeDelay,1.5,vier5,AnimationWaitSet,2
 フィア
 まだ発見されたばかりってだけじゃない？それよりほら、明日はここのパフェ食べにいこうよ！
 0
@@ -157,13 +157,13 @@ CharacterMotion,Bounce
 0
 
 ──────こうして、いつもと少し違う朝の一幕は終わりを迎えた。
-Wipe1
+Wipe1,VolumeFadeOut,2.0
 
 
 Wipe2,CharacterChange,transparent,BackgroundChange,Road
 
 
-0
+BGMChange,Road,VolumeFadeIn,0
 
 フィアに留守を任せ大学へ向かう。
 0
@@ -229,7 +229,7 @@ BackgroundChange,Road,CharacterChange,transparent
 0
 
 らしくもない思考を振り払い、俺は大学へ、まだ少し貴重にも思えている日常へと、歩を進めた────────
-Save,MenuOff,FadeOut,2.0,Black,AnimAndGoNext,3.0
+Save,MenuOff,FadeOut,2.0,Black,VolumeFadeOut,2.0,AnimAndGoNext,3.0
 
 
 TextPanelOff,AnimAndGoNext,1.0

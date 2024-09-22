@@ -17,6 +17,8 @@ public class Enemy1Manager : MonoBehaviour
     private float idlingTime = 0f;
     private bool isAttack = false;
     private Transform playerTransform;
+    private AudioSource seSource;
+    [SerializeField] private AudioClip seDamage;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +30,8 @@ public class Enemy1Manager : MonoBehaviour
         bulletTransform = bullet.GetComponent<Transform>();
         bulletCollider = bullet.GetComponent<Collider>();
         bullet.SetActive(false);
+        seSource = GetComponent<AudioSource>();
+        seSource.volume = GameManager.instance.SeVolume;
         //プレイヤーの位置を取得
         if (PlayerFootManager.instance != null)
         {
@@ -121,6 +125,8 @@ public class Enemy1Manager : MonoBehaviour
             _collider.enabled = false;
             bullet.SetActive(false);
             StartCoroutine(Destroied());
+            seSource.clip = seDamage;
+            seSource.Play();
         }
     }
 

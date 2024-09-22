@@ -37,6 +37,9 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
     protected bool pause = true;
     public bool Pause { set { pause = value; } }
     protected bool isShield = false;        //‹­“G‚Ì•KE’¼‘O‚ÌƒV[ƒ‹ƒhó‘Ô
+    [SerializeField] private AudioClip seDamage;
+    [SerializeField] private AudioClip sePanel;
+    [SerializeField] private AudioClip seGuard;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +50,8 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
         attackPanel.SetActive(false);
         currentHP = maxHP;
         HPText.text = currentHP.ToString() + "/" + maxHP.ToString();
+        seSource = GetComponent<AudioSource>();
+        seSource.volume = GameManager.instance.SeVolume;
         StartSet();
     }
     protected abstract void StartSet();
@@ -115,6 +120,8 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
     //UŒ‚‚Ìš–‹
     protected IEnumerator AttackSubtitle(string attackName)
     {
+        seSource.clip = sePanel;
+        seSource.Play();
         attackSubtitle.text = attackName;
         attackPanel.SetActive(true);
         while (attackPanelRect.anchoredPosition.x < 100)
@@ -142,10 +149,17 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
             HPslider.value = (float)currentHP / maxHP;
             HPText.text = currentHP.ToString() + "/" + maxHP.ToString();
             StartCoroutine(DamageVibration());
+            seSource.clip = seDamage;
+            seSource.Play();
             if (currentHP == 0)
             {
                 StartCoroutine(Died());
             }
+        }
+        else if (isShield)
+        {
+            seSource.clip = seGuard;
+            seSource.Play();
         }
     }
     //•KE‚É‚æ‚é‹­“G‚ÌƒV[ƒ‹ƒh”j‰ó(¡‰ñ‚ÍƒGƒ‹‚Ì‚İ‚É‚È‚é—\’è)

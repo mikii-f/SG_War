@@ -17,12 +17,20 @@ public class ImagesManager2_2 : ImagesManagerOrigin
     [SerializeField] private GameObject effectsObject;
     private Image effectsImage;
     private RectTransform effectsRect;
+    private AudioSource effectsAudio;
     [SerializeField] private Sprite swordEffect;
+    [SerializeField] private AudioClip bgmThinking;
+    [SerializeField] private AudioClip bgmEncounter;
+    [SerializeField] private AudioClip bgmComedy;
+    [SerializeField] private AudioClip seBright;
+    [SerializeField] private AudioClip seRoar;
+    [SerializeField] private AudioClip seChange;
 
     protected override void StartSet()
     {
         effectsImage = effectsObject.GetComponent<Image>();
         effectsRect = effectsObject.GetComponent<RectTransform>();
+        effectsAudio = effectsObject.GetComponent<AudioSource>();
     }
 
     //—§‚¿ŠGŠÖŒW
@@ -77,7 +85,26 @@ public class ImagesManager2_2 : ImagesManagerOrigin
                 break;
         }
     }
-
+    public override void BGMChange(string bgm)
+    {
+        switch (bgm)
+        {
+            case "Thinking":
+                audioSource.clip = bgmThinking;
+                audioSource.Play();
+                break;
+            case "Encounter":
+                audioSource.clip = bgmEncounter;
+                audioSource.Play();
+                break;
+            case "Comedy":
+                audioSource.clip = bgmComedy;
+                audioSource.Play();
+                break;
+            default:
+                break;
+        }
+    }
     public override void Effect(string image)
     {
         if (!skip)
@@ -94,6 +121,7 @@ public class ImagesManager2_2 : ImagesManagerOrigin
     }
     private IEnumerator SwordEffect()
     {
+        effectsAudio.Play();
         effectsRect.localScale = new(2, 2);
         effectsImage.sprite = swordEffect;
         StartCoroutine(FadeIn(0.5f, effectsImage));
@@ -108,7 +136,29 @@ public class ImagesManager2_2 : ImagesManagerOrigin
         effectsRect.localScale = new(1, 1);
         effectsImage.color = Color.white;
     }
-
+    public override void SoundEffect(string se)
+    {
+        if (!skip)
+        {
+            switch (se)
+            {
+                case "Bright":
+                    seSource.clip = seBright;
+                    seSource.Play();
+                    break;
+                case "Roar":
+                    seSource.clip = seRoar;
+                    seSource.Play();
+                    break;
+                case "Change":
+                    seSource.clip = seChange;
+                    seSource.Play();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
     public override void ChangeScene()
     {
         SceneManager.LoadScene("3DGameScene0");

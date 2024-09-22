@@ -16,12 +16,17 @@ public class SelectSceneManager : SystemManagerOrigin
     [SerializeField] private GameObject developingMessage;
     [SerializeField] private Image black;
     [SerializeField] private TMP_Text countDown;
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip seCountDown;
     private bool go = false;
 
     private void Start()
     {
         systemMessageObject.SetActive(false);
         developingMessage.SetActive(false);
+        audioSource = GetComponent<AudioSource>();
+        audioSource.volume = GameManager.instance.BgmVolume;
+        seSource.volume = GameManager.instance.SeVolume;
         statusText.text = "体力\n" + GameManager.instance.SainHP.ToString() + "\n初期SG\n" + GameManager.instance.SainSG.ToString() + "\n攻撃力\n" + GameManager.instance.SainAttack.ToString() + "\n経験値\n" + GameManager.instance.EXP.ToString();
     }
 
@@ -49,6 +54,8 @@ public class SelectSceneManager : SystemManagerOrigin
         {
             StartCoroutine(ButtonAnim(NormalSwitchRect));
             StartCoroutine(Delay(systemMessageObject, true));
+            seSource.clip = seUIClick;
+            seSource.Play();
         }
     }
     //今はノーマルステージのみに対応
@@ -60,6 +67,8 @@ public class SelectSceneManager : SystemManagerOrigin
             StartCoroutine(Delay(systemMessageObject, false));
             StartCoroutine(StartGame());
             go = true;
+            seSource.clip = seUIClick;
+            seSource.Play();
         }
     }
     //ゲーム開始
@@ -69,8 +78,12 @@ public class SelectSceneManager : SystemManagerOrigin
         countDown.text = "3";
         yield return new WaitForSeconds(1);
         countDown.text = "2";
+        seSource.clip = seCountDown;
+        seSource.Play();
         yield return new WaitForSeconds(1);
         countDown.text = "1";
+        seSource.clip = seCountDown;
+        seSource.Play();
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene("3DGameScene1");
     }
@@ -81,6 +94,8 @@ public class SelectSceneManager : SystemManagerOrigin
             StartCoroutine(SwitchInterval());
             StartCoroutine(ButtonAnim(noSwitch));
             StartCoroutine(Delay(systemMessageObject, false));
+            seSource.clip = seUIBack;
+            seSource.Play();
         }
     }
     public void HardSwitch()
@@ -89,6 +104,8 @@ public class SelectSceneManager : SystemManagerOrigin
         {
             StartCoroutine(ButtonAnim(HardSwitchRect));
             StartCoroutine(Developing());
+            seSource.clip = seUIUnactive;
+            seSource.Play();
         }
     }
     private IEnumerator Developing()
@@ -104,11 +121,14 @@ public class SelectSceneManager : SystemManagerOrigin
             go = true;
             StartCoroutine(ButtonAnim(StorySwitchRect));
             StartCoroutine(GoToStory());
+            seSource.clip = seUIClick;
+            seSource.Play();
         }
     }
     private IEnumerator GoToStory()
     {
         yield return new WaitForSeconds(0.1f);
+        StartCoroutine(VolumeFadeOut(1, audioSource));
         yield return StartCoroutine(FadeOut(1f, black));
         //本来起こらない状況と思われるが暫定措置
         if (GameManager.instance.SceneName == null)

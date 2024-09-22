@@ -4,7 +4,7 @@ AnimAndGoNext,1.0
 TitleCoal
 
 
-MenuOn,TextPanelOn,BackgroundChange,Road
+MenuOn,TextPanelOn,BackgroundChange,Road,BGMChange,Road,VolumeFadeIn,0
 
 日曜日の昼。俺たちは予定どおり街に出かけた。が────────
 CharacterChange,vier8
@@ -43,13 +43,13 @@ CharacterChange,vier7
 CharacterChange,vier
 フィア
 分かったよ。はあ、そろそろ気持ちよく戦いたいなー。
-Wipe1
+Wipe1,VolumeFadeOut,2.0
 
 
 Wipe2,CharacterChange,transparent,BackgroundChange,RoadNight
 
 
-0
+BGMChange,RoadNight,VolumeFadeIn,0
 
 三度目の見回り、時刻は既に深夜。
 CharacterChange,vier
@@ -58,7 +58,7 @@ CharacterChange,vier
 0
 剣羽和人
 そうだな。この状況をずっと続けるわけにもいかないが────────あ。
-BackgroundChange,Rooftop,CharacterChange,Command,AnimAndGoNext,0.5
+BackgroundChange,Rooftop,CharacterChange,Command,VolumeFadeOut,0,AnimAndGoNext,0.5
 
 
 BackgroundChange,Black,CharacterChange,el_battle,CharacterColor,AnimAndGoNext,0.5
@@ -70,7 +70,7 @@ BackgroundChange,RoadNight,CharacterChange,transparent,CharacterReset,BlackOff
 CharacterChange,vier8
 フィア
 ？どうかした？
-0
+BGMChange,Title,VolumeFadeIn,0
 剣羽和人
 なあ、統率個体との決戦の場所、覚えてるか。今からあそこまで足を伸ばしてみるってのはどうだ？
 CharacterChange,vier7
@@ -91,13 +91,13 @@ CharacterChange,vier4
 CharacterChange,vier3
 フィア
 お、久しぶりのアレだね！まっかせて！！
-Wipe1
+Wipe1,VolumeFadeOut,2.0
 
 
 Wipe2,CharacterChange,vier_battle2,BackgroundChange,NightSky,Effect,WindEffectStart
 
 
-0
+BGMChange,Comedy,VolumeFadeIn,0
 
 夜空の下を駆ける。
 0
@@ -124,13 +124,13 @@ CharacterChange,vier_battle3
 0
 剣羽和人
 途中で異妖に遭遇する可能性がある時には、一般人を巻き込みにくいこっちのが都合が良いってだけだ。
-FaceChangeDelay,1.5,vier_battle,AnimationWaitSet,2
+FaceChangeDelay,1.5,vier_battle,VolumeFadeOut,2.0,AnimationWaitSet,2
 フィア
 もう、和人ったら照れちゃってー。私たちの仲なんだし────────！
 0
 剣羽和人
 フィア？何か気づいたか？
-0
+BGMChange,Encounter,VolumeFadeIn,0
 フィア
 うん。和人の直感、当たってたみたい。／あのビルから異妖の気配を感知したよ。
 0
@@ -139,13 +139,13 @@ FaceChangeDelay,1.5,vier_battle,AnimationWaitSet,2
 CharacterChange,vier_battle4
 フィア
 了解。いくよ、リーダー！
-Wipe1,Effect,WindEffectStop
+Wipe1,Effect,WindEffectStop,VolumeFadeOut,2.0
 
 
 Wipe2,BackgroundChange,Rooftop
 
 
-0
+BGMChange,Reach,VolumeFadeIn,0
 フィア
 よし、到着！／それと、ここまで近づけば流石に分かった。この気配は────！
 CharacterChange,Command
@@ -157,10 +157,10 @@ CharacterChange,Command
 0
 統率個体
 その疑問に答えるためには、これを見せるのが手っ取り早いだろう。そら。
-CharacterChange,el_enemy,AnimAndGoNext,2.0,TextPanelOff
+CharacterChange,el_enemy,AnimAndGoNext,2.0,TextPanelOff,VolumeFadeOut,2.0
 
 
-CharacterChange,vier_battle4,TextPanelOn
+CharacterChange,vier_battle4,TextPanelOn,BGMChange,Surprise,VolumeFadeIn,0
 フィア
 え……エルちゃん……！？
 CharacterChange,Command
@@ -205,7 +205,7 @@ CharacterChange,vier_battle,CharacterReset
 CharacterChange,Command
 統率個体
 残念だがそうはいかない。この身は未だ完成に至らず、私の成長は私自身の戦闘性能を直接引き上げるものではないからな。
-CharacterChange,el_enemy
+CharacterChange,el_enemy,BGMChange,Reach,SEDelay,0.5,Slide
 統率個体
 まずは、この骸を打ち倒してもらうとしよう。
 CharacterChange,vier_battle4
@@ -226,10 +226,10 @@ CharacterChange,vier_battle8
 CharacterChange,vier_battle
 フィア
 分かった。信じるよ。
-CharacterChange,vier_battle4
+CharacterChange,vier_battle4,SE,Foot
 フィア
 さあエルちゃん、初めての真剣勝負といくよ！
-Save,MenuOff,TextPanelOff,FadeOut,1.0,Black,AnimAndGoNext,2.0
+Save,MenuOff,TextPanelOff,FadeOut,1.0,Black,VolumeFadeOut,1.0,AnimAndGoNext,2.0
 
 
 ChangeScene

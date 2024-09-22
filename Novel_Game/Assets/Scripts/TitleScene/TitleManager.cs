@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,6 +17,7 @@ public class TitleManager : SystemManagerOrigin
     [SerializeField] private RectTransform noSwitch;
     [SerializeField] private Image black;
     [SerializeField] private GameObject continueSwitchMask;
+    private AudioSource audioSource;
     private bool isGoNext = false;
 
     void Start()
@@ -23,6 +25,9 @@ public class TitleManager : SystemManagerOrigin
         words1.SetActive(false);
         method.SetActive(false);
         systemMessageObject.SetActive(false);
+        audioSource = GetComponent<AudioSource>();
+        audioSource.volume = GameManager.instance.BgmVolume;
+        seSource.volume = GameManager.instance.SeVolume;
         StartCoroutine(FadeIn(0.5f, black));
         if (GameManager.instance.SaveData)
         {
@@ -53,6 +58,8 @@ public class TitleManager : SystemManagerOrigin
     {
         StartCoroutine(ButtonAnim(newGameSwitchRect));
         StartCoroutine(Delay(systemMessageObject, true));
+        seSource.clip = seUIClick;
+        seSource.Play();
     }
     public void YesSwitch()
     {
@@ -61,6 +68,8 @@ public class TitleManager : SystemManagerOrigin
             isGoNext = true;
             StartCoroutine(ButtonAnim(yesSwitch));
             StartCoroutine(NewGame());
+            seSource.clip = seUIClick;
+            seSource.Play();
         }
     }
     public void NoSwitch()
@@ -70,25 +79,36 @@ public class TitleManager : SystemManagerOrigin
             StartCoroutine(SwitchInterval());
             StartCoroutine(ButtonAnim(noSwitch));
             StartCoroutine(Delay(systemMessageObject, false));
+            seSource.clip = seUIBack;
+            seSource.Play();
         }
     }
     private IEnumerator NewGame()
     {
+        StartCoroutine(VolumeFadeOut(1, audioSource));
         yield return StartCoroutine(FadeOut(2, black));
         GameManager.instance.Initialize();
         SceneManager.LoadScene(GameManager.instance.SceneName);
     }
     public void ContinueGameSwitch()
     {
-        if (!isGoNext)
+        if (!isGoNext && !continueSwitchMask.activeSelf)
         {
             isGoNext = true;
             StartCoroutine(ButtonAnim(continueGameSwitchRect));
             StartCoroutine(ContinueGame());
+            seSource.clip = seUIClick;
+            seSource.Play();
+        }
+        else if (continueSwitchMask.activeSelf)
+        {
+            seSource.clip = seUIUnactive;
+            seSource.Play();
         }
     }
     private IEnumerator ContinueGame()
     {
+        StartCoroutine(VolumeFadeOut(1, audioSource));
         yield return new WaitForSeconds(0.1f);
         yield return StartCoroutine(FadeOut(1, black));
         GameManager.instance.Set();
@@ -100,6 +120,8 @@ public class TitleManager : SystemManagerOrigin
         {
             StartCoroutine(ButtonAnim(wordsSwitchRect));
             StartCoroutine(Delay(words1, true));
+            seSource.clip = seUIClick;
+            seSource.Play();
         }
     }
     public void MethodSwitch()
@@ -108,11 +130,15 @@ public class TitleManager : SystemManagerOrigin
         {
             StartCoroutine(ButtonAnim(methodSwitchRect));
             StartCoroutine(Delay(method, true));
+            seSource.clip = seUIClick;
+            seSource.Play();
         }
     }
     public void Close()
     {
         words1.SetActive(false);
         method.SetActive(false);
+        seSource.clip = seUIBack;
+        seSource.Play();
     }
 }

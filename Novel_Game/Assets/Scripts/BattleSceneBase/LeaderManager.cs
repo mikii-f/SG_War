@@ -55,6 +55,8 @@ public class LeaderManager : SystemManagerOrigin
             attackIntervalText.text = attackIntervalCount.ToString("F2");
             speedIntervalText.text = speedIntervalCount.ToString("F2");
         }
+        seSource = GetComponent<AudioSource>();
+        seSource.volume = GameManager.instance.SeVolume;
     }
 
     // Update is called once per frame
@@ -133,6 +135,13 @@ public class LeaderManager : SystemManagerOrigin
             StartCoroutine(ButtonAnim(HPRect));
             sainManager.ReceiveHPAssist();
             HPIntervalDisplay.SetActive(true);
+            seSource.clip = seUIClick;
+            seSource.Play();
+        }
+        else if (!pause)
+        {
+            seSource.clip = seUIUnactive;
+            seSource.Play();
         }
     }
     public void AttackAssistClick()
@@ -143,6 +152,13 @@ public class LeaderManager : SystemManagerOrigin
             StartCoroutine(ButtonAnim(attackRect));
             StartCoroutine(sainManager.ReceiveAttackAssist());
             attackIntervalDisplay.SetActive(true);
+            seSource.clip = seUIClick;
+            seSource.Play();
+        }
+        else if (!pause)
+        {
+            seSource.clip = seUIUnactive;
+            seSource.Play();
         }
     }
     public void SpeedAssistClick()
@@ -153,6 +169,13 @@ public class LeaderManager : SystemManagerOrigin
             StartCoroutine(ButtonAnim(speedRect));
             StartCoroutine(sainManager.ReceiveSpeedAssist());
             speedIntervalDisplay.SetActive(true);
+            seSource.clip = seUIClick;
+            seSource.Play();
+        }
+        else if (!pause)
+        {
+            seSource.clip = seUIUnactive;
+            seSource.Play();
         }
     }
     public void GuardClick()
@@ -164,6 +187,13 @@ public class LeaderManager : SystemManagerOrigin
             StartCoroutine(ButtonAnim(guardRect));
             StartCoroutine(sainManager.ReceiveGuard());
             guardIntervalDisplay.SetActive(true);
+            seSource.clip = seUIClick;
+            seSource.Play();
+        }
+        else if (!pause)
+        {
+            seSource.clip = seUIUnactive;
+            seSource.Play();
         }
     }
     public void AutoClick()
@@ -171,6 +201,8 @@ public class LeaderManager : SystemManagerOrigin
         if (!pause)
         {
             StartCoroutine(ButtonAnim(autoRect));
+            seSource.clip = seUIClick;
+            seSource.Play();
             if (!sainManager.Auto)
             {
                 sainManager.Auto = true;

@@ -4,7 +4,7 @@ AnimAndGoNext,1.0
 TitleCoal
 
 
-TextPanelOn,MenuOn,BackgroundChange,Road
+TextPanelOn,MenuOn,BackgroundChange,Road,BGMChange,Road,VolumeFadeIn,0
 
 4限の講義が終わり帰路に就く。
 0
@@ -13,13 +13,13 @@ TextPanelOn,MenuOn,BackgroundChange,Road
 0
 剣羽和人
 とはいえ、これといった進路も考えてないんだ。今は選択肢を増やせるように────────ん？
-CharacterRect,1100,-360,CharacterChange,Ghost1,FadeIn,0.5,Character,AnimAndGoNext,0.5
+CharacterRect,1100,-360,CharacterChange,Ghost1,FadeIn,0.5,Character,VolumeFadeOut,0.5,AnimAndGoNext,0.5
 
 
 0
 
 今、視界の隅に何か、いるはずのないものが映ったような。
-0
+VolumeFadeIn,1.0
 剣羽和人
 ──────いや、そんなわけないよな。フィアが待ってるんだ、さっさと帰ろう。
 0
@@ -28,16 +28,16 @@ CharacterRect,1100,-360,CharacterChange,Ghost1,FadeIn,0.5,Character,AnimAndGoNex
 0
 
 いつも通り2人分の夕飯を作るため、俺は真っ直ぐ家に向かった。
-Wipe1
+Wipe1,VolumeFadeOut,1.0
 
 
 Wipe2,CharacterReset,CharacterChange,vier,BackgroundChange,MyRoom,CharacterColor
 
 
-0
+BGMChange,Home,VolumeFadeIn,0
 
 テレビで適当な番組を流しつつ、フィアと共に夕食をとる。
-0
+SE,News
 フィア
 ────、────？
 0
@@ -52,10 +52,10 @@ CharacterReset,CharacterChange,vier4
 CharacterChange,vier8
 フィア
 どうしたも何も、和人がぼーっとしてるから……。そっちこそどうかした？
-0
+VolumeFadeOut,1.0
 剣羽和人
 あー……いや、大したことはないんだ。ただ……
-CharacterColor
+CharacterColor,BGMChange,Thinking,VolumeFadeIn,0
 
 喉に詰まらせかけた飯をゆっくり飲み込みながら再び思考に耽る。
 0
@@ -97,13 +97,13 @@ CharacterChange,transparent
 0
 
 そう自分に言い聞かせつつ残りの夕食を食べ、俺たちは「夜の散歩」に向かった。
-Wipe1
+Wipe1,VolumeFadeOut,2.0
 
 
 Wipe2,BackgroundChange,RoadNight
 
 
-CharacterChange,vier
+CharacterChange,vier,BGMChange,RoadNight,VolumeFadeIn,0
 
 夜の住宅街を歩く。
 0
@@ -151,31 +151,31 @@ BackgroundChange,RoadNight,CharacterChange,vier
 0
 剣羽和人
 まあな。ただ、俺の命を守ってくれた少女がいたことぐらいは覚えておきたいと思ってる。
-CharacterChange,vier5,FaceChangeDelay,1.5,vier7,AnimationWaitSet,2
+CharacterChange,vier5,FaceChangeDelay,1.5,vier7,VolumeFadeOut,1.5,AnimationWaitSet,2
 フィア
 うん！それならきっとエルちゃんも喜ぶ──────あれ？
-CharacterChange,Ghost1,TextPanelOff,AnimAndGoNext,2
+CharacterChange,Ghost1,TextPanelOff,AnimAndGoNext,2,SE,Roar
 
 
-CharacterChange,vier8,TextPanelOn
+CharacterChange,vier8,TextPanelOn,BGMChange,Encounter,VolumeFadeIn,0
 フィア
-うそ……どうして……？さっきまで何も感知できなかったのに……！。
+うそ……どうして……？さっきまで何も感知できなかったのに……！
 0
 剣羽和人
 (嫌な予感が当たりやがったか…………！)／フィア！とりあえず敵は一体だけだ！久々だがやれるな！？
 CharacterChange,vier4
 フィア
 う、うん！もちろん！
-FadeOut,1.0,White,AnimAndGoNext,1.0
+FadeOut,1.0,White,AnimAndGoNext,1.0,SE,Bright
 
 
-CharacterChange,vier_battle,FadeIn,0.5,White,AnimAndGoNext,0.5
+CharacterChange,vier_battle,FadeIn,0.5,White,AnimAndGoNext,0.5,SE,Change
 
 
 CharacterChange,vier_battle4
 フィア
 リーダーの方こそ、ちゃんと指示お願いね！
-Save,MenuOff,FadeOut,2.0,Black,AnimAndGoNext,3.0
+Save,MenuOff,FadeOut,2.0,Black,VolumeFadeOut,2.0,AnimAndGoNext,3.0
 
 
 TextPanelOff,AnimAndGoNext,1.0

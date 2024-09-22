@@ -26,7 +26,8 @@ public class ElManager : EnemyManagerOrigin
     private const int specialAttackInterval = 8;
     private int specialAttackCount = 3;             //スキル3・必殺技が連発されないように攻撃回数をカウント
     private bool specialAttackStandby = false;      //必殺技の溜め
-    
+    [SerializeField] private AudioClip seRond;
+    [SerializeField] private AudioClip seSpecialFinish;
 
     protected override void StartSet()
     {
@@ -335,6 +336,7 @@ public class ElManager : EnemyManagerOrigin
         shield.SetActive(false);
         yield return new WaitForSeconds(2);
         specialAttackAnimation.SetActive(true);
+        StartCoroutine(SpecialSE());
         yield return new WaitForSeconds(2.5f);
         specialAttackAnimation.SetActive(false);
         gage1Image.sprite = grayGage;
@@ -342,6 +344,16 @@ public class ElManager : EnemyManagerOrigin
         gage3Image.sprite = grayGage;
         gage4Image.sprite = grayGage;
         gage5Image.sprite = grayGage;
+    }
+    private IEnumerator SpecialSE()
+    {
+        yield return new WaitForSeconds(1.4f);
+        for (int i=0; i<2; i++)
+        {
+            seSource.clip = seRond;
+            seSource.Play();
+            yield return new WaitForSeconds(0.2f);
+        }
     }
 
     //バフ

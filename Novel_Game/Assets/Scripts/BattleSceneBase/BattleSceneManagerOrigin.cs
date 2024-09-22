@@ -29,6 +29,15 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
     [SerializeField] private GameObject specialAttackPanel;
     private RectTransform specialAttackPanelRect;
     private Image specialAttackPanelImage;
+    protected AudioSource audioSource;
+    [SerializeField] protected AudioClip seCountDown;
+    [SerializeField] protected AudioClip seWhistle;
+    [SerializeField] private AudioClip seSword;
+    [SerializeField] private AudioClip seWind;
+    [SerializeField] private AudioClip seSpecialOn;
+    [SerializeField] private AudioClip seSpecialFinish;
+    [SerializeField] private AudioClip seSpecialDamage;
+    [SerializeField] private AudioClip seCymbal;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +46,9 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         blackImage = blackObject.GetComponent<Image>();
         specialAttackPanelRect = specialAttackPanel.GetComponent<RectTransform>();
         specialAttackPanelImage = specialAttackPanel.GetComponent<Image>();
+        audioSource = GetComponent<AudioSource>();
+        audioSource.volume = GameManager.instance.BgmVolume;
+        seSource.volume = GameManager.instance.SeVolume;
         specialAttackPanelImage.color = new(1, 1, 1, 0);
         specialSkillAnimation.SetActive(false);
         explanation.SetActive(false);
@@ -53,7 +65,6 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         {
             explanation.SetActive(false);
         }
-        //同時押しなどによるバグをなくすためには全てif-elseで繋ぐべきなのか？その場合どれの優先度を高くする？別スクリプトは？
         //攻撃対象の選択
         if (Input.GetKeyDown(KeyCode.A))
         {
@@ -75,6 +86,8 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
                 enemyComposition[numberOfCurrentWave][selectedEnemy].DisSelect();
                 selectedEnemy--;
                 enemyComposition[numberOfCurrentWave][selectedEnemy].Select();
+                seSource.clip = seUIClick;
+                seSource.Play();
             }
             //二つ左(右端から左端、真ん中の敵が死んでいる場合)に移動
             else if (selectedEnemy == 2 && !deadEnemyComposition[numberOfCurrentWave][0])
@@ -82,6 +95,8 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
                 enemyComposition[numberOfCurrentWave][selectedEnemy].DisSelect();
                 selectedEnemy = 0;
                 enemyComposition[numberOfCurrentWave][selectedEnemy].Select();
+                seSource.clip = seUIClick;
+                seSource.Play();
             }
         }
     }
@@ -95,6 +110,8 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
                 enemyComposition[numberOfCurrentWave][selectedEnemy].DisSelect();
                 selectedEnemy++;
                 enemyComposition[numberOfCurrentWave][selectedEnemy].Select();
+                seSource.clip = seUIClick;
+                seSource.Play();
             }
             //二つ右に移動
             else if (selectedEnemy == 0 && !deadEnemyComposition[numberOfCurrentWave][numberOfEnemy[numberOfCurrentWave] - 1])
@@ -102,6 +119,8 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
                 enemyComposition[numberOfCurrentWave][selectedEnemy].DisSelect();
                 selectedEnemy = numberOfEnemy[numberOfCurrentWave] - 1;
                 enemyComposition[numberOfCurrentWave][selectedEnemy].Select();
+                seSource.clip = seUIClick;
+                seSource.Play();
             }
         }
     }
@@ -137,8 +156,12 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         }
         yield return new WaitForSeconds(2);
         //specialSkillAnimation.SetActive(true);
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(1.4f);
+        seSource.clip = seSpecialFinish;
+        seSource.Play();                        //複数のSEを同時に鳴らすため
+        yield return new WaitForSeconds(1.2f);
         //specialSkillAnimation.SetActive(false);
+        seSource.clip = null;
         sainManager.ReceiveSpecialDamage(damage);
         yield return new WaitForSeconds(2);
         sainManager.Pause = false;
@@ -151,6 +174,8 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
     }
     public IEnumerator SpecialAttackName(Sprite sprite)
     {
+        seSource.clip = seSpecialOn;
+        seSource.Play();
         specialAttackPanelImage.sprite = sprite;
         StartCoroutine(FadeOut(0.25f, specialAttackPanelImage));
         specialAttackPanelRect.anchoredPosition = new(-400, 0);
@@ -210,6 +235,8 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
     //戦闘スキル1
     public IEnumerator SainSkill1(int damage, RectTransform attackRect, Image attackImage)
     {
+        seSource.clip = seSword;
+        seSource.Play();
         attackImage.color = Color.white;
         float diffX = AttackPoint();
         int selected = selectedEnemy;       //攻撃を選択した時点での攻撃対象を保持
@@ -241,6 +268,8 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
     //戦闘スキル2
     public IEnumerator SainSkill2(int damage, RectTransform attackRect, Image attackImage)
     {
+        seSource.clip = seWind;
+        seSource.Play();
         attackImage.color = Color.white;
         float diffX = AttackPoint();
         int selected = selectedEnemy;       //攻撃を選択した時点での攻撃対象を保持
@@ -283,7 +312,10 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         }
         yield return new WaitForSeconds(2);
         specialSkillAnimation.SetActive(true);
+        StartCoroutine(SpecialSE());
         yield return new WaitForSeconds(2.5f);
+        seSource.clip = seSpecialDamage;
+        seSource.Play();
         specialSkillAnimation.SetActive(false);
         for (int i=0; i < numberOfEnemy[numberOfCurrentWave]; i++)
         {
@@ -304,6 +336,18 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         for (int i = 0; i < numberOfEnemy[numberOfCurrentWave]; i++)
         {
             enemyComposition[numberOfCurrentWave][i].Pause = false;
+        }
+    }
+    private IEnumerator SpecialSE()
+    {
+        seSource.clip = seWind;
+        seSource.Play();
+        yield return new WaitForSeconds(0.8f);
+        for (int i=0; i<4; i++)
+        {
+            seSource.clip = seSword;
+            seSource.Play();
+            yield return new WaitForSeconds(0.15f);
         }
     }
     //敵が死んだことの受け取り
@@ -435,7 +479,10 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         battleSystemManager.MenuOff();
         yield return new WaitForSeconds(2);
         battleStartAndFinishText.text = "Battle Finish";
+        seSource.clip = seCymbal;
+        seSource.Play();
         yield return new WaitForSeconds(2);
+        StartCoroutine(VolumeFadeOut(2, audioSource));
         yield return StartCoroutine(FadeOut(2, blackImage));
         SceneLoad();
     }

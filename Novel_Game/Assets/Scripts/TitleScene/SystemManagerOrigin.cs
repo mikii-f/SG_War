@@ -5,6 +5,10 @@ using UnityEngine.UI;
 public abstract class SystemManagerOrigin : MonoBehaviour
 {
     protected bool switchInterval = false;  //メッセージを閉じるときなどにスイッチのアニメーションが見えてから閉じるようにするとその間にまだスイッチが押せてしまうため、それを防ぐ
+    [SerializeField] protected AudioSource seSource;
+    [SerializeField] protected AudioClip seUIClick;
+    [SerializeField] protected AudioClip seUIBack;
+    [SerializeField] protected AudioClip seUIUnactive;
     protected IEnumerator SwitchInterval()
     {
         switchInterval = true;
@@ -50,6 +54,29 @@ public abstract class SystemManagerOrigin : MonoBehaviour
             temp = image.color;
             temp.a = Mathf.Max(0, temp.a - 0.1f / fadeTime);
             image.color = temp;
+        }
+    }
+
+    //BGMのフェード
+    protected IEnumerator VolumeFadeOut(float fadeTime, AudioSource audioSource)
+    {
+        while (audioSource.volume > 0)
+        {
+            float v = audioSource.volume;
+            v = Mathf.Max(0, v - GameManager.instance.BgmVolume * Time.deltaTime / fadeTime);
+            audioSource.volume = v;
+            yield return null;
+        }
+    }
+    protected IEnumerator VolumeFadeIn(float fadeTime, AudioSource audioSource)
+    {
+        float targetVolume = GameManager.instance.BgmVolume;
+        while (audioSource.volume < targetVolume)
+        {
+            float v = audioSource.volume;
+            v = Mathf.Min(targetVolume, v + targetVolume * Time.deltaTime / fadeTime);
+            audioSource.volume = v;
+            yield return null;
         }
     }
 }
