@@ -229,6 +229,12 @@ public abstract class TextManagerOrigin : MonoBehaviour
                     i++;
                     StartCoroutine(imagesManager.FaceChangeDelay(t, s[i]));
                     break;
+                case "SEDelay":
+                    i++;
+                    t = float.Parse(s[i]);
+                    i++;
+                    StartCoroutine(imagesManager.SEDelay(t, s[i]));
+                    break;
                 case "CharacterRect":
                     i++;
                     int x = int.Parse(s[i]);

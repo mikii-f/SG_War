@@ -461,6 +461,15 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
             CharacterChange(image);
         }
     }
+    //SEのディレイ
+    public IEnumerator SEDelay(float t, string se)
+    {
+        if (!skip)
+        {
+            yield return new WaitForSeconds(t);
+            SoundEffect(se);
+        }
+    }
     //キャラクターの位置を設定
     public void CharacterRect(int x, int y)
     {

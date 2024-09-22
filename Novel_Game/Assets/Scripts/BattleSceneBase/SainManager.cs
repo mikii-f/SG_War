@@ -75,6 +75,8 @@ public class SainManager : SystemManagerOrigin
     [SerializeField] AudioClip sePanel;
     [SerializeField] AudioClip seBuff;
     [SerializeField] AudioClip seHeal;
+    [SerializeField] AudioClip seSpecialFinish;
+    [SerializeField] AudioClip seAvoid;
 
     void Start()
     {
@@ -236,8 +238,6 @@ public class SainManager : SystemManagerOrigin
         if (intervalCount == 0 && currentSG >= 20 && !pause && !isSkill3)
         {
             StartCoroutine(BattleSkill3());
-            seSource.clip = seUIClick;
-            seSource.Play();
         }
         else if (!pause)
         {
@@ -306,6 +306,7 @@ public class SainManager : SystemManagerOrigin
             StartCoroutine(bSManager.SpecialAttackName(specialAttackNameSprite));
             //“G‘S‘Ì‚ÉUŒ‚—Í500%(SGÁ”ï100 ŠÔ‚ğ~‚ß‚Äê—p‰‰o •KE‚¿‚Ì“G‚ÌƒK[ƒh‚ğŠ„‚é)
             StartCoroutine(bSManager.SainToAllAttack(5*attack * attackFactor / 10));
+            StartCoroutine(SESpecialFinish());
             currentSG -= 100;
             SGCheck();
         }
@@ -314,6 +315,13 @@ public class SainManager : SystemManagerOrigin
             seSource.clip = seUIUnactive;
             seSource.Play();
         }
+    }
+    //•KE‹Z‚ÌÅŒã‚Ì•”•ª‚ÌŒø‰Ê‰¹‚ğ“Æ—§‚³‚¹‚é
+    private IEnumerator SESpecialFinish()
+    {
+        yield return new WaitForSeconds(3);
+        seSource.clip = seSpecialFinish;
+        seSource.Play();
     }
     
     //å‚É•KE‹Z”­“®’¼Œã‚Ì‚½‚ß‚Ì–³“GŠÔ
@@ -373,7 +381,7 @@ public class SainManager : SystemManagerOrigin
                 ResetComment();
             }
             commentCoroutine = StartCoroutine(Comment("‰ñ”ğ¬Œ÷"));
-            seSource.clip = sePanel;
+            seSource.clip = seAvoid;
             seSource.Play();
         }
         //–³“GŠÔ‚È‚çƒm[ƒ_ƒ

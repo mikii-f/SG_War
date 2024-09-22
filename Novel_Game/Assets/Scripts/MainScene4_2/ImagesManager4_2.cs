@@ -46,6 +46,7 @@ public class ImagesManager4_2 : ImagesManagerOrigin
     [SerializeField] private AudioClip seBright;
     [SerializeField] private AudioClip seChange;
     [SerializeField] private AudioClip seFoot;
+    [SerializeField] private AudioClip seFoot2;
     [SerializeField] private AudioClip seSword;
     [SerializeField] private AudioClip seSliding;
     [SerializeField] private AudioClip seBlood;
@@ -306,7 +307,7 @@ public class ImagesManager4_2 : ImagesManagerOrigin
     {
         for (int i = 0; i < 4; i++)
         {
-            seSource.clip = seFoot;
+            seSource.clip = seFoot2;
             seSource.Play();
             yield return new WaitForSeconds(0.25f);
         }

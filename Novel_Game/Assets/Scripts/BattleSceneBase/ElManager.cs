@@ -348,15 +348,12 @@ public class ElManager : EnemyManagerOrigin
     private IEnumerator SpecialSE()
     {
         yield return new WaitForSeconds(1.4f);
-        for (int i=0; i<3; i++)
+        for (int i=0; i<2; i++)
         {
             seSource.clip = seRond;
             seSource.Play();
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.2f);
         }
-        yield return new WaitForSeconds(0.3f);
-        seSource.clip = seSpecialFinish;
-        seSource.Play();
     }
 
     //ƒoƒt

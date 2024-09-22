@@ -61,7 +61,7 @@ CharacterChange,el_enemy
 FadeOut,1.0,White,AnimAndGoNext,1.0,VolumeFadeOut,1.0,SE,Bright
 
 
-CharacterChange,el_battle,FadeIn,2.0,White,AnimAndGoNext,2.0,SE,Change
+CharacterChange,el_battle,FadeIn,2.0,White,AnimAndGoNext,2.0,SEDelay,1.0,Change
 
 
 0
@@ -100,7 +100,7 @@ CharacterChange,Command
 0
 統率個体
 お前たちはせいぜい「文明の守護」に勤しむことだ。
-CharacterMotion,Jump,Effect,Jump,AnimationWaitSet,1.0,VolumeFadeOut,1.0,SE,Blood
+CharacterMotion,Jump,Effect,Jump,AnimationWaitSet,1.0,VolumeFadeOut,1.0,SE,Foot,SEDelay,0.5,Blood
 剣羽和人
 待てこのやろ────────ぐっ！！
 CharacterReset,CharacterChange,vier_battle4,BGMChange,Memory,VolumeFadeIn,0

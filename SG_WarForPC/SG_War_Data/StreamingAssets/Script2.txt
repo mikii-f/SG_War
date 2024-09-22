@@ -159,7 +159,7 @@ CharacterChange,Ghost1,TextPanelOff,AnimAndGoNext,2,SE,Roar
 
 CharacterChange,vier8,TextPanelOn,BGMChange,Encounter,VolumeFadeIn,0
 フィア
-うそ……どうして……？さっきまで何も感知できなかったのに……！。
+うそ……どうして……？さっきまで何も感知できなかったのに……！
 0
 剣羽和人
 (嫌な予感が当たりやがったか…………！)／フィア！とりあえず敵は一体だけだ！久々だがやれるな！？

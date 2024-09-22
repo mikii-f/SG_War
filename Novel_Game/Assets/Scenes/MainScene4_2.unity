@@ -5570,13 +5570,14 @@ MonoBehaviour:
   healEffect: {fileID: 21300000, guid: 41ffdacbd1f857a4e9d29112a9b9246b, type: 3}
   bgmCommand: {fileID: 8300000, guid: be912ae5d2def1c4ebc8eb692327fbdc, type: 3}
   bgmMemory: {fileID: 8300000, guid: 02834de5300eee04c95a2596c38a4f35, type: 3}
-  bgmPiano: {fileID: 8300000, guid: 46ed7e0386540c94aa41d651a415d482, type: 3}
-  bgmFeel: {fileID: 8300000, guid: 810b7d095d3575640b43a92df7d72987, type: 3}
+  bgmPiano: {fileID: 8300000, guid: e350c453e8ead0f438482b9cf7e211c9, type: 3}
+  bgmFeel: {fileID: 8300000, guid: 25f549d8b5ed7094e96194de7e754650, type: 3}
   seBright: {fileID: 8300000, guid: 0f1e628fc77860a479b4c3f4b3da8e2f, type: 3}
   seChange: {fileID: 8300000, guid: e9869169896b701499798b67159d3a56, type: 3}
-  seFoot: {fileID: 8300000, guid: b21de088e7e273c4f8724078c9ba1bed, type: 3}
+  seFoot: {fileID: 8300000, guid: 7fccedb2217e81540ae0605622cf2e6f, type: 3}
+  seFoot2: {fileID: 8300000, guid: b21de088e7e273c4f8724078c9ba1bed, type: 3}
   seSword: {fileID: 8300000, guid: aa72fc54a72afc54595338a069a43eef, type: 3}
-  seSliding: {fileID: 8300000, guid: 53b1bd3ed97eaa14ba5e1f7ef0ac7bd1, type: 3}
+  seSliding: {fileID: 8300000, guid: 8ed880430c8b03440844653e3b8e9a46, type: 3}
   seBlood: {fileID: 8300000, guid: 07ffd14c602c5d54b911483bcc8044d3, type: 3}
   seHeal: {fileID: 8300000, guid: fa0c400e9adc86541b95268fe4254e02, type: 3}
 --- !u!82 &1608533963

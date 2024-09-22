@@ -156,8 +156,12 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         }
         yield return new WaitForSeconds(2);
         //specialSkillAnimation.SetActive(true);
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(1.4f);
+        seSource.clip = seSpecialFinish;
+        seSource.Play();                        //ï°êîÇÃSEÇìØéûÇ…ñ¬ÇÁÇ∑ÇΩÇﬂ
+        yield return new WaitForSeconds(1.2f);
         //specialSkillAnimation.SetActive(false);
+        seSource.clip = null;
         sainManager.ReceiveSpecialDamage(damage);
         yield return new WaitForSeconds(2);
         sainManager.Pause = false;
@@ -310,6 +314,8 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         specialSkillAnimation.SetActive(true);
         StartCoroutine(SpecialSE());
         yield return new WaitForSeconds(2.5f);
+        seSource.clip = seSpecialDamage;
+        seSource.Play();
         specialSkillAnimation.SetActive(false);
         for (int i=0; i < numberOfEnemy[numberOfCurrentWave]; i++)
         {
@@ -335,19 +341,14 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
     private IEnumerator SpecialSE()
     {
         seSource.clip = seWind;
+        seSource.Play();
         yield return new WaitForSeconds(0.8f);
-        for (int i=0; i<5; i++)
+        for (int i=0; i<4; i++)
         {
             seSource.clip = seSword;
             seSource.Play();
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.15f);
         }
-        yield return new WaitForSeconds(0.3f);
-        seSource.clip = seSpecialFinish;
-        seSource.Play();
-        yield return new WaitForSeconds(0.9f);
-        seSource.clip = seSpecialDamage;
-        seSource.Play();
     }
     //ìGÇ™éÄÇÒÇæÇ±Ç∆ÇÃéÛÇØéÊÇË
     public void EnemyDied()
