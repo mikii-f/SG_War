@@ -219,6 +219,7 @@ public class BattleSystemManager : SystemManagerOrigin
                     {
                         StartCoroutine(ButtonAnim(noSwitch));
                         StartCoroutine(GoBackStory());
+                        isSelected = true;
                     }
                     else
                     {
