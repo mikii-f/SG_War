@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0be8e57675044a4384b4ec7c6803960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seMedal: {fileID: 8300000, guid: ddc3bae140d762e4ab2cee95156badc8, type: 3}
+  seMedal: {fileID: 8300000, guid: ba105fd9ecf7a584188ff32ff4c5901d, type: 3}
 --- !u!82 &6394254509756409114
 AudioSource:
   m_ObjectHideFlags: 0

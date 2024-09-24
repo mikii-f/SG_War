@@ -1,42 +1,24 @@
 using System.Collections;
 using UnityEngine;
 
-public class Enemy1Manager : MonoBehaviour
+public class Enemy1Manager : Enemy3DOrigin
 {
-    private Transform _transform;
-    private Collider _collider;
-    private SpriteRenderer spriteRenderer;
     private GameObject bullet;
     private Transform bulletTransform;
     private Collider bulletCollider;
     private bool startMove = false;
-    private const float eyesightY = 20f;
-    private const float eyesightX = 20f;
     private const float speed = -1f;
     private const float coolTime = 5f;
     private float idlingTime = 0f;
     private bool isAttack = false;
-    private Transform playerTransform;
-    private AudioSource seSource;
-    [SerializeField] private AudioClip seDamage;
 
     // Start is called before the first frame update
-    void Start()
+    protected override void StartSet()
     {
-        _transform = GetComponent<Transform>();
-        _collider = GetComponent<Collider>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         bullet = _transform.GetChild(0).gameObject;
         bulletTransform = bullet.GetComponent<Transform>();
         bulletCollider = bullet.GetComponent<Collider>();
         bullet.SetActive(false);
-        seSource = GetComponent<AudioSource>();
-        seSource.volume = GameManager.instance.SeVolume;
-        //プレイヤーの位置を取得
-        if (PlayerFootManager.instance != null)
-        {
-            playerTransform = PlayerFootManager.instance.transform;
-        }
     }
 
     // Update is called once per frame
@@ -125,48 +107,6 @@ public class Enemy1Manager : MonoBehaviour
             _collider.enabled = false;
             bullet.SetActive(false);
             StartCoroutine(Destroied());
-            seSource.clip = seDamage;
-            seSource.Play();
-        }
-    }
-
-    private IEnumerator Destroied()
-    {
-        StartCoroutine(FadeOut());
-        Vector3 temp1 = _transform.position, temp2 = _transform.rotation.eulerAngles;
-        temp2.z = -10;
-        _transform.rotation = Quaternion.Euler(temp2);
-        temp1.x += 0.2f;
-        _transform.position = temp1;
-        yield return new WaitForSeconds(0.2f);
-        temp1.x -= 0.4f;
-        _transform.position = temp1;
-        yield return new WaitForSeconds(0.2f);
-        temp1.x += 0.4f;
-        _transform.position = temp1;
-        yield return new WaitForSeconds(0.2f);
-        temp1.x -= 0.4f;
-        _transform.position = temp1;
-        yield return new WaitForSeconds(0.2f);
-        temp1.x += 0.2f;
-        _transform.position = temp1;
-        yield return new WaitForSeconds(0.2f);
-        Destroy(gameObject);
-    }
-
-    //扱うのがImageでないため共通化FadeOutは使えない
-    private IEnumerator FadeOut()
-    {
-        float fadeTime = 1;
-        Color temp = spriteRenderer.color;
-        temp.a = 1;
-        spriteRenderer.color = temp;
-        while (spriteRenderer.color.a > 0)
-        {
-            yield return new WaitForSeconds(0.1f);
-            temp = spriteRenderer.color;
-            temp.a = Mathf.Max(0, temp.a - 0.1f / fadeTime);
-            spriteRenderer.color = temp;
         }
     }
 }

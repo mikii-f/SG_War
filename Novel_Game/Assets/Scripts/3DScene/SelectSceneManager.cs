@@ -6,9 +6,10 @@ using UnityEngine.UI;
 
 public class SelectSceneManager : SystemManagerOrigin
 {
-    [SerializeField] private RectTransform NormalSwitchRect;
-    [SerializeField] private RectTransform HardSwitchRect;
-    [SerializeField] private RectTransform StorySwitchRect;
+    [SerializeField] private RectTransform normalSwitchRect;
+    [SerializeField] private RectTransform hardSwitchRect;
+    [SerializeField] private GameObject hardSwitchMask;
+    [SerializeField] private RectTransform storySwitchRect;
     [SerializeField] private Text statusText;
     [SerializeField] private GameObject systemMessageObject;
     [SerializeField] private RectTransform yesSwitch;
@@ -19,6 +20,7 @@ public class SelectSceneManager : SystemManagerOrigin
     private AudioSource audioSource;
     [SerializeField] private AudioClip seCountDown;
     private bool go = false;
+    private bool hard = false;
 
     private void Start()
     {
@@ -28,6 +30,10 @@ public class SelectSceneManager : SystemManagerOrigin
         audioSource.volume = GameManager.instance.BgmVolume;
         seSource.volume = GameManager.instance.SeVolume;
         statusText.text = "体力\n" + GameManager.instance.SainHP.ToString() + "\n初期SG\n" + GameManager.instance.SainSG.ToString() + "\n攻撃力\n" + GameManager.instance.SainAttack.ToString() + "\n経験値\n" + GameManager.instance.EXP.ToString();
+        if (GameManager.instance.EXP > 3000)
+        {
+            hardSwitchMask.SetActive(false);
+        }
     }
 
     private void Update()
@@ -52,10 +58,31 @@ public class SelectSceneManager : SystemManagerOrigin
     {
         if (!go)
         {
-            StartCoroutine(ButtonAnim(NormalSwitchRect));
+            StartCoroutine(ButtonAnim(normalSwitchRect));
             StartCoroutine(Delay(systemMessageObject, true));
             seSource.clip = seUIClick;
             seSource.Play();
+            hard = false;
+        }
+    }
+    public void HardSwitch()
+    {
+        if (!go && !developingMessage.activeSelf)
+        {
+            if (hardSwitchMask.activeSelf)
+            {
+                StartCoroutine(Developing());
+                seSource.clip = seUIUnactive;
+                seSource.Play();
+            }
+            else
+            {
+                StartCoroutine(ButtonAnim(hardSwitchRect));
+                StartCoroutine(Delay(systemMessageObject, true));
+                seSource.clip = seUIClick;
+                seSource.Play();
+                hard = true;
+            }
         }
     }
     //今はノーマルステージのみに対応
@@ -85,7 +112,14 @@ public class SelectSceneManager : SystemManagerOrigin
         seSource.clip = seCountDown;
         seSource.Play();
         yield return new WaitForSeconds(1);
-        SceneManager.LoadScene("3DGameScene1");
+        if (hard)
+        {
+            SceneManager.LoadScene("3DGameScene2");
+        }
+        else
+        {
+            SceneManager.LoadScene("3DGameScene1");
+        }
     }
     public void NoSwitch()
     {
@@ -98,16 +132,7 @@ public class SelectSceneManager : SystemManagerOrigin
             seSource.Play();
         }
     }
-    public void HardSwitch()
-    {
-        if (!go && !developingMessage.activeSelf)
-        {
-            StartCoroutine(ButtonAnim(HardSwitchRect));
-            StartCoroutine(Developing());
-            seSource.clip = seUIUnactive;
-            seSource.Play();
-        }
-    }
+
     private IEnumerator Developing()
     {
         developingMessage.SetActive(true);
@@ -119,7 +144,7 @@ public class SelectSceneManager : SystemManagerOrigin
         if (!go)
         {
             go = true;
-            StartCoroutine(ButtonAnim(StorySwitchRect));
+            StartCoroutine(ButtonAnim(storySwitchRect));
             StartCoroutine(GoToStory());
             seSource.clip = seUIClick;
             seSource.Play();

@@ -72,7 +72,6 @@ public class SainManager : SystemManagerOrigin
     [SerializeField] AudioClip seDamage;
     [SerializeField] AudioClip seSpecialDamage;
     [SerializeField] AudioClip seGuard;
-    [SerializeField] AudioClip sePanel;
     [SerializeField] AudioClip seBuff;
     [SerializeField] AudioClip seHeal;
     [SerializeField] AudioClip seSpecialFinish;

@@ -44,6 +44,10 @@ public class PlayerManager : MonoBehaviour
     private AudioSource seSource;
     [SerializeField] private AudioClip seSword;
     [SerializeField] private AudioClip seDamage;
+    private bool onUpField = false;
+    public bool OnUpField { set { onUpField = value; } }
+    private bool onLRField = false;
+    public bool OnLRField { set { onLRField = value; } }
     //プレイヤーのアニメーション(ポーズ)を管理
     private enum PlayerState
     {
@@ -185,7 +189,8 @@ public class PlayerManager : MonoBehaviour
             //右を向いているとき
             if (_rb.rotation == Quaternion.Euler(0f, 0f, 0f))
             {
-                if (_rb.velocity.x > 1e-4)
+                //右に動き始めたらダッシュへ移行(または動く床(プレイヤーの最速より速い)に乗っているとき)
+                if (_rb.velocity.x > 1e-4 || (onLRField && _rb.velocity.x < -maxSpeed - 0.5f))
                 {
                     playerState = PlayerState.DASH;
                     playerAnimator.SetInteger("PlayerState", (int)playerState);
@@ -201,7 +206,8 @@ public class PlayerManager : MonoBehaviour
             //左を向いているとき
             if (_rb.rotation == Quaternion.Euler(0f, 180f, 0f))
             {
-                if (_rb.velocity.x < -1e-4)
+                //左に動き始めたらダッシュへ移行(または動く床(プレイヤーの最速より速い)に乗っているとき)
+                if (_rb.velocity.x < -1e-4 || (onLRField && _rb.velocity.x > maxSpeed + 0.5f))
                 {
                     playerState = PlayerState.DASH;
                     playerAnimator.SetInteger("PlayerState", (int)playerState);
@@ -218,13 +224,13 @@ public class PlayerManager : MonoBehaviour
         //待機時は動き始めた方向に合わせて方向転換(キー両押し→片方離すなどに対処するため) 強攻撃時はプレイヤーを一度非アクティブにする影響で状態がリセットされるため方向を変えられないようにする
         if (playerState == PlayerState.IDLING && !isAttack2)
         {
-            if (_rb.velocity.x > 1e-4)
+            if (_rb.velocity.x > 1e-4 && Input.GetKey(KeyCode.D))
             {
                 _rb.rotation = Quaternion.Euler(0f, 0f, 0f);
                 playerState = PlayerState.DASH;
                 playerAnimator.SetInteger("PlayerState", (int)playerState);
             }
-            if (_rb.velocity.x < -1e-4)
+            if (_rb.velocity.x < -1e-4 && Input.GetKey(KeyCode.A))
             {
                 _rb.rotation = Quaternion.Euler(0f, 180f, 0f);
                 playerState = PlayerState.DASH;
@@ -567,13 +573,13 @@ public class PlayerManager : MonoBehaviour
                     {
                         _rb.AddForce(new Vector3(horizontalForce, 0, 0));
                     }
-                    //何らかのバグでダッシュ方向と体の向きが違っていた時用
-                    else if (playerState == PlayerState.DASH && _rb.rotation == Quaternion.Euler(0f, 180f, 0f))
+                    //何らかのバグでダッシュ方向と体の向きが違っていた時用(左右移動床除く)
+                    else if (playerState == PlayerState.DASH && _rb.rotation == Quaternion.Euler(0f, 180f, 0f) && !onLRField)
                     {
                         _rb.rotation = Quaternion.Euler(0f, 0f, 0f);
                     }
                     //何らかのバグで最高速度なのにダッシュ状態じゃなかった時用
-                    else if (playerState != PlayerState.DASH)
+                    else if (playerState != PlayerState.DASH && !onLRField)
                     {
                         playerState = PlayerState.DASH;
                         playerAnimator.SetInteger("PlayerState", (int)playerState);
@@ -597,13 +603,13 @@ public class PlayerManager : MonoBehaviour
                     {
                         _rb.AddForce(new Vector3(-horizontalForce, 0, 0));
                     }
-                    //何らかのバグでダッシュ方向と体の向きが違っていた時用
-                    else if (playerState == PlayerState.DASH && _rb.rotation == Quaternion.Euler(0f, 0f, 0f))
+                    //何らかのバグでダッシュ方向と体の向きが違っていた時用(左右移動床除く)
+                    else if (playerState == PlayerState.DASH && _rb.rotation == Quaternion.Euler(0f, 0f, 0f) && !onLRField)
                     {
                         _rb.rotation = Quaternion.Euler(0f, 180f, 0f);
                     }
                     //何らかのバグで最高速度なのにダッシュ状態じゃなかった時用
-                    else if (playerState != PlayerState.DASH)
+                    else if (playerState != PlayerState.DASH && !onLRField)
                     {
                         playerState = PlayerState.DASH;
                         playerAnimator.SetInteger("PlayerState", (int)playerState);
@@ -731,8 +737,8 @@ public class PlayerManager : MonoBehaviour
     //着地時のしゃがみ(着地時点で押していたキーの方向を向く)(着地判定は専用のColliderから受け取る)(浮き床を下から通り抜けた時反応しないように下降中以外は省く)
     public IEnumerator Squat()
     {
-        //落下中かつ強攻撃をしていないとき(体が回転していると色々とまずそう)
-        if (positionState == PositionState.DOWN && !isAttack2)
+        //落下中(または上昇床に乗っているとき)かつ強攻撃をしていないとき(体が回転していると色々とまずそう)
+        if ((positionState == PositionState.DOWN || onUpField) && !isAttack2)
         {
             //攻撃姿勢の場合はポーズを変えない
             if (!isAttacked)

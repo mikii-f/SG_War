@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -865,9 +865,8 @@ MonoBehaviour:
   normalAttackCollider: {fileID: 1550780978}
   normalAttackEffect: {fileID: 198699847}
   attack2EffectsFolder: {fileID: 330189021}
-  seSword: {fileID: 8300000, guid: aa72fc54a72afc54595338a069a43eef, type: 3}
-  seDamage: {fileID: 8300000, guid: 18f69093fcc47814ab08dc0b0bf3ca6e, type: 3}
-  seGround: {fileID: 8300000, guid: 1b01e35b49f8f2c45ac1609b411dc852, type: 3}
+  seSword: {fileID: 8300000, guid: aaa8678fa0ed6994289365a49eaf80f1, type: 3}
+  seDamage: {fileID: 8300000, guid: 1c2e1b38a4c88474e8685ecc27be134d, type: 3}
 --- !u!4 &420601204
 Transform:
   m_ObjectHideFlags: 0
@@ -2644,9 +2643,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seSource: {fileID: 1788501196}
-  seUIClick: {fileID: 8300000, guid: a2b0e26fae279f8418c0f949af727dee, type: 3}
-  seUIBack: {fileID: 8300000, guid: 314a41f973066624b99da80167d5ba09, type: 3}
-  seUIUnactive: {fileID: 8300000, guid: 7e78c795ce29e9c47842347ddbbd3c24, type: 3}
+  seUIClick: {fileID: 8300000, guid: bf573efbee2b1f745a61479acec40122, type: 3}
+  seUIBack: {fileID: 8300000, guid: e9828adcbd29e12459e1b1f9c136469e, type: 3}
+  seUIUnactive: {fileID: 8300000, guid: 01aebb48af7f61949aeb357e855962a9, type: 3}
   playerManager: {fileID: 420601203}
   medalCountText: {fileID: 551399356}
   timeText: {fileID: 1188747222}
@@ -2655,7 +2654,7 @@ MonoBehaviour:
   nextSwitchRect: {fileID: 1118530123}
   countDown: {fileID: 1533321651}
   enemy: {fileID: 1161982}
-  seCountDown: {fileID: 8300000, guid: 8d8a444b56207bc47bc445279052ec53, type: 3}
+  seCountDown: {fileID: 8300000, guid: 609d5ff1329f27e4d845427e5bf3fd56, type: 3}
 --- !u!4 &1285380434
 Transform:
   m_ObjectHideFlags: 0
@@ -2681,7 +2680,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: c9133c9c5adb34c48928dd591ce0278d, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d9d71afe5e319b24d97635b40b97e7fc, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.25
   m_Pitch: 1
