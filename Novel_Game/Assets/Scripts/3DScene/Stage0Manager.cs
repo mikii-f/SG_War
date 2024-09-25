@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class Stage0Manager : StageManagerOrigin
 {
@@ -11,10 +12,14 @@ public class Stage0Manager : StageManagerOrigin
     [SerializeField] private GameObject enemy;
     private bool go = false;
     [SerializeField] private AudioClip seCountDown;
+    [SerializeField] private GameObject tutorialVideo;
+    [SerializeField] private RectTransform videoSwitchRect;
+    [SerializeField] private VideoPlayer videoPlayer;
 
     private void Start()
     {
         seSource.volume = GameManager.instance.SeVolume;
+        tutorialVideo.SetActive(false);
     }
 
     private void Update()
@@ -28,6 +33,24 @@ public class Stage0Manager : StageManagerOrigin
             Next();
         }
     }
+
+    public void VideoSwitch()
+    {
+        if (!go && !tutorialVideo.activeSelf)
+        {
+            StartCoroutine(ButtonAnim(videoSwitchRect));
+            tutorialVideo.SetActive(true);
+            method.SetActive(false);
+            videoPlayer.time = 0;
+            videoPlayer.Play();
+            StartCoroutine(CloseVideo());
+        }
+    }
+    private IEnumerator CloseVideo()
+    {
+        yield return new WaitForSeconds((float)videoPlayer.clip.length);
+        tutorialVideo.SetActive(false);
+    }
     
     public void Next()
     {
@@ -35,6 +58,7 @@ public class Stage0Manager : StageManagerOrigin
         {
             go = true;
             method.SetActive(false);
+            tutorialVideo.SetActive(false);
             if (enemy != null)
             {
                 enemy.SetActive(false);

@@ -10,7 +10,6 @@ public class ExtraBattle1Manager : BattleSceneManagerOrigin
     [SerializeField] private Text tutorialText;
     [SerializeField] private AudioClip bgmEl;
 
-    // Start is called before the first frame update
     protected override void StartSet()
     {
         numberOfEnemy = new int[] { 1 };
@@ -30,11 +29,11 @@ public class ExtraBattle1Manager : BattleSceneManagerOrigin
         tutorialPanel.SetActive(true);
         tutorialText.text = "仮想空間なら今のエルも全力で戦うことができます。フィアと共に本気で特訓に臨みましょう。";
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
+        seSource.clip = seUIClick;
+        seSource.Play();
         yield return null;
         tutorialPanel.SetActive(false);
         explanation.SetActive(true);
-        seSource.clip = seUIClick;
-        seSource.Play();
         yield return new WaitUntil(() => !explanation.activeSelf);
         StartCoroutine(VolumeFadeOut(2, audioSource));
         battleStartAndFinishText.text = "3";

@@ -39,7 +39,6 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
     [SerializeField] private AudioClip seSpecialDamage;
     [SerializeField] private AudioClip seCymbal;
 
-    // Start is called before the first frame update
     void Start()
     {
         blackRect = blackObject.GetComponent<RectTransform>();
@@ -58,7 +57,6 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
     //ŠeƒV[ƒ“‚Å‚Ì‰Šú‰»ˆ—
     protected abstract void StartSet();
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && explanation.activeSelf)

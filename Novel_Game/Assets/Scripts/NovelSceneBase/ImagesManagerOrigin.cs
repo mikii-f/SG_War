@@ -17,6 +17,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     [SerializeField] private GameObject white;
     private Image whiteImage;
     [SerializeField] private GameObject textPanel;
+    private RectTransform textPanelRect;
     [SerializeField] private TextManagerOrigin textManager;
     [SerializeField] private GameObject character1;
     protected Image _characterImage;
@@ -30,7 +31,11 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     [SerializeField] protected AudioSource seSource;
     protected bool skip = false;
     public bool Skip { set { skip = value; } }
-    // Start is called before the first frame update
+    public void AudioVolume(bool TorF)
+    {
+        audioSource.mute = !TorF;
+    }
+
     void Start()
     {
         bORect = blackOver.GetComponent<RectTransform>();
@@ -40,6 +45,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         blackUnderImage = blackUnder.GetComponent<Image>();
         blackAllImage = blackAll.GetComponent<Image>();
         whiteImage = white.GetComponent<Image>();
+        textPanelRect = textPanel.GetComponent<RectTransform>();
         _characterImage = character1.GetComponent<Image>();
         _characterRect = character1.GetComponent<RectTransform>();
         _backgroundImage = background1.GetComponent<Image>();
@@ -432,6 +438,72 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     {
         _backgroundRect.anchoredPosition = new(480, 0);
     }
+    //テキストパネルの振動
+    public IEnumerator PanelVib()
+    {
+        if (!skip)
+        {
+            Vector2 temp = textPanelRect.anchoredPosition;
+            float defaultX = temp.x;
+            temp.x += 10;
+            textPanelRect.anchoredPosition = temp;
+            yield return new WaitForSeconds(0.1f);
+            temp.x -= 20;
+            textPanelRect.anchoredPosition = temp;
+            yield return new WaitForSeconds(0.1f);
+            temp.x += 20;
+            textPanelRect.anchoredPosition = temp;
+            yield return new WaitForSeconds(0.1f);
+            temp.x -= 20;
+            textPanelRect.anchoredPosition = temp;
+            yield return new WaitForSeconds(0.1f);
+            temp.x = defaultX;
+            textPanelRect.anchoredPosition = temp;
+        }
+    }
+    //キャラクターにズームして足下から映す(キャラ1.5倍&500～-800,背景2倍&540～-540)
+    public IEnumerator ZoomLook()
+    {
+        if (!skip)
+        {
+            _backgroundRect.localScale *= 2;
+            _backgroundRect.anchoredPosition = new(0, 540);
+            _characterRect.localScale *= 1.5f;
+            _characterRect.anchoredPosition = new(0, 500);
+            Vector2 temp1 = new(0, 540);
+            Vector2 temp2 = new(0, 500);
+            //3秒でカメラ移動
+            while (temp2.y > -800)
+            {
+                yield return null;
+                temp1.y = Mathf.Max(temp1.y - 1080 / 3 * Time.deltaTime, -540);
+                temp2.y -= 1300 / 3 * Time.deltaTime;
+                _backgroundRect.anchoredPosition = temp1;
+                _characterRect.anchoredPosition = temp2;
+            }
+            yield return new WaitForSeconds(1);
+            float temp3 = 2;
+            float temp4 = 1.5f;
+            //2秒で元のサイズに戻す
+            while (temp3 > 1)
+            {
+                temp1.y += 540 / 2 * Time.deltaTime;
+                temp2.y += 440 / 2 * Time.deltaTime;
+                temp3 = Mathf.Max(temp3 - 1f / 2 * Time.deltaTime, 1);
+                temp4 -= 0.5f / 2 * Time.deltaTime;
+                _backgroundRect.anchoredPosition = temp1;
+                _characterRect.anchoredPosition = temp2;
+                _backgroundRect.localScale = Vector3.one * temp3;
+                _characterRect.localScale = Vector3.one * temp4;
+                yield return null;
+            }
+            _backgroundRect.anchoredPosition = Vector2.zero;
+            _characterRect.anchoredPosition = new Vector2(0, -360);
+            _backgroundRect.localScale = Vector3.one;
+            _characterRect.localScale = Vector3.one;
+        }
+    }
+
     //話していないキャラクターの暗転用
     public void CharacterColor()
     {

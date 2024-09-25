@@ -7,7 +7,6 @@ public class ComplexEnemyManager : EnemyManagerOrigin
     [SerializeField] private Image gage1Image;
     [SerializeField] private Image gage2Image;
 
-    // Start is called before the first frame update
     protected override void StartSet()
     {
         id = 1;

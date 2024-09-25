@@ -12,7 +12,6 @@ public class Enemy1Manager : Enemy3DOrigin
     private float idlingTime = 0f;
     private bool isAttack = false;
 
-    // Start is called before the first frame update
     protected override void StartSet()
     {
         bullet = _transform.GetChild(0).gameObject;
@@ -21,7 +20,6 @@ public class Enemy1Manager : Enemy3DOrigin
         bullet.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         //プレイヤーが近づいてから動き出す

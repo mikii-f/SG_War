@@ -27,7 +27,6 @@ public class SystemManager : SystemManagerOrigin
     private bool isFunctionAvailable = false;
     private bool isGoNext = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         menu.SetActive(false);
@@ -44,7 +43,6 @@ public class SystemManager : SystemManagerOrigin
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         //キー入力によるシステム操作(テキスト側から禁止されていないとき)(UI操作は自然とできなくなっているはず)

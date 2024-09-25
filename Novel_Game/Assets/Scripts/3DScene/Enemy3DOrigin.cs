@@ -12,7 +12,6 @@ public abstract class Enemy3DOrigin : MonoBehaviour
     private AudioSource seSource;
     [SerializeField] private AudioClip seDamage;
 
-    // Start is called before the first frame update
     void Start()
     {
         _transform = GetComponent<Transform>();

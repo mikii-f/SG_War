@@ -15,7 +15,6 @@ public class Enemy2Manager : Enemy3DOrigin
         point2 = _transform.position + new Vector3(0, -2, 0);
     }
 
-    // Update is called once per frame
     void Update()
     {
         //プレイヤーが近づいてから動き出す

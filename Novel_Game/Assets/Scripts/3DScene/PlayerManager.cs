@@ -82,7 +82,6 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         playerAnimator = character.GetComponent<Animator>();
@@ -104,7 +103,6 @@ public class PlayerManager : MonoBehaviour
         seSource.volume = GameManager.instance.SeVolume;
     }
 
-    // Update is called once per frame
     void Update()
     {
         //ダメージを受けた直後、攻撃直後は操作できない

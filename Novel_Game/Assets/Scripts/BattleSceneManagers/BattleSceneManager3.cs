@@ -13,7 +13,6 @@ public class BattleSceneManager3 : BattleSceneManagerOrigin
     [SerializeField] private Text tutorialText;
     [SerializeField] private AudioClip bgmEl;
 
-    // Start is called before the first frame update
     protected override void StartSet()
     {
         numberOfEnemy = new int[] { 3, 1 };
@@ -42,36 +41,36 @@ public class BattleSceneManager3 : BattleSceneManagerOrigin
         tutorialPanel.SetActive(true);
         tutorialText.text = "セインXI-エルは強敵です。";
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
+        seSource.clip = seUIClick;
+        seSource.Play();
         yield return null;
         tutorialText.text = "他のエネミーとは異なり、通常攻撃とチャージ技以外のスキルも所持しています。";
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
         seSource.clip = seUIClick;
         seSource.Play();
-        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
         yield return null;
         tutorialText.text = "また、チャージが最大になると必殺技準備の体勢に入ることがあります。";
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
         seSource.clip = seUIClick;
         seSource.Play();
-        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
         yield return null;
         tutorialText.text = "この状態ではシールドが展開され、味方の通常攻撃はダメージを与えられなくなります。";
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
         seSource.clip = seUIClick;
         seSource.Play();
-        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
         yield return null;
         tutorialText.text = "味方の必殺技を発動できれば、シールドを割るとともに必殺技の発動を阻止できます。";
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
         seSource.clip = seUIClick;
         seSource.Play();
-        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
         yield return null;
         tutorialText.text = "必殺技は回避・ガード等が不可能なため、エルのチャージゲージには特に注意して臨みましょう。";
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
         seSource.clip = seUIClick;
         seSource.Play();
-        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
         yield return null;
         tutorialPanel.SetActive(false);
         explanation.SetActive(true);
-        seSource.clip = seUIClick;
-        seSource.Play();
         yield return new WaitUntil(() => !explanation.activeSelf);
         battleStartAndFinishText.text = "3";
         seSource.clip = seUIUnactive;

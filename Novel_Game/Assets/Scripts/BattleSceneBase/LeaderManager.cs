@@ -29,7 +29,6 @@ public class LeaderManager : SystemManagerOrigin
     private bool pause = true;
     public bool Pause { set { pause = value; } }
 
-    // Start is called before the first frame update
     void Start()
     {
         autoRect = autoObject.GetComponent<RectTransform>();
@@ -59,7 +58,6 @@ public class LeaderManager : SystemManagerOrigin
         seSource.volume = GameManager.instance.SeVolume;
     }
 
-    // Update is called once per frame
     void Update()
     {
         //各種アシスト及びオート機能のキー入力

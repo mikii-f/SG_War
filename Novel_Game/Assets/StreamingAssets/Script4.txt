@@ -157,7 +157,7 @@ CharacterChange,Command
 0
 統率個体
 その疑問に答えるためには、これを見せるのが手っ取り早いだろう。そら。
-CharacterChange,el_enemy,AnimAndGoNext,2.0,TextPanelOff,VolumeFadeOut,2.0
+CharacterChange,el_enemy,AnimAndGoNext,7.0,TextPanelOff,VolumeFadeOut,2.0,ZoomLook
 
 
 CharacterChange,vier_battle4,TextPanelOn,BGMChange,Surprise,VolumeFadeIn,0
