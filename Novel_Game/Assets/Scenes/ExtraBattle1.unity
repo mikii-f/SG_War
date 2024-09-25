@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -532,7 +532,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.78431374}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1028,9 +1028,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seSource: {fileID: 1148033574}
-  seUIClick: {fileID: 8300000, guid: a2b0e26fae279f8418c0f949af727dee, type: 3}
-  seUIBack: {fileID: 8300000, guid: 314a41f973066624b99da80167d5ba09, type: 3}
-  seUIUnactive: {fileID: 8300000, guid: 7e78c795ce29e9c47842347ddbbd3c24, type: 3}
+  seUIClick: {fileID: 8300000, guid: bf573efbee2b1f745a61479acec40122, type: 3}
+  seUIBack: {fileID: 8300000, guid: e9828adcbd29e12459e1b1f9c136469e, type: 3}
+  seUIUnactive: {fileID: 8300000, guid: 01aebb48af7f61949aeb357e855962a9, type: 3}
   sainManager: {fileID: 633073892}
   leaderManager: {fileID: 1793957472}
   battleSystemManager: {fileID: 1074165140}
@@ -1041,18 +1041,18 @@ MonoBehaviour:
   enemyNumberText: {fileID: 131669827}
   waveNumberText: {fileID: 1712630657}
   specialAttackPanel: {fileID: 186831119}
-  seCountDown: {fileID: 8300000, guid: 8d8a444b56207bc47bc445279052ec53, type: 3}
-  seWhistle: {fileID: 8300000, guid: ead5dd54b47c6e140b22fd888a4199bb, type: 3}
-  seSword: {fileID: 8300000, guid: aa72fc54a72afc54595338a069a43eef, type: 3}
-  seWind: {fileID: 8300000, guid: 43e74442e2413f44f8f072b841ebea8a, type: 3}
-  seSpecialOn: {fileID: 8300000, guid: 8d91078fa71d9f040bca24fc137309ba, type: 3}
-  seSpecialFinish: {fileID: 8300000, guid: fa32ba5f00d91094f90e08034813bbc5, type: 3}
-  seSpecialDamage: {fileID: 8300000, guid: 6c115dc0b21521249bae138088e704e9, type: 3}
-  seCymbal: {fileID: 8300000, guid: 1c7a70bbcce1c2d469430048f302ca2a, type: 3}
+  seCountDown: {fileID: 8300000, guid: 609d5ff1329f27e4d845427e5bf3fd56, type: 3}
+  seWhistle: {fileID: 8300000, guid: fc53df93a1f07454788fa24af54c52d7, type: 3}
+  seSword: {fileID: 8300000, guid: aaa8678fa0ed6994289365a49eaf80f1, type: 3}
+  seWind: {fileID: 8300000, guid: 00ad01c6084067f418e9642e0e8796de, type: 3}
+  seSpecialOn: {fileID: 8300000, guid: a86377be273dde743b150699da566beb, type: 3}
+  seSpecialFinish: {fileID: 8300000, guid: d0b482d843cdbb241b6b6cedceee5691, type: 3}
+  seSpecialDamage: {fileID: 8300000, guid: a75bf392a0de19a46947740505b6fb55, type: 3}
+  seCymbal: {fileID: 8300000, guid: a161946fc795e9746958778465106ff6, type: 3}
   elManager: {fileID: 351148633}
   tutorialPanel: {fileID: 347090479}
   tutorialText: {fileID: 1351115602}
-  bgmEl: {fileID: 8300000, guid: 24f7dd84899984b4ba92814eff49566f, type: 3}
+  bgmEl: {fileID: 8300000, guid: 950cc268ede365e4987d9f24a358fe3a, type: 3}
 --- !u!82 &143891197
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1063,7 +1063,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: c9133c9c5adb34c48928dd591ce0278d, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d9d71afe5e319b24d97635b40b97e7fc, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.25
   m_Pitch: 1
@@ -2860,9 +2860,9 @@ MonoBehaviour:
   attack: 250
   damageText: {fileID: 1181385479}
   intervalText: {fileID: 705856565}
-  seDamage: {fileID: 8300000, guid: 18f69093fcc47814ab08dc0b0bf3ca6e, type: 3}
-  sePanel: {fileID: 8300000, guid: f2dcc765bb801f84a9b667c48931ae98, type: 3}
-  seGuard: {fileID: 8300000, guid: 36723b0b45bf7434faf6b00dbcb1bb4d, type: 3}
+  seDamage: {fileID: 8300000, guid: 1c2e1b38a4c88474e8685ecc27be134d, type: 3}
+  sePanel: {fileID: 8300000, guid: 16cf412ccc9bf754eb5f48b116b7ecf1, type: 3}
+  seGuard: {fileID: 8300000, guid: f9a7216a14a194a42afd268a0986ff51, type: 3}
   gage1Image: {fileID: 583738291}
   gage2Image: {fileID: 323809742}
   gage3Image: {fileID: 816750235}
@@ -2876,8 +2876,8 @@ MonoBehaviour:
   buff: {fileID: 608292255}
   specialAttackNameSprite: {fileID: 21300000, guid: cdaf3e4146844ab42af377021314370c, type: 3}
   specialAttackAnimation: {fileID: 492448684}
-  seRond: {fileID: 8300000, guid: 61321daef8f7445429957f7ca66fa530, type: 3}
-  seSpecialFinish: {fileID: 8300000, guid: fa32ba5f00d91094f90e08034813bbc5, type: 3}
+  seRond: {fileID: 8300000, guid: 3e072325649d17e48b1cba195883c193, type: 3}
+  seSpecialFinish: {fileID: 8300000, guid: d0b482d843cdbb241b6b6cedceee5691, type: 3}
 --- !u!82 &351148634
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5046,9 +5046,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seSource: {fileID: 0}
-  seUIClick: {fileID: 8300000, guid: a2b0e26fae279f8418c0f949af727dee, type: 3}
-  seUIBack: {fileID: 8300000, guid: 314a41f973066624b99da80167d5ba09, type: 3}
-  seUIUnactive: {fileID: 8300000, guid: 7e78c795ce29e9c47842347ddbbd3c24, type: 3}
+  seUIClick: {fileID: 8300000, guid: bf573efbee2b1f745a61479acec40122, type: 3}
+  seUIBack: {fileID: 8300000, guid: e9828adcbd29e12459e1b1f9c136469e, type: 3}
+  seUIUnactive: {fileID: 8300000, guid: 01aebb48af7f61949aeb357e855962a9, type: 3}
   bSManager: {fileID: 143891196}
   myRect: {fileID: 2116288996}
   HPText: {fileID: 1785191331}
@@ -5077,14 +5077,13 @@ MonoBehaviour:
   commentPanel: {fileID: 1252191308}
   comment: {fileID: 1925860692}
   specialAttackNameSprite: {fileID: 21300000, guid: 91b7dc8bcaaa652459605e73b65f0dcf, type: 3}
-  seDamage: {fileID: 8300000, guid: 18f69093fcc47814ab08dc0b0bf3ca6e, type: 3}
-  seSpecialDamage: {fileID: 8300000, guid: 6c115dc0b21521249bae138088e704e9, type: 3}
-  seGuard: {fileID: 8300000, guid: 36723b0b45bf7434faf6b00dbcb1bb4d, type: 3}
-  sePanel: {fileID: 8300000, guid: f2dcc765bb801f84a9b667c48931ae98, type: 3}
-  seBuff: {fileID: 8300000, guid: e626fb38786260848a27e4d60f3b68b1, type: 3}
-  seHeal: {fileID: 8300000, guid: fa0c400e9adc86541b95268fe4254e02, type: 3}
-  seSpecialFinish: {fileID: 8300000, guid: fa32ba5f00d91094f90e08034813bbc5, type: 3}
-  seAvoid: {fileID: 8300000, guid: ee55d51a8a1c6164cb139152688ce646, type: 3}
+  seDamage: {fileID: 8300000, guid: 1c2e1b38a4c88474e8685ecc27be134d, type: 3}
+  seSpecialDamage: {fileID: 8300000, guid: a75bf392a0de19a46947740505b6fb55, type: 3}
+  seGuard: {fileID: 8300000, guid: f9a7216a14a194a42afd268a0986ff51, type: 3}
+  seBuff: {fileID: 8300000, guid: 3490a39478a45ac4f86f509357f71a24, type: 3}
+  seHeal: {fileID: 8300000, guid: 9b2c6e4fd09449d478448f2fa7037282, type: 3}
+  seSpecialFinish: {fileID: 8300000, guid: d0b482d843cdbb241b6b6cedceee5691, type: 3}
+  seAvoid: {fileID: 8300000, guid: bfca862b688e2be46803f1f7a0017557, type: 3}
 --- !u!4 &633073893
 Transform:
   m_ObjectHideFlags: 0
@@ -8112,9 +8111,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seSource: {fileID: 0}
-  seUIClick: {fileID: 8300000, guid: a2b0e26fae279f8418c0f949af727dee, type: 3}
-  seUIBack: {fileID: 8300000, guid: 314a41f973066624b99da80167d5ba09, type: 3}
-  seUIUnactive: {fileID: 8300000, guid: 7e78c795ce29e9c47842347ddbbd3c24, type: 3}
+  seUIClick: {fileID: 8300000, guid: bf573efbee2b1f745a61479acec40122, type: 3}
+  seUIBack: {fileID: 8300000, guid: e9828adcbd29e12459e1b1f9c136469e, type: 3}
+  seUIUnactive: {fileID: 8300000, guid: 01aebb48af7f61949aeb357e855962a9, type: 3}
   bSManager: {fileID: 143891196}
   menu: {fileID: 1642888406}
   functions: {fileID: 632953796}
@@ -12418,9 +12417,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seSource: {fileID: 0}
-  seUIClick: {fileID: 8300000, guid: a2b0e26fae279f8418c0f949af727dee, type: 3}
-  seUIBack: {fileID: 8300000, guid: 314a41f973066624b99da80167d5ba09, type: 3}
-  seUIUnactive: {fileID: 8300000, guid: 7e78c795ce29e9c47842347ddbbd3c24, type: 3}
+  seUIClick: {fileID: 8300000, guid: bf573efbee2b1f745a61479acec40122, type: 3}
+  seUIBack: {fileID: 8300000, guid: e9828adcbd29e12459e1b1f9c136469e, type: 3}
+  seUIUnactive: {fileID: 8300000, guid: 01aebb48af7f61949aeb357e855962a9, type: 3}
   sainManager: {fileID: 633073892}
   autoObject: {fileID: 724525434}
   HPRect: {fileID: 2025283758}

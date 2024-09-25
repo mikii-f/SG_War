@@ -40,7 +40,7 @@ CharacterColor
 0
 
 だから────────！
-Effect,BloodEffect,AnimationWaitSet,2.0,VolumeFadeOut,0
+Effect,BloodEffect,AnimationWaitSet,2.0,VolumeFadeOut,0,PanelVib
 剣羽和人
 がっ──────────！
 0
@@ -177,7 +177,7 @@ CharacterChange,el_battle2
 わたしも。本格的な戦闘はもうできないかもしれないけど……和人を守ることぐらいはできると思うから。
 0
 剣羽和人
-ああ。でも、命を投げ出すようなことはもうやめてくれ。俺のために誰かが死ぬところをみるなんてまっぴらごめんだ。
+ああ。でも、命を投げ出すようなことはもうやめてくれ。俺のために誰かが死ぬところを見るなんてまっぴらごめんだ。
 CharacterChange,el_battle4,VolumeFadeOut,3.0
 エル
 …………うん。

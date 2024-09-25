@@ -143,6 +143,7 @@ public class ImagesManager : ImagesManagerOrigin
     public override void ChangeScene()
     {
         GameManager.instance.LineNumber = 0;
+        GameManager.instance.Progress = "2Í";
         SceneManager.LoadScene("MainScene2");
     }
 }

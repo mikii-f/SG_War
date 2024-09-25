@@ -42,6 +42,7 @@ public abstract class TextManagerOrigin : MonoBehaviour
         {
             skip = true;
             imagesManager.Skip = true;
+            imagesManager.AudioVolume(false);
             for (int i = 0; i < GameManager.instance.LineNumber - 1; i++)
             {
                 GoNextLine();
@@ -50,11 +51,11 @@ public abstract class TextManagerOrigin : MonoBehaviour
             skip = false;
             isAnimation = false;    //関数を使わずにこちらからアニメーションオンにすることがあるため(改善検討)
             imagesManager.Skip = false;
+            imagesManager.AudioVolume(true);
         }
         GoNextLine();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!skip)
@@ -217,6 +218,12 @@ public abstract class TextManagerOrigin : MonoBehaviour
                         imagesManager.SlideStop();
                     }                    
                     break;
+                case "PanelVib":
+                    StartCoroutine(imagesManager.PanelVib());
+                    break;
+                case "ZoomLook":
+                    StartCoroutine(imagesManager.ZoomLook());
+                    break;
                 case "CharacterColor":
                     imagesManager.CharacterColor();
                     break;
@@ -345,6 +352,7 @@ public abstract class TextManagerOrigin : MonoBehaviour
     //シーンスキップ
     public IEnumerator SceneSkip()
     {
+        imagesManager.AudioVolume(false);
         yield return new WaitForSeconds(0.15f);
         skip = true;
         imagesManager.Skip = true;

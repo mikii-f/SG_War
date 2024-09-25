@@ -9,7 +9,7 @@ public class BattleSceneManager1 : BattleSceneManagerOrigin
     [SerializeField] private GameObject tutorialPanel;
     [SerializeField] private Text tutorialText;
     [SerializeField] private AudioClip bgmBattle;
-    // Start is called before the first frame update
+
     protected override void StartSet()
     {
         numberOfEnemy = new int[]{1};
@@ -28,11 +28,11 @@ public class BattleSceneManager1 : BattleSceneManagerOrigin
         tutorialPanel.SetActive(true);
         tutorialText.text = "長期間戦闘行動を行っていなかったため、あなた方の能力は低下しているようです……。";
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
+        seSource.clip = seUIClick;
+        seSource.Play();
         yield return null;
         tutorialPanel.SetActive(false);
         explanation.SetActive(true);
-        seSource.clip = seUIClick;
-        seSource.Play();
         yield return new WaitUntil(() => !explanation.activeSelf);
         StartCoroutine(VolumeFadeOut(2, audioSource));
         battleStartAndFinishText.text = "3";

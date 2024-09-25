@@ -64,7 +64,7 @@ public class SainManager : SystemManagerOrigin
     private int avoidFactor = 0;
     private float buffTimer = 0;
     private bool pause = true;
-    public bool Pause { set { pause = value; } }
+    public bool Pause { set { pause = value; } get { return pause; } }
     private bool auto = false;
     public bool Auto { set { auto = value; } get { return auto; } }
     private Coroutine commentCoroutine;
@@ -72,7 +72,6 @@ public class SainManager : SystemManagerOrigin
     [SerializeField] AudioClip seDamage;
     [SerializeField] AudioClip seSpecialDamage;
     [SerializeField] AudioClip seGuard;
-    [SerializeField] AudioClip sePanel;
     [SerializeField] AudioClip seBuff;
     [SerializeField] AudioClip seHeal;
     [SerializeField] AudioClip seSpecialFinish;

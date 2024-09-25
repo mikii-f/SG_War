@@ -11,6 +11,8 @@ TagManager:
   - Foot
   - FloatingField
   - Medal
+  - UpField
+  - LRField
   layers:
   - Default
   - TransparentFX

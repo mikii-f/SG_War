@@ -63,6 +63,12 @@ EditorBuildSettings:
     path: Assets/Scenes/3DGameScene1.unity
     guid: 6683cd90eebfee44f95cda4a9ac89365
   - enabled: 1
+    path: Assets/Scenes/3DGameScene2.unity
+    guid: 29a64eea79079af4f8915de3c614fa5e
+  - enabled: 1
     path: Assets/Scenes/ExtraBattle1.unity
     guid: ede98903f7db8f5448668d23a0655e42
+  - enabled: 1
+    path: Assets/Scenes/ExtraBattle2.unity
+    guid: aff2dfc93612cb4479450476f7c1b142
   m_configObjects: {}

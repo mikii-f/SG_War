@@ -24,7 +24,7 @@ public class EndRoal : SystemManagerOrigin
         yield return new WaitForSeconds(6);
         nextTitle.SetActive(false);
         yield return new WaitForSeconds(2);
-        while (endroalRect.anchoredPosition.y < 2500)
+        while (endroalRect.anchoredPosition.y < 2470)
         {
             Vector2 temp = endroalRect.anchoredPosition;
             temp.y += 210 * Time.deltaTime;

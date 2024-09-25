@@ -46,7 +46,7 @@ SE,News
 CharacterReset,CharacterChange,vier4
 フィア
 ───と、和人！
-0
+PanelVib,AnimationWaitSet,1.0
 剣羽和人
 ん！？ゴホッゴホッ……！ど、どうした、フィア？
 CharacterChange,vier8

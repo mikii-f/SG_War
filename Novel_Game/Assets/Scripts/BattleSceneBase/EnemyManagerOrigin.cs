@@ -41,7 +41,6 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
     [SerializeField] private AudioClip sePanel;
     [SerializeField] private AudioClip seGuard;
 
-    // Start is called before the first frame update
     void Start()
     {
         myRect = myObject.GetComponent<RectTransform>();

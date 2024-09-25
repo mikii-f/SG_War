@@ -11,7 +11,6 @@ public class LowLevelEnemyManager : EnemyManagerOrigin
     private RectTransform attackRect;
     private Image attackImage;
 
-    // Start is called before the first frame update
     protected override void StartSet()
     {
         id = 0;

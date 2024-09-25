@@ -6,20 +6,20 @@ using System.Collections;
 
 public class Stage1Manager : StageManagerOrigin
 {
-    [SerializeField] Image black;
-    [SerializeField] TMP_Text goalText;
-    [SerializeField] GameObject transparentWall;
+    [SerializeField] private Image black;
+    [SerializeField] private TMP_Text goalText;
+    [SerializeField] private GameObject transparentWall;
     private MeshRenderer wallMeshRenderer;
-    [SerializeField] GameObject resultPanel;
-    [SerializeField] Text scoreText;
-    private int score = 0;
-    [SerializeField] Slider expSlider;
-    [SerializeField] GameObject messagePanel;
-    [SerializeField] Text messageText;
-    [SerializeField] GameObject function;
-    [SerializeField] Text functionText2;
-    [SerializeField] GameObject function2;
-    [SerializeField] Text functionMessageText;
+    [SerializeField] private GameObject resultPanel;
+    [SerializeField] protected Text scoreText;
+    protected int score = 0;
+    [SerializeField] private Slider expSlider;
+    [SerializeField] private GameObject messagePanel;
+    [SerializeField] private Text messageText;
+    [SerializeField] private GameObject function;
+    [SerializeField] private Text functionText2;
+    [SerializeField] private GameObject function2;
+    [SerializeField] private Text functionMessageText;
     private int functionNumber = 0;
     private AudioSource audioSource;
     [SerializeField] private AudioClip seCymbal;
@@ -47,77 +47,77 @@ public class Stage1Manager : StageManagerOrigin
         {
             time += Time.deltaTime;
             timeText.text = "Time: " + time.ToString("F2");
-        }
-        //メニュー表示非表示
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            if (!function.activeSelf)
+            //メニュー表示非表示
+            if (Input.GetKeyDown(KeyCode.M))
             {
-                function.SetActive(true);
-                seSource.clip = seUIClick;
-                seSource.Play();
+                if (!function.activeSelf)
+                {
+                    function.SetActive(true);
+                    seSource.clip = seUIClick;
+                    seSource.Play();
+                }
+                else if (!function2.activeSelf)
+                {
+                    function.SetActive(false);
+                    seSource.clip = seUIBack;
+                    seSource.Play();
+                }
             }
-            else if (!function2.activeSelf)
-            {
-                function.SetActive(false);
-                seSource.clip = seUIBack;
-                seSource.Play();
-            }
-        }
-        //各機能
-        if (Input.GetKeyDown(KeyCode.Alpha1) && function.activeSelf && !function2.activeSelf)
-        {
-            function2.SetActive(true);
-            functionMessageText.text = "再挑戦しますか？";
-            functionNumber = 1;
-            seSource.clip = seUIClick;
-            seSource.Play();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2) && function.activeSelf && !function2.activeSelf)
-        {
-            if (GameManager.instance.EXP != 0)
+            //各機能
+            if (Input.GetKeyDown(KeyCode.Alpha1) && function.activeSelf && !function2.activeSelf)
             {
                 function2.SetActive(true);
-                functionMessageText.text = "ステージセレクトに戻りますか？";
-                functionNumber = 2;
+                functionMessageText.text = "再挑戦しますか？";
+                functionNumber = 1;
                 seSource.clip = seUIClick;
                 seSource.Play();
             }
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha0) && function.activeSelf && !function2.activeSelf)
-        {
-            function2.SetActive(true);
-            functionMessageText.text = "(ゲームを評価してくださる方向けの機能です)\nスキップしてスコア3000を獲得しますか？";
-            functionNumber = 0;
-            seSource.clip = seUIClick;
-            seSource.Play();
-        }
-        //YesNo選択
-        if (function2.activeSelf)
-        {
-            if (Input.GetKeyDown(KeyCode.Y))
+            else if (Input.GetKeyDown(KeyCode.Alpha2) && function.activeSelf && !function2.activeSelf)
             {
-                seSource.clip = seUIClick;
-                seSource.Play();
-                switch (functionNumber)
+                if (GameManager.instance.EXP != 0)
                 {
-                    case 1:
-                        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                        break;
-                    case 2:
-                        SceneManager.LoadScene("3DGameSelectScene");
-                        break;
-                    case 0:
-                        Skip();
-                        break;
+                    function2.SetActive(true);
+                    functionMessageText.text = "ステージセレクトに戻りますか？";
+                    functionNumber = 2;
+                    seSource.clip = seUIClick;
+                    seSource.Play();
                 }
-
             }
-            else if (Input.GetKeyDown(KeyCode.N))
+            else if (Input.GetKeyDown(KeyCode.Alpha0) && function.activeSelf && !function2.activeSelf)
             {
-                function2.SetActive(false);
-                seSource.clip = seUIBack;
+                function2.SetActive(true);
+                functionMessageText.text = "(ゲームを評価してくださる方向けの機能です)\nスキップしてスコア3000を獲得しますか？";
+                functionNumber = 0;
+                seSource.clip = seUIClick;
                 seSource.Play();
+            }
+            //YesNo選択
+            if (function2.activeSelf)
+            {
+                if (Input.GetKeyDown(KeyCode.Y))
+                {
+                    seSource.clip = seUIClick;
+                    seSource.Play();
+                    switch (functionNumber)
+                    {
+                        case 1:
+                            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                            break;
+                        case 2:
+                            SceneManager.LoadScene("3DGameSelectScene");
+                            break;
+                        case 0:
+                            Skip();
+                            break;
+                    }
+
+                }
+                else if (Input.GetKeyDown(KeyCode.N))
+                {
+                    function2.SetActive(false);
+                    seSource.clip = seUIBack;
+                    seSource.Play();
+                }
             }
         }
     }
@@ -134,14 +134,20 @@ public class Stage1Manager : StageManagerOrigin
     {
         playerManager.Clear = true;
         clear = true;
+        function.SetActive(false);
+        function2.SetActive(false);
         goalText.text = "GOAL";
         seSource.clip = seCymbal;
         seSource.Play();
-        score = Mathf.Max((int)(2000 * medalCount / 100 * 60 / time), 1);
         yield return new WaitForSeconds(4);
         goalText.text = "";
-        scoreText.text = "メダル獲得：" + medalCount.ToString() + "枚\n\nタイム：" + time.ToString("F2") + "s\n\n\nスコア：" + score.ToString() + "\n累計EXP：" + (GameManager.instance.EXP + score).ToString();
+        ScoreText();
         StartCoroutine(GoNext());
+    }
+    protected virtual void ScoreText()
+    {
+        score = Mathf.Max((int)(2000 * medalCount / 100 * 60 / time), 1);
+        scoreText.text = "メダル獲得：" + medalCount.ToString() + "枚\n\nタイム：" + time.ToString("F2") + "s\n\n\nスコア：" + score.ToString() + "\n累計EXP：" + (GameManager.instance.EXP + score).ToString();
     }
     private void Skip()
     {

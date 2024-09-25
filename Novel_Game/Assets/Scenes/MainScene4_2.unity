@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3543,7 +3543,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: aaa8678fa0ed6994289365a49eaf80f1, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.25
   m_Pitch: 1
@@ -3985,9 +3985,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seSource: {fileID: 0}
-  seUIClick: {fileID: 8300000, guid: a2b0e26fae279f8418c0f949af727dee, type: 3}
-  seUIBack: {fileID: 8300000, guid: 314a41f973066624b99da80167d5ba09, type: 3}
-  seUIUnactive: {fileID: 8300000, guid: 7e78c795ce29e9c47842347ddbbd3c24, type: 3}
+  seUIClick: {fileID: 8300000, guid: bf573efbee2b1f745a61479acec40122, type: 3}
+  seUIBack: {fileID: 8300000, guid: e9828adcbd29e12459e1b1f9c136469e, type: 3}
+  seUIUnactive: {fileID: 8300000, guid: 01aebb48af7f61949aeb357e855962a9, type: 3}
   textManager: {fileID: 368343361}
   menu: {fileID: 1112924680}
   functions: {fileID: 252801153}
@@ -4844,7 +4844,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: aa72fc54a72afc54595338a069a43eef, type: 3}
+  m_audioClip: {fileID: 8300000, guid: aaa8678fa0ed6994289365a49eaf80f1, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.25
   m_Pitch: 1
@@ -5568,18 +5568,18 @@ MonoBehaviour:
   bloodEffect: {fileID: 21300000, guid: b28bed6723b60294bb7af9ed8a113826, type: 3}
   jumpEffect: {fileID: 21300000, guid: 4045d4303f182aa49a67e887e630fdc3, type: 3}
   healEffect: {fileID: 21300000, guid: 41ffdacbd1f857a4e9d29112a9b9246b, type: 3}
-  bgmCommand: {fileID: 8300000, guid: be912ae5d2def1c4ebc8eb692327fbdc, type: 3}
-  bgmMemory: {fileID: 8300000, guid: 02834de5300eee04c95a2596c38a4f35, type: 3}
-  bgmPiano: {fileID: 8300000, guid: e350c453e8ead0f438482b9cf7e211c9, type: 3}
-  bgmFeel: {fileID: 8300000, guid: 25f549d8b5ed7094e96194de7e754650, type: 3}
-  seBright: {fileID: 8300000, guid: 0f1e628fc77860a479b4c3f4b3da8e2f, type: 3}
-  seChange: {fileID: 8300000, guid: e9869169896b701499798b67159d3a56, type: 3}
-  seFoot: {fileID: 8300000, guid: 7fccedb2217e81540ae0605622cf2e6f, type: 3}
-  seFoot2: {fileID: 8300000, guid: b21de088e7e273c4f8724078c9ba1bed, type: 3}
-  seSword: {fileID: 8300000, guid: aa72fc54a72afc54595338a069a43eef, type: 3}
-  seSliding: {fileID: 8300000, guid: 8ed880430c8b03440844653e3b8e9a46, type: 3}
-  seBlood: {fileID: 8300000, guid: 07ffd14c602c5d54b911483bcc8044d3, type: 3}
-  seHeal: {fileID: 8300000, guid: fa0c400e9adc86541b95268fe4254e02, type: 3}
+  bgmCommand: {fileID: 8300000, guid: 478f3ac680bee3e4b8af0fe854041b87, type: 3}
+  bgmMemory: {fileID: 8300000, guid: 2742e044bed987644b314fd44948e33a, type: 3}
+  bgmPiano: {fileID: 8300000, guid: bc4f8704ea443a44a84ba723c5bff08e, type: 3}
+  bgmFeel: {fileID: 8300000, guid: f54d6ed4becae2947959cf98f1268b20, type: 3}
+  seBright: {fileID: 8300000, guid: 39e2d3c6e5876fc4c8ba552e9a124c9e, type: 3}
+  seChange: {fileID: 8300000, guid: efc8839ae08b04f458ca31b61064f36d, type: 3}
+  seFoot: {fileID: 8300000, guid: 8670d6c91c301364c98fc1c20eb98e35, type: 3}
+  seFoot2: {fileID: 8300000, guid: cca65a4b1728bc149b162f76a9dd6f6e, type: 3}
+  seSword: {fileID: 8300000, guid: aaa8678fa0ed6994289365a49eaf80f1, type: 3}
+  seSliding: {fileID: 8300000, guid: 4e1d6a393ed2db644bacaeeea9972c79, type: 3}
+  seBlood: {fileID: 8300000, guid: 949d3c019d564de45915307ff7582b4f, type: 3}
+  seHeal: {fileID: 8300000, guid: 9b2c6e4fd09449d478448f2fa7037282, type: 3}
 --- !u!82 &1608533963
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5591,7 +5591,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.25
   m_Pitch: 1
   Loop: 1

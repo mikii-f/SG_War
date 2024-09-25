@@ -14,6 +14,7 @@ public class AfterManagr : SystemManagerOrigin
     [SerializeField] private GameObject bonus;
     [SerializeField] private GameObject battle;
     [SerializeField] private RectTransform battle1SwitchRect;
+    [SerializeField] private RectTransform battle2SwitchRect;
     [SerializeField] private RectTransform backSwitchRect;
     [SerializeField] private GameObject systemMessageObject;
     [SerializeField] private Text systemMessage;
@@ -23,7 +24,6 @@ public class AfterManagr : SystemManagerOrigin
     private int messageNumber;
     private bool isGoNext = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         systemMessageObject.SetActive(false);
@@ -35,7 +35,6 @@ public class AfterManagr : SystemManagerOrigin
         StartCoroutine(FadeIn(0.5f, black));
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (systemMessageObject.activeSelf)
@@ -155,6 +154,25 @@ public class AfterManagr : SystemManagerOrigin
         yield return new WaitForSeconds(0.1f);
         yield return StartCoroutine(FadeOut(0.5f, black));
         SceneManager.LoadScene("ExtraBattle1");
+    }
+    //バトル2へ
+    public void Battle2Switch()
+    {
+        if (!isGoNext)
+        {
+            isGoNext = true;
+            StartCoroutine(ButtonAnim(battle2SwitchRect));
+            StartCoroutine(GoToBattle2());
+            seSource.clip = seUIClick;
+            seSource.Play();
+        }
+    }
+    private IEnumerator GoToBattle2()
+    {
+        black.color = new(0, 0, 0, 0);
+        yield return new WaitForSeconds(0.1f);
+        yield return StartCoroutine(FadeOut(0.5f, black));
+        SceneManager.LoadScene("ExtraBattle2");
     }
     //バトル一覧を閉じる
     public void BattleClose()

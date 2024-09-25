@@ -315,6 +315,7 @@ public class ImagesManager4_2 : ImagesManagerOrigin
     public override void ChangeScene()
     {
         GameManager.instance.LineNumber = 0;
+        GameManager.instance.Progress = "ƒNƒŠƒA";
         SceneManager.LoadScene("EndRoal");
     }
 }

@@ -25,7 +25,6 @@ public class BattleSystemManager : SystemManagerOrigin
     private bool isFunctionAvailable = true;
     private bool isSelected = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         functions.SetActive(false);
@@ -40,7 +39,6 @@ public class BattleSystemManager : SystemManagerOrigin
         growMask2.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (isFunctionAvailable)
