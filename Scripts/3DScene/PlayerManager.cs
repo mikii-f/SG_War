@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-//いずれは全体的な見直しが必要(非常にデバッグがしにくい)
+//できる限り見やすくしたい(コードを分けるのも手か？)
 
 public class PlayerManager : MonoBehaviour
 {
@@ -11,7 +11,7 @@ public class PlayerManager : MonoBehaviour
     private Animator playerAnimator;
     private Rigidbody _rb;
     private Transform _transform;
-    private const float deathLine = -10;
+    private const float deathLine = -15;
     private const int gravity = -40;
     private const int jumpSpeed = 15;
     private const int continueUpForce = 10;
@@ -41,6 +41,13 @@ public class PlayerManager : MonoBehaviour
     private const float attack2reception = 0.12f;
     private bool clear = false;
     public bool Clear { set { clear = value; } }
+    private AudioSource seSource;
+    [SerializeField] private AudioClip seSword;
+    [SerializeField] private AudioClip seDamage;
+    private bool onUpField = false;
+    public bool OnUpField { set { onUpField = value; } }
+    private bool onLRField = false;
+    public bool OnLRField { set { onLRField = value; } }
     //プレイヤーのアニメーション(ポーズ)を管理
     private enum PlayerState
     {
@@ -75,7 +82,6 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         playerAnimator = character.GetComponent<Animator>();
@@ -93,12 +99,13 @@ public class PlayerManager : MonoBehaviour
             attack2Effects[i] = attack2EffectsFolder.transform.GetChild(i).gameObject;
             attack2Effects[i].SetActive(false);
         }
+        seSource = GetComponent<AudioSource>();
+        seSource.volume = GameManager.instance.SeVolume;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //ダメージを受けた直後、攻撃直後、クリア後は操作できない
+        //ダメージを受けた直後、攻撃直後は操作できない
         if (!isDamaged && !isAttacked)
         {
             //ジャンプ
@@ -147,7 +154,7 @@ public class PlayerManager : MonoBehaviour
         {
             isJumped = false;
         }
-        //速度マイナス検知(しゃがんでいるとき(若干浮いている可能性がある))
+        //速度マイナス検知(かつ、しゃがんでいないとき(しゃがみ姿勢でも若干浮いている可能性がある))
         if (_rb.velocity.y < -1e-4 && positionState != PositionState.DOWN && playerState != PlayerState.SQUAT)
         {
             positionState = PositionState.DOWN;
@@ -180,7 +187,8 @@ public class PlayerManager : MonoBehaviour
             //右を向いているとき
             if (_rb.rotation == Quaternion.Euler(0f, 0f, 0f))
             {
-                if (_rb.velocity.x > 1e-4)
+                //右に動き始めたらダッシュへ移行(または動く床(プレイヤーの最速より速い)に乗っているとき)
+                if (_rb.velocity.x > 1e-4 || (onLRField && _rb.velocity.x < -maxSpeed - 0.5f))
                 {
                     playerState = PlayerState.DASH;
                     playerAnimator.SetInteger("PlayerState", (int)playerState);
@@ -196,7 +204,8 @@ public class PlayerManager : MonoBehaviour
             //左を向いているとき
             if (_rb.rotation == Quaternion.Euler(0f, 180f, 0f))
             {
-                if (_rb.velocity.x < -1e-4)
+                //左に動き始めたらダッシュへ移行(または動く床(プレイヤーの最速より速い)に乗っているとき)
+                if (_rb.velocity.x < -1e-4 || (onLRField && _rb.velocity.x > maxSpeed + 0.5f))
                 {
                     playerState = PlayerState.DASH;
                     playerAnimator.SetInteger("PlayerState", (int)playerState);
@@ -210,16 +219,16 @@ public class PlayerManager : MonoBehaviour
                 }
             }
         }
-        //待機時は動き始めた方向に合わせて方向転換(キー両押し→片方離すなどに対処するため) 強攻撃時は状態がリセットされるため方向を変えられないようにする
+        //待機時は動き始めた方向に合わせて方向転換(キー両押し→片方離すなどに対処するため) 強攻撃時はプレイヤーを一度非アクティブにする影響で状態がリセットされるため方向を変えられないようにする
         if (playerState == PlayerState.IDLING && !isAttack2)
         {
-            if (_rb.velocity.x > 1e-4)
+            if (_rb.velocity.x > 1e-4 && Input.GetKey(KeyCode.D))
             {
                 _rb.rotation = Quaternion.Euler(0f, 0f, 0f);
                 playerState = PlayerState.DASH;
                 playerAnimator.SetInteger("PlayerState", (int)playerState);
             }
-            if (_rb.velocity.x < -1e-4)
+            if (_rb.velocity.x < -1e-4 && Input.GetKey(KeyCode.A))
             {
                 _rb.rotation = Quaternion.Euler(0f, 180f, 0f);
                 playerState = PlayerState.DASH;
@@ -241,12 +250,12 @@ public class PlayerManager : MonoBehaviour
             }
         }
         //通常攻撃
-        if (Input.GetMouseButtonDown(0) && attackPossible && !clear)
+        if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.LeftArrow)) && attackPossible && !clear)
         {
             StartCoroutine(NormalAttack());
         }
         //強攻撃
-        if (Input.GetMouseButtonDown(1) && attackPossible && attack2Count == 0)
+        if ((Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.RightArrow)) && attackPossible && attack2Count == 0)
         {
             StartCoroutine(StrongAttack());
         }
@@ -260,10 +269,12 @@ public class PlayerManager : MonoBehaviour
     //通常攻撃(終わる瞬間に着地したときに着地判定による状態変化と競合する……？)(地上でジャンプ姿勢だった時に待機へ強制的に戻す処理を追加)
     private IEnumerator NormalAttack()
     {
-        //ポーズの変更、1フレームの間当たり判定を出す、攻撃中状態・攻撃可能状態の管理
+        //ポーズの変更、0.05秒の間当たり判定を出す、攻撃中状態・攻撃可能状態の管理、SE
         playerState = PlayerState.ATTACK1;
         playerAnimator.SetInteger("PlayerState", (int)(playerState));
         normalAttackCollider.enabled = true;
+        seSource.clip = seSword;
+        seSource.Play();
         //エフェクトをその場に留める
         StartCoroutine(StopEffect(normalAttackEffect, attack1Interval));
         isAttacked = true;
@@ -355,7 +366,7 @@ public class PlayerManager : MonoBehaviour
                 yield return null;
                 timeCount += Time.deltaTime;
                 //8方向に移動できる(優先は右と上)
-                if (Input.GetMouseButtonDown(1))
+                if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.RightArrow))
                 {
                     //右上
                     if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D) && former != 3){
@@ -448,7 +459,7 @@ public class PlayerManager : MonoBehaviour
         Vector3 temp = _rb.rotation.eulerAngles;
         temp.z = 0;
         _rb.rotation = Quaternion.Euler(temp);
-        //回転によりめり込んだ場合に着地判定が出ないように
+        //回転によりめり込んだ場合に着地判定が出ないように(1フレームあればめり込みが解消される)
         yield return null;
         isAttack2 = false;
         isAttacked = false;
@@ -498,6 +509,8 @@ public class PlayerManager : MonoBehaviour
         attack2Stop = false;
         while (attackCount < attack2EffectsCount)
         {
+            seSource.clip = seSword;
+            seSource.Play();
             if (attack2Stop)
             {
                 _rb.velocity = Vector3.zero;
@@ -546,7 +559,7 @@ public class PlayerManager : MonoBehaviour
                 _rb.AddForce(new Vector3(0, gravity, 0));
             }
         }
-        //ダメージを受けた直後、攻撃直後、クリア後は操作できない
+        //ダメージを受けた直後、攻撃直後は操作できない
         if (!isDamaged && !isAttacked)
         {
             //右移動
@@ -558,13 +571,13 @@ public class PlayerManager : MonoBehaviour
                     {
                         _rb.AddForce(new Vector3(horizontalForce, 0, 0));
                     }
-                    //何らかのバグでダッシュ方向と体の向きが違っていた時用
-                    else if (playerState == PlayerState.DASH && _rb.rotation == Quaternion.Euler(0f, 180f, 0f))
+                    //何らかのバグでダッシュ方向と体の向きが違っていた時用(左右移動床除く)
+                    else if (playerState == PlayerState.DASH && _rb.rotation == Quaternion.Euler(0f, 180f, 0f) && !onLRField)
                     {
                         _rb.rotation = Quaternion.Euler(0f, 0f, 0f);
                     }
                     //何らかのバグで最高速度なのにダッシュ状態じゃなかった時用
-                    else if (playerState != PlayerState.DASH)
+                    else if (playerState != PlayerState.DASH && !onLRField)
                     {
                         playerState = PlayerState.DASH;
                         playerAnimator.SetInteger("PlayerState", (int)playerState);
@@ -588,13 +601,13 @@ public class PlayerManager : MonoBehaviour
                     {
                         _rb.AddForce(new Vector3(-horizontalForce, 0, 0));
                     }
-                    //何らかのバグでダッシュ方向と体の向きが違っていた時用
-                    else if (playerState == PlayerState.DASH && _rb.rotation == Quaternion.Euler(0f, 0f, 0f))
+                    //何らかのバグでダッシュ方向と体の向きが違っていた時用(左右移動床除く)
+                    else if (playerState == PlayerState.DASH && _rb.rotation == Quaternion.Euler(0f, 0f, 0f) && !onLRField)
                     {
                         _rb.rotation = Quaternion.Euler(0f, 180f, 0f);
                     }
                     //何らかのバグで最高速度なのにダッシュ状態じゃなかった時用
-                    else if (playerState != PlayerState.DASH)
+                    else if (playerState != PlayerState.DASH && !onLRField)
                     {
                         playerState = PlayerState.DASH;
                         playerAnimator.SetInteger("PlayerState", (int)playerState);
@@ -636,7 +649,7 @@ public class PlayerManager : MonoBehaviour
             }
         }
         //通常攻撃後は強く摩擦をかける
-        if (isAttacked)
+        if (isAttacked && !isAttack2)
         {
             if (positionState == PositionState.GROUND)
             {
@@ -661,7 +674,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    //ダメージ時(ダメージ後の無敵時間および攻撃中を除く)&コイン獲得
+    //ダメージ時(ダメージ後の無敵時間および攻撃中を除く)&メダル獲得
     private void OnTriggerEnter(Collider other)
     {
         if ((other.CompareTag("Enemy") || other.CompareTag("Bullet")) && !isInvincible && !isAttacked)
@@ -678,6 +691,8 @@ public class PlayerManager : MonoBehaviour
             Vector3 decreasedVelocity = new(0.2f * _rb.velocity.x, 0.2f * _rb.velocity.y, 0.2f * _rb.velocity.z);
             _rb.velocity = decreasedVelocity;
             StartCoroutine(Damage());
+            seSource.clip = seDamage;
+            seSource.Play();
         }
         if (other.CompareTag("Medal"))
         {
@@ -692,7 +707,7 @@ public class PlayerManager : MonoBehaviour
         character.SetActive(true);
         playerAnimator.SetInteger("PlayerState", (int)playerState);
         yield return new WaitForSeconds(0.2f);
-        isDamaged = false;
+        isDamaged = false;                  //ここで操作は可能に
         character.SetActive(false);
         for (int i = 0; i < 3; i++)
         {
@@ -709,7 +724,7 @@ public class PlayerManager : MonoBehaviour
         character.SetActive(true);
         playerAnimator.SetInteger("PlayerState", (int)playerState);
     }
-    //強攻撃時用の地形衝突判定
+    //強攻撃時用の地形衝突判定(機能が増えないならプロパティでもいい)
     public void FieldDitected()
     {
         if (isAttack2)
@@ -720,8 +735,8 @@ public class PlayerManager : MonoBehaviour
     //着地時のしゃがみ(着地時点で押していたキーの方向を向く)(着地判定は専用のColliderから受け取る)(浮き床を下から通り抜けた時反応しないように下降中以外は省く)
     public IEnumerator Squat()
     {
-        //落下中かつ強攻撃をしていないとき(体が回転していると色々とまずそう)
-        if (positionState == PositionState.DOWN && !isAttack2)
+        //落下中(または上昇床に乗っているとき)かつ強攻撃をしていないとき(体が回転していると色々とまずそう)
+        if ((positionState == PositionState.DOWN || onUpField) && !isAttack2)
         {
             //攻撃姿勢の場合はポーズを変えない
             if (!isAttacked)

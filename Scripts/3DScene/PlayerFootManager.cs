@@ -23,12 +23,31 @@ public class PlayerFootManager : MonoBehaviour
         {
             StartCoroutine(playerManager.Squat());
         }
+        if (other.gameObject.CompareTag("UpField"))
+        {
+            playerManager.OnUpField = true;
+        }
+        if (other.gameObject.CompareTag("LRField"))
+        {
+            playerManager.OnLRField = true;
+        }
     }
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("MainField") || other.gameObject.CompareTag("FloatingField"))
         {
             playerManager.SetGround();
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("UpField"))
+        {
+            playerManager.OnUpField = false;
+        }
+        if (other.gameObject.CompareTag("LRField"))
+        {
+            playerManager.OnLRField = false;
         }
     }
 }

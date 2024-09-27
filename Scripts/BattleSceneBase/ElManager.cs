@@ -26,7 +26,8 @@ public class ElManager : EnemyManagerOrigin
     private const int specialAttackInterval = 8;
     private int specialAttackCount = 3;             //スキル3・必殺技が連発されないように攻撃回数をカウント
     private bool specialAttackStandby = false;      //必殺技の溜め
-    
+    [SerializeField] private AudioClip seRond;
+    [SerializeField] private AudioClip seSpecialFinish;
 
     protected override void StartSet()
     {
@@ -200,7 +201,7 @@ public class ElManager : EnemyManagerOrigin
         StartCoroutine(AttackSubtitle("剣の舞"));
         attackImage.sprite = attack2Sprite;
         isAttack = true;
-        attackRect.localRotation = Quaternion.Euler(70, 30, 0);
+        attackRect.localEulerAngles = new (70, 30, 0);
         Vector2 temp = myRect.localScale;
         myRect.localScale = new(0.8f * temp.x, 0.8f * temp.y);
         yield return new WaitForSeconds(0.5f);
@@ -259,7 +260,7 @@ public class ElManager : EnemyManagerOrigin
                 break;
         }
         yield return new WaitForSeconds(1);
-        attackRect.localRotation = Quaternion.Euler(0, 0, 0);
+        attackRect.localEulerAngles = Vector3.zero;
     }
     private IEnumerator Skill2Rotate()
     {
@@ -267,10 +268,10 @@ public class ElManager : EnemyManagerOrigin
         float timeCount = 0;
         while (timeCount <= 0.5f)
         {
-            Vector3 temp = attackRect.localRotation.eulerAngles;
+            Vector3 temp = attackRect.localEulerAngles;
             //0.5秒で720度回転
             temp.z += 1440 * Time.deltaTime;
-            attackRect.localRotation = Quaternion.Euler(temp);
+            attackRect.localEulerAngles = temp;
             yield return null;
             timeCount += Time.deltaTime;
         }
@@ -312,7 +313,7 @@ public class ElManager : EnemyManagerOrigin
         yield return new WaitForSeconds(1);
         isAttack = false;
     }
-    //必殺技(暫定スキル2と同じ演出)(通常の5倍ダメージ、ガード・回避不可)
+    //必殺技(通常の5倍ダメージ、ガード・回避不可)
     protected override IEnumerator ChargeAttack()
     {
         int damage;
@@ -335,6 +336,7 @@ public class ElManager : EnemyManagerOrigin
         shield.SetActive(false);
         yield return new WaitForSeconds(2);
         specialAttackAnimation.SetActive(true);
+        StartCoroutine(SpecialSE());
         yield return new WaitForSeconds(2.5f);
         specialAttackAnimation.SetActive(false);
         gage1Image.sprite = grayGage;
@@ -342,6 +344,16 @@ public class ElManager : EnemyManagerOrigin
         gage3Image.sprite = grayGage;
         gage4Image.sprite = grayGage;
         gage5Image.sprite = grayGage;
+    }
+    private IEnumerator SpecialSE()
+    {
+        yield return new WaitForSeconds(1.4f);
+        for (int i=0; i<2; i++)
+        {
+            seSource.clip = seRond;
+            seSource.Play();
+            yield return new WaitForSeconds(0.2f);
+        }
     }
 
     //バフ

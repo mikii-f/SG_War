@@ -1,16 +1,16 @@
 AnimAndGoNext,1.0
 
 
-FadeIn,1.0,Black,AnimAndGoNext,1.5
+FadeIn,1.0,Black,AnimAndGoNext,1.5,BGMChange,Command
 
 
 Effect,Sword,AnimAndGoNext,0.5
 
 
-CharacterMotion,BackSlide,CharacterChange,el_enemy,TextPanelOn,MenuOn,AnimationWaitSet,1
+CharacterMotion,BackSlide,CharacterChange,el_enemy,TextPanelOn,MenuOn,AnimationWaitSet,1,SE,Sliding
 エル
 ────────！
-CharacterMotion,HorizontalSlide,CharacterChange,vier_battle4
+CharacterMotion,HorizontalSlide,CharacterChange,vier_battle4,SE,Sliding
 フィア
 やっぱりエルちゃんの攻撃は鋭いなあ！／でも、元のエルちゃんの方が強かったよ！
 0
@@ -28,10 +28,10 @@ CharacterColor
 CharacterReset
 フィア
 りょうか──────え、和人！？
-CharacterColor
+CharacterColor,SE,Run
 
 俺はフィアの前に躍り出た。
-CharacterChange,el_enemy,CharacterReset,CharacterMotion,Approach
+CharacterChange,el_enemy,CharacterReset,CharacterMotion,Approach,SE,Foot
 
 当然、今のエルは俺を殺すため一直線に向かってくる。
 CharacterColor
@@ -40,13 +40,13 @@ CharacterColor
 0
 
 だから────────！
-Effect,BloodEffect,AnimationWaitSet,2.0
+Effect,BloodEffect,AnimationWaitSet,2.0,VolumeFadeOut,0,PanelVib
 剣羽和人
 がっ──────────！
 0
 
 俺の肩を貫く凶刃。エルの動きが読めても、メガネの補助で動体視力が上がっていても、エルの速度に俺が対応できるわけがない。
-0
+VolumeFadeIn,1.0
 剣羽和人
 完全に避けられるなんて自惚れちゃいねえよ……！／フィア！！いけるな！！？？
 CharacterReset,CharacterChange,vier_battle4
@@ -58,19 +58,19 @@ CharacterChange,el_enemy
 0
 エル
 っ────────！
-FadeOut,1.0,White,AnimAndGoNext,1.0
+FadeOut,1.0,White,AnimAndGoNext,1.0,VolumeFadeOut,1.0,SE,Bright
 
 
-CharacterChange,el_battle,FadeIn,2.0,White,AnimAndGoNext,2.0
+CharacterChange,el_battle,FadeIn,2.0,White,AnimAndGoNext,2.0,SEDelay,1.0,Change
 
 
 0
 エル
 ……………………フィア……？和人…………？
-0
+BGMChange,Piano,VolumeFadeIn,0
 剣羽和人
 …………！良かった、意識を取り戻したか、エル！
-CharacterChange,vier_battle5,FaceChangeDelay,1.5,vier_battle4,AnimationWaitSet,1.5
+CharacterChange,vier_battle5,FaceChangeDelay,1,vier_battle4,AnimationWaitSet,1.5
 フィア
 やった、大成功！それはそれとして和人は無茶しすぎ！まだ統率個体が残ってるのに！
 CharacterChange,Command
@@ -100,10 +100,10 @@ CharacterChange,Command
 0
 統率個体
 お前たちはせいぜい「文明の守護」に勤しむことだ。
-CharacterMotion,Jump,Effect,Jump,AnimationWaitSet,1
+CharacterMotion,Jump,Effect,Jump,AnimationWaitSet,1.0,VolumeFadeOut,1.0,SE,Foot,SEDelay,0.5,Blood
 剣羽和人
 待てこのやろ────────ぐっ！！
-CharacterReset,CharacterChange,vier_battle4
+CharacterReset,CharacterChange,vier_battle4,BGMChange,Memory,VolumeFadeIn,0
 フィア
 和人！今はもう諦めよう。どうやったのかは分からないけど、もう感知できる範囲にあいつはいない。今はちゃんと治療しないと。
 CharacterChange,el_battle3
@@ -177,11 +177,11 @@ CharacterChange,el_battle2
 わたしも。本格的な戦闘はもうできないかもしれないけど……和人を守ることぐらいはできると思うから。
 0
 剣羽和人
-ああ。でも、命を投げ出すようなことはもうやめてくれ。俺のために誰かが死ぬところをみるなんてまっぴらごめんだ。
-CharacterChange,el_battle4
+ああ。でも、命を投げ出すようなことはもうやめてくれ。俺のために誰かが死ぬところを見るなんてまっぴらごめんだ。
+CharacterChange,el_battle4,VolumeFadeOut,3.0
 エル
 …………うん。
-CharacterChange,transparent,BackgroundChange,Rooftop2,TextPanelOff,AnimAndGoNext,2.0
+CharacterChange,transparent,BackgroundChange,Rooftop2,TextPanelOff,AnimAndGoNext,2.0,BGMChange,Feel,VolumeFadeIn,0,SE,Bright
 
 
 TextPanelOn
@@ -193,7 +193,7 @@ TextPanelOn
 0
 
 12機のセインが集結するこの戦いの中で、俺たちは異妖の、そして「星」の正体にも迫っていくこととなる──────────
-Save,MenuOff,TextPanelOff,FadeOut,1.0,Black,AnimAndGoNext,2.0
+Save,MenuOff,TextPanelOff,FadeOut,1.0,Black,AnimAndGoNext,2.0,VolumeFadeOut,2.0
 
 
 ChangeScene

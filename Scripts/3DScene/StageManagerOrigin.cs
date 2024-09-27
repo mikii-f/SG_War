@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public abstract class StageManagerOrigin : MonoBehaviour
+public abstract class StageManagerOrigin : SystemManagerOrigin
 {
     [SerializeField] protected PlayerManager playerManager;
     [SerializeField] private TMP_Text medalCountText;

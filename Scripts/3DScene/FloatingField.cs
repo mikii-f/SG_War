@@ -8,7 +8,7 @@ public class FloatingField : MonoBehaviour
     private Transform playerTransform;
     private float playerWidth;
     private float myWidth;
-    // Start is called before the first frame update
+
     void Start()
     {
         _collider = GetComponent<Collider>();
@@ -22,7 +22,6 @@ public class FloatingField : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         //‰ºƒL[‚ğ‰Ÿ‚µ‚Ä‚¢‚éŠÔ‚Í“§‰ß

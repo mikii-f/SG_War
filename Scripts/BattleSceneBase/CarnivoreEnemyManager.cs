@@ -12,7 +12,6 @@ public class CarnivoreEnemyManager : EnemyManagerOrigin
     private RectTransform attackRect2;
     private Image attackImage2;
 
-    // Start is called before the first frame update
     protected override void StartSet()
     {
         id = 2;

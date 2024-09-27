@@ -25,11 +25,12 @@ public class BattleSystemManager : SystemManagerOrigin
     private bool isFunctionAvailable = true;
     private bool isSelected = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         functions.SetActive(false);
         systemMessageObject.SetActive(false);
+        seSource = GetComponent<AudioSource>();
+        seSource.volume = GameManager.instance.SeVolume;
         //1回目の育成を行うまでは育成を選択できない
         if (GameManager.instance.EXP != 0)
         {
@@ -38,7 +39,6 @@ public class BattleSystemManager : SystemManagerOrigin
         growMask2.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (isFunctionAvailable)
@@ -62,7 +62,7 @@ public class BattleSystemManager : SystemManagerOrigin
                 {
                     RestartMenuSwitch();
                 }
-                else if (Input.GetKeyDown(KeyCode.Alpha9) && !growMask1.activeSelf)
+                else if (Input.GetKeyDown(KeyCode.Alpha9))
                 {
                     RetreatMenuSwitch();
                 }
@@ -93,10 +93,14 @@ public class BattleSystemManager : SystemManagerOrigin
     public void MenuSwitch()
     {
         functions.SetActive(true);
+        seSource.clip = seUIClick;
+        seSource.Play();
     }
     public void FunctionsClose()
     {
         functions.SetActive(false);
+        seSource.clip = seUIBack;
+        seSource.Play();
     }
     //ゲームオーバー(バトルシーンから呼び出し)
     public void GameOver()
@@ -104,9 +108,13 @@ public class BattleSystemManager : SystemManagerOrigin
         if (GameManager.instance.EXP == 0)
         {
             growMask2.SetActive(true);
+            systemMessage.text = "GAME OVER\n再挑戦しますか？";
+        }
+        else
+        {
+            systemMessage.text = "GAME OVER\n再挑戦しますか？\n直前の場面に戻り育成しますか？";
         }
         isFunctionAvailable = true;
-        systemMessage.text = "GAME OVER\n再挑戦しますか？";
         yesText.text = "再挑戦(Y)";
         noText.text = "育成へ(N)";
         messageNumber = 0;
@@ -123,17 +131,29 @@ public class BattleSystemManager : SystemManagerOrigin
         messageNumber = 1;
         StartCoroutine(Delay(systemMessageObject, true));
         isMessageDisplay = true;
+        seSource.clip = seUIClick;
+        seSource.Play();
     }
     //撤退(メニューから選択)
     public void RetreatMenuSwitch()
     {
-        StartCoroutine(ButtonAnim(retreatSwitchRect));
-        systemMessage.text = "撤退しますか？\n(直前の場面に移り育成が行えます)";
-        yesText.text = "撤退(Y)";
-        noText.text = "戻る(N)";
-        messageNumber = 2;
-        StartCoroutine(Delay(systemMessageObject, true));
-        isMessageDisplay = true;
+        if (!growMask1.activeSelf)
+        {
+            StartCoroutine(ButtonAnim(retreatSwitchRect));
+            systemMessage.text = "撤退しますか？\n(直前の場面に移り育成が行えます)";
+            yesText.text = "撤退(Y)";
+            noText.text = "戻る(N)";
+            messageNumber = 2;
+            StartCoroutine(Delay(systemMessageObject, true));
+            isMessageDisplay = true;
+            seSource.clip = seUIClick;
+            seSource.Play();
+        }
+        else
+        {
+            seSource.clip = seUIUnactive;
+            seSource.Play();
+        }
     }
     //デバッグ用スキップ
     public void DebugMenuSwitch()
@@ -145,6 +165,8 @@ public class BattleSystemManager : SystemManagerOrigin
         messageNumber = 3;
         StartCoroutine(Delay(systemMessageObject, true));
         isMessageDisplay = true;
+        seSource.clip = seUIClick;
+        seSource.Play();
     }
 
     //Yesボタンを押したときの機能
@@ -154,6 +176,8 @@ public class BattleSystemManager : SystemManagerOrigin
         {
             isSelected = true;
             StartCoroutine(ButtonAnim(yesSwitch));
+            seSource.clip = seUIClick;
+            seSource.Play();
             switch (messageNumber)
             {
                 //ゲームオーバーからの再挑戦
@@ -183,6 +207,8 @@ public class BattleSystemManager : SystemManagerOrigin
         if (!isSelected && !switchInterval)
         {
             StartCoroutine(SwitchInterval());
+            seSource.clip = seUIBack;
+            seSource.Play();
             switch (messageNumber)
             {
                 //ゲームオーバーから育成へ
@@ -191,6 +217,12 @@ public class BattleSystemManager : SystemManagerOrigin
                     {
                         StartCoroutine(ButtonAnim(noSwitch));
                         StartCoroutine(GoBackStory());
+                        isSelected = true;
+                    }
+                    else
+                    {
+                        seSource.clip = seUIUnactive;
+                        seSource.Play();
                     }
                     break;
                 //戻る

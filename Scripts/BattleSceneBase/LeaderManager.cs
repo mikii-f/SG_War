@@ -1,9 +1,8 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class LeaderManager : MonoBehaviour
+public class LeaderManager : SystemManagerOrigin
 {
     [SerializeField] private SainManager sainManager;
     [SerializeField] private GameObject autoObject;
@@ -21,8 +20,8 @@ public class LeaderManager : MonoBehaviour
     private Text attackIntervalText;
     private Text speedIntervalText;
     private Text guardIntervalText;
-    private float assistInterval = 60f;
-    private float guardInterval = 4f;
+    private const float assistInterval = 60f;
+    private const float guardInterval = 4f;
     private float HPIntervalCount = 0f;
     private float attackIntervalCount = 0f;
     private float speedIntervalCount = 0f;
@@ -30,7 +29,6 @@ public class LeaderManager : MonoBehaviour
     private bool pause = true;
     public bool Pause { set { pause = value; } }
 
-    // Start is called before the first frame update
     void Start()
     {
         autoRect = autoObject.GetComponent<RectTransform>();
@@ -56,9 +54,10 @@ public class LeaderManager : MonoBehaviour
             attackIntervalText.text = attackIntervalCount.ToString("F2");
             speedIntervalText.text = speedIntervalCount.ToString("F2");
         }
+        seSource = GetComponent<AudioSource>();
+        seSource.volume = GameManager.instance.SeVolume;
     }
 
-    // Update is called once per frame
     void Update()
     {
         //各種アシスト及びオート機能のキー入力
@@ -134,6 +133,13 @@ public class LeaderManager : MonoBehaviour
             StartCoroutine(ButtonAnim(HPRect));
             sainManager.ReceiveHPAssist();
             HPIntervalDisplay.SetActive(true);
+            seSource.clip = seUIClick;
+            seSource.Play();
+        }
+        else if (!pause)
+        {
+            seSource.clip = seUIUnactive;
+            seSource.Play();
         }
     }
     public void AttackAssistClick()
@@ -144,6 +150,13 @@ public class LeaderManager : MonoBehaviour
             StartCoroutine(ButtonAnim(attackRect));
             StartCoroutine(sainManager.ReceiveAttackAssist());
             attackIntervalDisplay.SetActive(true);
+            seSource.clip = seUIClick;
+            seSource.Play();
+        }
+        else if (!pause)
+        {
+            seSource.clip = seUIUnactive;
+            seSource.Play();
         }
     }
     public void SpeedAssistClick()
@@ -154,6 +167,13 @@ public class LeaderManager : MonoBehaviour
             StartCoroutine(ButtonAnim(speedRect));
             StartCoroutine(sainManager.ReceiveSpeedAssist());
             speedIntervalDisplay.SetActive(true);
+            seSource.clip = seUIClick;
+            seSource.Play();
+        }
+        else if (!pause)
+        {
+            seSource.clip = seUIUnactive;
+            seSource.Play();
         }
     }
     public void GuardClick()
@@ -165,6 +185,13 @@ public class LeaderManager : MonoBehaviour
             StartCoroutine(ButtonAnim(guardRect));
             StartCoroutine(sainManager.ReceiveGuard());
             guardIntervalDisplay.SetActive(true);
+            seSource.clip = seUIClick;
+            seSource.Play();
+        }
+        else if (!pause)
+        {
+            seSource.clip = seUIUnactive;
+            seSource.Play();
         }
     }
     public void AutoClick()
@@ -172,6 +199,8 @@ public class LeaderManager : MonoBehaviour
         if (!pause)
         {
             StartCoroutine(ButtonAnim(autoRect));
+            seSource.clip = seUIClick;
+            seSource.Play();
             if (!sainManager.Auto)
             {
                 sainManager.Auto = true;
@@ -183,14 +212,5 @@ public class LeaderManager : MonoBehaviour
                 autoImage.color = new(100f / 255, 100f / 255, 100f / 255, 1f);
             }
         }
-    }
-
-    //ボタンのアニメーション
-    private IEnumerator ButtonAnim(RectTransform rect)
-    {
-        Vector2 temp = rect.localScale;
-        rect.localScale = new(0.9f * temp.x, 0.9f * temp.y);
-        yield return new WaitForSeconds(0.1f);
-        rect.localScale = temp;
     }
 }

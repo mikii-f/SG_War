@@ -16,48 +16,59 @@ public class ImagesManager2 : ImagesManagerOrigin
     [SerializeField] private Sprite backgroundMyRoom;
     [SerializeField] private Sprite backgroundRoad;
     [SerializeField] private Sprite backgroundRoadNight;
+    [SerializeField] private AudioClip bgmChapter;
+    [SerializeField] private AudioClip bgmHome;
+    [SerializeField] private AudioClip bgmRoad;
+    [SerializeField] private AudioClip bgmRoadNight;
+    [SerializeField] private AudioClip bgmThinking;
+    [SerializeField] private AudioClip bgmEncounter;
+    [SerializeField] private AudioClip seBright;
+    [SerializeField] private AudioClip seNews;
+    [SerializeField] private AudioClip seRoar;
+    [SerializeField] private AudioClip seChange;
 
+    //この程度の処理ならスクリプト側から対応できるが、時折GetComponentなども使うため必要
     protected override void StartSet()
     {
         blackAllImage.color = Color.clear;
     }
 
     //立ち絵関係
-    public override void CharacterChange(int n)
+    public override void CharacterChange(string image)
     {
-        switch (n)
+        switch (image)
         {
-            case 0:
+            case "transparent":
                 _characterImage.sprite = noneSprite;
                 break;
-            case 1:
+            case "vier":
                 _characterImage.sprite = vier;
                 break;
-            case 3:
+            case "vier3":
                 _characterImage.sprite = vier3;
                 break;
-            case 4:
+            case "vier4":
                 _characterImage.sprite = vier4;
                 break;
-            case 5:
+            case "vier5":
                 _characterImage.sprite = vier5;
                 break;
-            case 7:
+            case "vier7":
                 _characterImage.sprite = vier7;
                 break;
-            case 8:
+            case "vier8":
                 _characterImage.sprite = vier8;
                 break;
-            case 21:
+            case "vier_battle":
                 _characterImage.sprite = vier_battle;
                 break;
-            case 24:
+            case "vier_battle4":
                 _characterImage.sprite = vier_battle4;
                 break;
-            case 71:
+            case "el_battle":
                 _characterImage.sprite = el_battle;
                 break;
-            case 101:
+            case "Ghost1":
                 _characterImage.sprite = ghost1;
                 break;
             default:
@@ -65,32 +76,89 @@ public class ImagesManager2 : ImagesManagerOrigin
         }
     }
     //背景切り替え
-    public override void BackgroundChange(int n)
+    public override void BackgroundChange(string image)
     {
-        switch (n)
+        switch (image)
         {
-            case 0:
+            case "Black":
                 _backgroundImage.sprite = backgroundBlack;
                 break;
-            case 1:
+            case "MyRoom":
                 _backgroundImage.sprite = backgroundMyRoom;
                 break;
-            case 2:
+            case "Road":
                 _backgroundImage.sprite = backgroundRoad;
                 break;
-            case 5:
+            case "RoadNight":
                 _backgroundImage.sprite = backgroundRoadNight;
                 break;
             default:
                 break;
         }
     }
-
-    public override void Effect(int n)
+    public override void BGMChange(string bgm)
+    {
+        switch (bgm)
+        {
+            case "Chapter":
+                audioSource.clip = bgmChapter;
+                audioSource.Play();
+                break;
+            case "Home":
+                audioSource.clip = bgmHome;
+                audioSource.Play();
+                break;
+            case "Road":
+                audioSource.clip = bgmRoad;
+                audioSource.Play();
+                break;
+            case "RoadNight":
+                audioSource.clip = bgmRoadNight;
+                audioSource.Play();
+                break;
+            case "Thinking":
+                audioSource.clip = bgmThinking;
+                audioSource.Play();
+                break;
+            case "Encounter":
+                audioSource.clip = bgmEncounter;
+                audioSource.Play();
+                break;
+            default:
+                break;
+        }
+    }
+    public override void Effect(string image)
     {
 
     }
-
+    public override void SoundEffect(string se)
+    {
+        if (!skip)
+        {
+            switch (se)
+            {
+                case "Bright":
+                    seSource.clip = seBright;
+                    seSource.Play();
+                    break;
+                case "News":
+                    seSource.clip = seNews;
+                    seSource.Play();
+                    break;
+                case "Roar":
+                    seSource.clip = seRoar;
+                    seSource.Play();
+                    break;
+                case "Change":
+                    seSource.clip = seChange;
+                    seSource.Play();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
     public override void ChangeScene()
     {
         //撤退時に直前へ戻れるように行数の初期化をしない

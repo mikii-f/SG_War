@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +14,7 @@ public class CommandManager : EnemyManagerOrigin
     [SerializeField] private Sprite attack2Sprite;
     [SerializeField] private GameObject attackEffect2;
     private RectTransform attackRect2;
+    [SerializeField] private AudioClip seGatling;
 
     protected override void StartSet()
     {
@@ -92,6 +92,8 @@ public class CommandManager : EnemyManagerOrigin
             StartCoroutine(Rotate(360, 0.3f));
             attackRect2.anchoredPosition = new(60, 90);
             attackRect2.localScale = new(1, 1);
+            seSource.clip = seGatling;
+            seSource.Play();
             while (timeCount < 0.3f)
             {
                 attackEffect2.SetActive(true);
@@ -125,6 +127,7 @@ public class CommandManager : EnemyManagerOrigin
                 timeCount += Time.deltaTime;
             }
         }
+        seSource.Pause();                       //“r’†‚Åƒ_ƒ[ƒW‚ðŽó‚¯‚Ä‚¢‚½ê‡‚»‚¿‚ç‚ÌSE‚ª’âŽ~‚·‚é‚±‚Æ‚É‚È‚é‚ªˆê’U‘Ã‹¦
         isAttack = false;
         gage1Image.sprite = grayGage;
         gage2Image.sprite = grayGage;
@@ -135,14 +138,14 @@ public class CommandManager : EnemyManagerOrigin
         float timeCount = 0;
         while (timeCount <= time)
         {
-            Vector3 temp = attackRect.localRotation.eulerAngles;
+            Vector3 temp = attackRect.localEulerAngles;
             //time•b‚Åangle“x‰ñ“]
             temp.z += (angle/time) * Time.deltaTime;
-            attackRect.localRotation = Quaternion.Euler(temp);
+            attackRect.localEulerAngles = temp;
             yield return null;
             timeCount += Time.deltaTime;
         }
-        attackRect.localRotation = Quaternion.Euler(0, 0, 0);
+        attackRect.localEulerAngles = Vector3.zero;
     }
     //‘½•ªŽg‚í‚È‚¢
     public override void Revive()

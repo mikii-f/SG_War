@@ -5,6 +5,10 @@ using UnityEngine.UI;
 public abstract class SystemManagerOrigin : MonoBehaviour
 {
     protected bool switchInterval = false;  //メッセージを閉じるときなどにスイッチのアニメーションが見えてから閉じるようにするとその間にまだスイッチが押せてしまうため、それを防ぐ
+    [SerializeField] protected AudioSource seSource;
+    [SerializeField] protected AudioClip seUIClick;
+    [SerializeField] protected AudioClip seUIBack;
+    [SerializeField] protected AudioClip seUIUnactive;
     protected IEnumerator SwitchInterval()
     {
         switchInterval = true;
@@ -25,28 +29,54 @@ public abstract class SystemManagerOrigin : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         panel.SetActive(TorF);
     }
+    //ワイプなどの処理と比べて、少し粗い遷移の方が「それっぽい」気がするためyield return nullにしない
     protected IEnumerator FadeOut(float fadeTime, Image image)
     {
-        float waitTime = 0.1f;
-        float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
-        for (float alpha = 0.0f; alpha <= 255.0f; alpha += alphaChangeAmount)
+        Color temp = image.color;
+        temp.a = 0;
+        image.color = temp;
+        while (image.color.a < 1)
         {
-            Color newColor = image.color;
-            newColor.a = alpha / 255.0f;
-            image.color = newColor;
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSeconds(0.1f);
+            temp = image.color;
+            temp.a = Mathf.Min(1, temp.a + 0.1f / fadeTime);
+            image.color = temp;
         }
     }
     protected IEnumerator FadeIn(float fadeTime, Image image)
     {
-        float waitTime = 0.1f;
-        float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
-        for (float alpha = 255.0f; alpha >= 0f; alpha -= alphaChangeAmount)
+        Color temp = image.color;
+        temp.a = 1;
+        image.color = temp;
+        while (image.color.a > 0)
         {
-            Color newColor = image.color;
-            newColor.a = alpha / 255.0f;
-            image.color = newColor;
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSeconds(0.1f);
+            temp = image.color;
+            temp.a = Mathf.Max(0, temp.a - 0.1f / fadeTime);
+            image.color = temp;
+        }
+    }
+
+    //BGMのフェード
+    protected IEnumerator VolumeFadeOut(float fadeTime, AudioSource audioSource)
+    {
+        while (audioSource.volume > 0)
+        {
+            float v = audioSource.volume;
+            v = Mathf.Max(0, v - GameManager.instance.BgmVolume * Time.deltaTime / fadeTime);
+            audioSource.volume = v;
+            yield return null;
+        }
+    }
+    protected IEnumerator VolumeFadeIn(float fadeTime, AudioSource audioSource)
+    {
+        float targetVolume = GameManager.instance.BgmVolume;
+        while (audioSource.volume < targetVolume)
+        {
+            float v = audioSource.volume;
+            v = Mathf.Min(targetVolume, v + targetVolume * Time.deltaTime / fadeTime);
+            audioSource.volume = v;
+            yield return null;
         }
     }
 }

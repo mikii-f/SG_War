@@ -16,17 +16,54 @@ public class TitleManager : SystemManagerOrigin
     [SerializeField] private RectTransform noSwitch;
     [SerializeField] private Image black;
     [SerializeField] private GameObject continueSwitchMask;
+    private AudioSource audioSource;
     private bool isGoNext = false;
+    [SerializeField] private GameObject saveDataPanel;
+    [SerializeField] private RectTransform data1SwitchRect;
+    [SerializeField] private RectTransform data2SwitchRect;
+    [SerializeField] private RectTransform data3SwitchRect;
+    [SerializeField] private Text data1Text;
+    [SerializeField] private Text data2Text;
+    [SerializeField] private Text data3Text;
+    private bool newGame = true;
 
     void Start()
     {
         words1.SetActive(false);
         method.SetActive(false);
         systemMessageObject.SetActive(false);
+        saveDataPanel.SetActive(false);
+        audioSource = GetComponent<AudioSource>();
+        audioSource.volume = GameManager.instance.BgmVolume;
+        seSource.volume = GameManager.instance.SeVolume;
         StartCoroutine(FadeIn(0.5f, black));
         if (GameManager.instance.SaveData)
         {
             continueSwitchMask.SetActive(false);
+        }
+        if (PlayerPrefs.GetString("progress") != "")
+        {
+            data1Text.text = PlayerPrefs.GetString("progress");
+        }
+        else
+        {
+            data1Text.text = "データなし";
+        }
+        if (PlayerPrefs.GetString("progress2") != "")
+        {
+            data2Text.text = PlayerPrefs.GetString("progress2");
+        }
+        else
+        {
+            data2Text.text = "データなし";
+        }
+        if (PlayerPrefs.GetString("progress3") != "")
+        {
+            data3Text.text = PlayerPrefs.GetString("progress3");
+        }
+        else
+        {
+            data3Text.text = "データなし";
         }
     }
 
@@ -51,8 +88,15 @@ public class TitleManager : SystemManagerOrigin
 
     public void NewGameSwitch()
     {
-        StartCoroutine(ButtonAnim(newGameSwitchRect));
-        StartCoroutine(Delay(systemMessageObject, true));
+        if (!switchInterval && !isGoNext)
+        {
+            StartCoroutine(SwitchInterval());
+            StartCoroutine(ButtonAnim(newGameSwitchRect));
+            StartCoroutine(Delay(saveDataPanel, true));
+            newGame = true;
+            seSource.clip = seUIClick;
+            seSource.Play();
+        }
     }
     public void YesSwitch()
     {
@@ -61,34 +105,48 @@ public class TitleManager : SystemManagerOrigin
             isGoNext = true;
             StartCoroutine(ButtonAnim(yesSwitch));
             StartCoroutine(NewGame());
+            seSource.clip = seUIClick;
+            seSource.Play();
         }
     }
     public void NoSwitch()
     {
-        if (!isGoNext)
+        if (!isGoNext && !switchInterval)
         {
             StartCoroutine(SwitchInterval());
             StartCoroutine(ButtonAnim(noSwitch));
             StartCoroutine(Delay(systemMessageObject, false));
+            seSource.clip = seUIBack;
+            seSource.Play();
         }
     }
     private IEnumerator NewGame()
     {
+        StartCoroutine(VolumeFadeOut(1, audioSource));
         yield return StartCoroutine(FadeOut(2, black));
         GameManager.instance.Initialize();
         SceneManager.LoadScene(GameManager.instance.SceneName);
     }
     public void ContinueGameSwitch()
     {
-        if (!isGoNext)
+        if (!isGoNext && !continueSwitchMask.activeSelf && !switchInterval)
         {
-            isGoNext = true;
+            StartCoroutine(SwitchInterval());
             StartCoroutine(ButtonAnim(continueGameSwitchRect));
-            StartCoroutine(ContinueGame());
+            StartCoroutine(Delay(saveDataPanel, true));
+            newGame = false;
+            seSource.clip = seUIClick;
+            seSource.Play();
+        }
+        else if (continueSwitchMask.activeSelf)
+        {
+            seSource.clip = seUIUnactive;
+            seSource.Play();
         }
     }
     private IEnumerator ContinueGame()
     {
+        StartCoroutine(VolumeFadeOut(1, audioSource));
         yield return new WaitForSeconds(0.1f);
         yield return StartCoroutine(FadeOut(1, black));
         GameManager.instance.Set();
@@ -100,6 +158,8 @@ public class TitleManager : SystemManagerOrigin
         {
             StartCoroutine(ButtonAnim(wordsSwitchRect));
             StartCoroutine(Delay(words1, true));
+            seSource.clip = seUIClick;
+            seSource.Play();
         }
     }
     public void MethodSwitch()
@@ -108,11 +168,112 @@ public class TitleManager : SystemManagerOrigin
         {
             StartCoroutine(ButtonAnim(methodSwitchRect));
             StartCoroutine(Delay(method, true));
+            seSource.clip = seUIClick;
+            seSource.Play();
         }
     }
-        public void Close()
+    public void Data1Switch()
+    {
+        if (!isGoNext && !switchInterval)
+        {
+            if (newGame)
+            {
+                StartCoroutine(SwitchInterval());
+                StartCoroutine(ButtonAnim(data1SwitchRect));
+                GameManager.instance.SaveDataNumber = 1;
+                seSource.clip = seUIClick;
+                seSource.Play();
+                StartCoroutine(Delay(systemMessageObject, true));
+            }
+            else
+            {
+                if (data1Text.text != "データなし")
+                {
+                    StartCoroutine(ButtonAnim(data1SwitchRect));
+                    GameManager.instance.SaveDataNumber = 1;
+                    seSource.clip = seUIClick;
+                    seSource.Play();
+                    isGoNext = true;
+                    StartCoroutine(ContinueGame());
+                }
+                else
+                {
+                    seSource.clip = seUIUnactive;
+                    seSource.Play();
+                }
+            }
+        }
+    }
+    public void Data2Switch()
+    {
+        if (!isGoNext && !switchInterval)
+        {
+            if (newGame)
+            {
+                StartCoroutine(SwitchInterval());
+                StartCoroutine(ButtonAnim(data2SwitchRect));
+                GameManager.instance.SaveDataNumber = 2;
+                seSource.clip = seUIClick;
+                seSource.Play();
+                StartCoroutine(Delay(systemMessageObject, true));
+            }
+            else
+            {
+                if (data2Text.text != "データなし")
+                {
+                    StartCoroutine(ButtonAnim(data2SwitchRect));
+                    GameManager.instance.SaveDataNumber = 2;
+                    seSource.clip = seUIClick;
+                    seSource.Play();
+                    isGoNext = true;
+                    StartCoroutine(ContinueGame());
+                }
+                else
+                {
+                    seSource.clip = seUIUnactive;
+                    seSource.Play();
+                }
+            }
+        }
+    }
+    public void Data3Switch()
+    {
+        if (!isGoNext && !switchInterval)
+        {
+            if (newGame)
+            {
+                StartCoroutine(SwitchInterval());
+                StartCoroutine(ButtonAnim(data3SwitchRect));
+                GameManager.instance.SaveDataNumber = 3;
+                seSource.clip = seUIClick;
+                seSource.Play();
+                StartCoroutine(Delay(systemMessageObject, true));
+            }
+            else
+            {
+                if (data3Text.text != "データなし")
+                {
+                    StartCoroutine(ButtonAnim(data3SwitchRect));
+                    GameManager.instance.SaveDataNumber = 3;
+                    seSource.clip = seUIClick;
+                    seSource.Play();
+                    isGoNext = true;
+                    StartCoroutine(ContinueGame());
+                }
+                else
+                {
+                    seSource.clip = seUIUnactive;
+                    seSource.Play();
+                }
+            }
+        }
+    }
+    public void Close()
     {
         words1.SetActive(false);
         method.SetActive(false);
+        saveDataPanel.SetActive(false);
+        seSource.clip = seUIBack;
+        seSource.Play();
     }
 }

@@ -8,7 +8,8 @@ public class BattleSceneManager1 : BattleSceneManagerOrigin
     [SerializeField] private LowLevelEnemyManager lLEnemyManager;
     [SerializeField] private GameObject tutorialPanel;
     [SerializeField] private Text tutorialText;
-    // Start is called before the first frame update
+    [SerializeField] private AudioClip bgmBattle;
+
     protected override void StartSet()
     {
         numberOfEnemy = new int[]{1};
@@ -27,19 +28,33 @@ public class BattleSceneManager1 : BattleSceneManagerOrigin
         tutorialPanel.SetActive(true);
         tutorialText.text = "長期間戦闘行動を行っていなかったため、あなた方の能力は低下しているようです……。";
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
+        seSource.clip = seUIClick;
+        seSource.Play();
         yield return null;
         tutorialPanel.SetActive(false);
         explanation.SetActive(true);
         yield return new WaitUntil(() => !explanation.activeSelf);
+        StartCoroutine(VolumeFadeOut(2, audioSource));
         battleStartAndFinishText.text = "3";
+        seSource.clip = seUIUnactive;
+        seSource.Play();
         yield return new WaitForSeconds(1);
         battleStartAndFinishText.text = "2";
+        seSource.clip = seCountDown;
+        seSource.Play();
         yield return new WaitForSeconds(1);
         battleStartAndFinishText.text = "1";
+        seSource.clip = seCountDown;
+        seSource.Play();
         yield return new WaitForSeconds(1);
         battleStartAndFinishText.text = "Battle Start";
+        seSource.clip = seWhistle;
+        seSource.Play();
         yield return new WaitForSeconds(1);
         battleStartAndFinishText.text = "";
+        audioSource.clip = bgmBattle;
+        audioSource.volume = GameManager.instance.BgmVolume;
+        audioSource.Play();
         sainManager.Pause = false;
         leaderManager.Pause = false;
         lLEnemyManager.Pause = false;

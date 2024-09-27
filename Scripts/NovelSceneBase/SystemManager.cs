@@ -27,7 +27,6 @@ public class SystemManager : SystemManagerOrigin
     private bool isFunctionAvailable = false;
     private bool isGoNext = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         menu.SetActive(false);
@@ -35,6 +34,8 @@ public class SystemManager : SystemManagerOrigin
         logTextObject.SetActive(false);
         systemMessageObject.SetActive(false);
         saveSuccessed.SetActive(false);
+        seSource = GetComponent<AudioSource>();
+        seSource.volume = GameManager.instance.SeVolume;
         //1回目の育成を行うまでは育成を選択できない
         if (GameManager.instance.EXP != 0)
         {
@@ -42,7 +43,6 @@ public class SystemManager : SystemManagerOrigin
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         //キー入力によるシステム操作(テキスト側から禁止されていないとき)(UI操作は自然とできなくなっているはず)
@@ -79,7 +79,7 @@ public class SystemManager : SystemManagerOrigin
                 {
                     LogSwitch();
                 }
-                else if (Input.GetKeyDown(KeyCode.Alpha4) && !growMask.activeSelf)
+                else if (Input.GetKeyDown(KeyCode.Alpha4))
                 {
                     GrowSwitch();
                 }
@@ -120,6 +120,8 @@ public class SystemManager : SystemManagerOrigin
     {
         functions.SetActive(true);
         textManager.FunctionsOpen = true;
+        seSource.clip = seUIClick;
+        seSource.Play();
     }
     public void SpeedUpSwitch()
     {
@@ -129,12 +131,16 @@ public class SystemManager : SystemManagerOrigin
             textManager.IsSpeedUp = true;
             speedUpSwitchImage.color = Color.white;
             speedUpSwitchText.color = Color.black;
+            seSource.clip = seUIClick;
+            seSource.Play();
         }
         else
         {
             textManager.IsSpeedUp = false;
             speedUpSwitchImage.color = new(0, 0, 40f / 255f, 1);
             speedUpSwitchText.color = Color.white;
+            seSource.clip = seUIClick;
+            seSource.Play();
         }
     }
     public void SkipSwitch() 
@@ -144,6 +150,8 @@ public class SystemManager : SystemManagerOrigin
         messageNumber = 0;
         StartCoroutine(Delay(systemMessageObject, true));
         isMessageDisplay = true;
+        seSource.clip = seUIClick;
+        seSource.Play();
     }
     public void LogSwitch() 
     {
@@ -154,20 +162,42 @@ public class SystemManager : SystemManagerOrigin
     {
         StartCoroutine(LogOnOff());
     }
-    //開けてすぐ閉じてしまうとかがないように1フレーム空ける
+    //開けてすぐ閉じてしまうとかがないように1フレーム空ける(Update内のif文をいじれば解消できそうだが……)
     private IEnumerator LogOnOff()
     {
         yield return null;
-        logTextObject.SetActive(!logTextObject.activeSelf);
-        isMessageDisplay = !isMessageDisplay;
+        if (logTextObject.activeSelf)
+        {
+            logTextObject.SetActive(false);
+            isMessageDisplay = false;
+            seSource.clip = seUIBack;
+            seSource.Play();
+        }
+        else
+        {
+            logTextObject.SetActive(true);
+            isMessageDisplay = true;
+            seSource.clip = seUIClick;
+            seSource.Play();
+        }
     }
     public void GrowSwitch()
     {
-        StartCoroutine(ButtonAnim(growSwitchRect));
-        systemMessage.text = "育成に向かいますか？";
-        messageNumber = 1;
-        StartCoroutine(Delay(systemMessageObject, true));
-        isMessageDisplay = true;
+        if (!growMask.activeSelf)
+        {
+            StartCoroutine(ButtonAnim(growSwitchRect));
+            systemMessage.text = "育成に向かいますか？";
+            messageNumber = 1;
+            StartCoroutine(Delay(systemMessageObject, true));
+            isMessageDisplay = true;
+            seSource.clip = seUIClick;
+            seSource.Play();
+        }
+        else
+        {
+            seSource.clip = seUIUnactive;
+            seSource.Play();
+        }
     }
     public void SaveSwitch()
     {
@@ -176,6 +206,8 @@ public class SystemManager : SystemManagerOrigin
         messageNumber = 2;
         StartCoroutine(Delay(systemMessageObject, true));
         isMessageDisplay = true;
+        seSource.clip = seUIClick;
+        seSource.Play();
     }
     public void TitleSwitch() 
     {
@@ -184,11 +216,15 @@ public class SystemManager : SystemManagerOrigin
         messageNumber = 3;
         StartCoroutine(Delay(systemMessageObject, true));
         isMessageDisplay = true;
+        seSource.clip = seUIClick;
+        seSource.Play();
     }
     public void FunctionsClose()
     {
         functions.SetActive(false);
         StartCoroutine(CloseInterval());
+        seSource.clip = seUIBack;
+        seSource.Play();
     }
     private IEnumerator CloseInterval() //閉じた時点ではテキストが進まないようにする
     {
@@ -201,6 +237,8 @@ public class SystemManager : SystemManagerOrigin
         if (!isGoNext && !switchInterval)
         {
             StartCoroutine(ButtonAnim(yesSwitch));
+            seSource.clip = seUIClick;
+            seSource.Play();
             switch (messageNumber)
             {
                 //スキップ
@@ -237,6 +275,8 @@ public class SystemManager : SystemManagerOrigin
             StartCoroutine(ButtonAnim(noSwitch));
             StartCoroutine(Delay(systemMessageObject, false));
             isMessageDisplay = false;
+            seSource.clip = seUIBack;
+            seSource.Play();
         }
     }
     //セーブ成功を伝えるメッセージ
