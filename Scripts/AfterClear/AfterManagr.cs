@@ -14,6 +14,7 @@ public class AfterManagr : SystemManagerOrigin
     [SerializeField] private GameObject bonus;
     [SerializeField] private GameObject battle;
     [SerializeField] private RectTransform battle1SwitchRect;
+    [SerializeField] private RectTransform battle2SwitchRect;
     [SerializeField] private RectTransform backSwitchRect;
     [SerializeField] private GameObject systemMessageObject;
     [SerializeField] private Text systemMessage;
@@ -23,7 +24,6 @@ public class AfterManagr : SystemManagerOrigin
     private int messageNumber;
     private bool isGoNext = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         systemMessageObject.SetActive(false);
@@ -31,10 +31,10 @@ public class AfterManagr : SystemManagerOrigin
         bonus.SetActive(false);
         battle.SetActive(false);
         black.color = Color.white;
+        seSource.volume = GameManager.instance.SeVolume;
         StartCoroutine(FadeIn(0.5f, black));
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (systemMessageObject.activeSelf)
@@ -56,11 +56,15 @@ public class AfterManagr : SystemManagerOrigin
         systemMessage.text = "タイトルに戻りますか？";
         messageNumber = 0;
         StartCoroutine(Delay(systemMessageObject, true));
+        seSource.clip = seUIClick;
+        seSource.Play();
     }
     public void WordsSwitch()
     {
         StartCoroutine(ButtonAnim(wordsSwitchRect));
         StartCoroutine(Delay(words2, true));
+        seSource.clip = seUIClick;
+        seSource.Play();
     }
     public void GrowSwitchRect()
     {
@@ -68,22 +72,30 @@ public class AfterManagr : SystemManagerOrigin
         systemMessage.text = "育成に向かいますか？";
         messageNumber = 1;
         StartCoroutine(Delay(systemMessageObject, true));
+        seSource.clip = seUIClick;
+        seSource.Play();
     }
     public void BonusSwitch()
     {
         StartCoroutine(ButtonAnim(bonusSwitchRect));
         StartCoroutine(Delay(bonus, true));
+        seSource.clip = seUIClick;
+        seSource.Play();
     }
     public void PlusAlphaSwitch()
     {
         StartCoroutine(ButtonAnim(plusAlphaSwitch));
         StartCoroutine(Delay(battle, true));
+        seSource.clip = seUIClick;
+        seSource.Play();
     }
     public void YesSwitch()
     {
         if (!isGoNext && !switchInterval)
         {
             StartCoroutine(ButtonAnim(yesSwitch));
+            seSource.clip = seUIClick;
+            seSource.Play();
             switch (messageNumber)
             {
                 case 0:
@@ -104,10 +116,12 @@ public class AfterManagr : SystemManagerOrigin
             StartCoroutine(SwitchInterval());
             StartCoroutine(ButtonAnim(noSwitch));
             StartCoroutine(Delay(systemMessageObject, false));
+            seSource.clip = seUIBack;
+            seSource.Play();
         }
     }
-        //タイトルへ
-        private IEnumerator GoBackTitle()
+    //タイトルへ
+    private IEnumerator GoBackTitle()
     {
         black.color = new(0, 0, 0, 0);
         yield return new WaitForSeconds(0.1f);
@@ -130,6 +144,8 @@ public class AfterManagr : SystemManagerOrigin
             isGoNext = true;
             StartCoroutine(ButtonAnim(battle1SwitchRect));
             StartCoroutine(GoToBattle1());
+            seSource.clip = seUIClick;
+            seSource.Play();
         }
     }
     private IEnumerator GoToBattle1()
@@ -139,16 +155,39 @@ public class AfterManagr : SystemManagerOrigin
         yield return StartCoroutine(FadeOut(0.5f, black));
         SceneManager.LoadScene("ExtraBattle1");
     }
+    //バトル2へ
+    public void Battle2Switch()
+    {
+        if (!isGoNext)
+        {
+            isGoNext = true;
+            StartCoroutine(ButtonAnim(battle2SwitchRect));
+            StartCoroutine(GoToBattle2());
+            seSource.clip = seUIClick;
+            seSource.Play();
+        }
+    }
+    private IEnumerator GoToBattle2()
+    {
+        black.color = new(0, 0, 0, 0);
+        yield return new WaitForSeconds(0.1f);
+        yield return StartCoroutine(FadeOut(0.5f, black));
+        SceneManager.LoadScene("ExtraBattle2");
+    }
     //バトル一覧を閉じる
     public void BattleClose()
     {
         StartCoroutine(ButtonAnim(backSwitchRect));
         StartCoroutine(Delay(battle, false));
+        seSource.clip = seUIBack;
+        seSource.Play();
     }
     public void Close()
     {
         words2.SetActive(false);
         bonus.SetActive(false);
         battle.SetActive(false);
+        seSource.clip = seUIBack;
+        seSource.Play();
     }
 }

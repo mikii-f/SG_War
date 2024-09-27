@@ -4,19 +4,20 @@ using UnityEngine.UI;
 
 public abstract class ImagesManagerOrigin : MonoBehaviour
 {
-    [SerializeField] protected GameObject chapterTitle;
+    [SerializeField] private GameObject chapterTitle;
     [SerializeField] private GameObject blackOver;
     [SerializeField] private GameObject blackUnder;
     [SerializeField] private GameObject blackAll;
-    protected RectTransform bORect;
-    protected RectTransform bURect;
-    protected RectTransform bARect;
-    protected Image blackOverImage;
-    protected Image blackUnderImage;
+    private RectTransform bORect;
+    private RectTransform bURect;
+    private RectTransform bARect;
+    private Image blackOverImage;
+    private Image blackUnderImage;
     protected Image blackAllImage;
     [SerializeField] private GameObject white;
-    protected Image whiteImage;
-    [SerializeField] protected GameObject textPanel;
+    private Image whiteImage;
+    [SerializeField] private GameObject textPanel;
+    private RectTransform textPanelRect;
     [SerializeField] private TextManagerOrigin textManager;
     [SerializeField] private GameObject character1;
     protected Image _characterImage;
@@ -26,9 +27,15 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     protected RectTransform _backgroundRect;
     [SerializeField] protected Sprite noneSprite;
     [SerializeField] protected Sprite backgroundBlack;
+    protected AudioSource audioSource;
+    [SerializeField] protected AudioSource seSource;
     protected bool skip = false;
     public bool Skip { set { skip = value; } }
-    // Start is called before the first frame update
+    public void AudioVolume(bool TorF)
+    {
+        audioSource.mute = !TorF;
+    }
+
     void Start()
     {
         bORect = blackOver.GetComponent<RectTransform>();
@@ -38,10 +45,14 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         blackUnderImage = blackUnder.GetComponent<Image>();
         blackAllImage = blackAll.GetComponent<Image>();
         whiteImage = white.GetComponent<Image>();
+        textPanelRect = textPanel.GetComponent<RectTransform>();
         _characterImage = character1.GetComponent<Image>();
         _characterRect = character1.GetComponent<RectTransform>();
         _backgroundImage = background1.GetComponent<Image>();
         _backgroundRect = background1.GetComponent<RectTransform>();
+        audioSource = GetComponent<AudioSource>();
+        audioSource.volume = GameManager.instance.BgmVolume;
+        seSource.volume = GameManager.instance.SeVolume;
         whiteImage.color = new(1, 1, 1, 0);
         blackOverImage.color = Color.clear;
         blackUnderImage.color = Color.clear;
@@ -56,26 +67,30 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
             chapterTitle.SetActive(true);
+            BGMChange("Chapter");
+            StartCoroutine(VolumeFadeIn(0));
             yield return new WaitForSeconds(6);
             chapterTitle.SetActive(false);
+            StartCoroutine(VolumeFadeOut(0.2f));
             yield return new WaitForSeconds(1);
             AnimationFinished(0);
         }
     }
 
-    //かつてどこかで見つけたやつを流用し続けている気がするためそろそろ自分流で書き直してもいいかも
+    //ワイプなどの処理と比べて、少し粗い遷移の方が「それっぽい」気がするためyield return nullにしない
     protected IEnumerator FadeOut(float fadeTime, Image image)
     {
         if (!skip)
         {
-            float waitTime = 0.1f;
-            float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
-            for (float alpha = 0.0f; alpha <= 255.0f; alpha += alphaChangeAmount)
+            Color temp = image.color;
+            temp.a = 0;
+            image.color = temp;
+            while (image.color.a < 1)
             {
-                Color newColor = image.color;
-                newColor.a = alpha / 255.0f;
-                image.color = newColor;
-                yield return new WaitForSeconds(waitTime);
+                yield return new WaitForSeconds(0.1f);
+                temp = image.color;
+                temp.a = Mathf.Min(1, temp.a + 0.1f / fadeTime);
+                image.color = temp;
             }
         }
         //スキップ中の場合結果のみ反映
@@ -90,14 +105,15 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     {
         if (!skip)
         {
-            float waitTime = 0.1f;
-            float alphaChangeAmount = 255.0f / (fadeTime / waitTime);
-            for (float alpha = 255.0f; alpha >= 0f; alpha -= alphaChangeAmount)
+            Color temp = image.color;
+            temp.a = 1;
+            image.color = temp;
+            while (image.color.a > 0)
             {
-                Color newColor = image.color;
-                newColor.a = alpha / 255.0f;
-                image.color = newColor;
-                yield return new WaitForSeconds(waitTime);
+                yield return new WaitForSeconds(0.1f);
+                temp = image.color;
+                temp.a = Mathf.Max(0, temp.a - 0.1f / fadeTime);
+                image.color = temp;
             }
         }
         //スキップ中の場合結果のみ反映
@@ -409,6 +425,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
                 temp += 48 * Time.deltaTime;
                 _backgroundRect.anchoredPosition = new(temp, 0);
             }
+            _backgroundRect.anchoredPosition = new(480, 0);
         }
         else
         {
@@ -421,6 +438,72 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     {
         _backgroundRect.anchoredPosition = new(480, 0);
     }
+    //テキストパネルの振動
+    public IEnumerator PanelVib()
+    {
+        if (!skip)
+        {
+            Vector2 temp = textPanelRect.anchoredPosition;
+            float defaultX = temp.x;
+            temp.x += 10;
+            textPanelRect.anchoredPosition = temp;
+            yield return new WaitForSeconds(0.1f);
+            temp.x -= 20;
+            textPanelRect.anchoredPosition = temp;
+            yield return new WaitForSeconds(0.1f);
+            temp.x += 20;
+            textPanelRect.anchoredPosition = temp;
+            yield return new WaitForSeconds(0.1f);
+            temp.x -= 20;
+            textPanelRect.anchoredPosition = temp;
+            yield return new WaitForSeconds(0.1f);
+            temp.x = defaultX;
+            textPanelRect.anchoredPosition = temp;
+        }
+    }
+    //キャラクターにズームして足下から映す(キャラ1.5倍&500～-800,背景2倍&540～-540)
+    public IEnumerator ZoomLook()
+    {
+        if (!skip)
+        {
+            _backgroundRect.localScale *= 2;
+            _backgroundRect.anchoredPosition = new(0, 540);
+            _characterRect.localScale *= 1.5f;
+            _characterRect.anchoredPosition = new(0, 500);
+            Vector2 temp1 = new(0, 540);
+            Vector2 temp2 = new(0, 500);
+            //3秒でカメラ移動
+            while (temp2.y > -800)
+            {
+                yield return null;
+                temp1.y = Mathf.Max(temp1.y - 1080 / 3 * Time.deltaTime, -540);
+                temp2.y -= 1300 / 3 * Time.deltaTime;
+                _backgroundRect.anchoredPosition = temp1;
+                _characterRect.anchoredPosition = temp2;
+            }
+            yield return new WaitForSeconds(1);
+            float temp3 = 2;
+            float temp4 = 1.5f;
+            //2秒で元のサイズに戻す
+            while (temp3 > 1)
+            {
+                temp1.y += 540 / 2 * Time.deltaTime;
+                temp2.y += 440 / 2 * Time.deltaTime;
+                temp3 = Mathf.Max(temp3 - 1f / 2 * Time.deltaTime, 1);
+                temp4 -= 0.5f / 2 * Time.deltaTime;
+                _backgroundRect.anchoredPosition = temp1;
+                _characterRect.anchoredPosition = temp2;
+                _backgroundRect.localScale = Vector3.one * temp3;
+                _characterRect.localScale = Vector3.one * temp4;
+                yield return null;
+            }
+            _backgroundRect.anchoredPosition = Vector2.zero;
+            _characterRect.anchoredPosition = new Vector2(0, -360);
+            _backgroundRect.localScale = Vector3.one;
+            _characterRect.localScale = Vector3.one;
+        }
+    }
+
     //話していないキャラクターの暗転用
     public void CharacterColor()
     {
@@ -438,16 +521,25 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         }
     }
     //1文の間で表情を切り替える用
-    public IEnumerator FaceChangeDelay(float t, int n)
+    public IEnumerator FaceChangeDelay(float t, string image)
     {
         if (!skip)
         {
             yield return new WaitForSeconds(t);
-            CharacterChange(n);
+            CharacterChange(image);
         }
         else
         {
-            CharacterChange(n);
+            CharacterChange(image);
+        }
+    }
+    //SEのディレイ
+    public IEnumerator SEDelay(float t, string se)
+    {
+        if (!skip)
+        {
+            yield return new WaitForSeconds(t);
+            SoundEffect(se);
         }
     }
     //キャラクターの位置を設定
@@ -465,7 +557,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     //背景のサイズおよび位置をリセット
     public void BackgroundReset()
     {
-        _backgroundRect.localScale = new(100, 100);
+        _backgroundRect.localScale = new(1, 1);
         _backgroundRect.anchoredPosition = new Vector2(0, 0);
     }
     //黒のオンオフ(別の方法を探したいが……)
@@ -496,24 +588,65 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     {
         textPanel.SetActive(false);
     }
+    //BGMのフェード
+    public IEnumerator VolumeFadeOut(float fadeTime)
+    {
+        if (!skip || fadeTime != 0)
+        {
+            while (audioSource.volume > 0)
+            {
+                float v = audioSource.volume;
+                v = Mathf.Max(0, v - GameManager.instance.BgmVolume * Time.deltaTime / fadeTime);
+                audioSource.volume = v;
+                yield return null;
+            }
+        }
+        else
+        {
+            audioSource.volume = 0;
+        }
+    }
+    public IEnumerator VolumeFadeIn(float fadeTime)
+    {
+        float targetVolume = GameManager.instance.BgmVolume;
+        if (!skip || fadeTime != 0)
+        {
+            while (audioSource.volume < targetVolume)
+            {
+                float v = audioSource.volume;
+                v = Mathf.Min(targetVolume, v + targetVolume * Time.deltaTime / fadeTime);
+                audioSource.volume = v;
+                yield return null;
+            }
+        }
+        else
+        {
+            audioSource.volume = targetVolume;
+        }
+    }
 
     //シーン切り替え
     public abstract void ChangeScene();
 
     //アニメーションの終了を各テキストマネージャーに伝えるための関数
-    protected void AnimationFinished(float waitTime)
+    private void AnimationFinished(float waitTime)
     {
         StartCoroutine(textManager.AnimationFinished(waitTime));
     }
 
     //以下各クラスに必要だが異なる処理にするもの(主に全てのシーンで画像をアタッチしなくて良いように)
+    //よく考えれば画像などはアタッチしなくてもエラーにならないのだから大した手間ではなかったが……
 
     //立ち絵の変更用(シーンごとに必要な分だけ記述)
-    public abstract void CharacterChange(int n);
+    public abstract void CharacterChange(string image);
     //背景について同上
-    public abstract void BackgroundChange(int n);
-    //共通で使うエフェクトが増えてきたら、Spriteだけ引数で与えるなり外で設定するなりで対応することにして機能は共通化した方が良さげ
-    public abstract void Effect(int n);
+    public abstract void BackgroundChange(string image);
+    //BGMについて同上
+    public abstract void BGMChange(string bgm);
+    //エフェクト
+    public abstract void Effect(string image);
+    //SE
+    public abstract void SoundEffect(string se);
     //シーンごとにStartで異なる処理を(差分だけ)記述するための関数
     protected abstract void StartSet();
 }

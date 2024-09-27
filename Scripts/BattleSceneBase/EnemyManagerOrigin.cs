@@ -21,7 +21,7 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
     [SerializeField] protected Slider HPslider;
     [SerializeField] protected TMP_Text HPText;
     [SerializeField] protected Sprite grayGage;
-    [SerializeField] protected Sprite redGage;
+    [SerializeField] protected Sprite redGage;      //画像ごと変えるのではなくImageのColorをいじるだけで良いようにすれば楽になりそう
     [SerializeField] protected int maxHP;
     [SerializeField] protected int attack;
     protected int maxGage;
@@ -37,8 +37,10 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
     protected bool pause = true;
     public bool Pause { set { pause = value; } }
     protected bool isShield = false;        //強敵の必殺直前のシールド状態
+    [SerializeField] private AudioClip seDamage;
+    [SerializeField] private AudioClip sePanel;
+    [SerializeField] private AudioClip seGuard;
 
-    // Start is called before the first frame update
     void Start()
     {
         myRect = myObject.GetComponent<RectTransform>();
@@ -47,6 +49,8 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
         attackPanel.SetActive(false);
         currentHP = maxHP;
         HPText.text = currentHP.ToString() + "/" + maxHP.ToString();
+        seSource = GetComponent<AudioSource>();
+        seSource.volume = GameManager.instance.SeVolume;
         StartSet();
     }
     protected abstract void StartSet();
@@ -106,7 +110,7 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
             yield return null;
         }
         //着弾・消滅
-        yield return null;
+        yield return new WaitForSeconds(0.1f);
         yield return StartCoroutine(FadeIn(0.5f, attackImage));
         //初期化
         attackRect.anchoredPosition = new (-diffX, 0);
@@ -115,6 +119,8 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
     //攻撃時の字幕
     protected IEnumerator AttackSubtitle(string attackName)
     {
+        seSource.clip = sePanel;
+        seSource.Play();
         attackSubtitle.text = attackName;
         attackPanel.SetActive(true);
         while (attackPanelRect.anchoredPosition.x < 100)
@@ -142,10 +148,17 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
             HPslider.value = (float)currentHP / maxHP;
             HPText.text = currentHP.ToString() + "/" + maxHP.ToString();
             StartCoroutine(DamageVibration());
+            seSource.clip = seDamage;
+            seSource.Play();
             if (currentHP == 0)
             {
                 StartCoroutine(Died());
             }
+        }
+        else if (isShield)
+        {
+            seSource.clip = seGuard;
+            seSource.Play();
         }
     }
     //必殺による強敵のシールド破壊(今回はエルのみになる予定)
@@ -156,7 +169,7 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
             isShield = false;
         }
     }
-    //ダメージ表示(上の関数をコルーチン化してもいい)
+    //ダメージ表示
     private IEnumerator DamageDisplay(int damage)
     {
         damageText.text = damage.ToString();

@@ -16,38 +16,49 @@ public class ImagesManager3_2 : ImagesManagerOrigin
     [SerializeField] private GameObject effectsObject;
     private Image effectsImage;
     private RectTransform effectsRect;
+    private AudioSource effectsAudio;
     [SerializeField] private Sprite swordEffect;
+    [SerializeField] private AudioClip bgmHome;
+    [SerializeField] private AudioClip bgmRoadNight;
+    [SerializeField] private AudioClip bgmEncounter;
+    [SerializeField] private AudioClip bgmThinking;
+    [SerializeField] private AudioClip bgmVision;
+    [SerializeField] private AudioClip seBright;
+    [SerializeField] private AudioClip seRoar;
+    [SerializeField] private AudioClip seChange;
+    [SerializeField] private AudioClip seSwitchOff;
 
     protected override void StartSet()
     {
         effectsImage = effectsObject.GetComponent<Image>();
         effectsRect = effectsObject.GetComponent<RectTransform>();
+        effectsAudio = effectsObject.GetComponent<AudioSource>();
     }
 
     //óßÇøäGä÷åW
-    public override void CharacterChange(int n)
+    public override void CharacterChange(string image)
     {
-        switch (n)
+        switch (image)
         {
-            case 0:
+            case "transparent":
                 _characterImage.sprite = noneSprite;
                 break;
-            case 1:
+            case "vier":
                 _characterImage.sprite = vier;
                 break;
-            case 2:
+            case "vier2":
                 _characterImage.sprite = vier2;
                 break;
-            case 4:
+            case "vier4":
                 _characterImage.sprite = vier4;
                 break;
-            case 8:
+            case "vier8":
                 _characterImage.sprite = vier8;
                 break;
-            case 21:
+            case "vier_battle":
                 _characterImage.sprite = vier_battle;
                 break;
-            case 101:
+            case "Ghost1":
                 _characterImage.sprite = ghost1;
                 break;
             default:
@@ -56,31 +67,58 @@ public class ImagesManager3_2 : ImagesManagerOrigin
     }
 
     //îwåiêÿÇËë÷Ç¶
-    public override void BackgroundChange(int n)
+    public override void BackgroundChange(string image)
     {
-        switch (n)
+        switch (image)
         {
-            case 0:
+            case "Black":
                 _backgroundImage.sprite = backgroundBlack;
                 break;
-            case 1:
+            case "MyRoom":
                 _backgroundImage.sprite = backgroundMyRoom;
                 break;
-            case 2:
+            case "Road":
                 _backgroundImage.sprite = backgroundRoad;
                 break;
             default:
                 break;
         }
     }
-
-    public override void Effect(int n)
+    public override void BGMChange(string bgm)
+    {
+        switch (bgm)
+        {
+            case "Home":
+                audioSource.clip = bgmHome;
+                audioSource.Play();
+                break;
+            case "RoadNight":
+                audioSource.clip = bgmRoadNight;
+                audioSource.Play();
+                break;
+            case "Encounter":
+                audioSource.clip = bgmEncounter;
+                audioSource.Play();
+                break;
+            case "Thinking":
+                audioSource.clip = bgmThinking;
+                audioSource.Play();
+                break;
+            case "Vision":
+                audioSource.clip = bgmVision;
+                audioSource.Play();
+                break;
+            default:
+                break;
+        }
+    }
+    public override void Effect(string image)
     {
         if (!skip)
         {
-            switch (n)
+            switch (image)
             {
-                case 0:
+                case "Sword":
                     StartCoroutine(SwordEffect());
                     break;
                 default:
@@ -91,6 +129,7 @@ public class ImagesManager3_2 : ImagesManagerOrigin
 
     private IEnumerator SwordEffect()
     {
+        effectsAudio.Play();
         effectsRect.localScale = new(2, 2);
         effectsImage.sprite = swordEffect;
         StartCoroutine(FadeIn(0.5f, effectsImage));
@@ -108,10 +147,37 @@ public class ImagesManager3_2 : ImagesManagerOrigin
         effectsImage.color = Color.white;
         effectsRect.localScale = new(1, 1);
     }
-
+    public override void SoundEffect(string se)
+    {
+        if (!skip)
+        {
+            switch (se)
+            {
+                case "Bright":
+                    seSource.clip = seBright;
+                    seSource.Play();
+                    break;
+                case "Roar":
+                    seSource.clip = seRoar;
+                    seSource.Play();
+                    break;
+                case "Change":
+                    seSource.clip = seChange;
+                    seSource.Play();
+                    break;
+                case "SwitchOff":
+                    seSource.clip = seSwitchOff;
+                    seSource.Play();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
     public override void ChangeScene()
     {
         GameManager.instance.LineNumber = 0;
+        GameManager.instance.Progress = "4èÕ";
         SceneManager.LoadScene("MainScene4");
     }
 }

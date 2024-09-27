@@ -5,14 +5,18 @@ public class MedalManager : MonoBehaviour
 {
     private Transform _transform;
     private Collider _collider;
+    private AudioSource seSource;
+    [SerializeField] AudioClip seMedal;
 
     void Start()
     {
         _transform = GetComponent<Transform>();
         _collider = GetComponent<Collider>();
+        seSource = GetComponent<AudioSource>();
+        seSource.volume = GameManager.instance.SeVolume;
         //StartCoroutine(Idling());
     }
-    //あまり見た目的には分からないため負荷軽減のためカット
+    //あまり見た目的には分からないためカット
     /*private IEnumerator Idling()
     {
         while (true)
@@ -48,6 +52,8 @@ public class MedalManager : MonoBehaviour
     }
     private IEnumerator GetMedal()
     {
+        seSource.clip = seMedal;
+        seSource.Play();
         float timeCount = 0;
         //0.2秒で3回転
         while (timeCount < 0.2f)

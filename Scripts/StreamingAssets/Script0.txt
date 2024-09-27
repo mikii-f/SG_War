@@ -22,7 +22,7 @@ CharacterReset,CharacterChange,vier_battle3
 0
 剣羽和人
 もちろんだ！ここで決着をつけるぞ！！
-Save,MenuOff,FadeOut,2.0,Black,AnimAndGoNext,3.0
+Save,MenuOff,FadeOut,2.0,Black,VolumeFadeOut,3.0,AnimAndGoNext,3.0
 
 
 TextPanelOff,AnimAndGoNext,1.0

@@ -27,6 +27,7 @@ public abstract class TextManagerOrigin : MonoBehaviour
     private bool isSpeedUp = false;
     public bool IsSpeedUp { set { isSpeedUp = value; TextFill(); } get { return isSpeedUp; } }
     private Coroutine slideCoroutine;
+    private Coroutine audioCoroutine;
     private bool skip = false;  //セーブデータなどから復帰する際に任意の行から始める用
 
     void Start()
@@ -41,6 +42,7 @@ public abstract class TextManagerOrigin : MonoBehaviour
         {
             skip = true;
             imagesManager.Skip = true;
+            imagesManager.AudioVolume(false);
             for (int i = 0; i < GameManager.instance.LineNumber - 1; i++)
             {
                 GoNextLine();
@@ -49,11 +51,11 @@ public abstract class TextManagerOrigin : MonoBehaviour
             skip = false;
             isAnimation = false;    //関数を使わずにこちらからアニメーションオンにすることがあるため(改善検討)
             imagesManager.Skip = false;
+            imagesManager.AudioVolume(true);
         }
         GoNextLine();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!skip)
@@ -176,39 +178,15 @@ public abstract class TextManagerOrigin : MonoBehaviour
                     break;
                 case "CharacterChange":
                     i++;
-                    imagesManager.CharacterChange(CharacterFace(s[i]));
+                    imagesManager.CharacterChange(s[i]);
                     break;
                 case "BackgroundChange":
                     i++;
-                    switch (s[i])
-                    {
-                        case "Black":
-                            imagesManager.BackgroundChange(0);
-                            break;
-                        case "MyRoom":
-                            imagesManager.BackgroundChange(1);
-                            break;
-                        case "Road":
-                            imagesManager.BackgroundChange(2);
-                            break;
-                        case "City":
-                            imagesManager.BackgroundChange(3);
-                            break;
-                        case "Rooftop":
-                            imagesManager.BackgroundChange(4);
-                            break;
-                        case "RoadNight":
-                            imagesManager.BackgroundChange(5);
-                            break;
-                        case "NightSky":
-                            imagesManager.BackgroundChange(6);
-                            break;
-                        case "Rooftop2":
-                            imagesManager.BackgroundChange(7);
-                            break;
-                        default:
-                            break;
-                    }
+                    imagesManager.BackgroundChange(s[i]);
+                    break;
+                case "BGMChange":
+                    i++;
+                    imagesManager.BGMChange(s[i]);
                     break;
                 case "CharacterMotion":
                     i++;
@@ -216,32 +194,11 @@ public abstract class TextManagerOrigin : MonoBehaviour
                     break;
                 case "Effect":
                     i++;
-                    switch (s[i])
-                    {
-                        case "Sword":
-                            imagesManager.Effect(0);
-                            break;
-                        case "WindEffectStart":
-                            imagesManager.Effect(1);
-                            break;
-                        case "WindEffectStop":
-                            imagesManager.Effect(2);
-                            break;
-                        case "BloodEffect":
-                            imagesManager.Effect(3);
-                            break;
-                        case "Jump":
-                            imagesManager.Effect(4);
-                            break;
-                        case "Heal":
-                            imagesManager.Effect(5);
-                            break;
-                        case "HealFinish":
-                            imagesManager.Effect(6);
-                            break;
-                        default:
-                            break;
-                    }
+                    imagesManager.Effect(s[i]);
+                    break;
+                case "SE":
+                    i++;
+                    imagesManager.SoundEffect(s[i]);
                     break;
                 case "Wipe1":
                     isAnimation = true;
@@ -261,6 +218,12 @@ public abstract class TextManagerOrigin : MonoBehaviour
                         imagesManager.SlideStop();
                     }                    
                     break;
+                case "PanelVib":
+                    StartCoroutine(imagesManager.PanelVib());
+                    break;
+                case "ZoomLook":
+                    StartCoroutine(imagesManager.ZoomLook());
+                    break;
                 case "CharacterColor":
                     imagesManager.CharacterColor();
                     break;
@@ -271,7 +234,13 @@ public abstract class TextManagerOrigin : MonoBehaviour
                     i++;
                     float t = float.Parse(s[i]);
                     i++;
-                    StartCoroutine(imagesManager.FaceChangeDelay(t, CharacterFace(s[i])));
+                    StartCoroutine(imagesManager.FaceChangeDelay(t, s[i]));
+                    break;
+                case "SEDelay":
+                    i++;
+                    t = float.Parse(s[i]);
+                    i++;
+                    StartCoroutine(imagesManager.SEDelay(t, s[i]));
                     break;
                 case "CharacterRect":
                     i++;
@@ -285,6 +254,22 @@ public abstract class TextManagerOrigin : MonoBehaviour
                     break;
                 case "BackgroundReset":
                     imagesManager.BackgroundReset();
+                    break;
+                case "VolumeFadeOut":
+                    if (audioCoroutine != null)
+                    {
+                        StopCoroutine(audioCoroutine);
+                    }
+                    i++;
+                    audioCoroutine = StartCoroutine(imagesManager.VolumeFadeOut(float.Parse(s[i])));
+                    break;
+                case "VolumeFadeIn":
+                    if (audioCoroutine != null)
+                    {
+                        StopCoroutine(audioCoroutine);
+                    }
+                    i++;
+                    audioCoroutine = StartCoroutine(imagesManager.VolumeFadeIn(float.Parse(s[i])));
                     break;
                 case "AnimAndGoNext":
                     i++;
@@ -367,6 +352,7 @@ public abstract class TextManagerOrigin : MonoBehaviour
     //シーンスキップ
     public IEnumerator SceneSkip()
     {
+        imagesManager.AudioVolume(false);
         yield return new WaitForSeconds(0.15f);
         skip = true;
         imagesManager.Skip = true;
@@ -406,69 +392,5 @@ public abstract class TextManagerOrigin : MonoBehaviour
         imagesManager.TextPanelOff();
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene("TitleScene");
-    }
-
-    //表情差分は多いためswitch文を外で処理(image側でもswitchするためよく考えれば二度手間、改善対象)
-    private int CharacterFace(string s)
-    {
-        switch (s)
-        {
-            case "transparent":
-                return 0;
-            case "vier":
-                return 1;
-            case "vier2":
-                return 2;
-            case "vier3":
-                return 3;
-            case "vier4":
-                return 4;
-            case "vier5":
-                return 5;
-            case "vier6":
-                return 6;
-            case "vier7":
-                return 7;
-            case "vier8":
-                return 8;
-            case "vier_battle":
-                return 21;
-            case "vier_battle2":
-                return 22;
-            case "vier_battle3":
-                return 23;
-            case "vier_battle4":
-                return 24;
-            case "vier_battle5":
-                return 25;
-            case "vier_battle6":
-                return 26;
-            case "vier_battle7":
-                return 27;
-            case "vier_battle8":
-                return 28;
-            case "el":
-                return 51;
-            case "el_battle":
-                return 71;
-            case "el_battle2":
-                return 72;
-            case "el_battle3":
-                return 73;
-            case "el_battle4":
-                return 74;
-            case "el_battle5":
-                return 75;
-            case "el_enemy":
-                return 91;
-            case "Ghost1":
-                return 101;
-            case "Command":
-                return 106;
-            case "Enemys":
-                return 111;
-            default:
-                return 0;
-        }
     }
 }

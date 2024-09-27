@@ -29,77 +29,93 @@ public class ImagesManager4_2 : ImagesManagerOrigin
     [SerializeField] private GameObject effectsObject;
     private Image effectsImage;
     private RectTransform effectsRect;
+    private AudioSource effectsAudio;
     [SerializeField] private GameObject effectsObject2;
     private Image effectsImage2;
     private RectTransform effectsRect2;
+    private AudioSource effectsAudio2;
     [SerializeField] private Sprite swordEffect;
     [SerializeField] private Sprite swordEffect2;
     [SerializeField] private Sprite bloodEffect;
     [SerializeField] private Sprite jumpEffect;
     [SerializeField] private Sprite healEffect;
+    [SerializeField] private AudioClip bgmCommand;
+    [SerializeField] private AudioClip bgmMemory;
+    [SerializeField] private AudioClip bgmPiano;
+    [SerializeField] private AudioClip bgmFeel;
+    [SerializeField] private AudioClip seBright;
+    [SerializeField] private AudioClip seChange;
+    [SerializeField] private AudioClip seFoot;
+    [SerializeField] private AudioClip seFoot2;
+    [SerializeField] private AudioClip seSword;
+    [SerializeField] private AudioClip seSliding;
+    [SerializeField] private AudioClip seBlood;
+    [SerializeField] private AudioClip seHeal;
 
     protected override void StartSet()
     {
         effectsImage = effectsObject.GetComponent<Image>();
         effectsRect = effectsObject.GetComponent<RectTransform>();
+        effectsAudio = effectsObject2.GetComponent<AudioSource>();
         effectsImage2 = effectsObject2.GetComponent<Image>();
         effectsRect2 = effectsObject2.GetComponent<RectTransform>();
+        effectsAudio2 = effectsObject2.GetComponent<AudioSource>();
     }
 
     //立ち絵関係
-    public override void CharacterChange(int n)
+    public override void CharacterChange(string image)
     {
-        switch (n)
+        switch (image)
         {
-            case 0:
+            case "transparent":
                 _characterImage.sprite = noneSprite;
                 break;
-            case 21:
+            case "vier_battle":
                 _characterImage.sprite = vier_battle;
                 break;
-            case 22:
+            case "vier_battle2":
                 _characterImage.sprite = vier_battle2;
                 break;
-            case 23:
+            case "vier_battle3":
                 _characterImage.sprite = vier_battle3;
                 break;
-            case 24:
+            case "vier_battle4":
                 _characterImage.sprite = vier_battle4;
                 break;
-            case 25:
+            case "vier_battle5":
                 _characterImage.sprite = vier_battle5;
                 break;
-            case 26:
+            case "vier_battle6":
                 _characterImage.sprite = vier_battle6;
                 break;
-            case 27:
+            case "vier_battle7":
                 _characterImage.sprite = vier_battle7;
                 break;
-            case 28:
+            case "vier_battle8":
                 _characterImage.sprite = vier_battle8;
                 break;
-            case 71:
+            case "el_battle":
                 _characterImage.sprite = el_battle;
                 break;
-            case 72:
+            case "el_battle2":
                 _characterImage.sprite = el_battle2;
                 break;
-            case 73:
+            case "el_battle3":
                 _characterImage.sprite = el_battle3;
                 break;
-            case 74:
+            case "el_battle4":
                 _characterImage.sprite = el_battle4;
                 break;
-            case 75:
+            case "el_battle5":
                 _characterImage.sprite = el_battle5;
                 break;
-            case 91:
+            case "el_enemy":
                 _characterImage.sprite = el_enemy;
                 break;
-            case 101:
+            case "Ghost1":
                 _characterImage.sprite = ghost1;
                 break;
-            case 106:
+            case "Command":
                 _characterImage.sprite = command;
                 break;
             default:
@@ -108,23 +124,23 @@ public class ImagesManager4_2 : ImagesManagerOrigin
     }
 
     //背景切り替え
-    public override void BackgroundChange(int n)
+    public override void BackgroundChange(string image)
     {
-        switch (n)
+        switch (image)
         {
-            case 0:
+            case "Black":
                 _backgroundImage.sprite = backgroundBlack;
                 break;
-            case 1:
+            case "MyRoom":
                 _backgroundImage.sprite = backgroundMyRoom;
                 break;
-            case 2:
+            case "Road":
                 _backgroundImage.sprite = backgroundRoad;
                 break;
-            case 4:
+            case "Rooftop":
                 _backgroundImage.sprite = backgroundRooftop;
                 break;
-            case 7:
+            case "Rooftop2":
                 StartCoroutine(FadeOut(3.0f, backgroundImage2));
                 backgroundImage2.sprite = backgroundRooftop2;
                 break;
@@ -132,31 +148,58 @@ public class ImagesManager4_2 : ImagesManagerOrigin
                 break;
         }
     }
-
+    public override void BGMChange(string bgm)
+    {
+        switch (bgm)
+        {
+            case "Command":
+                audioSource.clip = bgmCommand;
+                audioSource.Play();
+                break;
+            case "Memory":
+                audioSource.clip = bgmMemory;
+                audioSource.Play();
+                break;
+            case "Piano":
+                audioSource.clip = bgmPiano;
+                audioSource.Play();
+                break;
+            case "Feel":
+                audioSource.clip = bgmFeel;
+                audioSource.Play();
+                break;
+            default:
+                break;
+        }
+    }
     //エフェクト(透明度とかサイズの処理に注意 特にスキップした場合)
-    public override void Effect(int n)
+    public override void Effect(string image)
     {
         if (!skip)
         {
-            switch (n)
+            switch (image)
             {
-                case 0:
+                case "Sword":
                     StartCoroutine(SwordEffect());
                     break;
-                case 3:
+                case "BloodEffect":
                     StartCoroutine(BloodEffect());
                     break;
-                case 4:
+                case "Jump":
                     effectsImage.sprite = jumpEffect;
                     StartCoroutine(FadeIn(0.5f, effectsImage));
                     break;
-                case 5:
+                case "Heal":
                     effectsImage.sprite = healEffect;
                     effectsImage.color = new(1, 1, 1, 0.3f);
                     effectsRect.localScale = new(1.6f, 1.6f);
+                    effectsAudio.clip = seBright;
+                    effectsAudio.Play();
                     break;
-                case 6:
+                case "HealFinish":
                     StartCoroutine(HealFinish());
+                    effectsAudio.clip = seHeal;
+                    effectsAudio.Play();
                     break;
                 default:
                     break;
@@ -171,7 +214,9 @@ public class ImagesManager4_2 : ImagesManagerOrigin
     }
     private IEnumerator Sword1()
     {
-        effectsRect2.localScale = new(0.5f, 0.5f);
+        effectsAudio.clip = seSword;
+        effectsAudio.Play();
+        effectsRect.localScale = new(0.5f, 0.5f);
         effectsImage.sprite = swordEffect2;
         effectsRect.localEulerAngles = new(0, 0, 90);
         while (effectsRect.localScale.x < 2)
@@ -189,6 +234,7 @@ public class ImagesManager4_2 : ImagesManagerOrigin
     }
     private IEnumerator Sword2()
     {
+        effectsAudio2.Play();
         effectsRect2.localScale = new(3, 3);
         effectsImage2.sprite = swordEffect;
         StartCoroutine(FadeIn(0.5f, effectsImage2));
@@ -205,6 +251,8 @@ public class ImagesManager4_2 : ImagesManagerOrigin
     }
     private IEnumerator BloodEffect()
     {
+        effectsAudio.clip = seBlood;
+        effectsAudio.Play();
         effectsImage.sprite = bloodEffect;
         yield return StartCoroutine(FadeOut(0.5f, effectsImage));
         yield return StartCoroutine(FadeIn(0.5f, effectsImage));
@@ -221,9 +269,53 @@ public class ImagesManager4_2 : ImagesManagerOrigin
         effectsImage.color = Color.white;
         effectsRect.localScale = new(1, 1);
     }
+    public override void SoundEffect(string se)
+    {
+        if (!skip)
+        {
+            switch (se)
+            {
+                case "Bright":
+                    seSource.clip = seBright;
+                    seSource.Play();
+                    break;
+                case "Change":
+                    seSource.clip = seChange;
+                    seSource.Play();
+                    break;
+                case "Foot":
+                    seSource.clip = seFoot;
+                    seSource.Play();
+                    break;
+                case "Sliding":
+                    seSource.clip = seSliding;
+                    seSource.Play();
+                    break;
+                case "Run":
+                    StartCoroutine(Run());
+                    break;
+                case "Blood":
+                    seSource.clip = seBlood;
+                    seSource.Play();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    private IEnumerator Run()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            seSource.clip = seFoot2;
+            seSource.Play();
+            yield return new WaitForSeconds(0.25f);
+        }
+    }
     public override void ChangeScene()
     {
         GameManager.instance.LineNumber = 0;
+        GameManager.instance.Progress = "クリア";
         SceneManager.LoadScene("EndRoal");
     }
 }
