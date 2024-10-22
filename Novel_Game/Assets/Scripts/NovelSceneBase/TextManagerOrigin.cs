@@ -13,7 +13,7 @@ public abstract class TextManagerOrigin : MonoBehaviour
     protected List<string> _names = new();        //名前を格納
     private int lineNumber = 0;                   //現在の行
     private int displayWordNumber = 0;            //表示する文字数の管理(1文字ずつ表示する用)
-    private float readTime = 0.03f;               //文字表示スピード
+    private const float readTime = 0.03f;               //文字表示スピード
     private float timeCount = 0f;                 //時間保持用
     private float waitTime = 1f;                  //自動再生時の待ち時間  (この辺りはコンフィグからいじれるようにしたい)
     private string tempText;                      //表示しようとしているテキスト
@@ -36,6 +36,7 @@ public abstract class TextManagerOrigin : MonoBehaviour
     }
     private IEnumerator SaveDataCheck()
     {
+        waitTime = GameManager.instance.AutoSpeed;
         yield return null;
         //指定された行まで進む
         if (GameManager.instance.LineNumber != 0)
