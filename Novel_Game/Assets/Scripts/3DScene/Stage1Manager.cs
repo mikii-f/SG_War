@@ -21,6 +21,8 @@ public class Stage1Manager : StageManagerOrigin
     [SerializeField] private GameObject function2;
     [SerializeField] private Text functionMessageText;
     private int functionNumber = 0;
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private Text gameOverText2;
     private AudioSource audioSource;
     [SerializeField] private AudioClip seCymbal;
 
@@ -33,12 +35,14 @@ public class Stage1Manager : StageManagerOrigin
         messagePanel.SetActive(false);
         function.SetActive(false);
         function2.SetActive(false);
+        gameOverPanel.SetActive(false);
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = GameManager.instance.BgmVolume;
         seSource.volume = GameManager.instance.SeVolume;
         if (GameManager.instance.EXP == 0)
         {
             functionText2.text = "";
+            gameOverText2.text = "";
         }
     }
     private void Update()
@@ -118,6 +122,17 @@ public class Stage1Manager : StageManagerOrigin
                     seSource.clip = seUIBack;
                     seSource.Play();
                 }
+            }
+        }
+        if (gameOverPanel.activeSelf)
+        {
+            if (Input.GetKeyDown(KeyCode.Y))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+            else if (Input.GetKeyDown(KeyCode.N) && GameManager.instance.EXP != 0)
+            {
+                SceneManager.LoadScene("3DGameSelectScene");
             }
         }
     }
@@ -263,5 +278,13 @@ public class Stage1Manager : StageManagerOrigin
         seSource.Play();
         yield return StartCoroutine(FadeOut(1, black));
         SceneManager.LoadScene("3DGameSelectScene");
+    }
+
+    public override void GameOver()
+    {
+        clear = true;
+        function.SetActive(false);
+        function2.SetActive(false);
+        gameOverPanel.SetActive(true);
     }
 }

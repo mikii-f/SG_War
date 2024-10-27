@@ -9,12 +9,15 @@ public class SelectSceneManager : SystemManagerOrigin
     [SerializeField] private RectTransform normalSwitchRect;
     [SerializeField] private RectTransform hardSwitchRect;
     [SerializeField] private GameObject hardSwitchMask;
+    [SerializeField] private GameObject hardInfoSwitch;
+    private RectTransform hardInfoSwitchRect;
     [SerializeField] private RectTransform storySwitchRect;
     [SerializeField] private Text statusText;
     [SerializeField] private GameObject systemMessageObject;
     [SerializeField] private RectTransform yesSwitch;
     [SerializeField] private RectTransform noSwitch;
     [SerializeField] private GameObject developingMessage;
+    [SerializeField] private GameObject hardInfo;
     [SerializeField] private Image black;
     [SerializeField] private TMP_Text countDown;
     private AudioSource audioSource;
@@ -24,8 +27,10 @@ public class SelectSceneManager : SystemManagerOrigin
 
     private void Start()
     {
+        hardInfoSwitchRect = hardInfoSwitch.GetComponent<RectTransform>();
         systemMessageObject.SetActive(false);
         developingMessage.SetActive(false);
+        hardInfo.SetActive(false);
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = GameManager.instance.BgmVolume;
         seSource.volume = GameManager.instance.SeVolume;
@@ -33,6 +38,10 @@ public class SelectSceneManager : SystemManagerOrigin
         if (GameManager.instance.EXP > 3000)
         {
             hardSwitchMask.SetActive(false);
+        }
+        else
+        {
+            hardInfoSwitch.SetActive(false);
         }
     }
 
@@ -85,7 +94,22 @@ public class SelectSceneManager : SystemManagerOrigin
             }
         }
     }
-    //今はノーマルステージのみに対応
+    public void HardInfoSwitch()
+    {
+        if (!go)
+        {
+            StartCoroutine(ButtonAnim(hardInfoSwitchRect));
+            StartCoroutine(Delay(hardInfo, true));
+            seSource.clip = seUIClick;
+            seSource.Play();
+        }
+    }
+    public void Close()
+    {
+        hardInfo.SetActive(false);
+        seSource.clip = seUIBack;
+        seSource.Play();
+    }
     public void YesSwitch()
     {
         if (!go && !switchInterval)

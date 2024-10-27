@@ -18,7 +18,7 @@ public abstract class StageManagerOrigin : SystemManagerOrigin
         medalCount++;
         medalCountText.text = medalCount.ToString();
     }
-    public void Damage()
+    public bool Damage()
     {
         //スキップ含めクリア済みなら影響なし
         if (!clear)
@@ -28,10 +28,16 @@ public abstract class StageManagerOrigin : SystemManagerOrigin
             if (life == 0)
             {
                 GameOver();
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
+        return false;
     }
-    public void GameOver()
+    public　virtual void GameOver()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

@@ -136,6 +136,30 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         }
         enemyComposition[numberOfCurrentWave][selectedEnemy].Select();
     }
+    //敵の画像(厳密には別オブジェクト)をクリックしたときの対象切り替え
+    public void EnemySelect0()
+    {
+        Select(0);
+    }
+    public void EnemySelect1()
+    {
+        Select(1);
+    }
+    public void EnemySelect2()
+    {
+        Select(2);
+    }
+    private void Select(int n)
+    {
+        if (selectedEnemy != n && !deadEnemyComposition[numberOfCurrentWave][n])
+        {
+            enemyComposition[numberOfCurrentWave][selectedEnemy].DisSelect();
+            selectedEnemy = n;
+            enemyComposition[numberOfCurrentWave][selectedEnemy].Select();
+            seSource.clip = seUIClick;
+            seSource.Play();
+        }
+    }
 
     //敵からの攻撃
     public void EnemyToSainAttack(int damage)
