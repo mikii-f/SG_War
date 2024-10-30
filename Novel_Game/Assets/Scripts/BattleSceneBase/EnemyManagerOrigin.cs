@@ -37,6 +37,7 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
     protected bool pause = true;
     public bool Pause { set { pause = value; } }
     protected bool isShield = false;        //強敵の必殺直前のシールド状態
+    [SerializeField] private AudioSource damageSeSource;
     [SerializeField] private AudioClip seDamage;
     [SerializeField] private AudioClip sePanel;
     [SerializeField] private AudioClip seGuard;
@@ -51,6 +52,7 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
         HPText.text = currentHP.ToString() + "/" + maxHP.ToString();
         seSource = GetComponent<AudioSource>();
         seSource.volume = GameManager.instance.SeVolume;
+        damageSeSource.volume = GameManager.instance.SeVolume;
         StartSet();
     }
     protected abstract void StartSet();
@@ -148,8 +150,8 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
             HPslider.value = (float)currentHP / maxHP;
             HPText.text = currentHP.ToString() + "/" + maxHP.ToString();
             StartCoroutine(DamageVibration());
-            seSource.clip = seDamage;
-            seSource.Play();
+            damageSeSource.clip = seDamage;
+            damageSeSource.Play();
             if (currentHP == 0)
             {
                 StartCoroutine(Died());
@@ -157,8 +159,8 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
         }
         else if (isShield)
         {
-            seSource.clip = seGuard;
-            seSource.Play();
+            damageSeSource.clip = seGuard;
+            damageSeSource.Play();
         }
     }
     //必殺による強敵のシールド破壊(今回はエルのみになる予定)

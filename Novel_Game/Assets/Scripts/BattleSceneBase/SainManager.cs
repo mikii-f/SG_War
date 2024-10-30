@@ -19,6 +19,8 @@ public class SainManager : SystemManagerOrigin
     private int currentSG = 20;
     private int attack = 50;
     [SerializeField] private TMP_Text damageText;
+    [SerializeField] private TMP_Text damageText2;
+    [SerializeField] private TMP_Text damageText3;
     [SerializeField] private GameObject specialAttack;
     [SerializeField] private RectTransform bS1Rect;
     [SerializeField] private RectTransform bS2Rect;
@@ -68,7 +70,8 @@ public class SainManager : SystemManagerOrigin
     private bool auto = false;
     public bool Auto { set { auto = value; } get { return auto; } }
     private Coroutine commentCoroutine;
-    private Coroutine damageCoroutine;
+    [SerializeField] AudioSource damageSeSource;
+    [SerializeField] AudioSource lSkillSeSource;
     [SerializeField] AudioClip seDamage;
     [SerializeField] AudioClip seSpecialDamage;
     [SerializeField] AudioClip seGuard;
@@ -124,6 +127,8 @@ public class SainManager : SystemManagerOrigin
         guardEffect.SetActive(false);
         seSource = GetComponent<AudioSource>();
         seSource.volume = GameManager.instance.SeVolume;
+        damageSeSource.volume = GameManager.instance.SeVolume;
+        lSkillSeSource.volume = GameManager.instance.SeVolume;
     }
 
     void Update()
@@ -380,8 +385,8 @@ public class SainManager : SystemManagerOrigin
                 ResetComment();
             }
             commentCoroutine = StartCoroutine(Comment("回避成功"));
-            seSource.clip = seAvoid;
-            seSource.Play();
+            damageSeSource.clip = seAvoid;
+            damageSeSource.Play();
         }
         //無敵時間ならノーダメ
         else if (isInvincible)
@@ -398,28 +403,36 @@ public class SainManager : SystemManagerOrigin
                 ResetComment();
             }
             commentCoroutine = StartCoroutine(Comment("ガード成功"));
-            seSource.clip = seGuard;
-            seSource.Play();
+            damageSeSource.clip = seGuard;
+            damageSeSource.Play();
         }
         //攻撃待機中なら5割カット
         else if (intervalCount == 0)
         {
             damage /= 2;
-            seSource.clip = seDamage;
-            seSource.Play();
+            damageSeSource.clip = seDamage;
+            damageSeSource.Play();
         }
         //ガードなどをしていなかった時は振動
         else
         {
             StartCoroutine(DamageVibration());
-            seSource.clip = seDamage;
-            seSource.Play();
+            damageSeSource.clip = seDamage;
+            damageSeSource.Play();
         }
-        if (damageCoroutine != null)
+        //表示に使われていないテキストボックスを使う
+        if (damageText.text == "")
         {
-            StopCoroutine(damageCoroutine);
+            StartCoroutine(DamageDisplay(damage, damageText));
         }
-        damageCoroutine = StartCoroutine(DamageDisplay(damage));
+        else if (damageText2.text == "")
+        {
+            StartCoroutine(DamageDisplay(damage, damageText2));
+        }
+        else
+        {
+            StartCoroutine(DamageDisplay(damage, damageText3));
+        }
         currentHP = Mathf.Max(0, currentHP - damage);
         HPslider.value = (float)currentHP / maxHP;
         HPText.text = currentHP.ToString() + "/" + maxHP.ToString();
@@ -432,9 +445,9 @@ public class SainManager : SystemManagerOrigin
     public void ReceiveSpecialDamage(int damage)
     {
         StartCoroutine(DamageVibration());
-        StartCoroutine(DamageDisplay(damage));
-        seSource.clip = seSpecialDamage;
-        seSource.Play();
+        StartCoroutine(DamageDisplay(damage, damageText));
+        damageSeSource.clip = seSpecialDamage;
+        damageSeSource.Play();
         currentHP = Mathf.Max(0, currentHP - damage);
         HPslider.value = (float)currentHP / maxHP;
         HPText.text = currentHP.ToString() + "/" + maxHP.ToString();
@@ -444,8 +457,8 @@ public class SainManager : SystemManagerOrigin
         }
     }
 
-    //ダメージ表示(同時に2つの攻撃を受けた時も分かりやすいようにしたい)
-    private IEnumerator DamageDisplay(int damage)
+    //ダメージ表示
+    private IEnumerator DamageDisplay(int damage, TMP_Text damageText)
     {
         damageText.text = damage.ToString();
         yield return new WaitForSeconds(0.35f);
@@ -514,15 +527,15 @@ public class SainManager : SystemManagerOrigin
         HPslider.value = (float)currentHP / maxHP;
         HPText.text = currentHP.ToString() + "/" + maxHP.ToString();
         StartCoroutine(EffectOnandOff(healEffect));
-        seSource.clip = seHeal;
-        seSource.Play();
+        lSkillSeSource.clip = seHeal;
+        lSkillSeSource.Play();
     }
     //攻撃アシストを受ける(暫定15秒間攻撃+1.5倍)
     public IEnumerator ReceiveAttackAssist()
     {
         StartCoroutine(EffectOnandOff(buffEffect));
-        seSource.clip = seBuff;
-        seSource.Play();
+        lSkillSeSource.clip = seBuff;
+        lSkillSeSource.Play();
         attackFactor += 5;
         float tempTimer = buffTimer;
         //バフ状況の管理
@@ -552,8 +565,8 @@ public class SainManager : SystemManagerOrigin
     public IEnumerator ReceiveSpeedAssist()
     {
         StartCoroutine(EffectOnandOff(buffEffect));
-        seSource.clip = seBuff;
-        seSource.Play();
+        lSkillSeSource.clip = seBuff;
+        lSkillSeSource.Play();
         speedFactor += 5;
         float tempTimer = buffTimer;
         //バフ状況の管理
