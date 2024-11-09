@@ -32,6 +32,7 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
     protected float interval;
     protected float intervalCount;
     protected bool isAttack = false;
+    public bool IsAttack { get { return isAttack;  } }
     protected bool isDied = false;
     public bool Dead { get { return isDied; } }
     protected bool pause = true;

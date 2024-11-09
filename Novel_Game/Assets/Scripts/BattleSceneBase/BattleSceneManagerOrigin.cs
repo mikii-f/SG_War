@@ -12,6 +12,8 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
     protected RectTransform blackRect;
     protected Image blackImage;
     [SerializeField] protected GameObject explanation;
+    [SerializeField] private Text expMessage;
+    [SerializeField] private RectTransform expSwitchRect;
     [SerializeField] protected TMP_Text battleStartAndFinishText;
     [SerializeField] private GameObject specialSkillAnimation;
     [SerializeField] private Text enemyNumberText;
@@ -23,6 +25,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
     protected int numberOfArriveEnemy;
     protected int numberOfCurrentWave = 0;      //配列のインデックスとして使うことが多いため0から
     protected int selectedEnemy = 0;
+    private bool isSainAttack = false;
     protected bool isSpecialAttack = false;
     private bool isEnemySpecialAttack = false;
     private bool isGameOver = false;
@@ -61,7 +64,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
     {
         if (Input.GetKeyDown(KeyCode.Space) && explanation.activeSelf)
         {
-            explanation.SetActive(false);
+            Close();
         }
         //攻撃対象の選択
         if (Input.GetKeyDown(KeyCode.A))
@@ -257,6 +260,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
     //戦闘スキル1
     public IEnumerator SainSkill1(int damage, RectTransform attackRect, Image attackImage)
     {
+        isSainAttack = true;
         seSource.clip = seSword;
         seSource.Play();
         attackImage.color = Color.white;
@@ -281,6 +285,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         }
         //着弾・消滅
         enemyComposition[numberOfCurrentWave][selected].ReceiveDamage(damage);
+        isSainAttack = false;
         yield return new WaitForSeconds(0.1f);
         yield return StartCoroutine(FadeIn(0.5f, attackImage));
         //初期化
@@ -290,6 +295,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
     //戦闘スキル2
     public IEnumerator SainSkill2(int damage, RectTransform attackRect, Image attackImage)
     {
+        isSainAttack = true;
         seSource.clip = seWind;
         seSource.Play();
         attackImage.color = Color.white;
@@ -315,6 +321,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         //着弾・消滅
         enemyComposition[numberOfCurrentWave][selected].ReceiveDamage(damage);
         enemyComposition[numberOfCurrentWave][selected].ReceiveDelay();
+        isSainAttack = false;
         yield return new WaitForSeconds(0.1f);
         yield return StartCoroutine(FadeIn(0.5f, attackImage));
         //初期化
@@ -512,6 +519,51 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
     public void Close()
     {
         explanation.SetActive(false);
+        battleSystemManager.IsMessageDisplay = false;
+        seSource.clip = seUIUnactive;
+        seSource.Play();
+    }
+    //ポーズ(メニュー表示)が可能か(敵も味方も攻撃中でないか)
+    public bool IsPausePossible()
+    {
+        bool possible = true;
+        for (int i = 0; i < numberOfEnemy[numberOfCurrentWave]; i++)
+        {
+            if (enemyComposition[numberOfCurrentWave][i].IsAttack)
+            {
+                possible = false;
+                break;
+            }
+        }
+        return possible && !isSainAttack && !isSpecialAttack && !isEnemySpecialAttack && !sainManager.Pause;
+    }
+    public void Pause()
+    {
+        sainManager.Pause = true;
+        leaderManager.Pause = true;
+        for (int i = 0; i < numberOfEnemy[numberOfCurrentWave]; i++)
+        {
+            enemyComposition[numberOfCurrentWave][i].Pause = true;
+        }
+    }
+    public void Restart()
+    {
+        sainManager.Pause = false;
+        leaderManager.Pause = false;
+        for (int i = 0; i < numberOfEnemy[numberOfCurrentWave]; i++)
+        {
+            enemyComposition[numberOfCurrentWave][i].Pause = false;
+        }
+    }
+    //説明の再表示
+    public void Explanation()
+    {
+        StartCoroutine(ButtonAnim(expSwitchRect));
+        seSource.clip = seUIClick;
+        seSource.Play();
+        expMessage.text = "枠外をクリック、またはスペースキーで閉じる";
+        explanation.SetActive(true);
+        battleSystemManager.IsMessageDisplay = true;
     }
     //各シーンにおけるロード&強制スキップ用
     public abstract void SceneLoad();
