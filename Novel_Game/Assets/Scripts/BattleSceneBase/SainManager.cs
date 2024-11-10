@@ -7,78 +7,78 @@ using UnityEngine.SceneManagement;
 
 public class SainManager : SystemManagerOrigin
 {
-    [SerializeField] private BattleSceneManagerOrigin bSManager;
+    [SerializeField] protected BattleSceneManagerOrigin bSManager;
     [SerializeField] private RectTransform myRect;
-    [SerializeField] private TMP_Text HPText;
-    [SerializeField] private TMP_Text SGText;
-    [SerializeField] private Slider HPslider;
-    [SerializeField] private Slider SGslider;
-    private int maxHP = 1000;
-    private const int maxSG = 120;
-    private int currentHP = 1000;
-    private int currentSG = 20;
-    private int attack = 50;
-    [SerializeField] private TMP_Text damageText;
-    [SerializeField] private TMP_Text damageText2;
-    [SerializeField] private TMP_Text damageText3;
+    [SerializeField] protected TMP_Text HPText;
+    [SerializeField] protected TMP_Text SGText;
+    [SerializeField] protected Slider HPslider;
+    [SerializeField] protected Slider SGslider;
+    protected int maxHP = 1000;
+    protected const int maxSG = 120;
+    protected int currentHP = 1000;
+    protected int currentSG = 20;
+    protected int attack = 50;
+    [SerializeField] protected TMP_Text damageText;
+    [SerializeField] protected TMP_Text damageText2;
+    [SerializeField] protected TMP_Text damageText3;
     [SerializeField] private GameObject specialAttack;
-    [SerializeField] private RectTransform bS1Rect;
-    [SerializeField] private RectTransform bS2Rect;
-    [SerializeField] private RectTransform bS3Rect;
-    private RectTransform sARect;
-    private Image sAImage;
-    [SerializeField] private GameObject mask;
-    [SerializeField] private GameObject mask2;
-    [SerializeField] private GameObject mask3;
+    [SerializeField] protected RectTransform bS1Rect;
+    [SerializeField] protected RectTransform bS2Rect;
+    [SerializeField] protected RectTransform bS3Rect;
+    protected RectTransform sARect;
+    protected Image sAImage;
+    [SerializeField] protected GameObject mask;
+    [SerializeField] protected GameObject mask2;
+    [SerializeField] protected GameObject mask3;
     [SerializeField] private GameObject attack1Effect;
-    private RectTransform attack1Rect;
-    private Image attack1Image;
+    protected RectTransform attack1Rect;
+    protected Image attack1Image;
     [SerializeField] private GameObject attack2Effect;
-    private RectTransform attack2Rect;
-    private Image attack2Image;
-    [SerializeField] private GameObject buffEffect;
+    protected RectTransform attack2Rect;
+    protected Image attack2Image;
+    [SerializeField] protected GameObject buffEffect;
     [SerializeField] private GameObject healEffect;
     [SerializeField] private GameObject guardEffect;
     [SerializeField] private Text intervalText;
-    private const float interval = 4f;
-    private float intervalCount = 0;
+    protected const float interval = 4f;
+    protected float intervalCount = 0;
     [SerializeField] private GameObject buffDebuffFolder;
-    private int buffDebuffNumber;
-    private Image[] buffAndDebuffs;
-    private int[] buffIndex;
-    [SerializeField] private Sprite noneSprite;
-    [SerializeField] private Sprite attackBuffIcon;
+    protected int buffDebuffNumber;
+    protected Image[] buffAndDebuffs;
+    protected int[] buffIndex;
+    [SerializeField] protected Sprite noneSprite;
+    [SerializeField] protected Sprite attackBuffIcon;
     [SerializeField] private Sprite speedBuffIcon;
-    [SerializeField] private Sprite avoidBuffIcon;
+    [SerializeField] protected Sprite avoidBuffIcon;
     //[SerializeField] private Sprite cannotGuardIcon;
     [SerializeField] private GameObject commentPanel;
     private RectTransform commentPanelRect;
     [SerializeField] private Text comment;
-    [SerializeField] private Sprite specialAttackNameSprite;
-    private bool isGuard = false;
+    [SerializeField] protected Sprite specialAttackNameSprite;
+    protected bool isGuard = false;
     //private bool isCannotGuard = false;
     //public bool IsCannotGuard { get { return isCannotGuard; } }   ガード不可はデメリットとして大きすぎるのでいったん外す
     private bool isSkill3 = false;
-    private bool isInvincible = false;
+    protected bool isInvincible = false;
     //整数値で係数を扱うことで簡単化(floatは色々とめんどい)(/10の処理に問題がないよう気をつける)
-    private int attackFactor = 10;
+    protected int attackFactor = 10;
     private int speedFactor = 10;
     private int avoidFactor = 0;
     private float buffTimer = 0;
-    private bool pause = true;
+    protected bool pause = true;
     public bool Pause { set { pause = value; } get { return pause; } }
     private bool auto = false;
     public bool Auto { set { auto = value; } get { return auto; } }
-    private Coroutine commentCoroutine;
-    [SerializeField] AudioSource damageSeSource;
-    [SerializeField] AudioSource lSkillSeSource;
-    [SerializeField] AudioClip seDamage;
-    [SerializeField] AudioClip seSpecialDamage;
-    [SerializeField] AudioClip seGuard;
-    [SerializeField] AudioClip seBuff;
-    [SerializeField] AudioClip seHeal;
-    [SerializeField] AudioClip seSpecialFinish;
-    [SerializeField] AudioClip seAvoid;
+    protected Coroutine commentCoroutine;
+    [SerializeField] protected AudioSource damageSeSource;
+    [SerializeField] private AudioSource lSkillSeSource;
+    [SerializeField] protected AudioClip seDamage;
+    [SerializeField] private AudioClip seSpecialDamage;
+    [SerializeField] protected AudioClip seGuard;
+    [SerializeField] protected AudioClip seBuff;
+    [SerializeField] private AudioClip seHeal;
+    [SerializeField] private AudioClip seSpecialFinish;
+    [SerializeField] protected AudioClip seAvoid;
 
     void Start()
     {
@@ -170,26 +170,30 @@ public class SainManager : SystemManagerOrigin
             {
                 if (intervalCount == 0)
                 {
-                    //SG>=50でS3を使用
-                    if (currentSG >= 50 && !isSkill3)
-                    {
-                        BattleSkill3Click();
-                    }
-                    //S3使用中はスキル2を優先して使用
-                    else if (isSkill3 && currentSG >= 10)
-                    {
-                        BattleSkill2Click();
-                    }
-                    else
-                    {
-                        BattleSkill1Click();
-                    }
+                    AutoAttack();
                 }
             }
         }
     }
+    protected virtual void AutoAttack()
+    {
+        //SG>=50でS3を使用
+        if (currentSG >= 50 && !isSkill3)
+        {
+            BattleSkill3Click();
+        }
+        //S3使用中はスキル2を優先して使用
+        else if (isSkill3 && currentSG >= 10)
+        {
+            BattleSkill2Click();
+        }
+        else
+        {
+            BattleSkill1Click();
+        }
+    }
 
-    public void BattleSkill1Click()
+    public virtual void BattleSkill1Click()
     {
         //インターバルが終わっているかの確認
         if (intervalCount == 0 && !pause)
@@ -214,7 +218,7 @@ public class SainManager : SystemManagerOrigin
             seSource.Play();
         }
     }
-    public void BattleSkill2Click()
+    public virtual void BattleSkill2Click()
     {
         //インターバルの確認＆SG>=10
         if (intervalCount == 0 && currentSG >= 10 && !pause)
@@ -236,7 +240,7 @@ public class SainManager : SystemManagerOrigin
         }
     }
     //クリックの受け取りはコルーチンにできないっぽい
-    public void BattleSkill3Click()
+    public virtual void BattleSkill3Click()
     {
         //インターバルの確認＆SG>=20＆スキル3使用中でない
         if (intervalCount == 0 && currentSG >= 20 && !pause && !isSkill3)
@@ -253,7 +257,6 @@ public class SainManager : SystemManagerOrigin
     {
         //即座に再行動可能
         StartCoroutine(ButtonAnim(bS3Rect));
-        mask.SetActive(true);
         StartCoroutine(EffectOnandOff(buffEffect));
         seSource.clip = seBuff;
         seSource.Play();
@@ -300,7 +303,7 @@ public class SainManager : SystemManagerOrigin
         }
     }
 
-    public void SpecialAttackClick()
+    public virtual void SpecialAttackClick()
     {
         //SG>=100ならいつでも
         if (currentSG >= 100 && !pause)
@@ -309,7 +312,7 @@ public class SainManager : SystemManagerOrigin
             StartCoroutine(Invincible(1));
             StartCoroutine(bSManager.SpecialAttackName(specialAttackNameSprite));
             //敵全体に攻撃力500%(SG消費100 時間を止めて専用演出 必殺持ちの敵のガードを割る)
-            StartCoroutine(bSManager.SainToAllAttack(5*attack * attackFactor / 10));
+            StartCoroutine(bSManager.SainToAllAttack(5*attack * attackFactor / 10, false));
             StartCoroutine(SESpecialFinish());
             currentSG -= 100;
             SGCheck();
@@ -321,7 +324,7 @@ public class SainManager : SystemManagerOrigin
         }
     }
     //必殺技の最後の部分の効果音を独立させる
-    private IEnumerator SESpecialFinish()
+    protected IEnumerator SESpecialFinish()
     {
         yield return new WaitForSeconds(3);
         seSource.clip = seSpecialFinish;
@@ -329,7 +332,7 @@ public class SainManager : SystemManagerOrigin
     }
     
     //主に必殺技発動直後のための無敵時間
-    private IEnumerator Invincible(float invincibleTime)
+    protected IEnumerator Invincible(float invincibleTime)
     {
         isInvincible = true;
         yield return new WaitForSeconds(invincibleTime);
@@ -337,7 +340,7 @@ public class SainManager : SystemManagerOrigin
     }
 
     //SG値によってマスク切り替え
-    private void SGCheck()
+    protected virtual void SGCheck()
     {
         SGslider.value = (float)currentSG / maxSG;
         SGText.text = currentSG.ToString() + "/" + maxSG.ToString();
@@ -368,10 +371,15 @@ public class SainManager : SystemManagerOrigin
     }
 
     //ダメージを受ける
-    public void ReceiveDamage(int damage)
+    public virtual void ReceiveDamage(int damage)
     {
         //ポーズ中(勝利後)はノーダメ
         if (pause)
+        {
+            damage = 0;
+        }
+        //無敵時間ならノーダメ
+        else if (isInvincible)
         {
             damage = 0;
         }
@@ -387,11 +395,6 @@ public class SainManager : SystemManagerOrigin
             commentCoroutine = StartCoroutine(Comment("回避成功"));
             damageSeSource.clip = seAvoid;
             damageSeSource.Play();
-        }
-        //無敵時間ならノーダメ
-        else if (isInvincible)
-        {
-            damage = 0;
         }
         //ガード中なら9割カット
         else if (isGuard)
@@ -458,14 +461,14 @@ public class SainManager : SystemManagerOrigin
     }
 
     //ダメージ表示
-    private IEnumerator DamageDisplay(int damage, TMP_Text damageText)
+    protected IEnumerator DamageDisplay(int damage, TMP_Text damageText)
     {
         damageText.text = damage.ToString();
         yield return new WaitForSeconds(0.35f);
         damageText.text = "";
     }
     //ガード・回避成功時のコメント
-    private IEnumerator Comment(string text)
+    protected IEnumerator Comment(string text)
     {
         comment.text = text;
         commentPanel.SetActive(true);
@@ -483,7 +486,7 @@ public class SainManager : SystemManagerOrigin
         commentPanelRect.anchoredPosition = temp;
     }
     //0.5秒の間で2回呼び出された時用
-    private void ResetComment()
+    protected void ResetComment()
     {
         commentPanel.SetActive(false);
         Vector2 temp = commentPanelRect.anchoredPosition;
@@ -491,7 +494,7 @@ public class SainManager : SystemManagerOrigin
         commentPanelRect.anchoredPosition = temp;
     }
     //ダメージ受け取り時の揺れ
-    private IEnumerator DamageVibration()
+    protected IEnumerator DamageVibration()
     {
         Vector2 temp = myRect.anchoredPosition;
         temp.x += 10;
@@ -594,7 +597,7 @@ public class SainManager : SystemManagerOrigin
     }
 
     //バフなどのアニメーション(フェードいる？)
-    private IEnumerator EffectOnandOff(GameObject effect)
+    protected IEnumerator EffectOnandOff(GameObject effect)
     {
         //重ね掛け時はとりあえず最初のだけ表示
         if (!effect.activeSelf)
@@ -609,7 +612,7 @@ public class SainManager : SystemManagerOrigin
     //(例：0番目・1番目のアイコン枠がnullでなく2番目にアイコンを置いた→インデックス保持配列の値が-1のところを見つけそのインデックスを一時的に記憶し2を格納→
     //この関数が適切にインデックスを管理→バフ終了時にインデックス保持配列が指す場所のアイコンをnullにし配列の値を-1に戻す)
     //第1引数は一時的に記憶したインデックス、第2引数は消すバフの数
-    private void BuffIndexCheck(int n, int m)
+    protected void BuffIndexCheck(int n, int m)
     {
         //アイコン書き換え
         for (int i = buffIndex[n]; i < buffIndex[n]+m; i++)

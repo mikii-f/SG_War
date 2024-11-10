@@ -146,7 +146,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7805393}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -154,7 +154,7 @@ RectTransform:
   - {fileID: 1250270470}
   - {fileID: 1474239671}
   - {fileID: 2049562146}
-  m_Father: {fileID: 1694484183}
+  m_Father: {fileID: 742896473}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -336,12 +336,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 32543396}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 742896473}
+  m_Father: {fileID: 1694484183}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -674,13 +674,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 72940382}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.55403227, y: 0.2120122, z: -0.14845252, w: 0.79124016}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 521944879}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 70, y: 30, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -706,7 +706,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0772d22538b382749a7fcfa5a6ca05ce, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e5927134f595bc34287c8a8e0d965492, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -781,7 +781,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 73a8166a13f7ad84f9e08a519203e392, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cee6a213d3c9180459223d4fefdd5e78, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -808,7 +808,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 115354956}
-  - component: {fileID: 115354955}
   - component: {fileID: 115354958}
   - component: {fileID: 115354957}
   m_Layer: 0
@@ -818,61 +817,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &115354955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 115354954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78a68c60e13e01e40a33d7d4ce8baf3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  seSource: {fileID: 0}
-  seUIClick: {fileID: 8300000, guid: bf573efbee2b1f745a61479acec40122, type: 3}
-  seUIBack: {fileID: 8300000, guid: e9828adcbd29e12459e1b1f9c136469e, type: 3}
-  seUIUnactive: {fileID: 8300000, guid: 01aebb48af7f61949aeb357e855962a9, type: 3}
-  bSManager: {fileID: 0}
-  myRect: {fileID: 1174117760}
-  HPText: {fileID: 1225431961}
-  SGText: {fileID: 1459850503}
-  HPslider: {fileID: 484028642}
-  SGslider: {fileID: 1593523025}
-  damageText: {fileID: 1195707117}
-  damageText2: {fileID: 1365934546}
-  damageText3: {fileID: 2023682304}
-  specialAttack: {fileID: 1101372973}
-  bS1Rect: {fileID: 1497704976}
-  bS2Rect: {fileID: 854614801}
-  bS3Rect: {fileID: 935545322}
-  mask: {fileID: 508190958}
-  mask2: {fileID: 1551749772}
-  mask3: {fileID: 350611126}
-  attack1Effect: {fileID: 110447334}
-  attack2Effect: {fileID: 72940382}
-  buffEffect: {fileID: 1786582605}
-  healEffect: {fileID: 1005780835}
-  guardEffect: {fileID: 687669445}
-  intervalText: {fileID: 214017714}
-  buffDebuffFolder: {fileID: 1430867097}
-  noneSprite: {fileID: 21300000, guid: 199e3707cf3f9ac4f91be2a04aa6e369, type: 3}
-  attackBuffIcon: {fileID: 21300000, guid: 9e74b8f157d0ba04693ee9bc1a6d052e, type: 3}
-  speedBuffIcon: {fileID: 21300000, guid: a6878f8bc610bb9499e085c98937a92e, type: 3}
-  avoidBuffIcon: {fileID: 21300000, guid: cbdbf841ea2fcfc4fb364160ecc7fb9c, type: 3}
-  commentPanel: {fileID: 1293998093}
-  comment: {fileID: 1110890935}
-  specialAttackNameSprite: {fileID: 21300000, guid: 91b7dc8bcaaa652459605e73b65f0dcf, type: 3}
-  damageSeSource: {fileID: 990861169}
-  lSkillSeSource: {fileID: 1117692922}
-  seDamage: {fileID: 8300000, guid: 1c2e1b38a4c88474e8685ecc27be134d, type: 3}
-  seSpecialDamage: {fileID: 8300000, guid: a75bf392a0de19a46947740505b6fb55, type: 3}
-  seGuard: {fileID: 8300000, guid: f9a7216a14a194a42afd268a0986ff51, type: 3}
-  seBuff: {fileID: 8300000, guid: 3490a39478a45ac4f86f509357f71a24, type: 3}
-  seHeal: {fileID: 8300000, guid: 9b2c6e4fd09449d478448f2fa7037282, type: 3}
-  seSpecialFinish: {fileID: 8300000, guid: d0b482d843cdbb241b6b6cedceee5691, type: 3}
-  seAvoid: {fileID: 8300000, guid: bfca862b688e2be46803f1f7a0017557, type: 3}
 --- !u!4 &115354956
 Transform:
   m_ObjectHideFlags: 0
@@ -999,48 +943,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seSource: {fileID: 0}
-  seUIClick: {fileID: 0}
-  seUIBack: {fileID: 0}
-  seUIUnactive: {fileID: 0}
-  bSManager: {fileID: 0}
-  myRect: {fileID: 0}
-  HPText: {fileID: 0}
-  SGText: {fileID: 0}
-  HPslider: {fileID: 0}
-  SGslider: {fileID: 0}
-  damageText: {fileID: 0}
-  damageText2: {fileID: 0}
-  damageText3: {fileID: 0}
-  specialAttack: {fileID: 0}
-  bS1Rect: {fileID: 0}
-  bS2Rect: {fileID: 0}
-  bS3Rect: {fileID: 0}
-  mask: {fileID: 0}
-  mask2: {fileID: 0}
-  mask3: {fileID: 0}
-  attack1Effect: {fileID: 0}
-  attack2Effect: {fileID: 0}
-  buffEffect: {fileID: 0}
-  healEffect: {fileID: 0}
-  guardEffect: {fileID: 0}
-  intervalText: {fileID: 0}
-  buffDebuffFolder: {fileID: 0}
-  noneSprite: {fileID: 0}
-  attackBuffIcon: {fileID: 0}
-  speedBuffIcon: {fileID: 0}
-  avoidBuffIcon: {fileID: 0}
-  commentPanel: {fileID: 0}
-  comment: {fileID: 0}
-  specialAttackNameSprite: {fileID: 0}
-  damageSeSource: {fileID: 0}
-  lSkillSeSource: {fileID: 0}
-  seDamage: {fileID: 0}
-  seSpecialDamage: {fileID: 0}
-  seGuard: {fileID: 0}
-  seBuff: {fileID: 0}
-  seHeal: {fileID: 0}
-  seSpecialFinish: {fileID: 0}
-  seAvoid: {fileID: 0}
+  seUIClick: {fileID: 8300000, guid: bf573efbee2b1f745a61479acec40122, type: 3}
+  seUIBack: {fileID: 8300000, guid: e9828adcbd29e12459e1b1f9c136469e, type: 3}
+  seUIUnactive: {fileID: 8300000, guid: 01aebb48af7f61949aeb357e855962a9, type: 3}
+  bSManager: {fileID: 124576122}
+  myRect: {fileID: 1174117760}
+  HPText: {fileID: 1225431961}
+  SGText: {fileID: 1459850503}
+  HPslider: {fileID: 484028642}
+  SGslider: {fileID: 1593523025}
+  damageText: {fileID: 1195707117}
+  damageText2: {fileID: 1365934546}
+  damageText3: {fileID: 2023682304}
+  specialAttack: {fileID: 1101372973}
+  bS1Rect: {fileID: 1497704976}
+  bS2Rect: {fileID: 854614801}
+  bS3Rect: {fileID: 935545322}
+  mask: {fileID: 508190958}
+  mask2: {fileID: 1551749772}
+  mask3: {fileID: 350611126}
+  attack1Effect: {fileID: 110447334}
+  attack2Effect: {fileID: 72940382}
+  buffEffect: {fileID: 1786582605}
+  healEffect: {fileID: 1005780835}
+  guardEffect: {fileID: 687669445}
+  intervalText: {fileID: 214017714}
+  buffDebuffFolder: {fileID: 1430867097}
+  noneSprite: {fileID: 21300000, guid: 199e3707cf3f9ac4f91be2a04aa6e369, type: 3}
+  attackBuffIcon: {fileID: 21300000, guid: 9e74b8f157d0ba04693ee9bc1a6d052e, type: 3}
+  speedBuffIcon: {fileID: 21300000, guid: a6878f8bc610bb9499e085c98937a92e, type: 3}
+  avoidBuffIcon: {fileID: 21300000, guid: cbdbf841ea2fcfc4fb364160ecc7fb9c, type: 3}
+  commentPanel: {fileID: 1293998093}
+  comment: {fileID: 1110890935}
+  specialAttackNameSprite: {fileID: 21300000, guid: cdaf3e4146844ab42af377021314370c, type: 3}
+  damageSeSource: {fileID: 990861169}
+  lSkillSeSource: {fileID: 1117692922}
+  seDamage: {fileID: 8300000, guid: 1c2e1b38a4c88474e8685ecc27be134d, type: 3}
+  seSpecialDamage: {fileID: 8300000, guid: a75bf392a0de19a46947740505b6fb55, type: 3}
+  seGuard: {fileID: 8300000, guid: f9a7216a14a194a42afd268a0986ff51, type: 3}
+  seBuff: {fileID: 8300000, guid: 3490a39478a45ac4f86f509357f71a24, type: 3}
+  seHeal: {fileID: 8300000, guid: 9b2c6e4fd09449d478448f2fa7037282, type: 3}
+  seSpecialFinish: {fileID: 8300000, guid: d0b482d843cdbb241b6b6cedceee5691, type: 3}
+  seAvoid: {fileID: 8300000, guid: bfca862b688e2be46803f1f7a0017557, type: 3}
 --- !u!1 &124576118
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,30 +1126,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e7c53189b4533043813fe2061d24b4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seSource: {fileID: 0}
-  seUIClick: {fileID: 0}
-  seUIBack: {fileID: 0}
-  seUIUnactive: {fileID: 0}
-  sainManager: {fileID: 0}
-  leaderManager: {fileID: 0}
-  battleSystemManager: {fileID: 0}
-  blackObject: {fileID: 0}
-  explanation: {fileID: 0}
-  expMessage: {fileID: 0}
-  expSwitchRect: {fileID: 0}
-  battleStartAndFinishText: {fileID: 0}
-  specialSkillAnimation: {fileID: 0}
-  enemyNumberText: {fileID: 0}
-  waveNumberText: {fileID: 0}
-  specialAttackPanel: {fileID: 0}
-  seCountDown: {fileID: 0}
-  seWhistle: {fileID: 0}
-  seSword: {fileID: 0}
-  seWind: {fileID: 0}
-  seSpecialOn: {fileID: 0}
-  seSpecialFinish: {fileID: 0}
-  seSpecialDamage: {fileID: 0}
-  seCymbal: {fileID: 0}
+  seSource: {fileID: 1304734799}
+  seUIClick: {fileID: 8300000, guid: bf573efbee2b1f745a61479acec40122, type: 3}
+  seUIBack: {fileID: 8300000, guid: e9828adcbd29e12459e1b1f9c136469e, type: 3}
+  seUIUnactive: {fileID: 8300000, guid: 01aebb48af7f61949aeb357e855962a9, type: 3}
+  sainManager: {fileID: 115354958}
+  leaderManager: {fileID: 634558980}
+  battleSystemManager: {fileID: 1409276696}
+  blackObject: {fileID: 1757038230}
+  explanation: {fileID: 1919543163}
+  expMessage: {fileID: 1586264535}
+  expSwitchRect: {fileID: 696917074}
+  battleStartAndFinishText: {fileID: 573575741}
+  specialSkillAnimation: {fileID: 1694484182}
+  enemyNumberText: {fileID: 230298820}
+  waveNumberText: {fileID: 477549357}
+  specialAttackPanel: {fileID: 172637773}
+  seCountDown: {fileID: 8300000, guid: 609d5ff1329f27e4d845427e5bf3fd56, type: 3}
+  seWhistle: {fileID: 8300000, guid: fc53df93a1f07454788fa24af54c52d7, type: 3}
+  seSword: {fileID: 8300000, guid: aaa8678fa0ed6994289365a49eaf80f1, type: 3}
+  seWind: {fileID: 8300000, guid: e7216a2ee1bc1564e893424d7c95568b, type: 3}
+  seSpecialOn: {fileID: 8300000, guid: a86377be273dde743b150699da566beb, type: 3}
+  seSpecialFinish: {fileID: 8300000, guid: d0b482d843cdbb241b6b6cedceee5691, type: 3}
+  seSpecialDamage: {fileID: 8300000, guid: a75bf392a0de19a46947740505b6fb55, type: 3}
+  seCymbal: {fileID: 8300000, guid: a161946fc795e9746958778465106ff6, type: 3}
+  seRond: {fileID: 8300000, guid: 3e072325649d17e48b1cba195883c193, type: 3}
+  vierManager: {fileID: 2062624482}
+  tutorialPanel: {fileID: 1192769029}
+  tutorialText: {fileID: 1125614126}
+  bgmCommand: {fileID: 8300000, guid: 478f3ac680bee3e4b8af0fe854041b87, type: 3}
 --- !u!1 &128928136
 GameObject:
   m_ObjectHideFlags: 0
@@ -1447,7 +1396,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 91b7dc8bcaaa652459605e73b65f0dcf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cdaf3e4146844ab42af377021314370c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2824,7 +2773,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.5882353}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3399,12 +3348,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 445562427}
-  m_LocalRotation: {x: 0, y: 0, z: -0.01745245, w: 0.99984777}
+  m_LocalRotation: {x: -0, y: -0, z: -0.01745245, w: 0.99984777}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 742896473}
+  m_Father: {fileID: 1694484183}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -2}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3683,7 +3632,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1604845345}
-  m_Father: {fileID: 1694484183}
+  m_Father: {fileID: 742896473}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3848,7 +3797,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1603592989}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.36734697
+  m_Size: 0.3383459
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3942,7 +3891,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.5882353}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -4117,8 +4066,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 115354955}
-          m_TargetAssemblyTypeName: SainManager, Assembly-CSharp
+        - m_Target: {fileID: 115354958}
+          m_TargetAssemblyTypeName: SainManager2, Assembly-CSharp
           m_MethodName: BattleSkill1Click
           m_Mode: 1
           m_Arguments:
@@ -4252,7 +4201,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30A6\u30A7\u30FC\u30D6\u69CB\u6210\n\u3000\u30A6\u30A7\u30FC\u30D6\u6570:1\n\u30001\u30A6\u30A7\u30FC\u30D6\u76EE:\u30BB\u30A4\u30F3\u216A-\u30A8\u30EB\n\u6575\u8A73\u7D30\n\u3000\u30A8\u30EB\n\u3000\u3000\u901A\u5E38\u653B\u6483:\u653B\u6483\u529B\u306E100%\u30C0\u30E1\u30FC\u30B8\n\u3000\u3000\u30B9\u30AD\u30EB1:\u653B\u6483\u529B\u306E200%\u30C0\u30E1\u30FC\u30B8(\u30B2\u30FC\u30B81\u6D88\u8CBB)\n\u3000\u3000\u30B9\u30AD\u30EB2:\u653B\u6483\u529B\u4E0A\u6607(50%,2\u56DE)&\u30B2\u30FC\u30B81\u5897\u52A0\n\u3000\u3000\u30C1\u30E3\u30FC\u30B8\u6280:\u653B\u6483\u529B\u306E500%\u30C0\u30E1\u30FC\u30B8(\u78BA\u5B9A\u30C0\u30E1\u30FC\u30B8)\n\u5473\u65B9\u8A73\u7D30\n\u3000\u30D5\u30A3\u30A2\n\u3000\u3000\u6226\u95D8\u30B9\u30AD\u30EB1:\u653B\u6483\u529B\u306E100%\u30C0\u30E1\u30FC\u30B8\n\u3000\u3000\u6226\u95D8\u30B9\u30AD\u30EB2:\u653B\u6483\u529B\u306E200%\u30C0\u30E1\u30FC\u30B8&\u6575\u306E\u653B\u64831\u79D2\u9045\u5EF6\n\u3000\u3000\u6226\u95D8\u30B9\u30AD\u30EB3:\u653B\u6483\u9593\u9694\u77ED\u7E2E+10&\u56DE\u907F30%&\u653B\u6483\u529B\u4E0A\u660740%\n\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000(10\u79D2,\u91CD\u306D\u639B\u3051\u4E0D\u53EF,\u4F7F\u7528\u5F8C\u5373\u5EA7\u306B\u884C\u52D5\u53EF\u80FD)\n\u3000\u3000\u5FC5\u6BBA\u6280:\u6575\u5168\u4F53\u306B\u653B\u6483\u529B\u306E500%\u30C0\u30E1\u30FC\u30B8&\u5F37\u6575\u306E\u30B7\u30FC\u30EB\u30C9\u3092\u5272\u308B\n\u3000\u30EA\u30FC\u30C0\u30FC\u30B9\u30AD\u30EB\n\u3000\u3000\u4F53\u529B\u652F\u63F4:\u30BB\u30A4\u30F3\u306E\u4F53\u529B\u309250%\u56DE\u5FA9(\u518D\u767A\u52D560\u79D2)\n\u3000\u3000\u653B\u6483\u652F\u63F4:\u30BB\u30A4\u30F3\u306E\u653B\u6483\u529B\u309250%\u4E0A\u6607(15\u79D2,\u518D\u767A\u52D560\u79D2)\n\u3000\u3000\u901F\u5EA6\u652F\u63F4:\u30BB\u30A4\u30F3\u306E\u653B\u6483\u9593\u9694\u77ED\u7E2E+5(20\u79D2,\u518D\u767A\u52D560\u79D2)\n\u3000\u3000\u30AC\u30FC\u30C9:\u6575\u304B\u3089\u306E\u653B\u6483\u306B\u3088\u308B\u30C0\u30E1\u30FC\u30B8\u309290%\u30AB\u30C3\u30C8\u3059\u308B(0.5\u79D2,\n\u3000\u3000\u3000\u3000\u3000\u518D\u767A\u52D54\u79D2)\n\u88DC\u8DB3\u4E8B\u9805\n\u3000\u653B\u6483\u9593\u9694\u77ED\u7E2E+n\n\u3000\u3000\u30A4\u30F3\u30BF\u30FC\u30D0\u30EB\u306E\u30AB\u30A6\u30F3\u30C8\u4FC2\u6570(\u521D\u671F\u502410)\u306B\u5BFE\u3057\u52A0\u7B97\u3055\u308C\u308B\n\u3000\u3000(\u4F8B:\u653B\u6483\u9593\u9694\u77ED\u7E2E+10\u306B\u3088\u308A\u4FC2\u6570\u304C20\u306B\u4E0A\u6607\u3059\u308B\u30682\u500D\u306E\n\u3000\u3000  
+  m_Text: "\u30A6\u30A7\u30FC\u30D6\u69CB\u6210\n\u3000\u30A6\u30A7\u30FC\u30D6\u6570:1\n\u30001\u30A6\u30A7\u30FC\u30D6\u76EE:\u30BB\u30A4\u30F3\u2163-\u30D5\u30A3\u30A2\n\u6575\u8A73\u7D30\n\u3000\u30D5\u30A3\u30A2\n\u3000\u3000\u901A\u5E38\u653B\u6483:\u653B\u6483\u529B\u306E100%\u30C0\u30E1\u30FC\u30B8\n\u3000\u3000\u30B9\u30AD\u30EB1:\u653B\u6483\u529B\u306E200%\u30C0\u30E1\u30FC\u30B8(\u30B2\u30FC\u30B81\u6D88\u8CBB)\n\u3000\u3000\u30B9\u30AD\u30EB2:\u653B\u6483\u529B\u4E0A\u660750%&\u653B\u6483\u9593\u9694\u77ED\u7E2E+5(3\u56DE)\n\u3000\u3000\u30C1\u30E3\u30FC\u30B8\u6280:\u653B\u6483\u529B\u306E500%\u30C0\u30E1\u30FC\u30B8(\u78BA\u5B9A\u30C0\u30E1\u30FC\u30B8)\n\u5473\u65B9\u8A73\u7D30\n\u3000\u30A8\u30EB\n\u3000\u3000\u6226\u95D8\u30B9\u30AD\u30EB1:\u653B\u6483\u529B\u306E100%\u30C0\u30E1\u30FC\u30B8\n\u3000\u3000\u6226\u95D8\u30B9\u30AD\u30EB2:\u653B\u6483\u529B\u306E200%\u30C0\u30E1\u30FC\u30B8&\u30B9\u30AD\u30EB3\u306E\u653B\u6483\u529B\u4E0A\u6607\u3092\n\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u300010%\u843D\u3068\u3057\u3066\u7D99\u7D9A\u3059\u308B\n\u3000\u3000\u6226\u95D8\u30B9\u30AD\u30EB3:\u653B\u6483\u529B\u4E0A\u660750%(1\u56DE)&\u56DE\u907F(1\u56DE,\u91CD\u306D\u639B\u3051\u4E0D\u53EF)\n\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000&SG+20(\u3053\u306E\u30B9\u30AD\u30EB\u306B\u3088\u308B\u653B\u6483\u529B\u4E0A\u6607\u304C\u4ED8\u4E0E\u3055\u308C\u3066\n\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3000\u3044\u306A\u3044\u3068\u304D\u306E\u307F\u4F7F\u7528\u53EF\u80FD)\n\u3000\u3000\u5FC5\u6BBA\u6280:\u6575\u5168\u4F53\u306B\u653B\u6483\u529B\u306E500%\u30C0\u30E1\u30FC\u30B8&\u5F37\u6575\u306E\u30B7\u30FC\u30EB\u30C9\u3092\u5272\u308B\n\u3000\u3000\u3000\u3000\u3000\u30B9\u30AD\u30EB3\u306E\u653B\u6483\u529B\u4E0A\u6607\u3092\u7D99\u7D9A\u3059\u308B\n\u3000\u30EA\u30FC\u30C0\u30FC\u30B9\u30AD\u30EB\n\u3000\u3000\u4F53\u529B\u652F\u63F4:\u30BB\u30A4\u30F3\u306E\u4F53\u529B\u309250%\u56DE\u5FA9(\u518D\u767A\u52D560\u79D2)\n\u3000\u3000\u653B\u6483\u652F\u63F4:\u30BB\u30A4\u30F3\u306E\u653B\u6483\u529B\u309250%\u4E0A\u6607(15\u79D2,\u518D\u767A\u52D560\u79D2)\n\u3000\u3000\u901F\u5EA6\u652F\u63F4:\u30BB\u30A4\u30F3\u306E\u653B\u6483\u9593\u9694\u77ED\u7E2E+5(20\u79D2,\u518D\u767A\u52D560\u79D2)\n\u3000\u3000\u30AC\u30FC\u30C9:\u6575\u304B\u3089\u306E\u653B\u6483\u306B\u3088\u308B\u30C0\u30E1\u30FC\u30B8\u309290%\u30AB\u30C3\u30C8\u3059\u308B(0.5\u79D2,\n\u3000\u3000\u3000\u3000\u3000\u518D\u767A\u52D54\u79D2)\n\u88DC\u8DB3\u4E8B\u9805\n\u3000\u653B\u6483\u9593\u9694\u77ED\u7E2E+n\n\u3000\u3000\u30A4\u30F3\u30BF\u30FC\u30D0\u30EB\u306E\u30AB\u30A6\u30F3\u30C8\u4FC2\u6570(\u521D\u671F\u502410)\u306B\u5BFE\u3057\u52A0\u7B97\u3055\u308C\u308B\n\u3000\u3000(\u4F8B:\u653B\u6483\u9593\u9694\u77ED\u7E2E+10\u306B\u3088\u308A\u4FC2\u6570\u304C20\u306B\u4E0A\u6607\u3059\u308B\u30682\u500D\u306E\n\u3000\u3000  
     \u901F\u3055\u3067\u30AB\u30A6\u30F3\u30C8\u304C\u9032\u3080)\n\u3000\u78BA\u5B9A\u30C0\u30E1\u30FC\u30B8\n\u3000\u3000\u5404\u7A2E\u30C0\u30E1\u30FC\u30B8\u30AB\u30C3\u30C8\u52B9\u679C\u3092\u7121\u8996\u3057\u3066\u30C0\u30E1\u30FC\u30B8\u3092\u4E0E\u3048\u308B\n\u3000\u30B7\u30FC\u30EB\u30C9\n\u3000\u3000\u6575\u306E\u5FC5\u6BBA\u6280\u76F4\u524D\u306B\u5C55\u958B\u3055\u308C\u308B\u3002\u901A\u5E38\u653B\u6483\u3067\u306F\u30C0\u30E1\u30FC\u30B8\u3092\n\u3000\u3000\u4E0E\u3048\u3089\u308C\u306A\u304F\u306A\u308A\u3001\u5FC5\u6BBA\u6280\u3067\u306E\u307F\u5272\u308B\u3053\u3068\u304C\u3067\u304D\u308B\u3002\n\u3000\u3000\u7834\u58CA\u306B\u6210\u529F\u3059\u308B\u3068\u6575\u306E\u30B2\u30FC\u30B8\u304C0\u306B\u306A\u308A\u3001\u5FC5\u6BBA\u6280\u306E\u767A\u52D5\u3092\n\u3000\u3000\u963B\u6B62\u3059\u308B\u3053\u3068\u304C\u3067\u304D\u308B\u3002\u307E\u305F\u3001\u3053\u306E\u3068\u304D\u6575\u306E\u30A4\u30F3\u30BF\u30FC\u30D0\u30EB\u306F2\u500D\n\u3000\u3000\u3068\u306A\u308B\u3002(1\u56DE)"
 --- !u!222 &526849385
 CanvasRenderer:
@@ -4765,7 +4714,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cee6a213d3c9180459223d4fefdd5e78, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 73a8166a13f7ad84f9e08a519203e392, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4817,7 +4766,7 @@ MonoBehaviour:
   seUIClick: {fileID: 8300000, guid: bf573efbee2b1f745a61479acec40122, type: 3}
   seUIBack: {fileID: 8300000, guid: e9828adcbd29e12459e1b1f9c136469e, type: 3}
   seUIUnactive: {fileID: 8300000, guid: 01aebb48af7f61949aeb357e855962a9, type: 3}
-  sainManager: {fileID: 115354955}
+  sainManager: {fileID: 115354958}
   autoObject: {fileID: 1962694846}
   HPRect: {fileID: 50411904}
   attackRect: {fileID: 436140433}
@@ -5673,7 +5622,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 124576122}
           m_TargetAssemblyTypeName: BattleSceneManagerOrigin, Assembly-CSharp
           m_MethodName: Explanation
           m_Mode: 1
@@ -5993,7 +5942,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 742896473}
-  - component: {fileID: 742896472}
+  - component: {fileID: 742896474}
   m_Layer: 5
   m_Name: SpecialAttack
   m_TagString: Untagged
@@ -6001,27 +5950,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!95 &742896472
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 742896471}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 174b030baad11c84281dac83bf97e7a9, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!224 &742896473
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6034,11 +5962,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 32543397}
-  - {fileID: 1851819574}
-  - {fileID: 1386405557}
-  - {fileID: 1771169422}
-  - {fileID: 445562428}
+  - {fileID: 7805394}
+  - {fileID: 1137786162}
+  - {fileID: 484863362}
   m_Father: {fileID: 518259557}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -6046,6 +5972,27 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &742896474
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 742896471}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5f403f4e3a65d32439d04259feb61424, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &750724442
 GameObject:
   m_ObjectHideFlags: 0
@@ -7952,7 +7899,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 115354955}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: SainManager, Assembly-CSharp
           m_MethodName: SpecialAttackClick
           m_Mode: 1
@@ -8152,7 +8099,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 15e525517a2d85b40ac30caac9bd85e7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 12bbeeace1bd8234094ff7cec0e8bfa4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8647,7 +8594,7 @@ RectTransform:
   - {fileID: 783143661}
   - {fileID: 1309895410}
   - {fileID: 814274178}
-  m_Father: {fileID: 1694484183}
+  m_Father: {fileID: 742896473}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8922,7 +8869,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.1183479}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1000, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1192769031
@@ -9317,8 +9264,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 115354955}
-          m_TargetAssemblyTypeName: SainManager, Assembly-CSharp
+        - m_Target: {fileID: 115354958}
+          m_TargetAssemblyTypeName: SainManager2, Assembly-CSharp
           m_MethodName: BattleSkill3Click
           m_Mode: 1
           m_Arguments:
@@ -9948,7 +9895,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1600, y: 900}
+  m_SizeDelta: {x: 800, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1250270471
 MonoBehaviour:
@@ -10022,8 +9969,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -300, y: 150}
-  m_SizeDelta: {x: 70, y: 70}
+  m_AnchoredPosition: {x: -265, y: 150}
+  m_SizeDelta: {x: 140, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1283140081
 MonoBehaviour:
@@ -10045,7 +9992,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9e74b8f157d0ba04693ee9bc1a6d052e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4db99fab15f11a747a2e4c419d7e8e5d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10166,7 +10113,7 @@ RectTransform:
   m_GameObject: {fileID: 1296637433}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0000305, y: 1.0000305, z: 1.0000305}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1596910630}
@@ -11001,12 +10948,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 742896473}
+  m_Father: {fileID: 1694484183}
   m_LocalEulerAnglesHint: {x: -50, y: 30, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 384, y: 216}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1386405558
 MonoBehaviour:
@@ -11155,7 +11102,7 @@ MonoBehaviour:
   seUIClick: {fileID: 8300000, guid: bf573efbee2b1f745a61479acec40122, type: 3}
   seUIBack: {fileID: 8300000, guid: e9828adcbd29e12459e1b1f9c136469e, type: 3}
   seUIUnactive: {fileID: 8300000, guid: 01aebb48af7f61949aeb357e855962a9, type: 3}
-  bSManager: {fileID: 0}
+  bSManager: {fileID: 124576122}
   menu: {fileID: 194290600}
   functions: {fileID: 217905416}
   restartSwitchRect: {fileID: 892679473}
@@ -11724,7 +11671,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1600, y: 900}
+  m_SizeDelta: {x: 800, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1474239672
 MonoBehaviour:
@@ -11895,8 +11842,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 115354955}
-          m_TargetAssemblyTypeName: SainManager, Assembly-CSharp
+        - m_Target: {fileID: 115354958}
+          m_TargetAssemblyTypeName: SainManager2, Assembly-CSharp
           m_MethodName: BattleSkill2Click
           m_Mode: 1
           m_Arguments:
@@ -12230,7 +12177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.5882353}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -13352,9 +13299,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7805394}
-  - {fileID: 1137786162}
-  - {fileID: 484863362}
+  - {fileID: 32543397}
+  - {fileID: 1851819574}
+  - {fileID: 1386405557}
+  - {fileID: 1771169422}
+  - {fileID: 445562428}
   m_Father: {fileID: 1301990584}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -13372,7 +13321,7 @@ Animator:
   m_GameObject: {fileID: 1694484182}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6ff547e121b88d143b9bde83cc4fd7ac, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0e82ee11c90a15140bfe94ee37694136, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -13774,12 +13723,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 742896473}
+  m_Father: {fileID: 1694484183}
   m_LocalEulerAnglesHint: {x: 20, y: 110, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 384, y: 216}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1771169423
 MonoBehaviour:
@@ -13950,7 +13899,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 124576122}
           m_TargetAssemblyTypeName: BattleSceneManagerOrigin, Assembly-CSharp
           m_MethodName: Close
           m_Mode: 1
@@ -14185,12 +14134,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 742896473}
+  m_Father: {fileID: 1694484183}
   m_LocalEulerAnglesHint: {x: 70, y: 30, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 384, y: 216}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1851819575
 MonoBehaviour:
@@ -15482,7 +15431,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1600, y: 900}
+  m_SizeDelta: {x: 800, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2049562147
 MonoBehaviour:
@@ -15592,7 +15541,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u2462\u3000   \u660E\u93E1\u6B62\u6C34  \u3000+20"
+  m_Text: "\u2462      \u660E\u93E1\u6B62\u6C34       +20"
 --- !u!222 &2051214178
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15610,7 +15559,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2062624480}
-  - component: {fileID: 2062624479}
   - component: {fileID: 2062624482}
   - component: {fileID: 2062624481}
   m_Layer: 0
@@ -15620,56 +15568,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2062624479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2062624478}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 950caf2957b6a864e86b44d7170f04fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  seSource: {fileID: 0}
-  seUIClick: {fileID: 0}
-  seUIBack: {fileID: 0}
-  seUIUnactive: {fileID: 0}
-  bSManager: {fileID: 0}
-  myAllObject: {fileID: 518259556}
-  myObject: {fileID: 793256560}
-  namePanel: {fileID: 711676945}
-  attackPanel: {fileID: 42782625}
-  attackSubtitle: {fileID: 2110063723}
-  gageRect: {fileID: 165087573}
-  HPslider: {fileID: 1596910631}
-  HPText: {fileID: 1014486567}
-  grayGage: {fileID: 21300000, guid: c7ea4fe3215e11748b24c8406f67bf8a, type: 3}
-  redGage: {fileID: 21300000, guid: 696b8e2163d2a954ab91b390485f7339, type: 3}
-  maxHP: 8000
-  attack: 250
-  damageText: {fileID: 333778361}
-  intervalText: {fileID: 1162097555}
-  damageSeSource: {fileID: 1610383679}
-  seDamage: {fileID: 8300000, guid: 1c2e1b38a4c88474e8685ecc27be134d, type: 3}
-  sePanel: {fileID: 8300000, guid: 16cf412ccc9bf754eb5f48b116b7ecf1, type: 3}
-  seGuard: {fileID: 8300000, guid: f9a7216a14a194a42afd268a0986ff51, type: 3}
-  gage1Image: {fileID: 1363626599}
-  gage2Image: {fileID: 311311558}
-  gage3Image: {fileID: 128928139}
-  gage4Image: {fileID: 295455065}
-  gage5Image: {fileID: 914271897}
-  attackBuffIcon: {fileID: 1283140079}
-  shield: {fileID: 1226565594}
-  attackEffect: {fileID: 589335717}
-  attack1Sprite: {fileID: 21300000, guid: cee6a213d3c9180459223d4fefdd5e78, type: 3}
-  attack2Sprite: {fileID: 21300000, guid: e5927134f595bc34287c8a8e0d965492, type: 3}
-  buff: {fileID: 1739827609}
-  specialAttackNameSprite: {fileID: 21300000, guid: cdaf3e4146844ab42af377021314370c, type: 3}
-  specialAttackAnimation: {fileID: 742896471}
-  seRond: {fileID: 8300000, guid: 3e072325649d17e48b1cba195883c193, type: 3}
-  seSpecialFinish: {fileID: 8300000, guid: d0b482d843cdbb241b6b6cedceee5691, type: 3}
 --- !u!4 &2062624480
 Transform:
   m_ObjectHideFlags: 0
@@ -15798,40 +15696,42 @@ MonoBehaviour:
   seUIClick: {fileID: 0}
   seUIBack: {fileID: 0}
   seUIUnactive: {fileID: 0}
-  bSManager: {fileID: 0}
-  myAllObject: {fileID: 0}
-  myObject: {fileID: 0}
-  namePanel: {fileID: 0}
-  attackPanel: {fileID: 0}
-  attackSubtitle: {fileID: 0}
-  gageRect: {fileID: 0}
-  HPslider: {fileID: 0}
-  HPText: {fileID: 0}
-  grayGage: {fileID: 0}
-  redGage: {fileID: 0}
-  maxHP: 0
-  attack: 0
-  damageText: {fileID: 0}
-  intervalText: {fileID: 0}
-  damageSeSource: {fileID: 0}
-  seDamage: {fileID: 0}
-  sePanel: {fileID: 0}
-  seGuard: {fileID: 0}
-  gage1Image: {fileID: 0}
-  gage2Image: {fileID: 0}
-  gage3Image: {fileID: 0}
-  gage4Image: {fileID: 0}
-  gage5Image: {fileID: 0}
-  attackBuffIcon: {fileID: 0}
-  shield: {fileID: 0}
-  attackEffect: {fileID: 0}
-  attack1Sprite: {fileID: 0}
-  attack2Sprite: {fileID: 0}
-  buff: {fileID: 0}
-  specialAttackNameSprite: {fileID: 0}
-  specialAttackAnimation: {fileID: 0}
-  seRond: {fileID: 0}
-  seSpecialFinish: {fileID: 0}
+  bSManager: {fileID: 124576122}
+  myAllObject: {fileID: 518259556}
+  myObject: {fileID: 793256560}
+  namePanel: {fileID: 711676945}
+  attackPanel: {fileID: 42782625}
+  attackSubtitle: {fileID: 2110063723}
+  gageRect: {fileID: 165087573}
+  HPslider: {fileID: 1596910631}
+  HPText: {fileID: 1014486567}
+  grayGage: {fileID: 21300000, guid: c7ea4fe3215e11748b24c8406f67bf8a, type: 3}
+  redGage: {fileID: 21300000, guid: 696b8e2163d2a954ab91b390485f7339, type: 3}
+  maxHP: 8000
+  attack: 250
+  damageText: {fileID: 333778361}
+  intervalText: {fileID: 1162097555}
+  damageSeSource: {fileID: 1610383679}
+  seDamage: {fileID: 8300000, guid: 1c2e1b38a4c88474e8685ecc27be134d, type: 3}
+  sePanel: {fileID: 8300000, guid: 16cf412ccc9bf754eb5f48b116b7ecf1, type: 3}
+  seGuard: {fileID: 8300000, guid: f9a7216a14a194a42afd268a0986ff51, type: 3}
+  gage1Image: {fileID: 1363626599}
+  gage2Image: {fileID: 311311558}
+  gage3Image: {fileID: 128928139}
+  gage4Image: {fileID: 295455065}
+  gage5Image: {fileID: 914271897}
+  attackBuffIcon: {fileID: 1283140079}
+  shield: {fileID: 1226565594}
+  attackEffect: {fileID: 589335717}
+  attack1Sprite: {fileID: 21300000, guid: 73a8166a13f7ad84f9e08a519203e392, type: 3}
+  attack2Sprite: {fileID: 21300000, guid: 0772d22538b382749a7fcfa5a6ca05ce, type: 3}
+  buff: {fileID: 1739827609}
+  specialAttackNameSprite: {fileID: 21300000, guid: 91b7dc8bcaaa652459605e73b65f0dcf, type: 3}
+  specialAttackAnimation: {fileID: 742896471}
+  seRond: {fileID: 8300000, guid: 3e072325649d17e48b1cba195883c193, type: 3}
+  seSpecialFinish: {fileID: 8300000, guid: d0b482d843cdbb241b6b6cedceee5691, type: 3}
+  seSword: {fileID: 8300000, guid: aaa8678fa0ed6994289365a49eaf80f1, type: 3}
+  seWind: {fileID: 8300000, guid: 00ad01c6084067f418e9642e0e8796de, type: 3}
 --- !u!1 &2110063720
 GameObject:
   m_ObjectHideFlags: 0

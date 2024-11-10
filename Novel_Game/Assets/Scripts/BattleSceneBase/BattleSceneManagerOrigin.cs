@@ -41,6 +41,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
     [SerializeField] private AudioClip seSpecialFinish;
     [SerializeField] private AudioClip seSpecialDamage;
     [SerializeField] private AudioClip seCymbal;
+    [SerializeField] private AudioClip seRond;
 
     void Start()
     {
@@ -328,9 +329,44 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         attackRect.anchoredPosition = new(0, 0);
         attackRect.localScale = new Vector2(1, 1);
     }
+    //êÌì¨ÉXÉLÉã2(ÉGÉãî≈)
+    public IEnumerator SainSkill2_2(int damage, RectTransform attackRect, Image attackImage)
+    {
+        isSainAttack = true;
+        seSource.clip = seRond;
+        seSource.Play();
+        attackImage.color = Color.white;
+        float diffX = AttackPoint();
+        int selected = selectedEnemy;       //çUåÇÇëIëÇµÇΩéûì_Ç≈ÇÃçUåÇëŒè€Çï€éù
+        while (attackRect.localScale.x > 0.5f)
+        {
+            Vector2 temp = attackRect.anchoredPosition;
+            Vector2 temp2 = attackRect.localScale;
+            Vector3 temp3 = attackRect.localEulerAngles;
+            //0.2ïbÇ≈ç¿ïW(x,0)Ç÷
+            temp.x += diffX * Time.deltaTime * 5;
+            //0.2ïbÇ≈1/2î{ÇÃëÂÇ´Ç≥Ç÷
+            temp2.x -= 0.5f * Time.deltaTime * 5;
+            temp2.y -= 0.5f * Time.deltaTime * 5;
+            //0.5ïbÇ≈1âÒì]
+            temp3.z += 360 * Time.deltaTime * 5;
+            attackRect.anchoredPosition = temp;
+            attackRect.localScale = temp2;
+            attackRect.localEulerAngles = temp3;
+            yield return null;
+        }
+        //íÖíeÅEè¡ñ≈
+        enemyComposition[numberOfCurrentWave][selected].ReceiveDamage(damage);
+        isSainAttack = false;
+        yield return new WaitForSeconds(0.1f);
+        yield return StartCoroutine(FadeIn(0.5f, attackImage));
+        //èâä˙âª
+        attackRect.anchoredPosition = new(0, 0);
+        attackRect.localScale = new Vector2(1, 1);
+    }
 
     //ïKéEãZÇ≈ÇÃçUåÇ
-    public IEnumerator SainToAllAttack(int damage)
+    public IEnumerator SainToAllAttack(int damage, bool el)
     {
         sainManager.Pause = true;
         leaderManager.Pause = true;
@@ -341,7 +377,14 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         }
         yield return new WaitForSeconds(2);
         specialSkillAnimation.SetActive(true);
-        StartCoroutine(SpecialSE());
+        if (!el)
+        {
+            StartCoroutine(SpecialSE());
+        }
+        else
+        {
+            StartCoroutine(SpecialSE2());
+        }
         yield return new WaitForSeconds(2.5f);
         seSource.clip = seSpecialDamage;
         seSource.Play();
@@ -379,6 +422,17 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
             yield return new WaitForSeconds(0.15f);
         }
     }
+    private IEnumerator SpecialSE2()
+    {
+        yield return new WaitForSeconds(1.4f);
+        for (int i = 0; i < 2; i++)
+        {
+            seSource.clip = seRond;
+            seSource.Play();
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+
     //ìGÇ™éÄÇÒÇæÇ±Ç∆ÇÃéÛÇØéÊÇË
     public void EnemyDied()
     {
