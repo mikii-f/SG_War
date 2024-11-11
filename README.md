@@ -23,4 +23,4 @@ sample
 
 SG_War_Presentation
 
-プレゼン資料です。(2024/9/27作成)
+プレゼン資料です。
