@@ -9,8 +9,10 @@ public class TitleManager : SystemManagerOrigin
     [SerializeField] private RectTransform continueGameSwitchRect;
     [SerializeField] private RectTransform wordsSwitchRect;
     [SerializeField] private RectTransform methodSwitchRect;
+    [SerializeField] private RectTransform configSwitchRect;
     [SerializeField] private GameObject words1;
     [SerializeField] private GameObject method;
+    [SerializeField] private GameObject config;
     [SerializeField] private GameObject systemMessageObject;
     [SerializeField] private RectTransform yesSwitch;
     [SerializeField] private RectTransform noSwitch;
@@ -25,22 +27,35 @@ public class TitleManager : SystemManagerOrigin
     [SerializeField] private Text data1Text;
     [SerializeField] private Text data2Text;
     [SerializeField] private Text data3Text;
+    [SerializeField] private Slider bgmSlider;
+    [SerializeField] private Slider seSlider;
+    [SerializeField] private Slider autoSlider;
     private bool newGame = true;
 
     void Start()
     {
         words1.SetActive(false);
         method.SetActive(false);
+        config.SetActive(false);
         systemMessageObject.SetActive(false);
         saveDataPanel.SetActive(false);
         audioSource = GetComponent<AudioSource>();
+        StartCoroutine(FadeIn(0.5f, black));
+        SaveDataCheck();
+        bgmSlider.onValueChanged.AddListener(OnBGMSliderValueChanged);
+        seSlider.onValueChanged.AddListener(OnSESliderValueChanged);
+        autoSlider.onValueChanged.AddListener(OnAutoSliderValueChanged);
         audioSource.volume = GameManager.instance.BgmVolume;
         seSource.volume = GameManager.instance.SeVolume;
-        StartCoroutine(FadeIn(0.5f, black));
+    }
+    private void SaveDataCheck()
+    {
+        //一つ以上セーブデータがあるか
         if (GameManager.instance.SaveData)
         {
             continueSwitchMask.SetActive(false);
         }
+        //データ1～3の進行度を確認
         if (PlayerPrefs.GetString("progress") != "")
         {
             data1Text.text = PlayerPrefs.GetString("progress");
@@ -65,6 +80,139 @@ public class TitleManager : SystemManagerOrigin
         {
             data3Text.text = "データなし";
         }
+        //コンフィグの設定(float値のためイコール判定は避ける)
+        if (GameManager.instance.BgmVolume < 0.01f)
+        {
+            bgmSlider.value = 0;
+        }
+        else if (GameManager.instance.BgmVolume < 0.13f)
+        {
+            bgmSlider.value = 1;
+        }
+        else if (GameManager.instance.BgmVolume < 0.26f)
+        {
+            bgmSlider.value = 2;
+        }
+        else if (GameManager.instance.BgmVolume < 0.38f)
+        {
+            bgmSlider.value = 3;
+        }
+        else
+        {
+            bgmSlider.value = 4;
+        }
+        if (GameManager.instance.SeVolume < 0.01f)
+        {
+            seSlider.value = 0;
+        }
+        else if (GameManager.instance.SeVolume < 0.13f)
+        {
+            seSlider.value = 1;
+        }
+        else if (GameManager.instance.SeVolume < 0.26f)
+        {
+            seSlider.value = 2;
+        }
+        else if (GameManager.instance.SeVolume < 0.38f)
+        {
+            seSlider.value = 3;
+        }
+        else
+        {
+            seSlider.value = 4;
+        }
+        if (GameManager.instance.AutoSpeed < 0.6f)
+        {
+            autoSlider.value = 0;
+        }
+        else if (GameManager.instance.AutoSpeed < 1.1f)
+        {
+            autoSlider.value = 1;
+        }
+        else if (GameManager.instance.AutoSpeed < 2.1f)
+        {
+            autoSlider.value = 2;
+        }
+        else if (GameManager.instance.AutoSpeed < 3.1f)
+        {
+            autoSlider.value = 3;
+        }
+        else
+        {
+            autoSlider.value = 4;
+        }
+    }
+    //スライダー操作時に発生させるイベント
+    public void OnBGMSliderValueChanged(float value)
+    {
+        switch (bgmSlider.value)
+        {
+            case 0:
+                audioSource.volume = 0f;
+                break;
+            case 1:
+                audioSource.volume = 0.125f;
+                break;
+            case 2:
+                audioSource.volume = 0.25f;
+                break;
+            case 3:
+                audioSource.volume = 0.375f;
+                break;
+            case 4:
+                audioSource.volume = 0.5f;
+                break;
+        }
+        GameManager.instance.BgmVolume = audioSource.volume;
+        seSource.clip = seUIClick;
+        seSource.Play();
+    }
+    public void OnSESliderValueChanged(float value)
+    {
+        switch (seSlider.value)
+        {
+            case 0:
+                seSource.volume = 0f;
+                break;
+            case 1:
+                seSource.volume = 0.125f;
+                break;
+            case 2:
+                seSource.volume = 0.25f;
+                break;
+            case 3:
+                seSource.volume = 0.375f;
+                break;
+            case 4:
+                seSource.volume = 0.5f;
+                break;
+        }
+        GameManager.instance.SeVolume = seSource.volume;
+        seSource.clip = seUIClick;
+        seSource.Play();
+    }
+    public void OnAutoSliderValueChanged(float value)
+    {
+        switch (autoSlider.value)
+        {
+            case 0:
+                GameManager.instance.AutoSpeed = 0.5f;
+                break;
+            case 1:
+                GameManager.instance.AutoSpeed = 1f;
+                break;
+            case 2:
+                GameManager.instance.AutoSpeed = 2f;
+                break;
+            case 3:
+                GameManager.instance.AutoSpeed = 3f;
+                break;
+            case 4:
+                GameManager.instance.AutoSpeed = 4f;
+                break;
+        }
+        seSource.clip = seUIClick;
+        seSource.Play();
     }
 
     private void Update()
@@ -172,6 +320,16 @@ public class TitleManager : SystemManagerOrigin
             seSource.Play();
         }
     }
+    public void ConfigSwitch()
+    {
+        if (!isGoNext)
+        {
+            StartCoroutine(ButtonAnim(configSwitchRect));
+            StartCoroutine(Delay(config, true));
+            seSource.clip = seUIClick;
+            seSource.Play();
+        }
+    }
     public void Data1Switch()
     {
         if (!isGoNext && !switchInterval)
@@ -272,6 +430,8 @@ public class TitleManager : SystemManagerOrigin
     {
         words1.SetActive(false);
         method.SetActive(false);
+        config.SetActive(false);
+        GameManager.instance.SetConfig();
         saveDataPanel.SetActive(false);
         seSource.clip = seUIBack;
         seSource.Play();

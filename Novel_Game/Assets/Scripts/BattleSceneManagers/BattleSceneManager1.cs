@@ -36,8 +36,6 @@ public class BattleSceneManager1 : BattleSceneManagerOrigin
         yield return new WaitUntil(() => !explanation.activeSelf);
         StartCoroutine(VolumeFadeOut(2, audioSource));
         battleStartAndFinishText.text = "3";
-        seSource.clip = seUIUnactive;
-        seSource.Play();
         yield return new WaitForSeconds(1);
         battleStartAndFinishText.text = "2";
         seSource.clip = seCountDown;

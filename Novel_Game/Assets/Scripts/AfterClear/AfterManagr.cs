@@ -15,6 +15,7 @@ public class AfterManagr : SystemManagerOrigin
     [SerializeField] private GameObject battle;
     [SerializeField] private RectTransform battle1SwitchRect;
     [SerializeField] private RectTransform battle2SwitchRect;
+    [SerializeField] private RectTransform battle3SwitchRect;
     [SerializeField] private RectTransform backSwitchRect;
     [SerializeField] private GameObject systemMessageObject;
     [SerializeField] private Text systemMessage;
@@ -173,6 +174,25 @@ public class AfterManagr : SystemManagerOrigin
         yield return new WaitForSeconds(0.1f);
         yield return StartCoroutine(FadeOut(0.5f, black));
         SceneManager.LoadScene("ExtraBattle2");
+    }
+    //バトル3へ
+    public void Battle3Switch()
+    {
+        if (!isGoNext)
+        {
+            isGoNext = true;
+            StartCoroutine(ButtonAnim(battle3SwitchRect));
+            StartCoroutine(GoToBattle3());
+            seSource.clip = seUIClick;
+            seSource.Play();
+        }
+    }
+    private IEnumerator GoToBattle3()
+    {
+        black.color = new(0, 0, 0, 0);
+        yield return new WaitForSeconds(0.1f);
+        yield return StartCoroutine(FadeOut(0.5f, black));
+        SceneManager.LoadScene("ExtraBattle3");
     }
     //バトル一覧を閉じる
     public void BattleClose()

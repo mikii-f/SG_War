@@ -5,29 +5,32 @@ using UnityEngine.UI;
 
 public class ElManager : EnemyManagerOrigin
 {
-    [SerializeField] private Image gage1Image;
-    [SerializeField] private Image gage2Image;
-    [SerializeField] private Image gage3Image;
-    [SerializeField] private Image gage4Image;
-    [SerializeField] private Image gage5Image;
-    [SerializeField] private GameObject attackBuffIcon;  //バフアイコン
-    [SerializeField] private GameObject shield;     //シールド
-    [SerializeField] private GameObject attackEffect;
-    private RectTransform attackRect;
-    private Image attackImage;
+    [SerializeField] protected Image gage1Image;
+    [SerializeField] protected Image gage2Image;
+    [SerializeField] protected Image gage3Image;
+    [SerializeField] protected Image gage4Image;
+    [SerializeField] protected Image gage5Image;
+    [SerializeField] protected GameObject attackBuffIcon;  //バフアイコン
+    [SerializeField] protected GameObject shield;     //シールド
+    [SerializeField] protected GameObject attackEffect;
+    protected RectTransform attackRect;
+    protected Image attackImage;
     [SerializeField] private Sprite attack1Sprite;
     [SerializeField] private Sprite attack2Sprite;
-    [SerializeField] private GameObject buff;
+    [SerializeField] protected GameObject buff;
     [SerializeField] private Sprite specialAttackNameSprite;
-    [SerializeField] private GameObject specialAttackAnimation;
-    private int skill3Active = 0;
+    [SerializeField] protected GameObject specialAttackAnimation;
+    protected int skill3Active = 0;
     private const int skill3Interval = 4;
     private int skill3Count = 2;
-    private const int specialAttackInterval = 8;
-    private int specialAttackCount = 3;             //スキル3・必殺技が連発されないように攻撃回数をカウント
-    private bool specialAttackStandby = false;      //必殺技の溜め
+    protected const int specialAttackInterval = 8;
+    protected int specialAttackCount = 3;             //スキル3・必殺技が連発されないように攻撃回数をカウント
+    protected bool specialAttackStandby = false;      //必殺技の溜め
     [SerializeField] private AudioClip seRond;
     [SerializeField] private AudioClip seSpecialFinish;
+    protected string attack1Name;
+    protected string attack2Name;
+    protected Vector3 attack2Angle;                    //フィアバージョンに対応させやすいように変数にしておく
 
     protected override void StartSet()
     {
@@ -45,6 +48,9 @@ public class ElManager : EnemyManagerOrigin
         interval = 4;
         intervalCount = interval;
         intervalText.text = intervalCount.ToString("F2");
+        attack1Name = "抜刀";
+        attack2Name = "剣の舞";
+        attack2Angle = new(70, 30, 0);
     }
 
     void Update()
@@ -131,7 +137,7 @@ public class ElManager : EnemyManagerOrigin
         currentGage++;
         skill3Count++;
         specialAttackCount++;
-        StartCoroutine(AttackSubtitle("抜刀"));
+        StartCoroutine(AttackSubtitle(attack1Name));
         attackImage.sprite = attack1Sprite;
         isAttack = true;
         Vector2 temp = myRect.localScale;
@@ -192,16 +198,16 @@ public class ElManager : EnemyManagerOrigin
         }
     }
     //スキル2(通常の2倍ダメージ)
-    private IEnumerator Skill2()
+    protected virtual IEnumerator Skill2()
     {
         intervalCount = interval;
         currentGage--;
         skill3Count++;
         specialAttackCount++;
-        StartCoroutine(AttackSubtitle("剣の舞"));
+        StartCoroutine(AttackSubtitle(attack2Name));
         attackImage.sprite = attack2Sprite;
         isAttack = true;
-        attackRect.localEulerAngles = new (70, 30, 0);
+        attackRect.localEulerAngles = attack2Angle;
         Vector2 temp = myRect.localScale;
         myRect.localScale = new(0.8f * temp.x, 0.8f * temp.y);
         yield return new WaitForSeconds(0.5f);
@@ -277,7 +283,7 @@ public class ElManager : EnemyManagerOrigin
         }
     }
     //スキル3(与ダメージ上昇2回、チャージ増加)
-    private IEnumerator Skill3()
+    protected virtual IEnumerator Skill3()
     {
         intervalCount = interval;
         currentGage += 2;
@@ -345,7 +351,7 @@ public class ElManager : EnemyManagerOrigin
         gage4Image.sprite = grayGage;
         gage5Image.sprite = grayGage;
     }
-    private IEnumerator SpecialSE()
+    protected virtual IEnumerator SpecialSE()
     {
         yield return new WaitForSeconds(1.4f);
         for (int i=0; i<2; i++)
@@ -357,7 +363,7 @@ public class ElManager : EnemyManagerOrigin
     }
 
     //バフ
-    private IEnumerator Buff()
+    protected IEnumerator Buff()
     {
         buff.SetActive(true);
         yield return new WaitForSeconds(1);

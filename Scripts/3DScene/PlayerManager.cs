@@ -41,9 +41,11 @@ public class PlayerManager : MonoBehaviour
     private const float attack2reception = 0.12f;
     private bool clear = false;
     public bool Clear { set { clear = value; } }
+    private bool gameOver = false;
     private AudioSource seSource;
     [SerializeField] private AudioClip seSword;
     [SerializeField] private AudioClip seDamage;
+    [SerializeField] private GameObject particle;
     private bool onUpField = false;
     public bool OnUpField { set { onUpField = value; } }
     private bool onLRField = false;
@@ -91,6 +93,7 @@ public class PlayerManager : MonoBehaviour
         positionState = PositionState.DOWN;
         normalAttackCollider.enabled = false;
         normalAttackEffect.SetActive(false);
+        particle.SetActive(false);
         playerAnimator.SetInteger("PlayerState", (int)playerState);
         attack2EffectsCount = attack2EffectsFolder.transform.childCount;
         attack2Effects = new GameObject[attack2EffectsCount];
@@ -105,164 +108,203 @@ public class PlayerManager : MonoBehaviour
 
     void Update()
     {
-        //ダメージを受けた直後、攻撃直後は操作できない
-        if (!isDamaged && !isAttacked)
+        if (!gameOver)
         {
-            //ジャンプ
-            if (Input.GetKeyDown(KeyCode.W) && positionState == PositionState.GROUND)
+            //ダメージを受けた直後、攻撃直後は操作できない
+            if (!isDamaged && !isAttacked)
             {
-                playerState = PlayerState.JUMPUP;
-                positionState = PositionState.UP;
-                playerAnimator.SetInteger("PlayerState", (int)playerState);
-                Vector3 afterJumpVelocity = _rb.velocity;
-                afterJumpVelocity.y = jumpSpeed;
-                _rb.velocity = afterJumpVelocity;
-                isJumped = true;
-                fallingAccel = false;
-            }
-            //2段ジャンプ
-            if (Input.GetKeyDown(KeyCode.W) && (positionState == PositionState.DOWN || floatingTime > 0.15) && isSecondJumpPossible)
-            {
-                //方向転換が可能
-                if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
+                //ジャンプ
+                if (Input.GetKeyDown(KeyCode.W) && positionState == PositionState.GROUND)
                 {
-                    _rb.rotation = Quaternion.Euler(0f, 0f, 0f);
-                }
-                else if (!Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.A))
-                {
-                    _rb.rotation = Quaternion.Euler(0f, 180f, 0f);
-                }
-                playerState = PlayerState.JUMPUP;
-                positionState = PositionState.UP;
-                playerAnimator.SetInteger("PlayerState", (int)playerState);
-                Vector3 afterJumpVelocity = _rb.velocity;
-                afterJumpVelocity.y = jumpSpeed;
-                _rb.velocity = afterJumpVelocity;
-                floatingTime = 0;
-                isJumped = true;
-                isSecondJumpPossible = false;
-                fallingAccel = false;
-            }
-        }
-        //空中に出てからの時間を保持
-        if (positionState != PositionState.GROUND)
-        {
-            floatingTime += Time.deltaTime;
-        }
-        //ジャンプ長押し終了
-        if (Input.GetKeyUp(KeyCode.W))
-        {
-            isJumped = false;
-        }
-        //速度マイナス検知(かつ、しゃがんでいないとき(しゃがみ姿勢でも若干浮いている可能性がある))
-        if (_rb.velocity.y < -1e-4 && positionState != PositionState.DOWN && playerState != PlayerState.SQUAT)
-        {
-            positionState = PositionState.DOWN;
-            //攻撃中にはポーズは変えない
-            if (!isAttacked)
-            {
-                playerState = PlayerState.JUMPDOWN;
-                playerAnimator.SetInteger("PlayerState", (int)playerState);
-            }
-        }
-        //ダッシュ中の方向転換(強攻撃の直前に方向が変わってしまわないように)
-        if (playerState == PlayerState.DASH && !isAttack2)
-        {
-            if (Input.GetKeyDown(KeyCode.D) && _rb.rotation != Quaternion.Euler(0f, 0f, 0f))
-            {
-                _rb.rotation = Quaternion.Euler(0f, 0f, 0f);
-                playerState = PlayerState.TURNBACK;
-                playerAnimator.SetInteger("PlayerState", (int)playerState);
-            }
-            if (Input.GetKeyDown(KeyCode.A) && _rb.rotation != Quaternion.Euler(0f, 180f, 0f))
-            {
-                _rb.rotation = Quaternion.Euler(0f, 180f, 0f);
-                playerState = PlayerState.TURNBACK;
-                playerAnimator.SetInteger("PlayerState", (int)playerState);
-            }
-        }
-        //折り返し・しゃがみ状態からダッシュへ(しゃがみ時間を測る代わりに2段ジャンプ可否変数を使用)
-        if (playerState == PlayerState.TURNBACK || (playerState == PlayerState.SQUAT && isSecondJumpPossible))
-        {
-            //右を向いているとき
-            if (_rb.rotation == Quaternion.Euler(0f, 0f, 0f))
-            {
-                //右に動き始めたらダッシュへ移行(または動く床(プレイヤーの最速より速い)に乗っているとき)
-                if (_rb.velocity.x > 1e-4 || (onLRField && _rb.velocity.x < -maxSpeed - 0.5f))
-                {
-                    playerState = PlayerState.DASH;
+                    playerState = PlayerState.JUMPUP;
+                    positionState = PositionState.UP;
                     playerAnimator.SetInteger("PlayerState", (int)playerState);
+                    Vector3 afterJumpVelocity = _rb.velocity;
+                    afterJumpVelocity.y = jumpSpeed;
+                    _rb.velocity = afterJumpVelocity;
+                    isJumped = true;
+                    fallingAccel = false;
                 }
-                //反対方向が入力されたら即座に向きを変える
-                if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+                //2段ジャンプ
+                if (Input.GetKeyDown(KeyCode.W) && (positionState == PositionState.DOWN || floatingTime > 0.15) && isSecondJumpPossible)
                 {
-                    _rb.rotation = Quaternion.Euler(0f, 180f, 0f);
-                    playerState = PlayerState.DASH;
+                    //方向転換が可能
+                    if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
+                    {
+                        _rb.rotation = Quaternion.Euler(0f, 0f, 0f);
+                    }
+                    else if (!Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.A))
+                    {
+                        _rb.rotation = Quaternion.Euler(0f, 180f, 0f);
+                    }
+                    playerState = PlayerState.JUMPUP;
+                    positionState = PositionState.UP;
+                    playerAnimator.SetInteger("PlayerState", (int)playerState);
+                    Vector3 afterJumpVelocity = _rb.velocity;
+                    afterJumpVelocity.y = jumpSpeed;
+                    _rb.velocity = afterJumpVelocity;
+                    floatingTime = 0;
+                    isJumped = true;
+                    isSecondJumpPossible = false;
+                    fallingAccel = false;
+                }
+            }
+            //空中に出てからの時間を保持
+            if (positionState != PositionState.GROUND)
+            {
+                floatingTime += Time.deltaTime;
+            }
+            //ジャンプ長押し終了
+            if (Input.GetKeyUp(KeyCode.W))
+            {
+                isJumped = false;
+            }
+            //速度マイナス検知(かつ、しゃがんでいないとき(しゃがみ姿勢でも若干浮いている可能性がある))
+            if (_rb.velocity.y < -1e-4 && positionState != PositionState.DOWN && playerState != PlayerState.SQUAT)
+            {
+                positionState = PositionState.DOWN;
+                //攻撃中にはポーズは変えない
+                if (!isAttacked)
+                {
+                    playerState = PlayerState.JUMPDOWN;
                     playerAnimator.SetInteger("PlayerState", (int)playerState);
                 }
             }
-            //左を向いているとき
-            if (_rb.rotation == Quaternion.Euler(0f, 180f, 0f))
+            //移動床に乗っているときは方向転換・ジャンプ・攻撃しかできない
+            if (onUpField || onLRField)
             {
-                //左に動き始めたらダッシュへ移行(または動く床(プレイヤーの最速より速い)に乗っているとき)
-                if (_rb.velocity.x < -1e-4 || (onLRField && _rb.velocity.x > maxSpeed + 0.5f))
+                //しゃがみ状態からすぐには変わらないようにする
+                if (playerState == PlayerState.SQUAT && isSecondJumpPossible)
                 {
-                    playerState = PlayerState.DASH;
+                    playerState = PlayerState.IDLING;
                     playerAnimator.SetInteger("PlayerState", (int)playerState);
                 }
-                //反対方向が入力されたら即座に向きを変える
-                if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
+                if (playerState == PlayerState.DASH)
                 {
-                    _rb.rotation = Quaternion.Euler(0f, 0f, 0f);
-                    playerState = PlayerState.DASH;
+                    playerState = PlayerState.IDLING;
                     playerAnimator.SetInteger("PlayerState", (int)playerState);
                 }
+                //攻撃中以外は自由に向きを変えられる
+                if (!isAttacked)
+                {
+                    if (Input.GetKeyDown(KeyCode.D))
+                    {
+                        _rb.rotation = Quaternion.Euler(0f, 0f, 0f);
+                    }
+                    if (Input.GetKeyDown(KeyCode.A))
+                    {
+                        _rb.rotation = Quaternion.Euler(0f, 180f, 0f);
+                    }
+                }
             }
-        }
-        //待機時は動き始めた方向に合わせて方向転換(キー両押し→片方離すなどに対処するため) 強攻撃時はプレイヤーを一度非アクティブにする影響で状態がリセットされるため方向を変えられないようにする
-        if (playerState == PlayerState.IDLING && !isAttack2)
-        {
-            if (_rb.velocity.x > 1e-4 && Input.GetKey(KeyCode.D))
+            else
             {
-                _rb.rotation = Quaternion.Euler(0f, 0f, 0f);
-                playerState = PlayerState.DASH;
+                //ダッシュ中の方向転換(強攻撃の直前に方向が変わってしまわないように)
+                if (playerState == PlayerState.DASH && !isAttack2)
+                {
+                    if (Input.GetKeyDown(KeyCode.D) && _rb.rotation != Quaternion.Euler(0f, 0f, 0f))
+                    {
+                        _rb.rotation = Quaternion.Euler(0f, 0f, 0f);
+                        playerState = PlayerState.TURNBACK;
+                        playerAnimator.SetInteger("PlayerState", (int)playerState);
+                    }
+                    if (Input.GetKeyDown(KeyCode.A) && _rb.rotation != Quaternion.Euler(0f, 180f, 0f))
+                    {
+                        _rb.rotation = Quaternion.Euler(0f, 180f, 0f);
+                        playerState = PlayerState.TURNBACK;
+                        playerAnimator.SetInteger("PlayerState", (int)playerState);
+                    }
+                }
+                //折り返し・しゃがみ状態からダッシュへ(しゃがみ時間を測る代わりに2段ジャンプ可否変数を使用)
+                if (playerState == PlayerState.TURNBACK || (playerState == PlayerState.SQUAT && isSecondJumpPossible))
+                {
+                    //右を向いているとき
+                    if (_rb.rotation == Quaternion.Euler(0f, 0f, 0f))
+                    {
+                        //右に動き始めたらダッシュへ移行(または動く床(プレイヤーの最速より速い)に乗っているとき)
+                        if (_rb.velocity.x > 1e-4 || (onLRField && _rb.velocity.x < -maxSpeed - 0.5f))
+                        {
+                            playerState = PlayerState.DASH;
+                            playerAnimator.SetInteger("PlayerState", (int)playerState);
+                        }
+                        //反対方向が入力されたら即座に向きを変える
+                        if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+                        {
+                            _rb.rotation = Quaternion.Euler(0f, 180f, 0f);
+                            playerState = PlayerState.DASH;
+                            playerAnimator.SetInteger("PlayerState", (int)playerState);
+                        }
+                    }
+                    //左を向いているとき
+                    if (_rb.rotation == Quaternion.Euler(0f, 180f, 0f))
+                    {
+                        //左に動き始めたらダッシュへ移行(または動く床(プレイヤーの最速より速い)に乗っているとき)
+                        if (_rb.velocity.x < -1e-4 || (onLRField && _rb.velocity.x > maxSpeed + 0.5f))
+                        {
+                            playerState = PlayerState.DASH;
+                            playerAnimator.SetInteger("PlayerState", (int)playerState);
+                        }
+                        //反対方向が入力されたら即座に向きを変える
+                        if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
+                        {
+                            _rb.rotation = Quaternion.Euler(0f, 0f, 0f);
+                            playerState = PlayerState.DASH;
+                            playerAnimator.SetInteger("PlayerState", (int)playerState);
+                        }
+                    }
+                }
+                //待機時は動き始めた方向に合わせて方向転換(キー両押し→片方離すなどに対処するため) 強攻撃時はプレイヤーを一度非アクティブにする影響で状態がリセットされるため方向を変えられないようにする
+                if (playerState == PlayerState.IDLING && !isAttack2)
+                {
+                    if (_rb.velocity.x > 1e-4 && Input.GetKey(KeyCode.D))
+                    {
+                        _rb.rotation = Quaternion.Euler(0f, 0f, 0f);
+                        playerState = PlayerState.DASH;
+                        playerAnimator.SetInteger("PlayerState", (int)playerState);
+                    }
+                    if (_rb.velocity.x < -1e-4 && Input.GetKey(KeyCode.A))
+                    {
+                        _rb.rotation = Quaternion.Euler(0f, 180f, 0f);
+                        playerState = PlayerState.DASH;
+                        playerAnimator.SetInteger("PlayerState", (int)playerState);
+                    }
+                }
+            }
+            //地上でジャンプ状態の場合強制的に待機状態へ
+            if (playerState == PlayerState.JUMPDOWN && positionState == PositionState.GROUND)
+            {
+                playerState = PlayerState.IDLING;
                 playerAnimator.SetInteger("PlayerState", (int)playerState);
             }
-            if (_rb.velocity.x < -1e-4 && Input.GetKey(KeyCode.A))
+            //下キーで落下加速
+            if (positionState == PositionState.DOWN && !isAttack2)
             {
-                _rb.rotation = Quaternion.Euler(0f, 180f, 0f);
-                playerState = PlayerState.DASH;
-                playerAnimator.SetInteger("PlayerState", (int)playerState);
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    fallingAccel = true;
+                }
             }
-        }
-        //地上でジャンプ状態の場合強制的に待機状態へ
-        if (playerState == PlayerState.JUMPDOWN && positionState == PositionState.GROUND)
-        {
-            playerState = PlayerState.IDLING;
-            playerAnimator.SetInteger("PlayerState", (int)playerState);
-        }
-        //下キーで落下加速
-        if (positionState == PositionState.DOWN && !isAttack2)
-        {
-            if (Input.GetKeyDown(KeyCode.S))
+            //通常攻撃
+            if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.LeftArrow)) && attackPossible && !clear)
             {
-                fallingAccel = true;
+                StartCoroutine(NormalAttack());
             }
-        }
-        //通常攻撃
-        if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.LeftArrow)) && attackPossible && !clear)
-        {
-            StartCoroutine(NormalAttack());
-        }
-        //強攻撃
-        if ((Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.RightArrow)) && attackPossible && attack2Count == 0)
-        {
-            StartCoroutine(StrongAttack());
-        }
-        //落下判定(何らかのミスでクリア後に落ちても反応しない)
-        if (_transform.position.y < deathLine　&& !clear)
-        {
-            stageManager.GameOver();
+            //強攻撃
+            if ((Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.RightArrow)) && attackPossible && attack2Count == 0)
+            {
+                StartCoroutine(StrongAttack());
+            }
+            //落下判定(何らかのミスでクリア後に落ちても反応しない)
+            if (_transform.position.y < deathLine && !clear)
+            {
+                seSource.clip = seDamage;
+                seSource.Play();
+                character.SetActive(false);
+                particle.SetActive(true);
+                _rb.velocity = Vector3.zero;
+                gameOver = true;
+                stageManager.GameOver();
+            }
         }
     }
 
@@ -355,7 +397,7 @@ public class PlayerManager : MonoBehaviour
             former = 6;
         }
         //受付時間内に再び入力されたら再発動できる
-        while (attack2Count < attack2Possible)
+        while (attack2Count < attack2Possible && !gameOver)
         {
             //受付時間と同じだけの時間は完全に硬直
             yield return new WaitForSeconds(attack2reception);
@@ -504,16 +546,44 @@ public class PlayerManager : MonoBehaviour
         character.SetActive(false);
         yield return null;              //埋まり状態解消用
         float oneAttackTime = 0.05f;
+        //移動床に乗っていたらその分速度を加算する
+        Vector3 pastVelocity = _rb.velocity;
+        bool velocityPlusY = false;
+        bool velocityPlusX = false;
         _rb.velocity = v / (oneAttackTime*attack2EffectsCount);
+        if (onUpField)
+        {
+            _rb.velocity += new Vector3(0, pastVelocity.y, 0);
+            velocityPlusY = true;
+        }
+        if (onLRField)
+        {
+            _rb.velocity += new Vector3(pastVelocity.x, 0, 0);
+            velocityPlusX = true;
+        }
         int attackCount = 0;
         attack2Stop = false;
-        while (attackCount < attack2EffectsCount)
+        while (attackCount < attack2EffectsCount && !gameOver)
         {
             seSource.clip = seSword;
             seSource.Play();
             if (attack2Stop)
             {
                 _rb.velocity = Vector3.zero;
+            }
+            //途中で移動床から離れたら追加分の速度を減算する
+            else
+            {
+                if (velocityPlusY && !onUpField)
+                {
+                    _rb.velocity -= new Vector3(0, pastVelocity.y, 0);
+                    velocityPlusY = false;
+                }
+                if (velocityPlusX && !onLRField)
+                {
+                    _rb.velocity -= new Vector3(pastVelocity.x, 0, 0);
+                    velocityPlusX = false;
+                }
             }
             normalAttackCollider.enabled = true;
             StartCoroutine(StopEffect(attack2Effects[attackCount], 0.2f));
@@ -522,7 +592,10 @@ public class PlayerManager : MonoBehaviour
             normalAttackCollider.enabled = false;
         }
         _rb.velocity = Vector3.zero;
-        character.SetActive(true);
+        if (!gameOver)
+        {
+            character.SetActive(true);
+        }
         attack2Stop = false;
     }
     //斬撃をその場に残すための関数
@@ -545,131 +618,138 @@ public class PlayerManager : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        //重力
-        if (!isAttack2)
+        if (!gameOver)
         {
-            //下キーを押した場合
-            if (fallingAccel)
+            //重力
+            if (!isAttack2)
             {
-                _rb.AddForce(new Vector3(0, 1.5f * gravity, 0));
-            }
-            //通常
-            else
-            {
-                _rb.AddForce(new Vector3(0, gravity, 0));
-            }
-        }
-        //ダメージを受けた直後、攻撃直後は操作できない
-        if (!isDamaged && !isAttacked)
-        {
-            //右移動
-            if (Input.GetKey(KeyCode.D))
-            {
-                if (positionState == PositionState.GROUND)
+                //下キーを押した場合
+                if (fallingAccel)
                 {
-                    if (_rb.velocity.x < maxSpeed)
-                    {
-                        _rb.AddForce(new Vector3(horizontalForce, 0, 0));
-                    }
-                    //何らかのバグでダッシュ方向と体の向きが違っていた時用(左右移動床除く)
-                    else if (playerState == PlayerState.DASH && _rb.rotation == Quaternion.Euler(0f, 180f, 0f) && !onLRField)
-                    {
-                        _rb.rotation = Quaternion.Euler(0f, 0f, 0f);
-                    }
-                    //何らかのバグで最高速度なのにダッシュ状態じゃなかった時用
-                    else if (playerState != PlayerState.DASH && !onLRField)
-                    {
-                        playerState = PlayerState.DASH;
-                        playerAnimator.SetInteger("PlayerState", (int)playerState);
-                    }
+                    _rb.AddForce(new Vector3(0, 1.5f * gravity, 0));
                 }
-                //空中では制限
+                //通常
                 else
                 {
-                    if (_rb.velocity.x < maxSpeed * 0.8f)
+                    _rb.AddForce(new Vector3(0, gravity, 0));
+                }
+            }
+            //移動床に乗っているときは方向転換・ジャンプ・攻撃しかできない
+            if (!onUpField && !onLRField)
+            {
+                //ダメージを受けた直後、攻撃直後は操作できない
+                if (!isDamaged && !isAttacked)
+                {
+                    //右移動
+                    if (Input.GetKey(KeyCode.D))
                     {
-                        _rb.AddForce(new Vector3(horizontalForce * 0.5f, 0, 0));
+                        if (positionState == PositionState.GROUND)
+                        {
+                            if (_rb.velocity.x < maxSpeed)
+                            {
+                                _rb.AddForce(new Vector3(horizontalForce, 0, 0));
+                            }
+                            //何らかのバグでダッシュ方向と体の向きが違っていた時用(左右移動床除く)
+                            else if (playerState == PlayerState.DASH && _rb.rotation == Quaternion.Euler(0f, 180f, 0f) && !onLRField)
+                            {
+                                _rb.rotation = Quaternion.Euler(0f, 0f, 0f);
+                            }
+                            //何らかのバグで最高速度なのにダッシュ状態じゃなかった時用
+                            else if (playerState != PlayerState.DASH && !onLRField)
+                            {
+                                playerState = PlayerState.DASH;
+                                playerAnimator.SetInteger("PlayerState", (int)playerState);
+                            }
+                        }
+                        //空中では制限
+                        else
+                        {
+                            if (_rb.velocity.x < maxSpeed * 0.8f)
+                            {
+                                _rb.AddForce(new Vector3(horizontalForce * 0.5f, 0, 0));
+                            }
+                        }
+                    }
+                    //左移動
+                    if (Input.GetKey(KeyCode.A))
+                    {
+                        if (positionState == PositionState.GROUND)
+                        {
+                            if (_rb.velocity.x > -maxSpeed)
+                            {
+                                _rb.AddForce(new Vector3(-horizontalForce, 0, 0));
+                            }
+                            //何らかのバグでダッシュ方向と体の向きが違っていた時用(左右移動床除く)
+                            else if (playerState == PlayerState.DASH && _rb.rotation == Quaternion.Euler(0f, 0f, 0f) && !onLRField)
+                            {
+                                _rb.rotation = Quaternion.Euler(0f, 180f, 0f);
+                            }
+                            //何らかのバグで最高速度なのにダッシュ状態じゃなかった時用
+                            else if (playerState != PlayerState.DASH && !onLRField)
+                            {
+                                playerState = PlayerState.DASH;
+                                playerAnimator.SetInteger("PlayerState", (int)playerState);
+                            }
+                        }
+                        //空中では制限
+                        else
+                        {
+                            if (_rb.velocity.x > -maxSpeed * 0.8f)
+                            {
+                                _rb.AddForce(new Vector3(-horizontalForce * 0.5f, 0, 0));
+                            }
+                        }
+                    }
+                }
+                //摩擦(空中ではRigidBodyの抵抗だけで)
+                if (((!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D)) || (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))) && !isAttacked)
+                {
+                    if (positionState == PositionState.GROUND)
+                    {
+                        if (_rb.velocity.x > 1)
+                        {
+                            _rb.AddForce(new Vector3(-frictionForce, 0, 0));
+                        }
+                        else if (_rb.velocity.x < -1)
+                        {
+                            _rb.AddForce(new Vector3(frictionForce, 0, 0));
+                        }
+                        else if (Mathf.Abs(_rb.velocity.x) < 1)
+                        {
+                            _rb.velocity = Vector3.zero;
+                            //しゃがみ状態からすぐには変わらないようにする
+                            if (isSecondJumpPossible)
+                            {
+                                playerState = PlayerState.IDLING;
+                                playerAnimator.SetInteger("PlayerState", (int)playerState);
+                            }
+                        }
+                    }
+                }
+                //通常攻撃後は強く摩擦をかける
+                if (isAttacked && !isAttack2)
+                {
+                    if (positionState == PositionState.GROUND)
+                    {
+                        if (_rb.velocity.x > 1)
+                        {
+                            _rb.AddForce(new Vector3(-frictionForce * 2, 0, 0));
+                        }
+                        else if (_rb.velocity.x < -1)
+                        {
+                            _rb.AddForce(new Vector3(frictionForce * 2, 0, 0));
+                        }
                     }
                 }
             }
-            //左移動
-            if (Input.GetKey(KeyCode.A))
+            //長押しでジャンプ延長
+            if (isJumped)
             {
-                if (positionState == PositionState.GROUND)
+                _rb.AddForce(new Vector3(0, continueUpForce, 0));
+                if (floatingTime > jumpTime)
                 {
-                    if (_rb.velocity.x > -maxSpeed)
-                    {
-                        _rb.AddForce(new Vector3(-horizontalForce, 0, 0));
-                    }
-                    //何らかのバグでダッシュ方向と体の向きが違っていた時用(左右移動床除く)
-                    else if (playerState == PlayerState.DASH && _rb.rotation == Quaternion.Euler(0f, 0f, 0f) && !onLRField)
-                    {
-                        _rb.rotation = Quaternion.Euler(0f, 180f, 0f);
-                    }
-                    //何らかのバグで最高速度なのにダッシュ状態じゃなかった時用
-                    else if (playerState != PlayerState.DASH && !onLRField)
-                    {
-                        playerState = PlayerState.DASH;
-                        playerAnimator.SetInteger("PlayerState", (int)playerState);
-                    }
+                    isJumped = false;
                 }
-                //空中では制限
-                else
-                {
-                    if (_rb.velocity.x > -maxSpeed * 0.8f)
-                    {
-                        _rb.AddForce(new Vector3(-horizontalForce * 0.5f, 0, 0));
-                    }
-                }
-            }
-        }
-        //摩擦(空中ではRigidBodyの抵抗だけで)
-        if (((!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D)) || (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))) && !isAttacked)
-        {
-            if (positionState == PositionState.GROUND)
-            {
-                if (_rb.velocity.x > 1)
-                {
-                    _rb.AddForce(new Vector3(-frictionForce, 0, 0));
-                }
-                else if (_rb.velocity.x < -1)
-                {
-                    _rb.AddForce(new Vector3(frictionForce, 0, 0));
-                }
-                else if (Mathf.Abs(_rb.velocity.x) < 1)
-                {
-                    _rb.velocity = Vector3.zero;
-                    //しゃがみ状態からすぐには変わらないようにする
-                    if (isSecondJumpPossible)
-                    {
-                        playerState = PlayerState.IDLING;
-                        playerAnimator.SetInteger("PlayerState", (int)playerState);
-                    }
-                }
-            }
-        }
-        //通常攻撃後は強く摩擦をかける
-        if (isAttacked && !isAttack2)
-        {
-            if (positionState == PositionState.GROUND)
-            {
-                if (_rb.velocity.x > 1)
-                {
-                    _rb.AddForce(new Vector3(-frictionForce*2, 0, 0));
-                }
-                else if (_rb.velocity.x < -1)
-                {
-                    _rb.AddForce(new Vector3(frictionForce*2, 0, 0));
-                }
-            }
-        }
-        //長押しでジャンプ延長
-        if (isJumped)
-        {
-            _rb.AddForce(new Vector3(0, continueUpForce, 0));
-            if (floatingTime > jumpTime)
-            {
-                isJumped = false;
             }
         }
     }
@@ -682,17 +762,26 @@ public class PlayerManager : MonoBehaviour
             isDamaged = true;
             isInvincible = true;
             attackPossible = false;
-            stageManager.Damage();
+            seSource.clip = seDamage;
+            seSource.Play();
             if (other.CompareTag("Bullet"))
             {
                 other.enabled = false;
                 other.gameObject.SetActive(false);
             }
-            Vector3 decreasedVelocity = new(0.2f * _rb.velocity.x, 0.2f * _rb.velocity.y, 0.2f * _rb.velocity.z);
-            _rb.velocity = decreasedVelocity;
-            StartCoroutine(Damage());
-            seSource.clip = seDamage;
-            seSource.Play();
+            if (stageManager.Damage())
+            {
+                character.SetActive(false);
+                particle.SetActive(true);
+                _rb.velocity = Vector3.zero;
+                gameOver = true;
+            }
+            else
+            {
+                Vector3 decreasedVelocity = new(0.2f * _rb.velocity.x, 0.2f * _rb.velocity.y, 0.2f * _rb.velocity.z);
+                _rb.velocity = decreasedVelocity;
+                StartCoroutine(Damage());
+            }
         }
         if (other.CompareTag("Medal"))
         {
