@@ -23,7 +23,9 @@ public class GameManager : MonoBehaviour
     private float bgmVolume = 0.25f;
     public float BgmVolume { get { return bgmVolume; } set { bgmVolume = value; } }
     private float seVolume = 0.25f;
-    public float SeVolume { get {return seVolume; } set { seVolume = value; } }
+    public float SeVolume { get { return seVolume; } set { seVolume = value; } }
+    private float autoSpeed = 1f;
+    public float AutoSpeed { get { return autoSpeed; } set { autoSpeed = value; } }
     private int saveDataNumber = 1;
     public int SaveDataNumber { get { return saveDataNumber; } set { saveDataNumber = value; } }
 
@@ -38,6 +40,7 @@ public class GameManager : MonoBehaviour
             {
                 saveData = true;
             }
+            LoadConfig();
         }
         else
         {
@@ -45,6 +48,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //セーブ
     public void Save()
     {
         if (saveDataNumber == 1)
@@ -150,6 +154,30 @@ public class GameManager : MonoBehaviour
             sainAttack = PlayerPrefs.GetInt("sainAttack3");
             sainSG = PlayerPrefs.GetInt("sainSG3");
             progress = PlayerPrefs.GetString("progress3");
+        }
+    }
+
+    //コンフィグ記録
+    public void SetConfig()
+    {
+        PlayerPrefs.SetFloat("bgmVolume", bgmVolume);
+        PlayerPrefs.SetFloat("seVolume", seVolume);
+        PlayerPrefs.SetFloat("autoSpeed", autoSpeed);
+    }
+    //コンフィグ記録のセット
+    public void LoadConfig()
+    {
+        if (PlayerPrefs.GetFloat("autoSpeed") == 0)
+        {
+            bgmVolume = 0.25f;
+            seVolume = 0.25f;
+            autoSpeed = 1f;
+        }
+        else
+        {
+            bgmVolume = PlayerPrefs.GetFloat("bgmVolume", bgmVolume);
+            seVolume = PlayerPrefs.GetFloat("seVolume", seVolume);
+            autoSpeed = PlayerPrefs.GetFloat("autoSpeed", autoSpeed);
         }
     }
 }

@@ -52,7 +52,7 @@ public class BattleSceneManager2 : BattleSceneManagerOrigin
         seSource.clip = seUIClick;
         seSource.Play();
         yield return null;
-        tutorialText.text = "A/Dキーにより敵ターゲットを切り替えることができます。";
+        tutorialText.text = "A/Dキー、または敵のクリックによりターゲットを切り替えることができます。";
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
         seSource.clip = seUIClick;
         seSource.Play();
@@ -72,8 +72,6 @@ public class BattleSceneManager2 : BattleSceneManagerOrigin
         yield return new WaitUntil(() => !explanation.activeSelf);
         StartCoroutine(VolumeFadeOut(2, audioSource));
         battleStartAndFinishText.text = "3";
-        seSource.clip = seUIUnactive;
-        seSource.Play();
         yield return new WaitForSeconds(1);
         battleStartAndFinishText.text = "2";
         seSource.clip = seCountDown;

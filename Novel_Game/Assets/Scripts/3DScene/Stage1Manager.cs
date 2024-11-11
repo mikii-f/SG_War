@@ -139,7 +139,7 @@ public class Stage1Manager : StageManagerOrigin
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && !transparentWall.activeSelf)
+        if (other.gameObject.CompareTag("Player") && !clear)
         {
             StartCoroutine(Goal());
             transparentWall.SetActive(true);

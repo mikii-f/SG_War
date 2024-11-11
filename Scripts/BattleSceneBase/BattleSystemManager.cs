@@ -22,6 +22,7 @@ public class BattleSystemManager : SystemManagerOrigin
     [SerializeField] private Image black;
     private int messageNumber;
     private bool isMessageDisplay = false;
+    public bool IsMessageDisplay { set { isMessageDisplay = value; } }
     private bool isFunctionAvailable = true;
     private bool isSelected = false;
 
@@ -56,8 +57,12 @@ public class BattleSystemManager : SystemManagerOrigin
                 }
             }
             //各ファンクション(ファンクションが開いていて、かつメッセージが表示されていないとき)
-            if (functions.activeSelf && !isMessageDisplay)
+            else if (functions.activeSelf && !isMessageDisplay)
             {
+                if (Input.GetKeyDown(KeyCode.Alpha7))
+                {
+                    bSManager.Explanation();
+                }
                 if (Input.GetKeyDown(KeyCode.Alpha8))
                 {
                     RestartMenuSwitch();
@@ -92,13 +97,23 @@ public class BattleSystemManager : SystemManagerOrigin
     //メニュー開閉
     public void MenuSwitch()
     {
-        functions.SetActive(true);
-        seSource.clip = seUIClick;
-        seSource.Play();
+        if (bSManager.IsPausePossible())
+        {
+            functions.SetActive(true);
+            bSManager.Pause();
+            seSource.clip = seUIClick;
+            seSource.Play();
+        }
+        else
+        {
+            seSource.clip = seUIUnactive;
+            seSource.Play();
+        }
     }
     public void FunctionsClose()
     {
         functions.SetActive(false);
+        bSManager.Restart();
         seSource.clip = seUIBack;
         seSource.Play();
     }

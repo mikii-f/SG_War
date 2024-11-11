@@ -3,30 +3,30 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class BattleSceneManager1 : BattleSceneManagerOrigin
+public class ExtraBattle3Manager : BattleSceneManagerOrigin
 {
-    [SerializeField] private LowLevelEnemyManager lLEnemyManager;
+    [SerializeField] private VierManager vierManager;
     [SerializeField] private GameObject tutorialPanel;
     [SerializeField] private Text tutorialText;
-    [SerializeField] private AudioClip bgmBattle;
-
+    [SerializeField] private AudioClip bgmCommand;
     protected override void StartSet()
     {
-        numberOfEnemy = new int[]{1};
+        numberOfEnemy = new int[] { 1 };
         numberOfWave = 1;
         enemyComposition = new EnemyManagerOrigin[1][];
-        enemyComposition[0] = new EnemyManagerOrigin[] { lLEnemyManager };
+        enemyComposition[0] = new EnemyManagerOrigin[1] { vierManager };
         deadEnemyComposition = new bool[1][];
         deadEnemyComposition[0] = new bool[1];
         numberOfArriveEnemy = numberOfEnemy[0];
         tutorialPanel.SetActive(false);
         StartCoroutine(BattleStart());
     }
+
     private IEnumerator BattleStart()
     {
         yield return new WaitForSeconds(2);
         tutorialPanel.SetActive(true);
-        tutorialText.text = "長期間戦闘行動を行っていなかったため、あなた方の能力は低下しているようです……。";
+        tutorialText.text = "今回はエルを指揮してみましょう。いつもと一味違う戦闘訓練に挑戦です。";
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
         seSource.clip = seUIClick;
         seSource.Play();
@@ -50,19 +50,16 @@ public class BattleSceneManager1 : BattleSceneManagerOrigin
         seSource.Play();
         yield return new WaitForSeconds(1);
         battleStartAndFinishText.text = "";
-        audioSource.clip = bgmBattle;
+        audioSource.clip = bgmCommand;
         audioSource.volume = GameManager.instance.BgmVolume;
         audioSource.Play();
         sainManager.Pause = false;
         leaderManager.Pause = false;
-        lLEnemyManager.Pause = false;
+        vierManager.Pause = false;
     }
 
     public override void SceneLoad()
     {
-        GameManager.instance.SceneName = "MainScene2_2";
-        GameManager.instance.LineNumber = 0;
-        GameManager.instance.Save();
-        SceneManager.LoadScene("MainScene2_2");
+        SceneManager.LoadScene("AfterClear");
     }
 }
