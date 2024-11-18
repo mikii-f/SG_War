@@ -1,0 +1,13 @@
+それぞれ下記のような役割を担っています。構成についてはプレゼン資料もご覧ください。
+
+BattleSceneManagerOrigin：戦闘全体を制御
+
+BattleSceneManager：ポーズ機能などゲームの進行に必要なシステム面
+
+EnemyManagerOrigin：敵の共通仕様
+
+LeaderManager：主人公に関係する操作
+
+SainManager：味方キャラに関係する操作
+
+その他：敵の個別仕様など
