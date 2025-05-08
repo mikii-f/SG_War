@@ -3,7 +3,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    //‚±‚êƒvƒƒpƒeƒBg‚¤ˆÓ–¡‚ ‚éccH
+    //ã“ã‚Œãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ä½¿ã†æ„å‘³ã‚ã‚‹â€¦â€¦ï¼Ÿ
     private static string sceneName;
     public string SceneName { set { sceneName = value; } get { return sceneName; } }
     private static int lineNumber;
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            Application.targetFrameRate = 60;           //60FPSŒÅ’è
+            Application.targetFrameRate = 60;           //60FPSå›ºå®š
             if (PlayerPrefs.GetString("sceneName") != "" || PlayerPrefs.GetString("sceneName2") != "" || PlayerPrefs.GetString("sceneName3") != "")
             {
                 saveData = true;
@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //ƒZ[ƒu
+    //ã‚»ãƒ¼ãƒ–
     public void Save()
     {
         if (saveDataNumber == 1)
@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
         }
     }
     
-    //ƒZ[ƒuƒf[ƒ^íœ
+    //ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿å‰Šé™¤
     public void Initialize()
     {
         if (saveDataNumber == 1)
@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("sainHP", 3000);
             PlayerPrefs.SetInt("sainAttack", 200);
             PlayerPrefs.SetInt("sainSG", 50);
-            PlayerPrefs.SetString("progress", "0Í");
+            PlayerPrefs.SetString("progress", "0ç« ");
             Set();
         }
         else if (saveDataNumber == 2)
@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("sainHP2", 3000);
             PlayerPrefs.SetInt("sainAttack2", 200);
             PlayerPrefs.SetInt("sainSG2", 50);
-            PlayerPrefs.SetString("progress2", "0Í");
+            PlayerPrefs.SetString("progress2", "0ç« ");
             Set();
         }
         else
@@ -116,13 +116,13 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("sainHP3", 3000);
             PlayerPrefs.SetInt("sainAttack3", 200);
             PlayerPrefs.SetInt("sainSG3", 50);
-            PlayerPrefs.SetString("progress3", "0Í");
+            PlayerPrefs.SetString("progress3", "0ç« ");
             Set();
         }
         saveData = true;
     }
 
-    //ƒZ[ƒuƒf[ƒ^‚Æˆê‹L‰¯‚Ì“¯Šú
+    //ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã¨ä¸€æ™‚è¨˜æ†¶ã®åŒæœŸ
     public void Set()
     {
         if (saveDataNumber == 1)
@@ -157,14 +157,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //ƒRƒ“ƒtƒBƒO‹L˜^
+    //ã‚³ãƒ³ãƒ•ã‚£ã‚°è¨˜éŒ²
     public void SetConfig()
     {
         PlayerPrefs.SetFloat("bgmVolume", bgmVolume);
         PlayerPrefs.SetFloat("seVolume", seVolume);
         PlayerPrefs.SetFloat("autoSpeed", autoSpeed);
     }
-    //ƒRƒ“ƒtƒBƒO‹L˜^‚ÌƒZƒbƒg
+    //ã‚³ãƒ³ãƒ•ã‚£ã‚°è¨˜éŒ²ã®ã‚»ãƒƒãƒˆ
     public void LoadConfig()
     {
         if (PlayerPrefs.GetFloat("autoSpeed") == 0)

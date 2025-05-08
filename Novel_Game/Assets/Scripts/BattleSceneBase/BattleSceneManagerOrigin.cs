@@ -23,7 +23,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
     protected EnemyManagerOrigin[][] enemyComposition;
     protected bool[][] deadEnemyComposition;
     protected int numberOfArriveEnemy;
-    protected int numberOfCurrentWave = 0;      //”z—ñ‚ÌƒCƒ“ƒfƒbƒNƒX‚Æ‚µ‚Äg‚¤‚±‚Æ‚ª‘½‚¢‚½‚ß0‚©‚ç
+    protected int numberOfCurrentWave = 0;      //é…åˆ—ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã¨ã—ã¦ä½¿ã†ã“ã¨ãŒå¤šã„ãŸã‚0ã‹ã‚‰
     protected int selectedEnemy = 0;
     private bool isSainAttack = false;
     protected bool isSpecialAttack = false;
@@ -58,7 +58,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         StartCoroutine(FadeIn(1, blackImage));
         StartSet();
     }
-    //ŠeƒV[ƒ“‚Å‚Ì‰Šú‰»ˆ—
+    //å„ã‚·ãƒ¼ãƒ³ã§ã®åˆæœŸåŒ–å‡¦ç†
     protected abstract void StartSet();
 
     void Update()
@@ -67,7 +67,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         {
             Close();
         }
-        //UŒ‚‘ÎÛ‚Ì‘I‘ğ
+        //æ”»æ’ƒå¯¾è±¡ã®é¸æŠ
         if (Input.GetKeyDown(KeyCode.A))
         {
             EnemySelectA();
@@ -77,12 +77,12 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
             EnemySelectD();
         }
     }
-    //UŒ‚‘ÎÛ‚Ì‘I‘ğ(“G‚Ì”‚â“|‚³‚ê‚½“G‚É_“î‚É‘Î‰)
+    //æ”»æ’ƒå¯¾è±¡ã®é¸æŠ(æ•µã®æ•°ã‚„å€’ã•ã‚ŒãŸæ•µã«æŸ”è»Ÿã«å¯¾å¿œ)
     private void EnemySelectA()
     {
         if (selectedEnemy != 0)
         {
-            //ˆê‚Â¶‚ÉˆÚ“®
+            //ä¸€ã¤å·¦ã«ç§»å‹•
             if (!deadEnemyComposition[numberOfCurrentWave][selectedEnemy - 1])
             {
                 enemyComposition[numberOfCurrentWave][selectedEnemy].DisSelect();
@@ -91,7 +91,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
                 seSource.clip = seUIClick;
                 seSource.Play();
             }
-            //“ñ‚Â¶(‰E’[‚©‚ç¶’[A^‚ñ’†‚Ì“G‚ª€‚ñ‚Å‚¢‚éê‡)‚ÉˆÚ“®
+            //äºŒã¤å·¦(å³ç«¯ã‹ã‚‰å·¦ç«¯ã€çœŸã‚“ä¸­ã®æ•µãŒæ­»ã‚“ã§ã„ã‚‹å ´åˆ)ã«ç§»å‹•
             else if (selectedEnemy == 2 && !deadEnemyComposition[numberOfCurrentWave][0])
             {
                 enemyComposition[numberOfCurrentWave][selectedEnemy].DisSelect();
@@ -106,7 +106,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
     {
         if (selectedEnemy != numberOfEnemy[numberOfCurrentWave]-1)
         {
-            //ˆê‚Â‰E‚ÉˆÚ“®
+            //ä¸€ã¤å³ã«ç§»å‹•
             if (!deadEnemyComposition[numberOfCurrentWave][selectedEnemy + 1])
             {
                 enemyComposition[numberOfCurrentWave][selectedEnemy].DisSelect();
@@ -115,7 +115,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
                 seSource.clip = seUIClick;
                 seSource.Play();
             }
-            //“ñ‚Â‰E‚ÉˆÚ“®
+            //äºŒã¤å³ã«ç§»å‹•
             else if (selectedEnemy == 0 && !deadEnemyComposition[numberOfCurrentWave][numberOfEnemy[numberOfCurrentWave] - 1])
             {
                 enemyComposition[numberOfCurrentWave][selectedEnemy].DisSelect();
@@ -126,7 +126,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
             }
         }
     }
-    //“G‚ª“|‚ê‚½‚Ì©“®ØŠ·‚¦
+    //æ•µãŒå€’ã‚ŒãŸæ™‚ã®è‡ªå‹•åˆ‡æ›ãˆ
     private void EnemySelect()
     {
         enemyComposition[numberOfCurrentWave][selectedEnemy].DisSelect();
@@ -140,7 +140,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         }
         enemyComposition[numberOfCurrentWave][selectedEnemy].Select();
     }
-    //“G‚Ì‰æ‘œ(Œµ–§‚É‚Í•ÊƒIƒuƒWƒFƒNƒg)‚ğƒNƒŠƒbƒN‚µ‚½‚Æ‚«‚Ì‘ÎÛØ‚è‘Ö‚¦
+    //æ•µã®ç”»åƒ(å³å¯†ã«ã¯åˆ¥ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ)ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ãŸã¨ãã®å¯¾è±¡åˆ‡ã‚Šæ›¿ãˆ
     public void EnemySelect0()
     {
         Select(0);
@@ -165,12 +165,12 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         }
     }
 
-    //“G‚©‚ç‚ÌUŒ‚
+    //æ•µã‹ã‚‰ã®æ”»æ’ƒ
     public void EnemyToSainAttack(int damage)
     {
         sainManager.ReceiveDamage(damage);
     }
-    //“G‚©‚ç‚Ì•KE‹Z(ƒK[ƒhE‰ñ”ğ•s‰Â)
+    //æ•µã‹ã‚‰ã®å¿…æ®ºæŠ€(ã‚¬ãƒ¼ãƒ‰ãƒ»å›é¿ä¸å¯)
     public IEnumerator EnemySpecialAttack(int damage)
     {
         sainManager.Pause = true;
@@ -184,7 +184,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         //specialSkillAnimation.SetActive(true);
         yield return new WaitForSeconds(1.4f);
         seSource.clip = seSpecialFinish;
-        seSource.Play();                        //•¡”‚ÌSE‚ğ“¯‚É–Â‚ç‚·‚½‚ß
+        seSource.Play();                        //è¤‡æ•°ã®SEã‚’åŒæ™‚ã«é³´ã‚‰ã™ãŸã‚
         yield return new WaitForSeconds(1.2f);
         //specialSkillAnimation.SetActive(false);
         seSource.clip = null;
@@ -205,7 +205,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         specialAttackPanelImage.sprite = sprite;
         StartCoroutine(FadeOut(0.25f, specialAttackPanelImage));
         specialAttackPanelRect.anchoredPosition = new(-400, 0);
-        //0.25•b‚Å400ˆÚ“®
+        //0.25ç§’ã§400ç§»å‹•
         while (specialAttackPanelRect.anchoredPosition.x < 0)
         {
             yield return null;
@@ -225,7 +225,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         }
         specialAttackPanelImage.color = new(1, 1, 1, 0);
     }
-    //“G‚Ö‚ÌUŒ‚‚Ì’…’e’n“_æ“¾
+    //æ•µã¸ã®æ”»æ’ƒã®ç€å¼¾åœ°ç‚¹å–å¾—
     private float AttackPoint()
     {
         switch (numberOfEnemy[numberOfCurrentWave])
@@ -258,7 +258,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
                 return 0;
         }
     }
-    //í“¬ƒXƒLƒ‹1
+    //æˆ¦é—˜ã‚¹ã‚­ãƒ«1
     public IEnumerator SainSkill1(int damage, RectTransform attackRect, Image attackImage)
     {
         isSainAttack = true;
@@ -266,14 +266,14 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         seSource.Play();
         attackImage.color = Color.white;
         float diffX = AttackPoint();
-        int selected = selectedEnemy;       //UŒ‚‚ğ‘I‘ğ‚µ‚½“_‚Å‚ÌUŒ‚‘ÎÛ‚ğ•Û
+        int selected = selectedEnemy;       //æ”»æ’ƒã‚’é¸æŠã—ãŸæ™‚ç‚¹ã§ã®æ”»æ’ƒå¯¾è±¡ã‚’ä¿æŒ
         while (true)
         {
             Vector2 temp = attackRect.anchoredPosition;
             Vector2 temp2 = attackRect.localScale;
-            //0.2•b‚ÅÀ•W(x,0)‚Ö
+            //0.2ç§’ã§åº§æ¨™(x,0)ã¸
             temp.x += diffX * Time.deltaTime * 5;
-            //0.2•b‚Å1/2”{‚Ì‘å‚«‚³‚Ö
+            //0.2ç§’ã§1/2å€ã®å¤§ãã•ã¸
             temp2.x -= 0.5f * Time.deltaTime * 5;
             temp2.y -= 0.5f * Time.deltaTime * 5;
             attackRect.anchoredPosition = temp;
@@ -284,16 +284,16 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
             }
             yield return null;
         }
-        //’…’eEÁ–Å
+        //ç€å¼¾ãƒ»æ¶ˆæ»…
         enemyComposition[numberOfCurrentWave][selected].ReceiveDamage(damage);
         isSainAttack = false;
         yield return new WaitForSeconds(0.1f);
         yield return StartCoroutine(FadeIn(0.5f, attackImage));
-        //‰Šú‰»
+        //åˆæœŸåŒ–
         attackRect.anchoredPosition = new(0, 0);
         attackRect.localScale = new Vector2(1, 1);
     }
-    //í“¬ƒXƒLƒ‹2
+    //æˆ¦é—˜ã‚¹ã‚­ãƒ«2
     public IEnumerator SainSkill2(int damage, RectTransform attackRect, Image attackImage)
     {
         isSainAttack = true;
@@ -301,35 +301,35 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         seSource.Play();
         attackImage.color = Color.white;
         float diffX = AttackPoint();
-        int selected = selectedEnemy;       //UŒ‚‚ğ‘I‘ğ‚µ‚½“_‚Å‚ÌUŒ‚‘ÎÛ‚ğ•Û
+        int selected = selectedEnemy;       //æ”»æ’ƒã‚’é¸æŠã—ãŸæ™‚ç‚¹ã§ã®æ”»æ’ƒå¯¾è±¡ã‚’ä¿æŒ
         while (attackRect.localScale.x > 0.5f)
         {
             Vector2 temp = attackRect.anchoredPosition;
             Vector2 temp2 = attackRect.localScale;
             Vector3 temp3 = attackRect.localEulerAngles; 
-            //0.2•b‚ÅÀ•W(x,0)‚Ö
+            //0.2ç§’ã§åº§æ¨™(x,0)ã¸
             temp.x += diffX * Time.deltaTime * 5;
-            //0.2•b‚Å1/2”{‚Ì‘å‚«‚³‚Ö
+            //0.2ç§’ã§1/2å€ã®å¤§ãã•ã¸
             temp2.x -= 0.5f * Time.deltaTime * 5;
             temp2.y -= 0.5f * Time.deltaTime * 5;
-            //0.5•b‚Å2‰ñ“]
+            //0.5ç§’ã§2å›è»¢
             temp3.z += 720 * Time.deltaTime * 5;
             attackRect.anchoredPosition = temp;
             attackRect.localScale = temp2;
             attackRect.localEulerAngles = temp3;
             yield return null;
         }
-        //’…’eEÁ–Å
+        //ç€å¼¾ãƒ»æ¶ˆæ»…
         enemyComposition[numberOfCurrentWave][selected].ReceiveDamage(damage);
         enemyComposition[numberOfCurrentWave][selected].ReceiveDelay();
         isSainAttack = false;
         yield return new WaitForSeconds(0.1f);
         yield return StartCoroutine(FadeIn(0.5f, attackImage));
-        //‰Šú‰»
+        //åˆæœŸåŒ–
         attackRect.anchoredPosition = new(0, 0);
         attackRect.localScale = new Vector2(1, 1);
     }
-    //í“¬ƒXƒLƒ‹2(ƒGƒ‹”Å)
+    //æˆ¦é—˜ã‚¹ã‚­ãƒ«2(ã‚¨ãƒ«ç‰ˆ)
     public IEnumerator SainSkill2_2(int damage, RectTransform attackRect, Image attackImage)
     {
         isSainAttack = true;
@@ -337,35 +337,35 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         seSource.Play();
         attackImage.color = Color.white;
         float diffX = AttackPoint();
-        int selected = selectedEnemy;       //UŒ‚‚ğ‘I‘ğ‚µ‚½“_‚Å‚ÌUŒ‚‘ÎÛ‚ğ•Û
+        int selected = selectedEnemy;       //æ”»æ’ƒã‚’é¸æŠã—ãŸæ™‚ç‚¹ã§ã®æ”»æ’ƒå¯¾è±¡ã‚’ä¿æŒ
         while (attackRect.localScale.x > 0.5f)
         {
             Vector2 temp = attackRect.anchoredPosition;
             Vector2 temp2 = attackRect.localScale;
             Vector3 temp3 = attackRect.localEulerAngles;
-            //0.2•b‚ÅÀ•W(x,0)‚Ö
+            //0.2ç§’ã§åº§æ¨™(x,0)ã¸
             temp.x += diffX * Time.deltaTime * 5;
-            //0.2•b‚Å1/2”{‚Ì‘å‚«‚³‚Ö
+            //0.2ç§’ã§1/2å€ã®å¤§ãã•ã¸
             temp2.x -= 0.5f * Time.deltaTime * 5;
             temp2.y -= 0.5f * Time.deltaTime * 5;
-            //0.5•b‚Å1‰ñ“]
+            //0.5ç§’ã§1å›è»¢
             temp3.z += 360 * Time.deltaTime * 5;
             attackRect.anchoredPosition = temp;
             attackRect.localScale = temp2;
             attackRect.localEulerAngles = temp3;
             yield return null;
         }
-        //’…’eEÁ–Å
+        //ç€å¼¾ãƒ»æ¶ˆæ»…
         enemyComposition[numberOfCurrentWave][selected].ReceiveDamage(damage);
         isSainAttack = false;
         yield return new WaitForSeconds(0.1f);
         yield return StartCoroutine(FadeIn(0.5f, attackImage));
-        //‰Šú‰»
+        //åˆæœŸåŒ–
         attackRect.anchoredPosition = new(0, 0);
         attackRect.localScale = new Vector2(1, 1);
     }
 
-    //•KE‹Z‚Å‚ÌUŒ‚
+    //å¿…æ®ºæŠ€ã§ã®æ”»æ’ƒ
     public IEnumerator SainToAllAttack(int damage, bool el)
     {
         sainManager.Pause = true;
@@ -393,7 +393,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         {
             if (!deadEnemyComposition[numberOfCurrentWave][i])
             {
-                //‹­“G‚ÌƒoƒŠƒA”j‰ó
+                //å¼·æ•µã®ãƒãƒªã‚¢ç ´å£Š
                 if (enemyComposition[numberOfCurrentWave][i].ID == 4)
                 {
                     enemyComposition[numberOfCurrentWave][i].ShieldBreak();
@@ -433,10 +433,10 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         }
     }
 
-    //“G‚ª€‚ñ‚¾‚±‚Æ‚Ìó‚¯æ‚è
+    //æ•µãŒæ­»ã‚“ã ã“ã¨ã®å—ã‘å–ã‚Š
     public void EnemyDied()
     {
-        //‘Š‘Å‚¿‚¾‚Á‚½‘Îô
+        //ç›¸æ‰“ã¡ã ã£ãŸæ™‚å¯¾ç­–
         if (!isGameOver)
         {
             numberOfArriveEnemy--;
@@ -450,14 +450,14 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
             {
                 StartCoroutine(GoToNextWave());
             }
-            //“G‚ğ“|‚µ‚Ä‚©‚ç‚±‚Ì”»’è‚ğ‚·‚é‚Ü‚Å‚Éƒ‰ƒO‚ª‚ ‚é¨C³ ‚»‚ÌŠÔ‚Éƒ^[ƒQƒbƒg‚ğˆÚ“®‚³‚¹‚Ä‚¢‚½‚ç‘I‚Ñ’¼‚·•K—v‚Í‚È‚¢
+            //æ•µã‚’å€’ã—ã¦ã‹ã‚‰ã“ã®åˆ¤å®šã‚’ã™ã‚‹ã¾ã§ã«ãƒ©ã‚°ãŒã‚ã‚‹â†’ä¿®æ­£ ãã®é–“ã«ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’ç§»å‹•ã•ã›ã¦ã„ãŸã‚‰é¸ã³ç›´ã™å¿…è¦ã¯ãªã„
             else if (deadEnemyComposition[numberOfCurrentWave][selectedEnemy])
             {
                 EnemySelect();
             }
         }
     }
-    //¶‚«‚Ä‚¢‚é“G‚ÌŠÇ—
+    //ç”Ÿãã¦ã„ã‚‹æ•µã®ç®¡ç†
     private void ArriveEnemyCheck()
     {
         for (int i = 0; i < numberOfEnemy[numberOfCurrentWave]; i++)
@@ -465,12 +465,12 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
             deadEnemyComposition[numberOfCurrentWave][i] = enemyComposition[numberOfCurrentWave][i].Dead;
         }
     }
-    //•¡‡Œ^‚É‚æ‚é‘B(Ä¶)ˆ—
+    //è¤‡åˆå‹ã«ã‚ˆã‚‹å¢—æ®–(å†ç”Ÿ)å‡¦ç†
     public void ReviveEnemy()
     {
         for (int i = 0; i< numberOfEnemy[numberOfCurrentWave]; i++)
         {
-            //€‚ñ‚¾‰º‹‰ˆÙ—d‚ª‚¢‚½‚çˆê‘Ì•œŠˆ
+            //æ­»ã‚“ã ä¸‹ç´šç•°å¦–ãŒã„ãŸã‚‰ä¸€ä½“å¾©æ´»
             if (deadEnemyComposition[numberOfCurrentWave][i] && enemyComposition[numberOfCurrentWave][i].ID == 0)
             {
                 enemyComposition[numberOfCurrentWave][i].Revive();
@@ -482,17 +482,17 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         }
     }
 
-    //ƒEƒF[ƒu‘JˆÚ
+    //ã‚¦ã‚§ãƒ¼ãƒ–é·ç§»
     private IEnumerator GoToNextWave()
     {
-        //•KE‹Z‚É‚æ‚Á‚Ä“G‚ğ‘Sˆõ“|‚µ‚½ê‡‚ÉPauseˆ—‚ª‹£‡‚·‚é‚Ì‚ğ”ğ‚¯‚é‚½‚ß
+        //å¿…æ®ºæŠ€ã«ã‚ˆã£ã¦æ•µã‚’å…¨å“¡å€’ã—ãŸå ´åˆã«Pauseå‡¦ç†ãŒç«¶åˆã™ã‚‹ã®ã‚’é¿ã‘ã‚‹ãŸã‚
         yield return new WaitUntil(() => !isSpecialAttack);
         sainManager.Pause = true;
         leaderManager.Pause = true;
         battleSystemManager.MenuOff();
         yield return new WaitForSeconds(2);
         StartCoroutine(Wipe());
-        yield return new WaitForSeconds(0.5f);//ƒƒCƒv‚É‚æ‚è2•bŠÔˆÃ“]
+        yield return new WaitForSeconds(0.5f);//ãƒ¯ã‚¤ãƒ—ã«ã‚ˆã‚Š2ç§’é–“æš—è»¢
         numberOfCurrentWave++;
         selectedEnemy = 0;
         numberOfArriveEnemy = numberOfEnemy[numberOfCurrentWave];
@@ -512,7 +512,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         leaderManager.Pause = false;
     }
 
-    //ƒEƒF[ƒu‘JˆÚ‚ÌƒƒCƒv(0.5+2+0.5•b)
+    //ã‚¦ã‚§ãƒ¼ãƒ–é·ç§»æ™‚ã®ãƒ¯ã‚¤ãƒ—(0.5+2+0.5ç§’)
     private IEnumerator Wipe()
     {
         blackRect.anchoredPosition = new(-1920, 0);
@@ -536,10 +536,10 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         blackRect.anchoredPosition = new (0, 0);
     }
 
-    //ƒQ[ƒ€ƒI[ƒo[ˆ—
+    //ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼å‡¦ç†
     public IEnumerator GameOver()
     {
-        //•KE‹Z‚É‚æ‚Á‚Ä“|‚³‚ê‚½ê‡‚ÉPauseˆ—‚ª‹£‡‚·‚é‚Ì‚ğ”ğ‚¯‚é‚½‚ß
+        //å¿…æ®ºæŠ€ã«ã‚ˆã£ã¦å€’ã•ã‚ŒãŸå ´åˆã«Pauseå‡¦ç†ãŒç«¶åˆã™ã‚‹ã®ã‚’é¿ã‘ã‚‹ãŸã‚
         yield return new WaitUntil(() => !isEnemySpecialAttack);
         isGameOver = true;
         sainManager.Pause = true;
@@ -552,10 +552,10 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         yield return new WaitForSeconds(1);
         battleSystemManager.GameOver();
     }
-    //Ÿ—˜&ƒV[ƒ“‘JˆÚ
+    //å‹åˆ©&ã‚·ãƒ¼ãƒ³é·ç§»
     private IEnumerator Win()
     {
-        //•KE‹Z‚É‚æ‚Á‚Ä“G‚ğ‘Sˆõ“|‚µ‚½ê‡‚ÉPauseˆ—‚ª‹£‡‚·‚é‚Ì‚ğ”ğ‚¯‚é‚½‚ß
+        //å¿…æ®ºæŠ€ã«ã‚ˆã£ã¦æ•µã‚’å…¨å“¡å€’ã—ãŸå ´åˆã«Pauseå‡¦ç†ãŒç«¶åˆã™ã‚‹ã®ã‚’é¿ã‘ã‚‹ãŸã‚
         yield return new WaitUntil(() => !isSpecialAttack);
         sainManager.Pause = true;
         leaderManager.Pause = true;
@@ -569,7 +569,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         yield return StartCoroutine(FadeOut(2, blackImage));
         SceneLoad();
     }
-    //í“¬ŠJn‚Ìà–¾ƒNƒ[ƒY
+    //æˆ¦é—˜é–‹å§‹æ™‚ã®èª¬æ˜ã‚¯ãƒ­ãƒ¼ã‚º
     public void Close()
     {
         explanation.SetActive(false);
@@ -577,7 +577,7 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
         seSource.clip = seUIUnactive;
         seSource.Play();
     }
-    //ƒ|[ƒY(ƒƒjƒ…[•\¦)‚ª‰Â”\‚©(“G‚à–¡•û‚àUŒ‚’†‚Å‚È‚¢‚©)
+    //ãƒãƒ¼ã‚º(ãƒ¡ãƒ‹ãƒ¥ãƒ¼è¡¨ç¤º)ãŒå¯èƒ½ã‹(æ•µã‚‚å‘³æ–¹ã‚‚æ”»æ’ƒä¸­ã§ãªã„ã‹)
     public bool IsPausePossible()
     {
         bool possible = true;
@@ -609,16 +609,16 @@ public abstract class BattleSceneManagerOrigin : SystemManagerOrigin
             enemyComposition[numberOfCurrentWave][i].Pause = false;
         }
     }
-    //à–¾‚ÌÄ•\¦
+    //èª¬æ˜ã®å†è¡¨ç¤º
     public void Explanation()
     {
         StartCoroutine(ButtonAnim(expSwitchRect));
         seSource.clip = seUIClick;
         seSource.Play();
-        expMessage.text = "˜gŠO‚ğƒNƒŠƒbƒNA‚Ü‚½‚ÍƒXƒy[ƒXƒL[‚Å•Â‚¶‚é";
+        expMessage.text = "æ å¤–ã‚’ã‚¯ãƒªãƒƒã‚¯ã€ã¾ãŸã¯ã‚¹ãƒšãƒ¼ã‚¹ã‚­ãƒ¼ã§é–‰ã˜ã‚‹";
         explanation.SetActive(true);
         battleSystemManager.IsMessageDisplay = true;
     }
-    //ŠeƒV[ƒ“‚É‚¨‚¯‚éƒ[ƒh&‹­§ƒXƒLƒbƒv—p
+    //å„ã‚·ãƒ¼ãƒ³ã«ãŠã‘ã‚‹ãƒ­ãƒ¼ãƒ‰&å¼·åˆ¶ã‚¹ã‚­ãƒƒãƒ—ç”¨
     public abstract void SceneLoad();
 }

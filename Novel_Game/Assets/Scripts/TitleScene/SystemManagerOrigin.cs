@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public abstract class SystemManagerOrigin : MonoBehaviour
 {
-    protected bool switchInterval = false;  //ƒƒbƒZ[ƒW‚ð•Â‚¶‚é‚Æ‚«‚È‚Ç‚ÉƒXƒCƒbƒ`‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ªŒ©‚¦‚Ä‚©‚ç•Â‚¶‚é‚æ‚¤‚É‚·‚é‚Æ‚»‚ÌŠÔ‚É‚Ü‚¾ƒXƒCƒbƒ`‚ª‰Ÿ‚¹‚Ä‚µ‚Ü‚¤‚½‚ßA‚»‚ê‚ð–h‚®
+    protected bool switchInterval = false;  //ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’é–‰ã˜ã‚‹ã¨ããªã©ã«ã‚¹ã‚¤ãƒƒãƒã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒè¦‹ãˆã¦ã‹ã‚‰é–‰ã˜ã‚‹ã‚ˆã†ã«ã™ã‚‹ã¨ãã®é–“ã«ã¾ã ã‚¹ã‚¤ãƒƒãƒãŒæŠ¼ã›ã¦ã—ã¾ã†ãŸã‚ã€ãã‚Œã‚’é˜²ã
     [SerializeField] protected AudioSource seSource;
     [SerializeField] protected AudioClip seUIClick;
     [SerializeField] protected AudioClip seUIBack;
@@ -15,7 +15,7 @@ public abstract class SystemManagerOrigin : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         switchInterval = false;
     }
-    //ƒ{ƒ^ƒ“‚ÌƒAƒjƒ[ƒVƒ‡ƒ“
+    //ãƒœã‚¿ãƒ³ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
     protected IEnumerator ButtonAnim(RectTransform rect)
     {
         Vector2 temp = rect.localScale;
@@ -23,13 +23,13 @@ public abstract class SystemManagerOrigin : MonoBehaviour
         yield return new WaitForSeconds(0.08f);
         rect.localScale = temp;
     }
-    //ƒ{ƒ^ƒ“‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ð‘Ò‚Á‚Ä‚©‚çŠJ•Â
+    //ãƒœã‚¿ãƒ³ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’å¾…ã£ã¦ã‹ã‚‰é–‹é–‰
     protected IEnumerator Delay(GameObject panel, bool TorF)
     {
         yield return new WaitForSeconds(0.1f);
         panel.SetActive(TorF);
     }
-    //ƒƒCƒv‚È‚Ç‚Ìˆ—‚Æ”ä‚×‚ÄA­‚µ‘e‚¢‘JˆÚ‚Ì•û‚ªu‚»‚ê‚Á‚Û‚¢v‹C‚ª‚·‚é‚½‚ßyield return null‚É‚µ‚È‚¢
+    //ãƒ¯ã‚¤ãƒ—ãªã©ã®å‡¦ç†ã¨æ¯”ã¹ã¦ã€å°‘ã—ç²—ã„é·ç§»ã®æ–¹ãŒã€Œãã‚Œã£ã½ã„ã€æ°—ãŒã™ã‚‹ãŸã‚yield return nullã«ã—ãªã„
     protected IEnumerator FadeOut(float fadeTime, Image image)
     {
         Color temp = image.color;
@@ -57,7 +57,7 @@ public abstract class SystemManagerOrigin : MonoBehaviour
         }
     }
 
-    //BGM‚ÌƒtƒF[ƒh
+    //BGMã®ãƒ•ã‚§ãƒ¼ãƒ‰
     protected IEnumerator VolumeFadeOut(float fadeTime, AudioSource audioSource)
     {
         while (audioSource.volume > 0)

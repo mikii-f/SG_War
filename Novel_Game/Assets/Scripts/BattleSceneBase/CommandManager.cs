@@ -31,16 +31,16 @@ public class CommandManager : EnemyManagerOrigin
         intervalText.text = intervalCount.ToString("F2");
     }
 
-    //’ÊíUŒ‚
+    //é€šå¸¸æ”»æ’ƒ
     protected override IEnumerator NormalAttack()
     {
-        StartCoroutine(AttackSubtitle("—d’e"));
+        StartCoroutine(AttackSubtitle("å¦–å¼¾"));
         attackImage.sprite = attack1Sprite;
         isAttack = true;
         Vector2 temp = myRect.localScale;
         myRect.localScale = new(0.8f * temp.x, 0.8f * temp.y);
         yield return new WaitForSeconds(0.5f);
-        //“r’†‚Å€‚ñ‚¾—p
+        //é€”ä¸­ã§æ­»ã‚“ã æ™‚ç”¨
         if (!isDied)
         {
             StartCoroutine(AttackEffect(attackRect, attackImage));
@@ -51,12 +51,12 @@ public class CommandManager : EnemyManagerOrigin
         float size = 1.2f;
         while (size != 1.0f)
         {
-            //0.4f:deltaTime=0.2f:(1ƒtƒŒ[ƒ€‚²‚Æ‚ÌƒTƒCƒY•Ï‰»)
+            //0.4f:deltaTime=0.2f:(1ãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã®ã‚µã‚¤ã‚ºå¤‰åŒ–)
             size = Mathf.Max(1.0f, size - Time.deltaTime * 0.5f);
             myRect.localScale = new(size * temp.x, size * temp.y);
             yield return null;
         }
-        //“r’†‚Å€‚ñ‚¾—p
+        //é€”ä¸­ã§æ­»ã‚“ã æ™‚ç”¨
         if (!isDied)
         {
             bSManager.EnemyToSainAttack(attack);
@@ -77,10 +77,10 @@ public class CommandManager : EnemyManagerOrigin
                 break;
         }
     }
-    //ƒ`ƒƒ[ƒW‹Z
+    //ãƒãƒ£ãƒ¼ã‚¸æŠ€
     protected override IEnumerator ChargeAttack()
     {
-        StartCoroutine(AttackSubtitle("‰ğÍEƒKƒgƒŠƒ“ƒO"));
+        StartCoroutine(AttackSubtitle("è§£æãƒ»ã‚¬ãƒˆãƒªãƒ³ã‚°"));
         attackImage.sprite = attack2Sprite;
         attackImage.color = Color.white;
         attackRect.localScale = new(1.5f, 1.5f);
@@ -127,7 +127,7 @@ public class CommandManager : EnemyManagerOrigin
                 timeCount += Time.deltaTime;
             }
         }
-        seSource.Pause();                       //“r’†‚Åƒ_ƒ[ƒW‚ğó‚¯‚Ä‚¢‚½ê‡‚»‚¿‚ç‚ÌSE‚ª’â~‚·‚é‚±‚Æ‚É‚È‚é‚ªˆê’U‘Ã‹¦
+        seSource.Pause();                       //é€”ä¸­ã§ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ã¦ã„ãŸå ´åˆãã¡ã‚‰ã®SEãŒåœæ­¢ã™ã‚‹ã“ã¨ã«ãªã‚‹ãŒä¸€æ—¦å¦¥å”
         isAttack = false;
         gage1Image.sprite = grayGage;
         gage2Image.sprite = grayGage;
@@ -139,7 +139,7 @@ public class CommandManager : EnemyManagerOrigin
         while (timeCount <= time)
         {
             Vector3 temp = attackRect.localEulerAngles;
-            //time•b‚Åangle“x‰ñ“]
+            //timeç§’ã§angleåº¦å›è»¢
             temp.z += (angle/time) * Time.deltaTime;
             attackRect.localEulerAngles = temp;
             yield return null;
@@ -147,7 +147,7 @@ public class CommandManager : EnemyManagerOrigin
         }
         attackRect.localEulerAngles = Vector3.zero;
     }
-    //‘½•ªg‚í‚È‚¢
+    //å¤šåˆ†ä½¿ã‚ãªã„
     public override void Revive()
     {
         

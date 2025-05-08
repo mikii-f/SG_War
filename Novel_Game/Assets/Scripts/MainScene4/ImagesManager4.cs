@@ -52,7 +52,7 @@ public class ImagesManager4 : ImagesManagerOrigin
         _material = effectsImage.material;
     }
 
-    //—§‚¿ŠGŠÖŒW
+    //ç«‹ã¡çµµé–¢ä¿‚
     public override void CharacterChange(string image)
     {
         switch (image)
@@ -107,7 +107,7 @@ public class ImagesManager4 : ImagesManagerOrigin
         }
     }
 
-    //”wŒiØ‚è‘Ö‚¦
+    //èƒŒæ™¯åˆ‡ã‚Šæ›¿ãˆ
     public override void BackgroundChange(string image)
     {
         switch (image)
@@ -202,7 +202,7 @@ public class ImagesManager4 : ImagesManagerOrigin
         float timeCount = 0;
         while (true)
         {
-            //1•b‚Åˆêü
+            //1ç§’ã§ä¸€å‘¨
             float offset = Mathf.Repeat(timeCount, 1);
             _material.SetTextureOffset("_MainTex", new(offset, 0));
             yield return null;

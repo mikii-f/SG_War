@@ -21,7 +21,7 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
     [SerializeField] protected Slider HPslider;
     [SerializeField] protected TMP_Text HPText;
     [SerializeField] protected Sprite grayGage;
-    [SerializeField] protected Sprite redGage;      //‰æ‘œ‚²‚Æ•Ï‚¦‚é‚Ì‚Å‚Í‚È‚­Image‚ÌColor‚ð‚¢‚¶‚é‚¾‚¯‚Å—Ç‚¢‚æ‚¤‚É‚·‚ê‚ÎŠy‚É‚È‚è‚»‚¤
+    [SerializeField] protected Sprite redGage;      //ç”»åƒã”ã¨å¤‰ãˆã‚‹ã®ã§ã¯ãªãImageã®Colorã‚’ã„ã˜ã‚‹ã ã‘ã§è‰¯ã„ã‚ˆã†ã«ã™ã‚Œã°æ¥½ã«ãªã‚Šãã†
     [SerializeField] protected int maxHP;
     [SerializeField] protected int attack;
     protected int maxGage;
@@ -37,7 +37,7 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
     public bool Dead { get { return isDied; } }
     protected bool pause = true;
     public bool Pause { set { pause = value; } }
-    protected bool isShield = false;        //‹­“G‚Ì•KŽE’¼‘O‚ÌƒV[ƒ‹ƒhó‘Ô
+    protected bool isShield = false;        //å¼·æ•µã®å¿…æ®ºç›´å‰ã®ã‚·ãƒ¼ãƒ«ãƒ‰çŠ¶æ…‹
     [SerializeField] private AudioSource damageSeSource;
     [SerializeField] private AudioClip seDamage;
     [SerializeField] private AudioClip sePanel;
@@ -58,12 +58,12 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
     }
     protected abstract void StartSet();
 
-    //’Êí‚Æƒ`ƒƒ[ƒW‚Ì2Ží—Þ‚µ‚©UŒ‚‚ðŽ‚½‚È‚¢ŽG‹›ƒGƒlƒ~[—p ƒ{ƒX‚ÍƒI[ƒo[ƒ‰ƒCƒh‚·‚é
+    //é€šå¸¸ã¨ãƒãƒ£ãƒ¼ã‚¸ã®2ç¨®é¡žã—ã‹æ”»æ’ƒã‚’æŒãŸãªã„é›‘é­šã‚¨ãƒãƒŸãƒ¼ç”¨ ãƒœã‚¹ã¯ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã™ã‚‹
     void Update()
     {
         if (!pause)
         {
-            //UŒ‚’†ˆÈŠO‚Å¶‚«‚Ä‚¢‚éŠÔ‚ÍƒCƒ“ƒ^[ƒoƒ‹‚ðƒJƒEƒ“ƒg
+            //æ”»æ’ƒä¸­ä»¥å¤–ã§ç”Ÿãã¦ã„ã‚‹é–“ã¯ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒ«ã‚’ã‚«ã‚¦ãƒ³ãƒˆ
             if (intervalCount > 0 && !isAttack && !isDied)
             {
                 intervalCount = Mathf.Max(0, intervalCount - Time.deltaTime);
@@ -74,14 +74,14 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
                 if (currentGage < maxGage)
                 {
                     intervalCount = interval;
-                    //’ÊíUŒ‚
+                    //é€šå¸¸æ”»æ’ƒ
                     currentGage++;
                     StartCoroutine(NormalAttack());
                 }
                 else if (currentGage == maxGage)
                 {
                     intervalCount = interval;
-                    //ƒ`ƒƒ[ƒW‹Z
+                    //ãƒãƒ£ãƒ¼ã‚¸æŠ€
                     currentGage = 0;
                     StartCoroutine(ChargeAttack());
                 }
@@ -91,7 +91,7 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
     protected abstract IEnumerator NormalAttack();
     protected abstract IEnumerator ChargeAttack();
 
-    //ƒfƒtƒHƒ‹ƒg‚ÌUŒ‚‰‰o((1-0.5)•b‚Å’…’e)
+    //ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®æ”»æ’ƒæ¼”å‡º((1-0.5)ç§’ã§ç€å¼¾)
     protected IEnumerator AttackEffect(RectTransform attackRect, Image attackImage)
     {
         attackImage.color = Color.white;
@@ -102,24 +102,24 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
         {
             Vector2 temp = attackRect.anchoredPosition;
             Vector2 temp2 = attackRect.localScale;
-            //0.5•b‚ÅÀ•W(0,-100)‚Ö
+            //0.5ç§’ã§åº§æ¨™(0,-100)ã¸
             temp.x += diffX * Time.deltaTime * 2;
             temp.y += diffY * Time.deltaTime * 2;
-            //0.5•b‚Å3”{‚Ì‘å‚«‚³‚Ö
+            //0.5ç§’ã§3å€ã®å¤§ãã•ã¸
             temp2.x += diffScale * Time.deltaTime * 2;
             temp2.y += diffScale * Time.deltaTime * 2;
             attackRect.anchoredPosition = temp;
             attackRect.localScale = temp2;
             yield return null;
         }
-        //’…’eEÁ–Å
+        //ç€å¼¾ãƒ»æ¶ˆæ»…
         yield return new WaitForSeconds(0.1f);
         yield return StartCoroutine(FadeIn(0.5f, attackImage));
-        //‰Šú‰»
+        //åˆæœŸåŒ–
         attackRect.anchoredPosition = new (-diffX, 0);
         attackRect.localScale = new Vector2(1, 1);
     }
-    //UŒ‚Žž‚ÌŽš–‹
+    //æ”»æ’ƒæ™‚ã®å­—å¹•
     protected IEnumerator AttackSubtitle(string attackName)
     {
         seSource.clip = sePanel;
@@ -140,10 +140,10 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
         attackPanelRect.anchoredPosition = temp;
     }
 
-    //ƒ_ƒ[ƒWŽó‚¯Žæ‚è
+    //ãƒ€ãƒ¡ãƒ¼ã‚¸å—ã‘å–ã‚Š
     public void ReceiveDamage(int damage)
     {
-        //¡‚ÍŽ€‚ñ‚¾“G‚àŠ®‘S‚ÉÁ–Å‚³‚¹‚Ä‚¢‚È‚¢‚½‚ßAðŒ‚ð•t‚¯‚È‚¢‚Æ•KŽE‚Å2‰ñ–Ú‚ÌÁ–Å”»’è‚ª‹N‚«‚é(•KŽE‘¤‚Å‚à‘Î‰žÏ‚Ý‚¾‚ª”O‚Ì‚½‚ß)
+        //ä»Šã¯æ­»ã‚“ã æ•µã‚‚å®Œå…¨ã«æ¶ˆæ»…ã•ã›ã¦ã„ãªã„ãŸã‚ã€æ¡ä»¶ã‚’ä»˜ã‘ãªã„ã¨å¿…æ®ºã§2å›žç›®ã®æ¶ˆæ»…åˆ¤å®šãŒèµ·ãã‚‹(å¿…æ®ºå´ã§ã‚‚å¯¾å¿œæ¸ˆã¿ã ãŒå¿µã®ãŸã‚)
         if (!isDied && !isShield)
         {
             StartCoroutine(DamageDisplay(damage));
@@ -164,7 +164,7 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
             damageSeSource.Play();
         }
     }
-    //•KŽE‚É‚æ‚é‹­“G‚ÌƒV[ƒ‹ƒh”j‰ó(¡‰ñ‚ÍƒGƒ‹‚Ì‚Ý‚É‚È‚é—\’è)
+    //å¿…æ®ºã«ã‚ˆã‚‹å¼·æ•µã®ã‚·ãƒ¼ãƒ«ãƒ‰ç ´å£Š(ä»Šå›žã¯ã‚¨ãƒ«ã®ã¿ã«ãªã‚‹äºˆå®š)
     public void ShieldBreak()
     {
         if (isShield)
@@ -172,18 +172,18 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
             isShield = false;
         }
     }
-    //ƒ_ƒ[ƒW•\Ž¦
+    //ãƒ€ãƒ¡ãƒ¼ã‚¸è¡¨ç¤º
     private IEnumerator DamageDisplay(int damage)
     {
         damageText.text = damage.ToString();
         yield return new WaitForSeconds(0.35f);
         damageText.text = "";
     }
-    //ƒ_ƒ[ƒWŽó‚¯Žæ‚èŽž‚Ì—h‚ê
+    //ãƒ€ãƒ¡ãƒ¼ã‚¸å—ã‘å–ã‚Šæ™‚ã®æºã‚Œ
     private IEnumerator DamageVibration()
     {
         Vector2 temp = myRect.anchoredPosition;
-        //floatŒvŽZ‚ÌŒë·‘Îô
+        //floatè¨ˆç®—ã®èª¤å·®å¯¾ç­–
         float defaultX = temp.x;
         temp.x += 10;
         myRect.anchoredPosition = temp;
@@ -207,7 +207,7 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
             intervalCount += 1;
         }
     }
-    //Á–Å
+    //æ¶ˆæ»…
     private IEnumerator Died()
     {
         isDied = true;
@@ -215,7 +215,7 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
         yield return StartCoroutine(FadeIn(1, myImage));
         myAllObject.SetActive(false);
     }
-    //UŒ‚‘ÎÛ‚Æ‚µ‚Ä‘I‘ð‚³‚ê‚½‚Æ‚«‚ÌUIŠg‘åk¬
+    //æ”»æ’ƒå¯¾è±¡ã¨ã—ã¦é¸æŠžã•ã‚ŒãŸã¨ãã®UIæ‹¡å¤§ç¸®å°
     public void Select()
     {
         namePanel.SetActive(true);
@@ -229,6 +229,6 @@ public abstract class EnemyManagerOrigin : SystemManagerOrigin
         gageRect.localScale = new(0.5f, 0.5f);
     }
 
-    //•œŠˆ
+    //å¾©æ´»
     public abstract void Revive();
 }

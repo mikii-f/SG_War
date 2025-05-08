@@ -26,7 +26,7 @@ public class BattleSceneManager1 : BattleSceneManagerOrigin
     {
         yield return new WaitForSeconds(2);
         tutorialPanel.SetActive(true);
-        tutorialText.text = "’·ŠúŠÔí“¬s“®‚ðs‚Á‚Ä‚¢‚È‚©‚Á‚½‚½‚ßA‚ ‚È‚½•û‚Ì”\—Í‚Í’á‰º‚µ‚Ä‚¢‚é‚æ‚¤‚Å‚·ccB";
+        tutorialText.text = "é•·æœŸé–“æˆ¦é—˜è¡Œå‹•ã‚’è¡Œã£ã¦ã„ãªã‹ã£ãŸãŸã‚ã€ã‚ãªãŸæ–¹ã®èƒ½åŠ›ã¯ä½Žä¸‹ã—ã¦ã„ã‚‹ã‚ˆã†ã§ã™â€¦â€¦ã€‚";
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
         seSource.clip = seUIClick;
         seSource.Play();

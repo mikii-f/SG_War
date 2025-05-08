@@ -8,17 +8,17 @@ public class SainManager2 : SainManager
     private int avoidIndex = -1;
     protected override void AutoAttack()
     {
-        //ƒoƒt‚ª‚©‚©‚Á‚Ä‚¢‚È‚¢‚©‚Â‚ ‚é’ö“xSG‚ª‚ ‚ê‚ÎƒXƒLƒ‹3‚ğg—p
+        //ãƒãƒ•ãŒã‹ã‹ã£ã¦ã„ãªã„ã‹ã¤ã‚ã‚‹ç¨‹åº¦SGãŒã‚ã‚Œã°ã‚¹ã‚­ãƒ«3ã‚’ä½¿ç”¨
         if (attackFactor2 == 0 && currentSG >= 30)
         {
             BattleSkill3Click();
         }
-        //ƒoƒt‚ª‚©‚©‚Á‚Ä‚¢‚é‚Æ‚«‚ÍƒXƒLƒ‹2‚ğ—Dæg—p
+        //ãƒãƒ•ãŒã‹ã‹ã£ã¦ã„ã‚‹ã¨ãã¯ã‚¹ã‚­ãƒ«2ã‚’å„ªå…ˆä½¿ç”¨
         else if (attackFactor2 > 0 && currentSG >= 10)
         {
             BattleSkill2Click();
         }
-        //SG‚ª­‚È‚¢‚Æ‚«‚Í’ÊíUŒ‚(S3”­“®¨S2‚ğ5‰ñ¨S1‚ğ3‰ñ‚Ìƒ‹[ƒv‚É‚È‚é‚Í‚¸)
+        //SGãŒå°‘ãªã„ã¨ãã¯é€šå¸¸æ”»æ’ƒ(S3ç™ºå‹•â†’S2ã‚’5å›â†’S1ã‚’3å›ã®ãƒ«ãƒ¼ãƒ—ã«ãªã‚‹ã¯ãš)
         else
         {
             BattleSkill1Click();
@@ -26,13 +26,13 @@ public class SainManager2 : SainManager
     }
     public override void BattleSkill1Click()
     {
-        //ƒCƒ“ƒ^[ƒoƒ‹‚ªI‚í‚Á‚Ä‚¢‚é‚©‚ÌŠm”F
+        //ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒ«ãŒçµ‚ã‚ã£ã¦ã„ã‚‹ã‹ã®ç¢ºèª
         if (intervalCount == 0 && !pause)
         {
             intervalCount = interval;
             StartCoroutine(ButtonAnim(bS1Rect));
             mask.SetActive(true);
-            //’ÊíUŒ‚(UŒ‚—Í‚Ì100% SG‰ñ•œ10 ƒXƒLƒ‹3‚Ìƒoƒt‚ªØ‚ê‚é)
+            //é€šå¸¸æ”»æ’ƒ(æ”»æ’ƒåŠ›ã®100% SGå›å¾©10 ã‚¹ã‚­ãƒ«3ã®ãƒãƒ•ãŒåˆ‡ã‚Œã‚‹)
             StartCoroutine(bSManager.SainSkill1(attack * (attackFactor + attackFactor2) / 10, attack1Rect, attack1Image));
             if (attackFactor2 > 0)
             {
@@ -54,13 +54,13 @@ public class SainManager2 : SainManager
     }
     public override void BattleSkill2Click()
     {
-        //ƒCƒ“ƒ^[ƒoƒ‹‚ÌŠm”F•SG>=10
+        //ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒ«ã®ç¢ºèªï¼†SG>=10
         if (intervalCount == 0 && currentSG >= 10 && !pause)
         {
             intervalCount = interval;
             StartCoroutine(ButtonAnim(bS2Rect));
             mask.SetActive(true);
-            //‹­UŒ‚(UŒ‚—Í‚Ì200% SGÁ”ï10 ƒXƒLƒ‹3‚Ìƒoƒt‚ğˆê•”•Û)
+            //å¼·æ”»æ’ƒ(æ”»æ’ƒåŠ›ã®200% SGæ¶ˆè²»10 ã‚¹ã‚­ãƒ«3ã®ãƒãƒ•ã‚’ä¸€éƒ¨ä¿æŒ)
             StartCoroutine(bSManager.SainSkill2_2(2 * attack * (attackFactor + attackFactor2) / 10, attack2Rect, attack2Image));
             currentSG -= 10;
             if (attackFactor2 > 0)
@@ -85,7 +85,7 @@ public class SainManager2 : SainManager
     }
     public override void BattleSkill3Click()
     {
-        //ƒCƒ“ƒ^[ƒoƒ‹‚ÌŠm”F&ƒXƒLƒ‹3‚É‚æ‚éUŒ‚ƒoƒt‚ªØ‚ê‚Ä‚¢‚é
+        //ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒ«ã®ç¢ºèª&ã‚¹ã‚­ãƒ«3ã«ã‚ˆã‚‹æ”»æ’ƒãƒãƒ•ãŒåˆ‡ã‚Œã¦ã„ã‚‹
         if (intervalCount == 0 && !pause && attackFactor2 == 0)
         {
             intervalCount = interval;
@@ -95,12 +95,12 @@ public class SainManager2 : SainManager
             StartCoroutine(EffectOnandOff(buffEffect));
             seSource.clip = seBuff;
             seSource.Play();
-            //‰ñ”§ƒoƒt‚Ì‚½‚ßƒCƒ“ƒfƒbƒNƒX‚ğ•ª‚¯‚ÄŠÇ—‚·‚é•K—v‚ª‚ ‚é
+            //å›æ•°åˆ¶ãƒãƒ•ã®ãŸã‚ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’åˆ†ã‘ã¦ç®¡ç†ã™ã‚‹å¿…è¦ãŒã‚ã‚‹
             for (int i = 0; i < buffDebuffNumber; i++)
             {
                 if (buffAndDebuffs[i].sprite == noneSprite)
                 {
-                    //ƒXƒLƒ‹3‚É‚æ‚é‰ñ”ğ‚ª‚©‚©‚Á‚Ä‚¢‚é‚Æ‚«‚ÍƒAƒCƒRƒ“‚ğ’Ç‰Á‚µ‚È‚¢
+                    //ã‚¹ã‚­ãƒ«3ã«ã‚ˆã‚‹å›é¿ãŒã‹ã‹ã£ã¦ã„ã‚‹ã¨ãã¯ã‚¢ã‚¤ã‚³ãƒ³ã‚’è¿½åŠ ã—ãªã„
                     if (!avoid)
                     {
                         buffAndDebuffs[i].sprite = attackBuffIcon;
@@ -136,7 +136,7 @@ public class SainManager2 : SainManager
                     break;
                 }
             }
-            //UŒ‚—Í+50%1‰ñ&‰ñ”ğ1‰ñ(d‚ËŠ|‚¯•s‰Â)&SG+20
+            //æ”»æ’ƒåŠ›+50%1å›&å›é¿1å›(é‡ã­æ›ã‘ä¸å¯)&SG+20
             currentSG = Mathf.Min(maxSG, currentSG + 20);
             SGCheck();
             attackFactor2 = Mathf.Min(10, attackFactor2 + 5);
@@ -150,13 +150,13 @@ public class SainManager2 : SainManager
     }
     public override void SpecialAttackClick()
     {
-        //SG>=100‚È‚ç‚¢‚Â‚Å‚à
+        //SG>=100ãªã‚‰ã„ã¤ã§ã‚‚
         if (currentSG >= 100 && !pause)
         {
             StartCoroutine(ButtonAnim(sARect));
             StartCoroutine(Invincible(1));
             StartCoroutine(bSManager.SpecialAttackName(specialAttackNameSprite));
-            //“G‘S‘Ì‚ÉUŒ‚—Í500%(SGÁ”ï100 ŠÔ‚ğ~‚ß‚Äê—p‰‰o •KE‚¿‚Ì“G‚ÌƒK[ƒh‚ğŠ„‚é) ƒXƒLƒ‹3‚Ìƒoƒt‚ğ•Û
+            //æ•µå…¨ä½“ã«æ”»æ’ƒåŠ›500%(SGæ¶ˆè²»100 æ™‚é–“ã‚’æ­¢ã‚ã¦å°‚ç”¨æ¼”å‡º å¿…æ®ºæŒã¡ã®æ•µã®ã‚¬ãƒ¼ãƒ‰ã‚’å‰²ã‚‹) ã‚¹ã‚­ãƒ«3ã®ãƒãƒ•ã‚’ä¿æŒ
             StartCoroutine(bSManager.SainToAllAttack(5 * attack * (attackFactor + attackFactor2) / 10, true));
             StartCoroutine(SESpecialFinish());
             currentSG -= 100;
@@ -191,17 +191,17 @@ public class SainManager2 : SainManager
     }
     public override void ReceiveDamage(int damage)
     {
-        //ƒ|[ƒY’†(Ÿ—˜Œã)‚Íƒm[ƒ_ƒ
+        //ãƒãƒ¼ã‚ºä¸­(å‹åˆ©å¾Œ)ã¯ãƒãƒ¼ãƒ€ãƒ¡
         if (pause)
         {
             damage = 0;
         }
-        //–³“GŠÔ‚È‚çƒm[ƒ_ƒ
+        //ç„¡æ•µæ™‚é–“ãªã‚‰ãƒãƒ¼ãƒ€ãƒ¡
         else if (isInvincible)
         {
             damage = 0;
         }
-        //‰ñ”ğ‚µ‚½‚çƒm[ƒ_ƒ
+        //å›é¿ã—ãŸã‚‰ãƒãƒ¼ãƒ€ãƒ¡
         else if (avoid)
         {
             damage = 0;
@@ -213,11 +213,11 @@ public class SainManager2 : SainManager
                 StopCoroutine(commentCoroutine);
                 ResetComment();
             }
-            commentCoroutine = StartCoroutine(Comment("‰ñ”ğ¬Œ÷"));
+            commentCoroutine = StartCoroutine(Comment("å›é¿æˆåŠŸ"));
             damageSeSource.clip = seAvoid;
             damageSeSource.Play();
         }
-        //ƒK[ƒh’†‚È‚ç9Š„ƒJƒbƒg
+        //ã‚¬ãƒ¼ãƒ‰ä¸­ãªã‚‰9å‰²ã‚«ãƒƒãƒˆ
         else if (isGuard)
         {
             damage /= 10;
@@ -226,25 +226,25 @@ public class SainManager2 : SainManager
                 StopCoroutine(commentCoroutine);
                 ResetComment();
             }
-            commentCoroutine = StartCoroutine(Comment("ƒK[ƒh¬Œ÷"));
+            commentCoroutine = StartCoroutine(Comment("ã‚¬ãƒ¼ãƒ‰æˆåŠŸ"));
             damageSeSource.clip = seGuard;
             damageSeSource.Play();
         }
-        //UŒ‚‘Ò‹@’†‚È‚ç5Š„ƒJƒbƒg
+        //æ”»æ’ƒå¾…æ©Ÿä¸­ãªã‚‰5å‰²ã‚«ãƒƒãƒˆ
         else if (intervalCount == 0)
         {
             damage /= 2;
             damageSeSource.clip = seDamage;
             damageSeSource.Play();
         }
-        //ƒK[ƒh‚È‚Ç‚ğ‚µ‚Ä‚¢‚È‚©‚Á‚½‚ÍU“®
+        //ã‚¬ãƒ¼ãƒ‰ãªã©ã‚’ã—ã¦ã„ãªã‹ã£ãŸæ™‚ã¯æŒ¯å‹•
         else
         {
             StartCoroutine(DamageVibration());
             damageSeSource.clip = seDamage;
             damageSeSource.Play();
         }
-        //•\¦‚Ég‚í‚ê‚Ä‚¢‚È‚¢ƒeƒLƒXƒgƒ{ƒbƒNƒX‚ğg‚¤
+        //è¡¨ç¤ºã«ä½¿ã‚ã‚Œã¦ã„ãªã„ãƒ†ã‚­ã‚¹ãƒˆãƒœãƒƒã‚¯ã‚¹ã‚’ä½¿ã†
         if (damageText.text == "")
         {
             StartCoroutine(DamageDisplay(damage, damageText));

@@ -50,7 +50,7 @@ public class MovingField : MonoBehaviour
         }
     }
 
-    //ˆÚ“®I—¹Œã‚Í–€C0°‚ğ’†‚©‚ç‰Ÿ‚µo‚·
+    //ç§»å‹•çµ‚äº†å¾Œã¯æ‘©æ“¦0åºŠã‚’ä¸­ã‹ã‚‰æŠ¼ã—å‡ºã™
     private IEnumerator Block()
     {
         Vector3 temp = blockTransform.localPosition;

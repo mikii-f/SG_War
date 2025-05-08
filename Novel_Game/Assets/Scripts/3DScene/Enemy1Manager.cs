@@ -22,7 +22,7 @@ public class Enemy1Manager : Enemy3DOrigin
 
     void Update()
     {
-        //ƒvƒŒƒCƒ„[‚ª‹ß‚Ã‚¢‚Ä‚©‚ç“®‚«o‚·
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒè¿‘ã¥ã„ã¦ã‹ã‚‰å‹•ãå‡ºã™
         if (Mathf.Abs(_transform.position.x - playerTransform.position.x) < eyesightX && Mathf.Abs(_transform.position.y - playerTransform.position.y) < eyesightY)
         {
             startMove = true;
@@ -31,7 +31,7 @@ public class Enemy1Manager : Enemy3DOrigin
         {
             idlingTime += Time.deltaTime;
 
-            //©g‚ÌˆÚ“®
+            //è‡ªèº«ã®ç§»å‹•
             if (!isAttack)
             {
                 Vector3 pos = _transform.position;
@@ -39,7 +39,7 @@ public class Enemy1Manager : Enemy3DOrigin
                 _transform.position = pos;
             }
 
-            //’e‚ÌˆÚ“®
+            //å¼¾ã®ç§»å‹•
             if (bullet.activeSelf)
             {
                 Vector3 pos_bullet = bulletTransform.position;
@@ -47,14 +47,14 @@ public class Enemy1Manager : Enemy3DOrigin
                 bulletTransform.position = pos_bullet;
             }
 
-            //ƒN[ƒ‹ƒ^ƒCƒ€‚²‚Æ‚ÉUŒ‚
+            //ã‚¯ãƒ¼ãƒ«ã‚¿ã‚¤ãƒ ã”ã¨ã«æ”»æ’ƒ
             if (idlingTime > coolTime && _collider.enabled)
             {
                 idlingTime = 0;
                 StartCoroutine(Attack());
             }
 
-            //ƒvƒŒƒCƒ„[‚ª\•ª‰E‚É‚¢‚Á‚½‚çÁ‚¦‚é
+            //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒååˆ†å³ã«ã„ã£ãŸã‚‰æ¶ˆãˆã‚‹
             if (playerTransform.position.x - _transform.position.x > 2 * eyesightX)
             {
                 Destroy(gameObject);
@@ -62,10 +62,10 @@ public class Enemy1Manager : Enemy3DOrigin
         }
     }
 
-    //UŒ‚ƒ‚[ƒVƒ‡ƒ“
+    //æ”»æ’ƒãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³
     private IEnumerator Attack()
     {
-        //’e‚Ìó‘Ô‚Ì‰Šú‰»‚È‚Ç
+        //å¼¾ã®çŠ¶æ…‹ã®åˆæœŸåŒ–ãªã©
         idlingTime = 0;
         bullet.SetActive(false);
         bulletCollider.enabled = true;
@@ -74,7 +74,7 @@ public class Enemy1Manager : Enemy3DOrigin
         while (timeCount < 0.2f)
         {
             Vector3 temp = _transform.rotation.eulerAngles;
-            temp.z -= 10 * Time.deltaTime * 5;      //0.2•b‚ÅU‚èã‚°
+            temp.z -= 10 * Time.deltaTime * 5;      //0.2ç§’ã§æŒ¯ã‚Šä¸Šã’
             _transform.rotation = Quaternion.Euler(temp);
             timeCount += Time.deltaTime;
             yield return null;
@@ -84,12 +84,12 @@ public class Enemy1Manager : Enemy3DOrigin
         while (timeCount < 0.2f)
         {
             Vector3 temp = _transform.rotation.eulerAngles;
-            temp.z += 10 * Time.deltaTime * 5;      //0.2•b‚ÅU‚è‰º‚°
+            temp.z += 10 * Time.deltaTime * 5;      //0.2ç§’ã§æŒ¯ã‚Šä¸‹ã’
             _transform.rotation = Quaternion.Euler(temp);
             timeCount += Time.deltaTime;
             yield return null;
         }
-        //”­Ë
+        //ç™ºå°„
         Vector3 pos = _transform.position;
         pos.x -= 0.5f;
         bulletTransform.position = pos;
@@ -97,7 +97,7 @@ public class Enemy1Manager : Enemy3DOrigin
         isAttack = false;
     }
 
-    //UŒ‚‚³‚ê‚½‚çÁ‚¦‚é
+    //æ”»æ’ƒã•ã‚ŒãŸã‚‰æ¶ˆãˆã‚‹
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Sword"))

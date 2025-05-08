@@ -24,15 +24,15 @@ public class LowLevelEnemyManager : EnemyManagerOrigin
         intervalText.text = intervalCount.ToString("F2");
     }
 
-    //’ÊíUŒ‚
+    //é€šå¸¸æ”»æ’ƒ
     protected override IEnumerator NormalAttack()
     {
-        StartCoroutine(AttackSubtitle("—dŒõ"));
+        StartCoroutine(AttackSubtitle("å¦–å…‰"));
         isAttack = true;
         Vector2 temp = myRect.localScale;
         myRect.localScale = new(0.8f * temp.x, 0.8f * temp.y);
         yield return new WaitForSeconds(0.5f);
-        //“r’†‚Å€‚ñ‚¾—p
+        //é€”ä¸­ã§æ­»ã‚“ã æ™‚ç”¨
         if (!isDied)
         {
             StartCoroutine(AttackEffect(attackRect, attackImage));
@@ -42,12 +42,12 @@ public class LowLevelEnemyManager : EnemyManagerOrigin
         float size = 1.2f;
         while (size != 1.0f)
         {
-            //0.4f:deltaTime=0.2f:(1ƒtƒŒ[ƒ€‚²‚Æ‚ÌƒTƒCƒY•Ï‰»)
+            //0.4f:deltaTime=0.2f:(1ãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã®ã‚µã‚¤ã‚ºå¤‰åŒ–)
             size = Mathf.Max(1.0f, size - Time.deltaTime * 0.5f);
             myRect.localScale = new(size * temp.x, size * temp.y);
             yield return null;
         }
-        //“r’†‚Å€‚ñ‚¾—p
+        //é€”ä¸­ã§æ­»ã‚“ã æ™‚ç”¨
         if (!isDied)
         {
             bSManager.EnemyToSainAttack(attack);
@@ -68,16 +68,16 @@ public class LowLevelEnemyManager : EnemyManagerOrigin
                 break;
         }
     }
-    //ƒ`ƒƒ[ƒW‹Z
+    //ãƒãƒ£ãƒ¼ã‚¸æŠ€
     protected override IEnumerator ChargeAttack()
     {
-        StartCoroutine(AttackSubtitle("—dŒõE‹­"));
+        StartCoroutine(AttackSubtitle("å¦–å…‰ãƒ»å¼·"));
         isAttack = true;
         Vector2 temp = myRect.localScale;
         myRect.localScale = new(0.7f * temp.x, 0.7f * temp.y);
         yield return new WaitForSeconds(0.3f);
         myRect.localScale = new(1.5f * temp.x, 1.5f * temp.y);
-        //’e‚Ì‘å‚«‚³‚ğ2”{‚É
+        //å¼¾ã®å¤§ãã•ã‚’2å€ã«
         attackRect.localScale = new(2, 2);
         if (!isDied)
         {
@@ -87,7 +87,7 @@ public class LowLevelEnemyManager : EnemyManagerOrigin
         float size = 1.5f;
         while (size != 1.0f)
         {
-            //0.4f:deltaTime=0.5f:(1ƒtƒŒ[ƒ€‚²‚Æ‚ÌƒTƒCƒY•Ï‰»)
+            //0.4f:deltaTime=0.5f:(1ãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã®ã‚µã‚¤ã‚ºå¤‰åŒ–)
             size = Mathf.Max(1.0f, size - Time.deltaTime * 1.25f);
             myRect.localScale = new(size * temp.x, size * temp.y);
             yield return null;

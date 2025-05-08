@@ -26,7 +26,7 @@ public class ExtraBattle3Manager : BattleSceneManagerOrigin
     {
         yield return new WaitForSeconds(2);
         tutorialPanel.SetActive(true);
-        tutorialText.text = "今回はエルを指揮してみましょう。いつもと一味違う戦闘訓練に挑戦です。";
+        tutorialText.text = "莉雁屓縺ｯ繧ｨ繝ｫ繧呈欠謠ｮ縺励※縺ｿ縺ｾ縺励ｇ縺�縲ゅ＞縺､繧ゅ→荳蜻ｳ驕輔≧謌ｦ髣倩ｨ鍋ｷｴ縺ｫ謖第姶縺ｧ縺吶�";
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
         seSource.clip = seUIClick;
         seSource.Play();

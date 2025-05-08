@@ -54,7 +54,7 @@ public class AfterManagr : SystemManagerOrigin
     public void TitleSwitch()
     {
         StartCoroutine(ButtonAnim(titleSwitchRect));
-        systemMessage.text = "ƒ^ƒCƒgƒ‹‚É–ß‚è‚Ü‚·‚©H";
+        systemMessage.text = "ã‚¿ã‚¤ãƒˆãƒ«ã«æˆ»ã‚Šã¾ã™ã‹ï¼Ÿ";
         messageNumber = 0;
         StartCoroutine(Delay(systemMessageObject, true));
         seSource.clip = seUIClick;
@@ -70,7 +70,7 @@ public class AfterManagr : SystemManagerOrigin
     public void GrowSwitchRect()
     {
         StartCoroutine(ButtonAnim(growSwitchRect));
-        systemMessage.text = "ˆç¬‚ÉŒü‚©‚¢‚Ü‚·‚©H";
+        systemMessage.text = "è‚²æˆã«å‘ã‹ã„ã¾ã™ã‹ï¼Ÿ";
         messageNumber = 1;
         StartCoroutine(Delay(systemMessageObject, true));
         seSource.clip = seUIClick;
@@ -121,7 +121,7 @@ public class AfterManagr : SystemManagerOrigin
             seSource.Play();
         }
     }
-    //ƒ^ƒCƒgƒ‹‚Ö
+    //ã‚¿ã‚¤ãƒˆãƒ«ã¸
     private IEnumerator GoBackTitle()
     {
         black.color = new(0, 0, 0, 0);
@@ -129,7 +129,7 @@ public class AfterManagr : SystemManagerOrigin
         yield return StartCoroutine(FadeOut(1, black));
         SceneManager.LoadScene("TitleScene");
     }
-    //ˆç¬‚Ö
+    //è‚²æˆã¸
     private IEnumerator GoToGrow()
     {
         black.color = new(0, 0, 0, 0);
@@ -137,7 +137,7 @@ public class AfterManagr : SystemManagerOrigin
         yield return StartCoroutine(FadeOut(0.5f, black));
         SceneManager.LoadScene("3DGameSelectScene");
     }
-    //ƒoƒgƒ‹1‚Ö
+    //ãƒãƒˆãƒ«1ã¸
     public void Battle1Switch()
     {
         if (!isGoNext)
@@ -156,7 +156,7 @@ public class AfterManagr : SystemManagerOrigin
         yield return StartCoroutine(FadeOut(0.5f, black));
         SceneManager.LoadScene("ExtraBattle1");
     }
-    //ƒoƒgƒ‹2‚Ö
+    //ãƒãƒˆãƒ«2ã¸
     public void Battle2Switch()
     {
         if (!isGoNext)
@@ -175,7 +175,7 @@ public class AfterManagr : SystemManagerOrigin
         yield return StartCoroutine(FadeOut(0.5f, black));
         SceneManager.LoadScene("ExtraBattle2");
     }
-    //ƒoƒgƒ‹3‚Ö
+    //ãƒãƒˆãƒ«3ã¸
     public void Battle3Switch()
     {
         if (!isGoNext)
@@ -194,7 +194,7 @@ public class AfterManagr : SystemManagerOrigin
         yield return StartCoroutine(FadeOut(0.5f, black));
         SceneManager.LoadScene("ExtraBattle3");
     }
-    //ƒoƒgƒ‹ˆê——‚ğ•Â‚¶‚é
+    //ãƒãƒˆãƒ«ä¸€è¦§ã‚’é–‰ã˜ã‚‹
     public void BattleClose()
     {
         StartCoroutine(ButtonAnim(backSwitchRect));

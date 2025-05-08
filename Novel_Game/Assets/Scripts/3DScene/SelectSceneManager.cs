@@ -34,7 +34,7 @@ public class SelectSceneManager : SystemManagerOrigin
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = GameManager.instance.BgmVolume;
         seSource.volume = GameManager.instance.SeVolume;
-        statusText.text = "‘Ì—Í\n" + GameManager.instance.SainHP.ToString() + "\n‰ŠúSG\n" + GameManager.instance.SainSG.ToString() + "\nUŒ‚—Í\n" + GameManager.instance.SainAttack.ToString() + "\nŒoŒ±’l\n" + GameManager.instance.EXP.ToString();
+        statusText.text = "ä½“åŠ›\n" + GameManager.instance.SainHP.ToString() + "\nåˆæœŸSG\n" + GameManager.instance.SainSG.ToString() + "\næ”»æ’ƒåŠ›\n" + GameManager.instance.SainAttack.ToString() + "\nçµŒé¨“å€¤\n" + GameManager.instance.EXP.ToString();
         if (GameManager.instance.EXP > 3000)
         {
             hardSwitchMask.SetActive(false);
@@ -47,7 +47,7 @@ public class SelectSceneManager : SystemManagerOrigin
 
     private void Update()
     {
-        //ƒƒbƒZ[ƒW‚Ö‚Ì‰“š
+        //ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¸ã®å¿œç­”
         if (Input.GetKeyDown(KeyCode.Y))
         {
             if (systemMessageObject.activeSelf)
@@ -122,7 +122,7 @@ public class SelectSceneManager : SystemManagerOrigin
             seSource.Play();
         }
     }
-    //ƒQ[ƒ€ŠJn
+    //ã‚²ãƒ¼ãƒ é–‹å§‹
     private IEnumerator StartGame()
     {
         yield return new WaitForSeconds(0.1f);
@@ -179,7 +179,7 @@ public class SelectSceneManager : SystemManagerOrigin
         yield return new WaitForSeconds(0.1f);
         StartCoroutine(VolumeFadeOut(1, audioSource));
         yield return StartCoroutine(FadeOut(1f, black));
-        //–{—ˆ‹N‚±‚ç‚È‚¢ó‹µ‚Æv‚í‚ê‚é‚ªb’è‘[’u
+        //æœ¬æ¥èµ·ã“ã‚‰ãªã„çŠ¶æ³ã¨æ€ã‚ã‚Œã‚‹ãŒæš«å®šæªç½®
         if (GameManager.instance.SceneName == null)
         {
             SceneManager.LoadScene("TitleScene");

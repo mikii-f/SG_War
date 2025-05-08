@@ -8,16 +8,16 @@ public abstract class TextManagerOrigin : MonoBehaviour
 {
     [SerializeField] protected ImagesManagerOrigin imagesManager;
     [SerializeField] protected SystemManager systemManager;
-    protected List<string> _sentences = new();    //‘S•¶‚ğŠi”[
-    protected List<string[]> _function = new();   //‹@”\ƒR[ƒh(ŒÄ‚Ño‚·ŠÖ”‚ğ•\‚·)‚ğŠi”[
-    protected List<string> _names = new();        //–¼‘O‚ğŠi”[
-    private int lineNumber = 0;                   //Œ»İ‚Ìs
-    private int displayWordNumber = 0;            //•\¦‚·‚é•¶š”‚ÌŠÇ—(1•¶š‚¸‚Â•\¦‚·‚é—p)
-    private const float readTime = 0.03f;               //•¶š•\¦ƒXƒs[ƒh
-    private float timeCount = 0f;                 //ŠÔ•Û—p
-    private float waitTime = 1f;                  //©“®Ä¶‚Ì‘Ò‚¿ŠÔ  (‚±‚Ì•Ó‚è‚ÍƒRƒ“ƒtƒBƒO‚©‚ç‚¢‚¶‚ê‚é‚æ‚¤‚É‚µ‚½‚¢)
-    private string tempText;                      //•\¦‚µ‚æ‚¤‚Æ‚µ‚Ä‚¢‚éƒeƒLƒXƒg
-    private int textLength;                       //•\¦‚µ‚æ‚¤‚Æ‚µ‚Ä‚¢‚éƒeƒLƒXƒg‚Ì’·‚³
+    protected List<string> _sentences = new();    //å…¨æ–‡ã‚’æ ¼ç´
+    protected List<string[]> _function = new();   //æ©Ÿèƒ½ã‚³ãƒ¼ãƒ‰(å‘¼ã³å‡ºã™é–¢æ•°ã‚’è¡¨ã™)ã‚’æ ¼ç´
+    protected List<string> _names = new();        //åå‰ã‚’æ ¼ç´
+    private int lineNumber = 0;                   //ç¾åœ¨ã®è¡Œ
+    private int displayWordNumber = 0;            //è¡¨ç¤ºã™ã‚‹æ–‡å­—æ•°ã®ç®¡ç†(1æ–‡å­—ãšã¤è¡¨ç¤ºã™ã‚‹ç”¨)
+    private const float readTime = 0.03f;               //æ–‡å­—è¡¨ç¤ºã‚¹ãƒ”ãƒ¼ãƒ‰
+    private float timeCount = 0f;                 //æ™‚é–“ä¿æŒç”¨
+    private float waitTime = 1f;                  //è‡ªå‹•å†ç”Ÿæ™‚ã®å¾…ã¡æ™‚é–“  (ã“ã®è¾ºã‚Šã¯ã‚³ãƒ³ãƒ•ã‚£ã‚°ã‹ã‚‰ã„ã˜ã‚Œã‚‹ã‚ˆã†ã«ã—ãŸã„)
+    private string tempText;                      //è¡¨ç¤ºã—ã‚ˆã†ã¨ã—ã¦ã„ã‚‹ãƒ†ã‚­ã‚¹ãƒˆ
+    private int textLength;                       //è¡¨ç¤ºã—ã‚ˆã†ã¨ã—ã¦ã„ã‚‹ãƒ†ã‚­ã‚¹ãƒˆã®é•·ã•
     [SerializeField] private Text mainText;
     [SerializeField] private Text nameText;
     [SerializeField] private Text logText;
@@ -28,7 +28,7 @@ public abstract class TextManagerOrigin : MonoBehaviour
     public bool IsSpeedUp { set { isSpeedUp = value; TextFill(); } get { return isSpeedUp; } }
     private Coroutine slideCoroutine;
     private Coroutine audioCoroutine;
-    private bool skip = false;  //ƒZ[ƒuƒf[ƒ^‚È‚Ç‚©‚ç•œ‹A‚·‚éÛ‚É”CˆÓ‚Ìs‚©‚çn‚ß‚é—p
+    private bool skip = false;  //ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãªã©ã‹ã‚‰å¾©å¸°ã™ã‚‹éš›ã«ä»»æ„ã®è¡Œã‹ã‚‰å§‹ã‚ã‚‹ç”¨
 
     void Start()
     {
@@ -38,7 +38,7 @@ public abstract class TextManagerOrigin : MonoBehaviour
     {
         waitTime = GameManager.instance.AutoSpeed;
         yield return null;
-        //w’è‚³‚ê‚½s‚Ü‚Åi‚Ş
+        //æŒ‡å®šã•ã‚ŒãŸè¡Œã¾ã§é€²ã‚€
         if (GameManager.instance.LineNumber != 0)
         {
             skip = true;
@@ -50,7 +50,7 @@ public abstract class TextManagerOrigin : MonoBehaviour
                 TextFill();
             }
             skip = false;
-            isAnimation = false;    //ŠÖ”‚ğg‚í‚¸‚É‚±‚¿‚ç‚©‚çƒAƒjƒ[ƒVƒ‡ƒ“ƒIƒ“‚É‚·‚é‚±‚Æ‚ª‚ ‚é‚½‚ß(‰ü‘PŒŸ“¢)
+            isAnimation = false;    //é–¢æ•°ã‚’ä½¿ã‚ãšã«ã“ã¡ã‚‰ã‹ã‚‰ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚ªãƒ³ã«ã™ã‚‹ã“ã¨ãŒã‚ã‚‹ãŸã‚(æ”¹å–„æ¤œè¨)
             imagesManager.Skip = false;
             imagesManager.AudioVolume(true);
         }
@@ -62,28 +62,28 @@ public abstract class TextManagerOrigin : MonoBehaviour
         if (!skip)
         {
             timeCount += Time.deltaTime;
-            //ƒtƒ@ƒ“ƒNƒVƒ‡ƒ“‚ªŠJ‚¢‚Ä‚¢‚é‚Æ‚«‚¨‚æ‚Ñ©“®Ä¶‚Í”½‰‚µ‚È‚¢
+            //ãƒ•ã‚¡ãƒ³ã‚¯ã‚·ãƒ§ãƒ³ãŒé–‹ã„ã¦ã„ã‚‹ã¨ããŠã‚ˆã³è‡ªå‹•å†ç”Ÿæ™‚ã¯åå¿œã—ãªã„
             if (!functionsOpen && !isSpeedUp)
             {
                 if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) && lineNumber < _sentences.Count && !isAnimation)
                 {
-                    //•\¦‚³‚ê‚Ä‚¢‚È‚¢•”•ª‚ª‚ ‚Á‚½‚ç•\¦
+                    //è¡¨ç¤ºã•ã‚Œã¦ã„ãªã„éƒ¨åˆ†ãŒã‚ã£ãŸã‚‰è¡¨ç¤º
                     if (displayWordNumber < textLength)
                     {
                         TextFill();
                     }
-                    //‚È‚¯‚ê‚ÎŸ‚Ö
+                    //ãªã‘ã‚Œã°æ¬¡ã¸
                     else
                     {
                         GoNextLine();
                     }
                 }
             }
-            //ˆê•¶š‚¸‚Â•\¦
+            //ä¸€æ–‡å­—ãšã¤è¡¨ç¤º
             if (displayWordNumber < textLength && timeCount > readTime && !isSpeedUp)
             {
-                //‘SŠpƒXƒ‰ƒbƒVƒ…‚ª‚«‚½‚ç‰üs
-                if (tempText[displayWordNumber] == '^')
+                //å…¨è§’ã‚¹ãƒ©ãƒƒã‚·ãƒ¥ãŒããŸã‚‰æ”¹è¡Œ
+                if (tempText[displayWordNumber] == 'ï¼')
                 {
                     mainText.text += '\n';
                     displayWordNumber++;
@@ -96,7 +96,7 @@ public abstract class TextManagerOrigin : MonoBehaviour
                     timeCount = 0f;
                 }
             }
-            //©“®Ä¶
+            //è‡ªå‹•å†ç”Ÿæ™‚
             if (isSpeedUp)
             {
                 if (_sentences.Count > lineNumber && !isAnimation && timeCount > waitTime)
@@ -109,7 +109,7 @@ public abstract class TextManagerOrigin : MonoBehaviour
         }
     }
 
-    //ƒy[ƒW‘—‚è
+    //ãƒšãƒ¼ã‚¸é€ã‚Š
     protected void GoNextLine()
     {
         if (nameText.text != "")
@@ -129,7 +129,7 @@ public abstract class TextManagerOrigin : MonoBehaviour
         lineNumber++;
     }
 
-    //ƒeƒLƒXƒg‚É‹Lq‚µ‚½‹@”\ƒR[ƒh‚É‰‚¶‚ÄŠÖ”ŒÄ‚Ño‚µ(•¡”ƒLƒƒƒ‰ƒNƒ^[‚Ì•\¦‚É‚à‘Î‰‚³‚¹‚½‚¢‚Æ‚±‚ë)(Œ»ó‚¾‚Æ1s‚Ì’†‚ÅŠÔ·‚Å‰‰o‚ğ“®ì‚³‚¹‚é‚±‚Æ‚ª‚Å‚«‚È‚¢)
+    //ãƒ†ã‚­ã‚¹ãƒˆã«è¨˜è¿°ã—ãŸæ©Ÿèƒ½ã‚³ãƒ¼ãƒ‰ã«å¿œã˜ã¦é–¢æ•°å‘¼ã³å‡ºã—(è¤‡æ•°ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®è¡¨ç¤ºã«ã‚‚å¯¾å¿œã•ã›ãŸã„ã¨ã“ã‚)(ç¾çŠ¶ã ã¨1è¡Œã®ä¸­ã§æ™‚é–“å·®ã§æ¼”å‡ºã‚’å‹•ä½œã•ã›ã‚‹ã“ã¨ãŒã§ããªã„)
     private void SelectFunction(string[] s)
     {
         int n = s.Length;
@@ -302,13 +302,13 @@ public abstract class TextManagerOrigin : MonoBehaviour
         }
     }
 
-    //ƒeƒLƒXƒg‚ğˆê‹C‚É•\¦‚·‚é—p
+    //ãƒ†ã‚­ã‚¹ãƒˆã‚’ä¸€æ°—ã«è¡¨ç¤ºã™ã‚‹ç”¨
     protected void TextFill()
     {
         while (displayWordNumber < textLength)
         {
-            //‘SŠpƒXƒ‰ƒbƒVƒ…‚ª‚«‚½‚ç‰üs
-            if (tempText[displayWordNumber] == '^')
+            //å…¨è§’ã‚¹ãƒ©ãƒƒã‚·ãƒ¥ãŒããŸã‚‰æ”¹è¡Œ
+            if (tempText[displayWordNumber] == 'ï¼')
             {
                 mainText.text += '\n';
                 displayWordNumber++;
@@ -321,10 +321,10 @@ public abstract class TextManagerOrigin : MonoBehaviour
         }
     }
 
-    //ƒAƒjƒ[ƒVƒ‡ƒ“‚ªI—¹‚µ‚½‚ç”CˆÓ‚ÌŠÔ‘Ò‚Á‚½Œã1si‚İ‘€ì‰Â”\‚É
+    //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒçµ‚äº†ã—ãŸã‚‰ä»»æ„ã®æ™‚é–“å¾…ã£ãŸå¾Œ1è¡Œé€²ã¿æ“ä½œå¯èƒ½ã«
     public IEnumerator AnimationFinished(float f)
     {
-        //ƒXƒLƒbƒv’†‚Í–³‹
+        //ã‚¹ã‚­ãƒƒãƒ—ä¸­ã¯ç„¡è¦–
         if (!skip)
         {
             isAnimation = true;
@@ -339,7 +339,7 @@ public abstract class TextManagerOrigin : MonoBehaviour
         }
     }
 
-    //ƒEƒBƒ“ƒhƒE”ñ•\¦‚ğ”º‚í‚È‚¢ƒ^ƒCƒv‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚É‚æ‚é‘€ì’â~—p
+    //ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦éè¡¨ç¤ºã‚’ä¼´ã‚ãªã„ã‚¿ã‚¤ãƒ—ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã«ã‚ˆã‚‹æ“ä½œåœæ­¢ç”¨
     protected IEnumerator AnimationWaitSet(float f)
     {
         if (!skip)
@@ -350,7 +350,7 @@ public abstract class TextManagerOrigin : MonoBehaviour
         }
     }
 
-    //ƒV[ƒ“ƒXƒLƒbƒv
+    //ã‚·ãƒ¼ãƒ³ã‚¹ã‚­ãƒƒãƒ—
     public IEnumerator SceneSkip()
     {
         imagesManager.AudioVolume(false);
@@ -363,7 +363,7 @@ public abstract class TextManagerOrigin : MonoBehaviour
             TextFill();
         }
     }
-    //ˆç¬‚ÉŒü‚©‚¤
+    //è‚²æˆã«å‘ã‹ã†
     public IEnumerator GoToGrow()
     {
         yield return new WaitForSeconds(0.15f);
@@ -375,14 +375,14 @@ public abstract class TextManagerOrigin : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene("3DGameSelectScene");
     }
-    //ƒZ[ƒu‚·‚é
+    //ã‚»ãƒ¼ãƒ–ã™ã‚‹
     public void Save()
     {
         GameManager.instance.SceneName = SceneManager.GetActiveScene().name;
         GameManager.instance.LineNumber = lineNumber;
         GameManager.instance.Save();
     }
-    //ƒ^ƒCƒgƒ‹‚Ö
+    //ã‚¿ã‚¤ãƒˆãƒ«ã¸
     public IEnumerator GoBackTitle()
     {
         yield return new WaitForSeconds(0.15f);

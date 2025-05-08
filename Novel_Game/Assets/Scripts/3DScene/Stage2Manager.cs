@@ -7,12 +7,12 @@ public class Stage2Manager : Stage1Manager
         score = Mathf.Min((int)(4000 * medalCount / 100 * 60 / time), 4000);
         if (medalCount == 100)
         {
-            scoreText.text = "ƒƒ_ƒ‹Šl“¾F" + medalCount.ToString() + "–‡\n\nƒ^ƒCƒ€F" + time.ToString("F2") + "s\n\nƒƒ_ƒ‹ƒRƒ“ƒvƒŠ[ƒg\nƒXƒRƒAF" + score.ToString() + "+1000\n—İŒvEXPF" + (GameManager.instance.EXP + score + 1000).ToString();
+            scoreText.text = "ãƒ¡ãƒ€ãƒ«ç²å¾—ï¼š" + medalCount.ToString() + "æš\n\nã‚¿ã‚¤ãƒ ï¼š" + time.ToString("F2") + "s\n\nãƒ¡ãƒ€ãƒ«ã‚³ãƒ³ãƒ—ãƒªãƒ¼ãƒˆ\nã‚¹ã‚³ã‚¢ï¼š" + score.ToString() + "+1000\nç´¯è¨ˆEXPï¼š" + (GameManager.instance.EXP + score + 1000).ToString();
             score += 1000;
         }
         else
         {
-            scoreText.text = "ƒƒ_ƒ‹Šl“¾F" + medalCount.ToString() + "–‡\n\nƒ^ƒCƒ€F" + time.ToString("F2") + "s\n\n\nƒXƒRƒAF" + score.ToString() + "\n—İŒvEXPF" + (GameManager.instance.EXP + score).ToString();
+            scoreText.text = "ãƒ¡ãƒ€ãƒ«ç²å¾—ï¼š" + medalCount.ToString() + "æš\n\nã‚¿ã‚¤ãƒ ï¼š" + time.ToString("F2") + "s\n\n\nã‚¹ã‚³ã‚¢ï¼š" + score.ToString() + "\nç´¯è¨ˆEXPï¼š" + (GameManager.instance.EXP + score).ToString();
         }
     }
 }

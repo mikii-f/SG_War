@@ -62,7 +62,7 @@ public class ImagesManager4_2 : ImagesManagerOrigin
         effectsAudio2 = effectsObject2.GetComponent<AudioSource>();
     }
 
-    //—§‚¿ŠGŠÖŒW
+    //ç«‹ã¡çµµé–¢ä¿‚
     public override void CharacterChange(string image)
     {
         switch (image)
@@ -123,7 +123,7 @@ public class ImagesManager4_2 : ImagesManagerOrigin
         }
     }
 
-    //”wŒiØ‚è‘Ö‚¦
+    //èƒŒæ™¯åˆ‡ã‚Šæ›¿ãˆ
     public override void BackgroundChange(string image)
     {
         switch (image)
@@ -172,7 +172,7 @@ public class ImagesManager4_2 : ImagesManagerOrigin
                 break;
         }
     }
-    //ƒGƒtƒFƒNƒg(“§–¾“x‚Æ‚©ƒTƒCƒY‚Ìˆ—‚É’ˆÓ “Á‚ÉƒXƒLƒbƒv‚µ‚½ê‡)
+    //ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ(é€æ˜åº¦ã¨ã‹ã‚µã‚¤ã‚ºã®å‡¦ç†ã«æ³¨æ„ ç‰¹ã«ã‚¹ã‚­ãƒƒãƒ—ã—ãŸå ´åˆ)
     public override void Effect(string image)
     {
         if (!skip)
@@ -315,7 +315,7 @@ public class ImagesManager4_2 : ImagesManagerOrigin
     public override void ChangeScene()
     {
         GameManager.instance.LineNumber = 0;
-        GameManager.instance.Progress = "ƒNƒŠƒA";
+        GameManager.instance.Progress = "ã‚¯ãƒªã‚¢";
         SceneManager.LoadScene("EndRoal");
     }
 }

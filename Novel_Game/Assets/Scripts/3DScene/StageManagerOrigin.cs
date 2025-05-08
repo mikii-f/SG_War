@@ -20,11 +20,11 @@ public abstract class StageManagerOrigin : SystemManagerOrigin
     }
     public bool Damage()
     {
-        //ƒXƒLƒbƒvŠÜ‚ßƒNƒŠƒAÏ‚İ‚È‚ç‰e‹¿‚È‚µ
+        //ã‚¹ã‚­ãƒƒãƒ—å«ã‚ã‚¯ãƒªã‚¢æ¸ˆã¿ãªã‚‰å½±éŸ¿ãªã—
         if (!clear)
         {
             life--;
-            lifeText.text = "Life ~ " + life.ToString();
+            lifeText.text = "Life Ã— " + life.ToString();
             if (life == 0)
             {
                 GameOver();
@@ -37,7 +37,7 @@ public abstract class StageManagerOrigin : SystemManagerOrigin
         }
         return false;
     }
-    public@virtual void GameOver()
+    public virtual void GameOver()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

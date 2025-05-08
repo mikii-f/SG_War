@@ -16,7 +16,7 @@ public class MedalManager : MonoBehaviour
         seSource.volume = GameManager.instance.SeVolume;
         //StartCoroutine(Idling());
     }
-    //���܂茩���ړI�ɂ͕�����Ȃ����߃J�b�g
+    //あまり見た目的には分からないためカット
     /*private IEnumerator Idling()
     {
         while (true)
@@ -55,7 +55,7 @@ public class MedalManager : MonoBehaviour
         seSource.clip = seMedal;
         seSource.Play();
         float timeCount = 0;
-        //0.2�b��3��]
+        //0.2秒で3回転
         while (timeCount < 0.2f)
         {
             timeCount += Time.deltaTime;

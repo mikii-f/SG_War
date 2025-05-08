@@ -36,7 +36,7 @@ public class SystemManager : SystemManagerOrigin
         saveSuccessed.SetActive(false);
         seSource = GetComponent<AudioSource>();
         seSource.volume = GameManager.instance.SeVolume;
-        //1‰ñ–Ú‚Ìˆç¬‚ğs‚¤‚Ü‚Å‚Íˆç¬‚ğ‘I‘ğ‚Å‚«‚È‚¢
+        //1å›ç›®ã®è‚²æˆã‚’è¡Œã†ã¾ã§ã¯è‚²æˆã‚’é¸æŠã§ããªã„
         if (GameManager.instance.EXP != 0)
         {
             growMask.SetActive(false);
@@ -45,10 +45,10 @@ public class SystemManager : SystemManagerOrigin
 
     void Update()
     {
-        //ƒL[“ü—Í‚É‚æ‚éƒVƒXƒeƒ€‘€ì(ƒeƒLƒXƒg‘¤‚©‚ç‹Ö~‚³‚ê‚Ä‚¢‚È‚¢‚Æ‚«)(UI‘€ì‚Í©‘R‚Æ‚Å‚«‚È‚­‚È‚Á‚Ä‚¢‚é‚Í‚¸)
+        //ã‚­ãƒ¼å…¥åŠ›ã«ã‚ˆã‚‹ã‚·ã‚¹ãƒ†ãƒ æ“ä½œ(ãƒ†ã‚­ã‚¹ãƒˆå´ã‹ã‚‰ç¦æ­¢ã•ã‚Œã¦ã„ãªã„ã¨ã)(UIæ“ä½œã¯è‡ªç„¶ã¨ã§ããªããªã£ã¦ã„ã‚‹ã¯ãš)
         if (isFunctionAvailable)
         {
-            //ƒƒjƒ…[ƒIƒ“ƒIƒt
+            //ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚ªãƒ³ã‚ªãƒ•
             if (Input.GetKeyDown(KeyCode.M))
             {
                 if (!functions.activeSelf)
@@ -64,7 +64,7 @@ public class SystemManager : SystemManagerOrigin
             {
                 FunctionsClose();
             }
-            //Šeƒtƒ@ƒ“ƒNƒVƒ‡ƒ“(ƒtƒ@ƒ“ƒNƒVƒ‡ƒ“‚ªŠJ‚¢‚Ä‚¢‚ÄA‚©‚ÂƒƒbƒZ[ƒW‚ª•\¦‚³‚ê‚Ä‚¢‚È‚¢‚Æ‚«)
+            //å„ãƒ•ã‚¡ãƒ³ã‚¯ã‚·ãƒ§ãƒ³(ãƒ•ã‚¡ãƒ³ã‚¯ã‚·ãƒ§ãƒ³ãŒé–‹ã„ã¦ã„ã¦ã€ã‹ã¤ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãŒè¡¨ç¤ºã•ã‚Œã¦ã„ãªã„ã¨ã)
             if (functions.activeSelf && !isMessageDisplay)
             {
                 if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -92,15 +92,15 @@ public class SystemManager : SystemManagerOrigin
                     TitleSwitch();
                 }
             }
-            //ƒƒO‚ğ•Â‚¶‚é
+            //ãƒ­ã‚°ã‚’é–‰ã˜ã‚‹
             if (logTextObject.activeSelf && Input.GetKeyDown(KeyCode.Alpha3))
             {
                 LogClose();
             }
-            //ƒƒbƒZ[ƒW‚Ö‚Ì‰“š
+            //ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¸ã®å¿œç­”
             if (Input.GetKeyDown(KeyCode.Y))
             {
-                //1‰ñ‚µ‚©‰Ÿ‚¹‚È‚¢
+                //1å›ã—ã‹æŠ¼ã›ãªã„
                 if (systemMessageObject.activeSelf)
                 {
                     YesSwitch();
@@ -146,7 +146,7 @@ public class SystemManager : SystemManagerOrigin
     public void SkipSwitch() 
     {
         StartCoroutine(ButtonAnim(skipSwitchRect));
-        systemMessage.text = "‚±‚ÌƒV[ƒ“‚ğƒXƒLƒbƒv‚µ‚Ü‚·‚©H";
+        systemMessage.text = "ã“ã®ã‚·ãƒ¼ãƒ³ã‚’ã‚¹ã‚­ãƒƒãƒ—ã—ã¾ã™ã‹ï¼Ÿ";
         messageNumber = 0;
         StartCoroutine(Delay(systemMessageObject, true));
         isMessageDisplay = true;
@@ -162,7 +162,7 @@ public class SystemManager : SystemManagerOrigin
     {
         StartCoroutine(LogOnOff());
     }
-    //ŠJ‚¯‚Ä‚·‚®•Â‚¶‚Ä‚µ‚Ü‚¤‚Æ‚©‚ª‚È‚¢‚æ‚¤‚É1ƒtƒŒ[ƒ€‹ó‚¯‚é(Update“à‚Ìif•¶‚ğ‚¢‚¶‚ê‚Î‰ğÁ‚Å‚«‚»‚¤‚¾‚ªcc)
+    //é–‹ã‘ã¦ã™ãé–‰ã˜ã¦ã—ã¾ã†ã¨ã‹ãŒãªã„ã‚ˆã†ã«1ãƒ•ãƒ¬ãƒ¼ãƒ ç©ºã‘ã‚‹(Updateå†…ã®ifæ–‡ã‚’ã„ã˜ã‚Œã°è§£æ¶ˆã§ããã†ã ãŒâ€¦â€¦)
     private IEnumerator LogOnOff()
     {
         yield return null;
@@ -186,7 +186,7 @@ public class SystemManager : SystemManagerOrigin
         if (!growMask.activeSelf)
         {
             StartCoroutine(ButtonAnim(growSwitchRect));
-            systemMessage.text = "ˆç¬‚ÉŒü‚©‚¢‚Ü‚·‚©H";
+            systemMessage.text = "è‚²æˆã«å‘ã‹ã„ã¾ã™ã‹ï¼Ÿ";
             messageNumber = 1;
             StartCoroutine(Delay(systemMessageObject, true));
             isMessageDisplay = true;
@@ -202,7 +202,7 @@ public class SystemManager : SystemManagerOrigin
     public void SaveSwitch()
     {
         StartCoroutine(ButtonAnim(saveSwitchRect));
-        systemMessage.text = "is“x‚ğ•Û‘¶‚µ‚Ü‚·‚©H";
+        systemMessage.text = "é€²è¡Œåº¦ã‚’ä¿å­˜ã—ã¾ã™ã‹ï¼Ÿ";
         messageNumber = 2;
         StartCoroutine(Delay(systemMessageObject, true));
         isMessageDisplay = true;
@@ -212,7 +212,7 @@ public class SystemManager : SystemManagerOrigin
     public void TitleSwitch() 
     {
         StartCoroutine(ButtonAnim(titleSwitchRect));
-        systemMessage.text = "ƒ^ƒCƒgƒ‹‚É–ß‚è‚Ü‚·‚©H\n(©“®‚ÅƒZ[ƒu‚³‚ê‚Ü‚·)";
+        systemMessage.text = "ã‚¿ã‚¤ãƒˆãƒ«ã«æˆ»ã‚Šã¾ã™ã‹ï¼Ÿ\n(è‡ªå‹•ã§ã‚»ãƒ¼ãƒ–ã•ã‚Œã¾ã™)";
         messageNumber = 3;
         StartCoroutine(Delay(systemMessageObject, true));
         isMessageDisplay = true;
@@ -226,14 +226,14 @@ public class SystemManager : SystemManagerOrigin
         seSource.clip = seUIBack;
         seSource.Play();
     }
-    private IEnumerator CloseInterval() //•Â‚¶‚½“_‚Å‚ÍƒeƒLƒXƒg‚ªi‚Ü‚È‚¢‚æ‚¤‚É‚·‚é
+    private IEnumerator CloseInterval() //é–‰ã˜ãŸæ™‚ç‚¹ã§ã¯ãƒ†ã‚­ã‚¹ãƒˆãŒé€²ã¾ãªã„ã‚ˆã†ã«ã™ã‚‹
     {
         yield return null;
         textManager.FunctionsOpen = false;
     }
     public void YesSwitch()
     {
-        //‘JˆÚ‚ªŠm’è‚µ‚½‚çÄ‚Ñ‰Ÿ‚³‚ê‚È‚¢‚æ‚¤‚É
+        //é·ç§»ãŒç¢ºå®šã—ãŸã‚‰å†ã³æŠ¼ã•ã‚Œãªã„ã‚ˆã†ã«
         if (!isGoNext && !switchInterval)
         {
             StartCoroutine(ButtonAnim(yesSwitch));
@@ -241,23 +241,23 @@ public class SystemManager : SystemManagerOrigin
             seSource.Play();
             switch (messageNumber)
             {
-                //ƒXƒLƒbƒv
+                //ã‚¹ã‚­ãƒƒãƒ—
                 case 0:
                     isGoNext = true;
                     StartCoroutine(textManager.SceneSkip());
                     break;
-                //ˆç¬‚Ö
+                //è‚²æˆã¸
                 case 1:
                     isGoNext = true;
                     StartCoroutine(textManager.GoToGrow());
                     break;
-                //ƒZ[ƒu
+                //ã‚»ãƒ¼ãƒ–
                 case 2:
                     StartCoroutine(SwitchInterval());
                     textManager.Save();
                     StartCoroutine(SaveSuccessed());
                     break;
-                //ƒ^ƒCƒgƒ‹‚Ö
+                //ã‚¿ã‚¤ãƒˆãƒ«ã¸
                 case 3:
                     isGoNext = true;
                     StartCoroutine(textManager.GoBackTitle());
@@ -279,7 +279,7 @@ public class SystemManager : SystemManagerOrigin
             seSource.Play();
         }
     }
-    //ƒZ[ƒu¬Œ÷‚ğ“`‚¦‚éƒƒbƒZ[ƒW
+    //ã‚»ãƒ¼ãƒ–æˆåŠŸã‚’ä¼ãˆã‚‹ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
     private IEnumerator SaveSuccessed()
     {
         yield return new WaitForSeconds(0.1f);
@@ -290,7 +290,7 @@ public class SystemManager : SystemManagerOrigin
         saveSuccessed.SetActive(false);
     }
 
-    //ƒeƒLƒXƒg‘¤‚©‚çƒƒjƒ…[‚Ì•\¦”ñ•\¦
+    //ãƒ†ã‚­ã‚¹ãƒˆå´ã‹ã‚‰ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®è¡¨ç¤ºéè¡¨ç¤º
     public void MenuOn()
     {
         menu.SetActive(true);

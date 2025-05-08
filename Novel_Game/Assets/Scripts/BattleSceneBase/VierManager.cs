@@ -14,7 +14,7 @@ public class VierManager : ElManager
         attackRect = attackEffect.GetComponent<RectTransform>();
         attackImage = attackEffect.GetComponent<Image>();
         attackImage.color = new(1, 1, 1, 0);
-        attackBuffIcon.SetActive(false);                //UŒ‚ƒoƒt‚Æ‘¬“xƒoƒt—¼•û‚ÌƒAƒCƒRƒ“‚ğˆê‚Â‚Ì‰æ‘œ‚É“ü‚ê‚é
+        attackBuffIcon.SetActive(false);                //æ”»æ’ƒãƒãƒ•ã¨é€Ÿåº¦ãƒãƒ•ä¸¡æ–¹ã®ã‚¢ã‚¤ã‚³ãƒ³ã‚’ä¸€ã¤ã®ç”»åƒã«å…¥ã‚Œã‚‹
         shield.SetActive(false);
         buff.SetActive(false);
         specialAttackAnimation.SetActive(false);
@@ -23,13 +23,13 @@ public class VierManager : ElManager
         interval = 4;
         intervalCount = interval;
         intervalText.text = intervalCount.ToString("F2");
-        attack1Name = "a‚è‚Â‚¯";
-        attack2Name = "ù•—Œ•";
+        attack1Name = "æ–¬ã‚Šã¤ã‘";
+        attack2Name = "æ—‹é¢¨å‰£";
         attack2Angle = new(0, 0, 0);
     }
     void Update()
     {
-        //ƒV[ƒ‹ƒh‚ğ”j‰ó‚³‚ê‚½‚Æ‚«
+        //ã‚·ãƒ¼ãƒ«ãƒ‰ã‚’ç ´å£Šã•ã‚ŒãŸã¨ã
         if (!isShield && specialAttackStandby)
         {
             specialAttackStandby = false;
@@ -46,7 +46,7 @@ public class VierManager : ElManager
         }
         if (!pause)
         {
-            //UŒ‚’†ˆÈŠO‚Å¶‚«‚Ä‚¢‚éŠÔ‚ÍƒCƒ“ƒ^[ƒoƒ‹‚ğƒJƒEƒ“ƒg
+            //æ”»æ’ƒä¸­ä»¥å¤–ã§ç”Ÿãã¦ã„ã‚‹é–“ã¯ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒ«ã‚’ã‚«ã‚¦ãƒ³ãƒˆ
             if (intervalCount > 0 && !isAttack && !isDied)
             {
                 if (skill3Active > 0)
@@ -61,14 +61,14 @@ public class VierManager : ElManager
             }
             else if (intervalCount == 0)
             {
-                //•KE‹Z—­‚ßó‘Ô‚È‚ç•KE‹Z”­“®
+                //å¿…æ®ºæŠ€æºœã‚çŠ¶æ…‹ãªã‚‰å¿…æ®ºæŠ€ç™ºå‹•
                 if (specialAttackStandby)
                 {
                     StartCoroutine(ChargeAttack());
                 }
                 else if (currentGage < maxGage)
                 {
-                    //ƒQ[ƒW‚ª4‚Å•KEƒCƒ“ƒ^[ƒoƒ‹‚ª­‚È‚¯‚ê‚ÎƒXƒLƒ‹2‚©3
+                    //ã‚²ãƒ¼ã‚¸ãŒ4ã§å¿…æ®ºã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒ«ãŒå°‘ãªã‘ã‚Œã°ã‚¹ã‚­ãƒ«2ã‹3
                     if (currentGage == 4 && specialAttackCount < specialAttackInterval - 1)
                     {
                         if (skill3Active > 0)
@@ -80,22 +80,22 @@ public class VierManager : ElManager
                             StartCoroutine(Skill3());
                         }
                     }
-                    //ƒXƒLƒ‹3”­“®’†‚ÍƒXƒLƒ‹2‚ªo‚â‚·‚¢
+                    //ã‚¹ã‚­ãƒ«3ç™ºå‹•ä¸­ã¯ã‚¹ã‚­ãƒ«2ãŒå‡ºã‚„ã™ã„
                     else if (skill3Active > 0 && UnityEngine.Random.Range(0, 10) < 3)
                     {
                         StartCoroutine(Skill2());
                     }
-                    //ƒQ[ƒW‚ª0‚Ü‚½‚ÍŠm—¦‚Å’ÊíUŒ‚
+                    //ã‚²ãƒ¼ã‚¸ãŒ0ã¾ãŸã¯ç¢ºç‡ã§é€šå¸¸æ”»æ’ƒ
                     else if (currentGage == 0 || UnityEngine.Random.Range(0, 10) < 7)
                     {
                         StartCoroutine(NormalAttack());
                     }
-                    //ƒXƒLƒ‹3”­“®’†‚Å‚È‚¢‚Æ‚«Šm—¦‚ÅƒXƒLƒ‹3
+                    //ã‚¹ã‚­ãƒ«3ç™ºå‹•ä¸­ã§ãªã„ã¨ãç¢ºç‡ã§ã‚¹ã‚­ãƒ«3
                     else if (skill3Active == 0 && UnityEngine.Random.Range(0, 10) < 4)
                     {
                         StartCoroutine(Skill3());
                     }
-                    //ƒXƒLƒ‹2
+                    //ã‚¹ã‚­ãƒ«2
                     else
                     {
                         StartCoroutine(Skill2());
@@ -103,7 +103,7 @@ public class VierManager : ElManager
                 }
                 else if (currentGage == maxGage)
                 {
-                    //ƒCƒ“ƒ^[ƒoƒ‹‚ğI‚¦‚Ä‚¢‚½‚ç•KE‹Z€”õ‚É“ü‚é
+                    //ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒ«ã‚’çµ‚ãˆã¦ã„ãŸã‚‰å¿…æ®ºæŠ€æº–å‚™ã«å…¥ã‚‹
                     if (specialAttackCount >= specialAttackInterval)
                     {
                         intervalCount = interval * 2;
@@ -111,9 +111,9 @@ public class VierManager : ElManager
                         shield.SetActive(true);
                         specialAttackStandby = true;
                         StartCoroutine(Buff());
-                        StartCoroutine(AttackSubtitle("•KE‹Z€”õ"));
+                        StartCoroutine(AttackSubtitle("å¿…æ®ºæŠ€æº–å‚™"));
                     }
-                    //I‚¦‚Ä‚¢‚È‚¯‚ê‚ÎƒXƒLƒ‹2(—˜_ã‚Í‹N‚±‚ç‚È‚¢‚Í‚¸)
+                    //çµ‚ãˆã¦ã„ãªã‘ã‚Œã°ã‚¹ã‚­ãƒ«2(ç†è«–ä¸Šã¯èµ·ã“ã‚‰ãªã„ã¯ãš)
                     else
                     {
                         StartCoroutine(Skill2());
@@ -122,14 +122,14 @@ public class VierManager : ElManager
             }
         }
     }
-    //ƒXƒLƒ‹3(—^ƒ_ƒ[ƒWã¸3‰ñA‚»‚ÌŠÔ‘¬“xã¸)
+    //ã‚¹ã‚­ãƒ«3(ä¸ãƒ€ãƒ¡ãƒ¼ã‚¸ä¸Šæ˜‡3å›ã€ãã®é–“é€Ÿåº¦ä¸Šæ˜‡)
     protected override IEnumerator Skill3()
     {
         intervalCount = interval;
         currentGage--;
         specialAttackCount++;
         attackBuffIcon.SetActive(true);
-        StartCoroutine(AttackSubtitle("ƒcƒCƒ“ƒhƒ‰ƒCƒu"));
+        StartCoroutine(AttackSubtitle("ãƒ„ã‚¤ãƒ³ãƒ‰ãƒ©ã‚¤ãƒ–"));
         StartCoroutine(Buff());
         skill3Active = 3;
         attackBuffIcon.SetActive(true);

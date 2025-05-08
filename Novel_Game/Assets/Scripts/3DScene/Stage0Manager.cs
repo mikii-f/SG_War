@@ -69,7 +69,7 @@ public class Stage0Manager : StageManagerOrigin
             seSource.Play();
         }
     }
-    //ƒQ[ƒ€ŠJn
+    //ã‚²ãƒ¼ãƒ é–‹å§‹
     private IEnumerator StartGame()
     {
         countDown.text = "3";

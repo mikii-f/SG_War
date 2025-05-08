@@ -17,7 +17,7 @@ public class ImagesManager2_3 : ImagesManagerOrigin
 
     }
 
-    //—§‚¿ŠGŠÖŒW
+    //ç«‹ã¡çµµé–¢ä¿‚
     public override void CharacterChange(string image)
     {
         switch (image)
@@ -45,7 +45,7 @@ public class ImagesManager2_3 : ImagesManagerOrigin
         }
     }
 
-    //”wŒiØ‚è‘Ö‚¦
+    //èƒŒæ™¯åˆ‡ã‚Šæ›¿ãˆ
     public override void BackgroundChange(string image)
     {
         switch (image)
@@ -89,7 +89,7 @@ public class ImagesManager2_3 : ImagesManagerOrigin
     public override void ChangeScene()
     {
         GameManager.instance.LineNumber = 0;
-        GameManager.instance.Progress = "3Í";
+        GameManager.instance.Progress = "3ç« ";
         SceneManager.LoadScene("MainScene3");
     }
 }

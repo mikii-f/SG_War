@@ -32,7 +32,7 @@ public class BattleSystemManager : SystemManagerOrigin
         systemMessageObject.SetActive(false);
         seSource = GetComponent<AudioSource>();
         seSource.volume = GameManager.instance.SeVolume;
-        //1‰ñ–Ú‚Ìˆç¬‚ğs‚¤‚Ü‚Å‚Íˆç¬‚ğ‘I‘ğ‚Å‚«‚È‚¢
+        //1å›ç›®ã®è‚²æˆã‚’è¡Œã†ã¾ã§ã¯è‚²æˆã‚’é¸æŠã§ããªã„
         if (GameManager.instance.EXP != 0)
         {
             growMask1.SetActive(false);
@@ -44,7 +44,7 @@ public class BattleSystemManager : SystemManagerOrigin
     {
         if (isFunctionAvailable)
         {
-            //ƒƒjƒ…[ƒIƒ“ƒIƒt
+            //ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚ªãƒ³ã‚ªãƒ•
             if (Input.GetKeyDown(KeyCode.M))
             {
                 if (!functions.activeSelf)
@@ -56,7 +56,7 @@ public class BattleSystemManager : SystemManagerOrigin
                     FunctionsClose();
                 }
             }
-            //Šeƒtƒ@ƒ“ƒNƒVƒ‡ƒ“(ƒtƒ@ƒ“ƒNƒVƒ‡ƒ“‚ªŠJ‚¢‚Ä‚¢‚ÄA‚©‚ÂƒƒbƒZ[ƒW‚ª•\¦‚³‚ê‚Ä‚¢‚È‚¢‚Æ‚«)
+            //å„ãƒ•ã‚¡ãƒ³ã‚¯ã‚·ãƒ§ãƒ³(ãƒ•ã‚¡ãƒ³ã‚¯ã‚·ãƒ§ãƒ³ãŒé–‹ã„ã¦ã„ã¦ã€ã‹ã¤ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãŒè¡¨ç¤ºã•ã‚Œã¦ã„ãªã„ã¨ã)
             else if (functions.activeSelf && !isMessageDisplay)
             {
                 if (Input.GetKeyDown(KeyCode.Alpha7))
@@ -76,7 +76,7 @@ public class BattleSystemManager : SystemManagerOrigin
                     DebugMenuSwitch();
                 }
             }
-            //ƒƒbƒZ[ƒW‚Ö‚Ì‰“š
+            //ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¸ã®å¿œç­”
             if (Input.GetKeyDown(KeyCode.Y))
             {
                 if (systemMessageObject.activeSelf)
@@ -94,7 +94,7 @@ public class BattleSystemManager : SystemManagerOrigin
         }
     }
 
-    //ƒƒjƒ…[ŠJ•Â
+    //ãƒ¡ãƒ‹ãƒ¥ãƒ¼é–‹é–‰
     public void MenuSwitch()
     {
         if (bSManager.IsPausePossible())
@@ -117,47 +117,47 @@ public class BattleSystemManager : SystemManagerOrigin
         seSource.clip = seUIBack;
         seSource.Play();
     }
-    //ƒQ[ƒ€ƒI[ƒo[(ƒoƒgƒ‹ƒV[ƒ“‚©‚çŒÄ‚Ño‚µ)
+    //ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼(ãƒãƒˆãƒ«ã‚·ãƒ¼ãƒ³ã‹ã‚‰å‘¼ã³å‡ºã—)
     public void GameOver()
     {
         if (GameManager.instance.EXP == 0)
         {
             growMask2.SetActive(true);
-            systemMessage.text = "GAME OVER\nÄ’§í‚µ‚Ü‚·‚©H";
+            systemMessage.text = "GAME OVER\nå†æŒ‘æˆ¦ã—ã¾ã™ã‹ï¼Ÿ";
         }
         else
         {
-            systemMessage.text = "GAME OVER\nÄ’§í‚µ‚Ü‚·‚©H\n’¼‘O‚Ìê–Ê‚É–ß‚èˆç¬‚µ‚Ü‚·‚©H";
+            systemMessage.text = "GAME OVER\nå†æŒ‘æˆ¦ã—ã¾ã™ã‹ï¼Ÿ\nç›´å‰ã®å ´é¢ã«æˆ»ã‚Šè‚²æˆã—ã¾ã™ã‹ï¼Ÿ";
         }
         isFunctionAvailable = true;
-        yesText.text = "Ä’§í(Y)";
-        noText.text = "ˆç¬‚Ö(N)";
+        yesText.text = "å†æŒ‘æˆ¦(Y)";
+        noText.text = "è‚²æˆã¸(N)";
         messageNumber = 0;
         systemMessageObject.SetActive(true);
         isMessageDisplay = true;
     }
-    //Ä’§í(ƒƒjƒ…[‚©‚ç‘I‘ğ)
+    //å†æŒ‘æˆ¦(ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‹ã‚‰é¸æŠ)
     public void RestartMenuSwitch()
     {
         StartCoroutine(ButtonAnim(restartSwitchRect));
-        systemMessage.text = "í“¬‚ğn‚ß‚©‚ç‚â‚è’¼‚µ‚Ü‚·‚©H";
-        yesText.text = "Ä’§í(Y)";
-        noText.text = "–ß‚é(N)";
+        systemMessage.text = "æˆ¦é—˜ã‚’å§‹ã‚ã‹ã‚‰ã‚„ã‚Šç›´ã—ã¾ã™ã‹ï¼Ÿ";
+        yesText.text = "å†æŒ‘æˆ¦(Y)";
+        noText.text = "æˆ»ã‚‹(N)";
         messageNumber = 1;
         StartCoroutine(Delay(systemMessageObject, true));
         isMessageDisplay = true;
         seSource.clip = seUIClick;
         seSource.Play();
     }
-    //“P‘Ş(ƒƒjƒ…[‚©‚ç‘I‘ğ)
+    //æ’¤é€€(ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‹ã‚‰é¸æŠ)
     public void RetreatMenuSwitch()
     {
         if (!growMask1.activeSelf)
         {
             StartCoroutine(ButtonAnim(retreatSwitchRect));
-            systemMessage.text = "“P‘Ş‚µ‚Ü‚·‚©H\n(’¼‘O‚Ìê–Ê‚ÉˆÚ‚èˆç¬‚ªs‚¦‚Ü‚·)";
-            yesText.text = "“P‘Ş(Y)";
-            noText.text = "–ß‚é(N)";
+            systemMessage.text = "æ’¤é€€ã—ã¾ã™ã‹ï¼Ÿ\n(ç›´å‰ã®å ´é¢ã«ç§»ã‚Šè‚²æˆãŒè¡Œãˆã¾ã™)";
+            yesText.text = "æ’¤é€€(Y)";
+            noText.text = "æˆ»ã‚‹(N)";
             messageNumber = 2;
             StartCoroutine(Delay(systemMessageObject, true));
             isMessageDisplay = true;
@@ -170,13 +170,13 @@ public class BattleSystemManager : SystemManagerOrigin
             seSource.Play();
         }
     }
-    //ƒfƒoƒbƒO—pƒXƒLƒbƒv
+    //ãƒ‡ãƒãƒƒã‚°ç”¨ã‚¹ã‚­ãƒƒãƒ—
     public void DebugMenuSwitch()
     {
         StartCoroutine(ButtonAnim(debugSwitchRect));
-        systemMessage.text = "í“¬‚ğƒXƒLƒbƒv‚µ‚Ü‚·‚©H\n(ƒQ[ƒ€‚ğ•]‰¿‚µ‚Ä‚­‚¾‚³‚é•ûŒü‚¯‚Ì‹@”\‚Å‚·II)";
-        yesText.text = "ƒXƒLƒbƒv(Y)";
-        noText.text = "–ß‚é(N)";
+        systemMessage.text = "æˆ¦é—˜ã‚’ã‚¹ã‚­ãƒƒãƒ—ã—ã¾ã™ã‹ï¼Ÿ\n(ã‚²ãƒ¼ãƒ ã‚’è©•ä¾¡ã—ã¦ãã ã•ã‚‹æ–¹å‘ã‘ã®æ©Ÿèƒ½ã§ã™ï¼ï¼)";
+        yesText.text = "ã‚¹ã‚­ãƒƒãƒ—(Y)";
+        noText.text = "æˆ»ã‚‹(N)";
         messageNumber = 3;
         StartCoroutine(Delay(systemMessageObject, true));
         isMessageDisplay = true;
@@ -184,7 +184,7 @@ public class BattleSystemManager : SystemManagerOrigin
         seSource.Play();
     }
 
-    //Yesƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ì‹@”\
+    //Yesãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ãã®æ©Ÿèƒ½
     public void YesSwitch()
     {
         if (!isSelected && !switchInterval)
@@ -195,19 +195,19 @@ public class BattleSystemManager : SystemManagerOrigin
             seSource.Play();
             switch (messageNumber)
             {
-                //ƒQ[ƒ€ƒI[ƒo[‚©‚ç‚ÌÄ’§í
+                //ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã‹ã‚‰ã®å†æŒ‘æˆ¦
                 case 0:
                     StartCoroutine(ReloadScene());
                     break;
-                //ƒƒjƒ…[‚©‚ç‚ÌÄ’§í
+                //ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‹ã‚‰ã®å†æŒ‘æˆ¦
                 case 1:
                     StartCoroutine(ReloadScene());
                     break;
-                //“P‘Ş‚µ’¼‘O‚Ìê–Ê‚É–ß‚é
+                //æ’¤é€€ã—ç›´å‰ã®å ´é¢ã«æˆ»ã‚‹
                 case 2:
                     StartCoroutine(GoBackStory());
                     break;
-                //ƒfƒoƒbƒO—pƒXƒLƒbƒv
+                //ãƒ‡ãƒãƒƒã‚°ç”¨ã‚¹ã‚­ãƒƒãƒ—
                 case 3:
                     StartCoroutine(SceneSkip());
                     break;
@@ -216,7 +216,7 @@ public class BattleSystemManager : SystemManagerOrigin
             }
         }
     }
-    //Noƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ì‹@”\
+    //Noãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ãã®æ©Ÿèƒ½
     public void NoSwitch()
     {
         if (!isSelected && !switchInterval)
@@ -226,7 +226,7 @@ public class BattleSystemManager : SystemManagerOrigin
             seSource.Play();
             switch (messageNumber)
             {
-                //ƒQ[ƒ€ƒI[ƒo[‚©‚çˆç¬‚Ö
+                //ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã‹ã‚‰è‚²æˆã¸
                 case 0:
                     if (!growMask2.activeSelf)
                     {
@@ -240,7 +240,7 @@ public class BattleSystemManager : SystemManagerOrigin
                         seSource.Play();
                     }
                     break;
-                //–ß‚é
+                //æˆ»ã‚‹
                 default:
                     StartCoroutine(ButtonAnim(noSwitch));
                     StartCoroutine(Delay(systemMessageObject, false));
@@ -250,19 +250,19 @@ public class BattleSystemManager : SystemManagerOrigin
         }
     }
 
-    //­‚µ‘Ò‚Á‚ÄÄ“Ç‚İ‚İ
+    //å°‘ã—å¾…ã£ã¦å†èª­ã¿è¾¼ã¿
     private IEnumerator ReloadScene()
     {
         yield return new WaitForSeconds(0.1f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-    //­‚µ‘Ò‚Á‚ÄƒXƒLƒbƒv
+    //å°‘ã—å¾…ã£ã¦ã‚¹ã‚­ãƒƒãƒ—
     private IEnumerator SceneSkip()
     {
         yield return new WaitForSeconds(0.1f);
         bSManager.SceneLoad();
     }
-    //­‚µ‘Ò‚Á‚Ä’¼‘O‚Ìê–Ê‚Ö
+    //å°‘ã—å¾…ã£ã¦ç›´å‰ã®å ´é¢ã¸
     private IEnumerator GoBackStory()
     {
         yield return new WaitForSeconds(0.1f);

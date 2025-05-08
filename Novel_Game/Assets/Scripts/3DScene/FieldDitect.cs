@@ -1,6 +1,6 @@
 using UnityEngine;
 
-//‹­UŒ‚‚Ì’nŒ`Õ“Ë”»’è
+//å¼·æ”»æ’ƒæ™‚ã®åœ°å½¢è¡çªåˆ¤å®š
 
 public class FieldDitect : MonoBehaviour
 {

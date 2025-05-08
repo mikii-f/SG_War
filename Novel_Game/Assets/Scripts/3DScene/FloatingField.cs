@@ -14,7 +14,7 @@ public class FloatingField : MonoBehaviour
         _collider = GetComponent<Collider>();
         _transform = GetComponent<Transform>();
         myWidth = _transform.lossyScale.x / 2;
-        //ƒvƒŒƒCƒ„[‚ÌˆÊ’u‚ðŽæ“¾(ƒvƒŒƒnƒu‰»‚·‚é‚ÆƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ÌƒAƒ^ƒbƒ`‚ª‚Å‚«‚È‚¢‚½‚ß)
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®ã‚’å–å¾—(ãƒ—ãƒ¬ãƒãƒ–åŒ–ã™ã‚‹ã¨ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¢ã‚¿ãƒƒãƒãŒã§ããªã„ãŸã‚)
         if (PlayerFootManager.instance != null)
         {
             playerTransform = PlayerFootManager.instance.transform;
@@ -24,7 +24,7 @@ public class FloatingField : MonoBehaviour
 
     void Update()
     {
-        //‰ºƒL[‚ð‰Ÿ‚µ‚Ä‚¢‚éŠÔ‚Í“§‰ß
+        //ä¸‹ã‚­ãƒ¼ã‚’æŠ¼ã—ã¦ã„ã‚‹é–“ã¯é€éŽ
         if (Input.GetKey(KeyCode.S))
         {
             if (!_collider.isTrigger)
@@ -32,7 +32,7 @@ public class FloatingField : MonoBehaviour
                 _collider.isTrigger = true;
             }
         }
-        //‹­UŒ‚’†‚Í“§‰ß
+        //å¼·æ”»æ’ƒä¸­ã¯é€éŽ
         else if (PlayerManager.instance.IsAttack2)
         {
             if (!_collider.isTrigger)
@@ -40,15 +40,15 @@ public class FloatingField : MonoBehaviour
                 _collider.isTrigger = true;
             }
         }
-        //^ã‚ÉƒvƒŒƒCƒ„[(‚Ì‘«)‚ª‚«‚½‚çŽÀ‘Ì‰»
-        else if (playerTransform.position.y > _transform.position.y@&& playerTransform.position.x + playerWidth >= _transform.position.x - myWidth && playerTransform.position.x - playerWidth <= _transform.position.x + myWidth)
+        //çœŸä¸Šã«ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼(ã®è¶³)ãŒããŸã‚‰å®Ÿä½“åŒ–
+        else if (playerTransform.position.y > _transform.position.yã€€&& playerTransform.position.x + playerWidth >= _transform.position.x - myWidth && playerTransform.position.x - playerWidth <= _transform.position.x + myWidth)
         {
             if (_collider.isTrigger)
             {
                 _collider.isTrigger = false;
             }
         }
-        //‘ä‚æ‚è‰¡‚É‚¢‚éŠÔ‚Í“§‰ß(ƒvƒŒƒCƒ„[‚ª‘ä‚Ì•‚ÉŽû‚Ü‚Á‚Ä‚¢‚éŠÔ‚Í“§‰ß‚µ‚È‚¢)(‘ä‚ª”–‚¢‚½‚ßA‚»‚¤‚µ‚È‚¢‚Æ’…’n”»’è‚ªo‚é‘O‚É‘«‚ª‘ä‚æ‚è‰º‚É‚¢‚­‚½‚ß(?)“§‰ß‚µ‚Ä‚µ‚Ü‚¤)
+        //å°ã‚ˆã‚Šæ¨ªã«ã„ã‚‹é–“ã¯é€éŽ(ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒå°ã®å¹…ã«åŽã¾ã£ã¦ã„ã‚‹é–“ã¯é€éŽã—ãªã„)(å°ãŒè–„ã„ãŸã‚ã€ãã†ã—ãªã„ã¨ç€åœ°åˆ¤å®šãŒå‡ºã‚‹å‰ã«è¶³ãŒå°ã‚ˆã‚Šä¸‹ã«ã„ããŸã‚(?)é€éŽã—ã¦ã—ã¾ã†)
         else if (playerTransform.position.x+playerWidth < _transform.position.x-myWidth || playerTransform.position.x-playerWidth > _transform.position.x+myWidth)
         {
             if (!_collider.isTrigger)
@@ -56,7 +56,7 @@ public class FloatingField : MonoBehaviour
                 _collider.isTrigger = true;
             }
         }
-        //^‰º‚É‚¢‚Ä‚à\•ª‰º‚É‚¢‚é‚È‚ç“§‰ß
+        //çœŸä¸‹ã«ã„ã¦ã‚‚ååˆ†ä¸‹ã«ã„ã‚‹ãªã‚‰é€éŽ
         else if (_transform.position.y - playerTransform.position.y > 1)
         {
             if (!_collider.isTrigger)

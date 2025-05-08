@@ -10,8 +10,8 @@ public class ElManager : EnemyManagerOrigin
     [SerializeField] protected Image gage3Image;
     [SerializeField] protected Image gage4Image;
     [SerializeField] protected Image gage5Image;
-    [SerializeField] protected GameObject attackBuffIcon;  //ƒoƒtƒAƒCƒRƒ“
-    [SerializeField] protected GameObject shield;     //ƒV[ƒ‹ƒh
+    [SerializeField] protected GameObject attackBuffIcon;  //ãƒãƒ•ã‚¢ã‚¤ã‚³ãƒ³
+    [SerializeField] protected GameObject shield;     //ã‚·ãƒ¼ãƒ«ãƒ‰
     [SerializeField] protected GameObject attackEffect;
     protected RectTransform attackRect;
     protected Image attackImage;
@@ -24,13 +24,13 @@ public class ElManager : EnemyManagerOrigin
     private const int skill3Interval = 4;
     private int skill3Count = 2;
     protected const int specialAttackInterval = 8;
-    protected int specialAttackCount = 3;             //ƒXƒLƒ‹3E•KE‹Z‚ª˜A”­‚³‚ê‚È‚¢‚æ‚¤‚ÉUŒ‚‰ñ”‚ğƒJƒEƒ“ƒg
-    protected bool specialAttackStandby = false;      //•KE‹Z‚Ì—­‚ß
+    protected int specialAttackCount = 3;             //ã‚¹ã‚­ãƒ«3ãƒ»å¿…æ®ºæŠ€ãŒé€£ç™ºã•ã‚Œãªã„ã‚ˆã†ã«æ”»æ’ƒå›æ•°ã‚’ã‚«ã‚¦ãƒ³ãƒˆ
+    protected bool specialAttackStandby = false;      //å¿…æ®ºæŠ€ã®æºœã‚
     [SerializeField] private AudioClip seRond;
     [SerializeField] private AudioClip seSpecialFinish;
     protected string attack1Name;
     protected string attack2Name;
-    protected Vector3 attack2Angle;                    //ƒtƒBƒAƒo[ƒWƒ‡ƒ“‚É‘Î‰‚³‚¹‚â‚·‚¢‚æ‚¤‚É•Ï”‚É‚µ‚Ä‚¨‚­
+    protected Vector3 attack2Angle;                    //ãƒ•ã‚£ã‚¢ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã«å¯¾å¿œã•ã›ã‚„ã™ã„ã‚ˆã†ã«å¤‰æ•°ã«ã—ã¦ãŠã
 
     protected override void StartSet()
     {
@@ -48,14 +48,14 @@ public class ElManager : EnemyManagerOrigin
         interval = 4;
         intervalCount = interval;
         intervalText.text = intervalCount.ToString("F2");
-        attack1Name = "”²“";
-        attack2Name = "Œ•‚Ì•‘";
+        attack1Name = "æŠœåˆ€";
+        attack2Name = "å‰£ã®èˆ";
         attack2Angle = new(70, 30, 0);
     }
 
     void Update()
     {
-        //ƒV[ƒ‹ƒh‚ğ”j‰ó‚³‚ê‚½‚Æ‚«
+        //ã‚·ãƒ¼ãƒ«ãƒ‰ã‚’ç ´å£Šã•ã‚ŒãŸã¨ã
         if (!isShield && specialAttackStandby)
         {
             specialAttackStandby = false;
@@ -73,7 +73,7 @@ public class ElManager : EnemyManagerOrigin
         }
         if (!pause)
         {
-            //UŒ‚’†ˆÈŠO‚Å¶‚«‚Ä‚¢‚éŠÔ‚ÍƒCƒ“ƒ^[ƒoƒ‹‚ğƒJƒEƒ“ƒg
+            //æ”»æ’ƒä¸­ä»¥å¤–ã§ç”Ÿãã¦ã„ã‚‹é–“ã¯ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒ«ã‚’ã‚«ã‚¦ãƒ³ãƒˆ
             if (intervalCount > 0 && !isAttack && !isDied)
             {
                 intervalCount = Mathf.Max(0, intervalCount - Time.deltaTime);
@@ -81,29 +81,29 @@ public class ElManager : EnemyManagerOrigin
             }
             else if (intervalCount == 0)
             {
-                //•KE‹Z—­‚ßó‘Ô‚È‚ç•KE‹Z”­“®
+                //å¿…æ®ºæŠ€æºœã‚çŠ¶æ…‹ãªã‚‰å¿…æ®ºæŠ€ç™ºå‹•
                 if (specialAttackStandby)
                 {
                     StartCoroutine(ChargeAttack());
                 }
                 else if (currentGage < maxGage)
                 {
-                    //ƒQ[ƒW‚ª4‚Å•KEƒCƒ“ƒ^[ƒoƒ‹‚ª­‚È‚¯‚ê‚ÎƒXƒLƒ‹2
+                    //ã‚²ãƒ¼ã‚¸ãŒ4ã§å¿…æ®ºã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒ«ãŒå°‘ãªã‘ã‚Œã°ã‚¹ã‚­ãƒ«2
                     if (currentGage == 4 && specialAttackCount < specialAttackInterval - 1)
                     {
                         StartCoroutine(Skill2());
                     }
-                    //ƒQ[ƒW‚ª0‚Ü‚½‚ÍŠm—¦‚Å’ÊíUŒ‚
+                    //ã‚²ãƒ¼ã‚¸ãŒ0ã¾ãŸã¯ç¢ºç‡ã§é€šå¸¸æ”»æ’ƒ
                     else if (currentGage == 0 || UnityEngine.Random.Range(0, 10) < 6)
                     {
                         StartCoroutine(NormalAttack());
                     }
-                    //ƒQ[ƒW‚ª3ˆÈ‰º‚ÅƒCƒ“ƒ^[ƒoƒ‹‚ğI‚¦‚Ä‚¢‚½‚çƒXƒLƒ‹3”­“®
+                    //ã‚²ãƒ¼ã‚¸ãŒ3ä»¥ä¸‹ã§ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒ«ã‚’çµ‚ãˆã¦ã„ãŸã‚‰ã‚¹ã‚­ãƒ«3ç™ºå‹•
                     else if (currentGage <= 3 && skill3Count >= skill3Interval)
                     {
                         StartCoroutine(Skill3());
                     }
-                    //ƒXƒLƒ‹2
+                    //ã‚¹ã‚­ãƒ«2
                     else
                     {
                         StartCoroutine(Skill2());
@@ -111,7 +111,7 @@ public class ElManager : EnemyManagerOrigin
                 }
                 else if (currentGage == maxGage)
                 {
-                    //ƒCƒ“ƒ^[ƒoƒ‹‚ğI‚¦‚Ä‚¢‚½‚ç•KE‹Z€”õ‚É“ü‚é
+                    //ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒ«ã‚’çµ‚ãˆã¦ã„ãŸã‚‰å¿…æ®ºæŠ€æº–å‚™ã«å…¥ã‚‹
                     if (specialAttackCount >= specialAttackInterval)
                     {
                         intervalCount = interval * 2;
@@ -119,9 +119,9 @@ public class ElManager : EnemyManagerOrigin
                         shield.SetActive(true);
                         specialAttackStandby = true;
                         StartCoroutine(Buff());
-                        StartCoroutine(AttackSubtitle("•KE‹Z€”õ"));
+                        StartCoroutine(AttackSubtitle("å¿…æ®ºæŠ€æº–å‚™"));
                     }
-                    //I‚¦‚Ä‚¢‚È‚¯‚ê‚ÎƒXƒLƒ‹2
+                    //çµ‚ãˆã¦ã„ãªã‘ã‚Œã°ã‚¹ã‚­ãƒ«2
                     else
                     {
                         StartCoroutine(Skill2());
@@ -130,7 +130,7 @@ public class ElManager : EnemyManagerOrigin
             }
         }
     }
-    //’ÊíUŒ‚
+    //é€šå¸¸æ”»æ’ƒ
     protected override IEnumerator NormalAttack()
     {
         intervalCount = interval;
@@ -143,7 +143,7 @@ public class ElManager : EnemyManagerOrigin
         Vector2 temp = myRect.localScale;
         myRect.localScale = new(0.8f * temp.x, 0.8f * temp.y);
         yield return new WaitForSeconds(0.5f);
-        //“r’†‚Å€‚ñ‚¾—p
+        //é€”ä¸­ã§æ­»ã‚“ã æ™‚ç”¨
         if (!isDied)
         {
             StartCoroutine(AttackEffect(attackRect, attackImage));
@@ -153,12 +153,12 @@ public class ElManager : EnemyManagerOrigin
         float size = 1.2f;
         while (size != 1.0f)
         {
-            //0.4f:deltaTime=0.2f:(1ƒtƒŒ[ƒ€‚²‚Æ‚ÌƒTƒCƒY•Ï‰»)
+            //0.4f:deltaTime=0.2f:(1ãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã®ã‚µã‚¤ã‚ºå¤‰åŒ–)
             size = Mathf.Max(1.0f, size - Time.deltaTime * 0.5f);
             myRect.localScale = new(size * temp.x, size * temp.y);
             yield return null;
         }
-        //“r’†‚Å€‚ñ‚¾—p
+        //é€”ä¸­ã§æ­»ã‚“ã æ™‚ç”¨
         if (!isDied)
         {
             if (skill3Active > 0)
@@ -197,7 +197,7 @@ public class ElManager : EnemyManagerOrigin
                 break;
         }
     }
-    //ƒXƒLƒ‹2(’Êí‚Ì2”{ƒ_ƒ[ƒW)
+    //ã‚¹ã‚­ãƒ«2(é€šå¸¸ã®2å€ãƒ€ãƒ¡ãƒ¼ã‚¸)
     protected virtual IEnumerator Skill2()
     {
         intervalCount = interval;
@@ -211,7 +211,7 @@ public class ElManager : EnemyManagerOrigin
         Vector2 temp = myRect.localScale;
         myRect.localScale = new(0.8f * temp.x, 0.8f * temp.y);
         yield return new WaitForSeconds(0.5f);
-        //“r’†‚Å€‚ñ‚¾—p
+        //é€”ä¸­ã§æ­»ã‚“ã æ™‚ç”¨
         if (!isDied)
         {
             StartCoroutine(AttackEffect(attackRect, attackImage));
@@ -222,12 +222,12 @@ public class ElManager : EnemyManagerOrigin
         float size = 1.2f;
         while (size != 1.0f)
         {
-            //0.4f:deltaTime=0.2f:(1ƒtƒŒ[ƒ€‚²‚Æ‚ÌƒTƒCƒY•Ï‰»)
+            //0.4f:deltaTime=0.2f:(1ãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã®ã‚µã‚¤ã‚ºå¤‰åŒ–)
             size = Mathf.Max(1.0f, size - Time.deltaTime * 0.5f);
             myRect.localScale = new(size * temp.x, size * temp.y);
             yield return null;
         }
-        //“r’†‚Å€‚ñ‚¾—p
+        //é€”ä¸­ã§æ­»ã‚“ã æ™‚ç”¨
         if (!isDied)
         {
             if (skill3Active > 0)
@@ -270,19 +270,19 @@ public class ElManager : EnemyManagerOrigin
     }
     private IEnumerator Skill2Rotate()
     {
-        //‰ñ“]‚Í“à•”ˆ—“I‚É-180`180‚Æ‚©‚É‚È‚Á‚Ä‚¢‚éH
+        //å›è»¢ã¯å†…éƒ¨å‡¦ç†çš„ã«-180ï½180ã¨ã‹ã«ãªã£ã¦ã„ã‚‹ï¼Ÿ
         float timeCount = 0;
         while (timeCount <= 0.5f)
         {
             Vector3 temp = attackRect.localEulerAngles;
-            //0.5•b‚Å720“x‰ñ“]
+            //0.5ç§’ã§720åº¦å›è»¢
             temp.z += 1440 * Time.deltaTime;
             attackRect.localEulerAngles = temp;
             yield return null;
             timeCount += Time.deltaTime;
         }
     }
-    //ƒXƒLƒ‹3(—^ƒ_ƒ[ƒWã¸2‰ñAƒ`ƒƒ[ƒW‘‰Á)
+    //ã‚¹ã‚­ãƒ«3(ä¸ãƒ€ãƒ¡ãƒ¼ã‚¸ä¸Šæ˜‡2å›ã€ãƒãƒ£ãƒ¼ã‚¸å¢—åŠ )
     protected virtual IEnumerator Skill3()
     {
         intervalCount = interval;
@@ -290,7 +290,7 @@ public class ElManager : EnemyManagerOrigin
         skill3Count = 0;
         specialAttackCount++;
         attackBuffIcon.SetActive(true);
-        StartCoroutine(AttackSubtitle("–¾‹¾~…"));
+        StartCoroutine(AttackSubtitle("æ˜é¡æ­¢æ°´"));
         StartCoroutine(Buff());
         skill3Active = 2;
         attackBuffIcon.SetActive(true);
@@ -319,7 +319,7 @@ public class ElManager : EnemyManagerOrigin
         yield return new WaitForSeconds(1);
         isAttack = false;
     }
-    //•KE‹Z(’Êí‚Ì5”{ƒ_ƒ[ƒWAƒK[ƒhE‰ñ”ğ•s‰Â)
+    //å¿…æ®ºæŠ€(é€šå¸¸ã®5å€ãƒ€ãƒ¡ãƒ¼ã‚¸ã€ã‚¬ãƒ¼ãƒ‰ãƒ»å›é¿ä¸å¯)
     protected override IEnumerator ChargeAttack()
     {
         int damage;
@@ -362,7 +362,7 @@ public class ElManager : EnemyManagerOrigin
         }
     }
 
-    //ƒoƒt
+    //ãƒãƒ•
     protected IEnumerator Buff()
     {
         buff.SetActive(true);
@@ -370,7 +370,7 @@ public class ElManager : EnemyManagerOrigin
         buff.SetActive(false);
     }
 
-    //Œ»óg‚¤—\’è‚È‚µ(ƒNƒŠƒAŒãí“¬‚Å‚Í‚ ‚è‚©‚à)
+    //ç¾çŠ¶ä½¿ã†äºˆå®šãªã—(ã‚¯ãƒªã‚¢å¾Œæˆ¦é—˜ã§ã¯ã‚ã‚Šã‹ã‚‚)
     public override void Revive()
     {
         

@@ -4923,6 +4923,7 @@ MonoBehaviour:
   seSpecialFinish: {fileID: 8300000, guid: d0b482d843cdbb241b6b6cedceee5691, type: 3}
   seSpecialDamage: {fileID: 8300000, guid: a75bf392a0de19a46947740505b6fb55, type: 3}
   seCymbal: {fileID: 8300000, guid: a161946fc795e9746958778465106ff6, type: 3}
+  seRond: {fileID: 0}
   lLEnemyManager: {fileID: 1662889354}
   tutorialPanel: {fileID: 2059199570}
   tutorialText: {fileID: 186706570}
@@ -11168,7 +11169,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: f6d144ec28750d549b02a259f4a97032, type: 3}
     m_FontSize: 48
     m_FontStyle: 0
     m_BestFit: 1
@@ -11179,7 +11180,7 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1.5
+    m_LineSpacing: 1.3
   m_Text: "\u30B7\u30B9\u30C6\u30E0\u30E1\u30C3\u30BB\u30FC\u30B8"
 --- !u!222 &1662916122
 CanvasRenderer:

@@ -77,7 +77,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         }
     }
 
-    //ƒƒCƒv‚È‚Ç‚Ìˆ—‚Æ”ä‚×‚ÄA­‚µ‘e‚¢‘JˆÚ‚Ì•û‚ªu‚»‚ê‚Á‚Û‚¢v‹C‚ª‚·‚é‚½‚ßyield return null‚É‚µ‚È‚¢
+    //ãƒ¯ã‚¤ãƒ—ãªã©ã®å‡¦ç†ã¨æ¯”ã¹ã¦ã€å°‘ã—ç²—ã„é·ç§»ã®æ–¹ãŒã€Œãã‚Œã£ã½ã„ã€æ°—ãŒã™ã‚‹ãŸã‚yield return nullã«ã—ãªã„
     protected IEnumerator FadeOut(float fadeTime, Image image)
     {
         if (!skip)
@@ -93,7 +93,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
                 image.color = temp;
             }
         }
-        //ƒXƒLƒbƒv’†‚Ìê‡Œ‹‰Ê‚Ì‚İ”½‰f
+        //ã‚¹ã‚­ãƒƒãƒ—ä¸­ã®å ´åˆçµæœã®ã¿åæ˜ 
         else
         {
             Color newColor = image.color;
@@ -116,7 +116,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
                 image.color = temp;
             }
         }
-        //ƒXƒLƒbƒv’†‚Ìê‡Œ‹‰Ê‚Ì‚İ”½‰f
+        //ã‚¹ã‚­ãƒƒãƒ—ä¸­ã®å ´åˆçµæœã®ã¿åæ˜ 
         else
         {
             Color newColor = image.color;
@@ -124,7 +124,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
             image.color = newColor;
         }
     }
-    //ƒeƒLƒXƒg‘¤‚©‚çƒtƒF[ƒh‘ÎÛ‚ğ‘I‘ğ‚·‚é—p
+    //ãƒ†ã‚­ã‚¹ãƒˆå´ã‹ã‚‰ãƒ•ã‚§ãƒ¼ãƒ‰å¯¾è±¡ã‚’é¸æŠã™ã‚‹ç”¨
     public void FadeOutReceiver(float n, string image)
     {
         switch (image)
@@ -163,20 +163,20 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
 
     }
 
-    //ƒRƒ‹[ƒ`ƒ“‚ğŒÄ‚Ño‚·‚à‚Ì‚Î‚©‚è‚É‚È‚é‚È‚çŒÂ•Ê‚ÌŠÖ”‚¾‚¯‚É‚µ‚½•û‚ª‚¢‚¢‚©H
+    //ã‚³ãƒ«ãƒ¼ãƒãƒ³ã‚’å‘¼ã³å‡ºã™ã‚‚ã®ã°ã‹ã‚Šã«ãªã‚‹ãªã‚‰å€‹åˆ¥ã®é–¢æ•°ã ã‘ã«ã—ãŸæ–¹ãŒã„ã„ã‹ï¼Ÿ
     public void CharacterMotion(string s)
     {
         switch (s)
         {
             case "Jump":
-                //À•WˆÚ“®‚ÆƒtƒF[ƒh‚ÅƒWƒƒƒ“ƒv‚ğ•\‚·
+                //åº§æ¨™ç§»å‹•ã¨ãƒ•ã‚§ãƒ¼ãƒ‰ã§ã‚¸ãƒ£ãƒ³ãƒ—ã‚’è¡¨ã™
                 StartCoroutine(FadeIn(0.5f, _characterImage));
                 Vector2 temp = _characterRect.anchoredPosition;
                 temp.y += 200;
                 _characterRect.anchoredPosition = temp;
                 break;
             case "Bounce":
-                //‚Ò‚å‚ñ‚Ò‚å‚ñ’µ‚Ë‚é
+                //ã´ã‚‡ã‚“ã´ã‚‡ã‚“è·³ã­ã‚‹
                 StartCoroutine(Bounce());
                 break;
             case "Vibe":
@@ -303,8 +303,8 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         _characterRect.localScale = new(1.3f, 1.3f);
         _characterRect.anchoredPosition = new(0, -560);
     }
-    //ƒƒCƒv‚Í‚Ğ‚Æ‚Ü‚Æ‚Ü‚è‚Åg‚í‚ê‚é‚Í‚¸‚¾‚ªA–œ‚ªˆê“r’†‚ÅƒZ[ƒu‚³‚ê‚Ä‚à‚¢‚¢‚æ‚¤‚É‚·‚é
-    //ƒƒCƒv(‘O”¼)
+    //ãƒ¯ã‚¤ãƒ—ã¯ã²ã¨ã¾ã¨ã¾ã‚Šã§ä½¿ã‚ã‚Œã‚‹ã¯ãšã ãŒã€ä¸‡ãŒä¸€é€”ä¸­ã§ã‚»ãƒ¼ãƒ–ã•ã‚Œã¦ã‚‚ã„ã„ã‚ˆã†ã«ã™ã‚‹
+    //ãƒ¯ã‚¤ãƒ—(å‰åŠ)
     public IEnumerator Wipe1()
     {
         if (!skip)
@@ -329,7 +329,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         }
     }
 
-    //ƒƒCƒv(Œã”¼)
+    //ãƒ¯ã‚¤ãƒ—(å¾ŒåŠ)
     public IEnumerator Wipe2()
     {
         if (!skip)
@@ -356,7 +356,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         }
     }
 
-    //•”wŒi‚ª”¼•ªŠJ‚­
+    //é»’èƒŒæ™¯ãŒåŠåˆ†é–‹ã
     public IEnumerator BlackHalfOpen()
     {
         if (!skip)
@@ -372,7 +372,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
                 bURect.anchoredPosition = -posO;
             }
         }
-        //ƒXƒLƒbƒv’†‚Ìê‡Œ‹‰Ê‚Ì‚İ”½‰f
+        //ã‚¹ã‚­ãƒƒãƒ—ä¸­ã®å ´åˆçµæœã®ã¿åæ˜ 
         else
         {
             blackOverImage.color = Color.black;
@@ -381,7 +381,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
             bURect.anchoredPosition = new (0, -540);
         }
     }
-    //•”wŒi‚ªŠJ‚¯‚é‚Æ‚Æ‚à‚ÉŒõ‚É•ï‚Ü‚ê™X‚É–ß‚é
+    //é»’èƒŒæ™¯ãŒé–‹ã‘ã‚‹ã¨ã¨ã‚‚ã«å…‰ã«åŒ…ã¾ã‚Œå¾ã€…ã«æˆ»ã‚‹
     public IEnumerator BlackHalfToWhite()
     {
         if (!skip)
@@ -401,7 +401,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
             bORect.anchoredPosition = new(0, 270);
             bURect.anchoredPosition = new(0, -270);
         }
-        //ƒXƒLƒbƒv’†‚Ìê‡Œ‹‰Ê‚Ì‚İ”½‰f
+        //ã‚¹ã‚­ãƒƒãƒ—ä¸­ã®å ´åˆçµæœã®ã¿åæ˜ 
         else
         {
             blackOverImage.color = Color.clear;
@@ -411,7 +411,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         }
     }
 
-    //ƒY[ƒ€‚µ‚Ä”wŒi‚ğƒXƒ‰ƒCƒh(ˆø”‚ÅƒY[ƒ€”{—¦‚â‘¬‚³‚ğ•Ï‚¦‚ç‚ê‚é‚æ‚¤‚É‚·‚ê‚Î”Ä—p«ã‚ª‚é)
+    //ã‚ºãƒ¼ãƒ ã—ã¦èƒŒæ™¯ã‚’ã‚¹ãƒ©ã‚¤ãƒ‰(å¼•æ•°ã§ã‚ºãƒ¼ãƒ å€ç‡ã‚„é€Ÿã•ã‚’å¤‰ãˆã‚‰ã‚Œã‚‹ã‚ˆã†ã«ã™ã‚Œã°æ±ç”¨æ€§ä¸ŠãŒã‚‹)
     public IEnumerator BackgroundSlide()
     {
         if (!skip)
@@ -433,12 +433,12 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
             _backgroundRect.anchoredPosition = new(480, 0);
         }
     }
-    //ƒeƒLƒXƒg‘¤‚©‚çƒRƒ‹[ƒ`ƒ“‚ğƒXƒgƒbƒv‚µ‚½—p
+    //ãƒ†ã‚­ã‚¹ãƒˆå´ã‹ã‚‰ã‚³ãƒ«ãƒ¼ãƒãƒ³ã‚’ã‚¹ãƒˆãƒƒãƒ—ã—ãŸæ™‚ç”¨
     public void SlideStop()
     {
         _backgroundRect.anchoredPosition = new(480, 0);
     }
-    //ƒeƒLƒXƒgƒpƒlƒ‹‚ÌU“®
+    //ãƒ†ã‚­ã‚¹ãƒˆãƒ‘ãƒãƒ«ã®æŒ¯å‹•
     public IEnumerator PanelVib()
     {
         if (!skip)
@@ -461,7 +461,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
             textPanelRect.anchoredPosition = temp;
         }
     }
-    //ƒLƒƒƒ‰ƒNƒ^[‚ÉƒY[ƒ€‚µ‚Ä‘«‰º‚©‚ç‰f‚·(ƒLƒƒƒ‰1.5”{&500`-800,”wŒi2”{&540`-540)
+    //ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã«ã‚ºãƒ¼ãƒ ã—ã¦è¶³ä¸‹ã‹ã‚‰æ˜ ã™(ã‚­ãƒ£ãƒ©1.5å€&500ï½-800,èƒŒæ™¯2å€&540ï½-540)
     public IEnumerator ZoomLook()
     {
         if (!skip)
@@ -472,7 +472,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
             _characterRect.anchoredPosition = new(0, 500);
             Vector2 temp1 = new(0, 540);
             Vector2 temp2 = new(0, 500);
-            //3•b‚ÅƒJƒƒ‰ˆÚ“®
+            //3ç§’ã§ã‚«ãƒ¡ãƒ©ç§»å‹•
             while (temp2.y > -800)
             {
                 yield return null;
@@ -484,7 +484,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
             yield return new WaitForSeconds(1);
             float temp3 = 2;
             float temp4 = 1.5f;
-            //2•b‚ÅŒ³‚ÌƒTƒCƒY‚É–ß‚·
+            //2ç§’ã§å…ƒã®ã‚µã‚¤ã‚ºã«æˆ»ã™
             while (temp3 > 1)
             {
                 temp1.y += 540 / 2 * Time.deltaTime;
@@ -504,12 +504,12 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         }
     }
 
-    //˜b‚µ‚Ä‚¢‚È‚¢ƒLƒƒƒ‰ƒNƒ^[‚ÌˆÃ“]—p
+    //è©±ã—ã¦ã„ãªã„ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®æš—è»¢ç”¨
     public void CharacterColor()
     {
         _characterImage.color = new(0.5f, 0.5f, 0.5f, 1);
     }
-    //”wŒi‚ÌˆÃ“]—p(Œ»óg‚¤ê–Ê‚Í‘½‚­‚È‚¢‚ªA’l‚ğˆø”‚Åw’è‚·‚é‚Ì‚àƒAƒŠ)
+    //èƒŒæ™¯ã®æš—è»¢ç”¨(ç¾çŠ¶ä½¿ã†å ´é¢ã¯å¤šããªã„ãŒã€å€¤ã‚’å¼•æ•°ã§æŒ‡å®šã™ã‚‹ã®ã‚‚ã‚¢ãƒª)
     public IEnumerator BackgroundColor()
     {
         float c = 1;
@@ -520,7 +520,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
             yield return null;
         }
     }
-    //1•¶‚ÌŠÔ‚Å•\î‚ğØ‚è‘Ö‚¦‚é—p
+    //1æ–‡ã®é–“ã§è¡¨æƒ…ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹ç”¨
     public IEnumerator FaceChangeDelay(float t, string image)
     {
         if (!skip)
@@ -533,7 +533,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
             CharacterChange(image);
         }
     }
-    //SE‚ÌƒfƒBƒŒƒC
+    //SEã®ãƒ‡ã‚£ãƒ¬ã‚¤
     public IEnumerator SEDelay(float t, string se)
     {
         if (!skip)
@@ -542,25 +542,25 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
             SoundEffect(se);
         }
     }
-    //ƒLƒƒƒ‰ƒNƒ^[‚ÌˆÊ’u‚ğİ’è
+    //ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®ä½ç½®ã‚’è¨­å®š
     public void CharacterRect(int x, int y)
     {
         _characterRect.anchoredPosition = new(x, y);
     }
-    //ƒLƒƒƒ‰ƒNƒ^[‚ÌƒTƒCƒYEˆÊ’uE“§–¾“x‚ğƒŠƒZƒbƒg
+    //ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®ã‚µã‚¤ã‚ºãƒ»ä½ç½®ãƒ»é€æ˜åº¦ã‚’ãƒªã‚»ãƒƒãƒˆ
     public void CharacterReset()
     {
         _characterRect.localScale = new(1, 1);
         _characterRect.anchoredPosition = new(0, -360);
         _characterImage.color = Color.white;
     }
-    //”wŒi‚ÌƒTƒCƒY‚¨‚æ‚ÑˆÊ’u‚ğƒŠƒZƒbƒg
+    //èƒŒæ™¯ã®ã‚µã‚¤ã‚ºãŠã‚ˆã³ä½ç½®ã‚’ãƒªã‚»ãƒƒãƒˆ
     public void BackgroundReset()
     {
         _backgroundRect.localScale = new(1, 1);
         _backgroundRect.anchoredPosition = new Vector2(0, 0);
     }
-    //•‚ÌƒIƒ“ƒIƒt(•Ê‚Ì•û–@‚ğ’T‚µ‚½‚¢‚ªcc)
+    //é»’ã®ã‚ªãƒ³ã‚ªãƒ•(åˆ¥ã®æ–¹æ³•ã‚’æ¢ã—ãŸã„ãŒâ€¦â€¦)
     public void BlackOn()
     {
         blackAllImage.color = Color.black;
@@ -579,7 +579,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         blackOverImage.color = Color.clear;
         blackUnderImage.color = Color.clear;
     }
-    //ƒeƒLƒXƒgƒpƒlƒ‹‚ÌƒIƒ“ƒIƒt
+    //ãƒ†ã‚­ã‚¹ãƒˆãƒ‘ãƒãƒ«ã®ã‚ªãƒ³ã‚ªãƒ•
     public void TextPanelOn()
     {
         textPanel.SetActive(true);
@@ -588,7 +588,7 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
     {
         textPanel.SetActive(false);
     }
-    //BGM‚ÌƒtƒF[ƒh
+    //BGMã®ãƒ•ã‚§ãƒ¼ãƒ‰
     public IEnumerator VolumeFadeOut(float fadeTime)
     {
         if (!skip || fadeTime != 0)
@@ -625,28 +625,28 @@ public abstract class ImagesManagerOrigin : MonoBehaviour
         }
     }
 
-    //ƒV[ƒ“Ø‚è‘Ö‚¦
+    //ã‚·ãƒ¼ãƒ³åˆ‡ã‚Šæ›¿ãˆ
     public abstract void ChangeScene();
 
-    //ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌI—¹‚ğŠeƒeƒLƒXƒgƒ}ƒl[ƒWƒƒ[‚É“`‚¦‚é‚½‚ß‚ÌŠÖ”
+    //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®çµ‚äº†ã‚’å„ãƒ†ã‚­ã‚¹ãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã«ä¼ãˆã‚‹ãŸã‚ã®é–¢æ•°
     private void AnimationFinished(float waitTime)
     {
         StartCoroutine(textManager.AnimationFinished(waitTime));
     }
 
-    //ˆÈ‰ºŠeƒNƒ‰ƒX‚É•K—v‚¾‚ªˆÙ‚È‚éˆ—‚É‚·‚é‚à‚Ì(å‚É‘S‚Ä‚ÌƒV[ƒ“‚Å‰æ‘œ‚ğƒAƒ^ƒbƒ`‚µ‚È‚­‚Ä—Ç‚¢‚æ‚¤‚É)
-    //‚æ‚­l‚¦‚ê‚Î‰æ‘œ‚È‚Ç‚ÍƒAƒ^ƒbƒ`‚µ‚È‚­‚Ä‚àƒGƒ‰[‚É‚È‚ç‚È‚¢‚Ì‚¾‚©‚ç‘å‚µ‚½èŠÔ‚Å‚Í‚È‚©‚Á‚½‚ªcc
+    //ä»¥ä¸‹å„ã‚¯ãƒ©ã‚¹ã«å¿…è¦ã ãŒç•°ãªã‚‹å‡¦ç†ã«ã™ã‚‹ã‚‚ã®(ä¸»ã«å…¨ã¦ã®ã‚·ãƒ¼ãƒ³ã§ç”»åƒã‚’ã‚¢ã‚¿ãƒƒãƒã—ãªãã¦è‰¯ã„ã‚ˆã†ã«)
+    //ã‚ˆãè€ƒãˆã‚Œã°ç”»åƒãªã©ã¯ã‚¢ã‚¿ãƒƒãƒã—ãªãã¦ã‚‚ã‚¨ãƒ©ãƒ¼ã«ãªã‚‰ãªã„ã®ã ã‹ã‚‰å¤§ã—ãŸæ‰‹é–“ã§ã¯ãªã‹ã£ãŸãŒâ€¦â€¦
 
-    //—§‚¿ŠG‚Ì•ÏX—p(ƒV[ƒ“‚²‚Æ‚É•K—v‚È•ª‚¾‚¯‹Lq)
+    //ç«‹ã¡çµµã®å¤‰æ›´ç”¨(ã‚·ãƒ¼ãƒ³ã”ã¨ã«å¿…è¦ãªåˆ†ã ã‘è¨˜è¿°)
     public abstract void CharacterChange(string image);
-    //”wŒi‚É‚Â‚¢‚Ä“¯ã
+    //èƒŒæ™¯ã«ã¤ã„ã¦åŒä¸Š
     public abstract void BackgroundChange(string image);
-    //BGM‚É‚Â‚¢‚Ä“¯ã
+    //BGMã«ã¤ã„ã¦åŒä¸Š
     public abstract void BGMChange(string bgm);
-    //ƒGƒtƒFƒNƒg
+    //ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
     public abstract void Effect(string image);
     //SE
     public abstract void SoundEffect(string se);
-    //ƒV[ƒ“‚²‚Æ‚ÉStart‚ÅˆÙ‚È‚éˆ—‚ğ(·•ª‚¾‚¯)‹Lq‚·‚é‚½‚ß‚ÌŠÖ”
+    //ã‚·ãƒ¼ãƒ³ã”ã¨ã«Startã§ç•°ãªã‚‹å‡¦ç†ã‚’(å·®åˆ†ã ã‘)è¨˜è¿°ã™ã‚‹ãŸã‚ã®é–¢æ•°
     protected abstract void StartSet();
 }

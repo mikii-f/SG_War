@@ -27,13 +27,13 @@ public class ImagesManager2 : ImagesManagerOrigin
     [SerializeField] private AudioClip seRoar;
     [SerializeField] private AudioClip seChange;
 
-    //‚±‚Ì’ö“x‚Ìˆ—‚È‚çƒXƒNƒŠƒvƒg‘¤‚©‚ç‘Î‰‚Å‚«‚é‚ªAÜGetComponent‚È‚Ç‚àg‚¤‚½‚ß•K—v
+    //ã“ã®ç¨‹åº¦ã®å‡¦ç†ãªã‚‰ã‚¹ã‚¯ãƒªãƒ—ãƒˆå´ã‹ã‚‰å¯¾å¿œã§ãã‚‹ãŒã€æ™‚æŠ˜GetComponentãªã©ã‚‚ä½¿ã†ãŸã‚å¿…è¦
     protected override void StartSet()
     {
         blackAllImage.color = Color.clear;
     }
 
-    //—§‚¿ŠGŠÖŒW
+    //ç«‹ã¡çµµé–¢ä¿‚
     public override void CharacterChange(string image)
     {
         switch (image)
@@ -75,7 +75,7 @@ public class ImagesManager2 : ImagesManagerOrigin
                 break;
         }
     }
-    //”wŒiØ‚è‘Ö‚¦
+    //èƒŒæ™¯åˆ‡ã‚Šæ›¿ãˆ
     public override void BackgroundChange(string image)
     {
         switch (image)
@@ -161,7 +161,7 @@ public class ImagesManager2 : ImagesManagerOrigin
     }
     public override void ChangeScene()
     {
-        //“P‘Ş‚É’¼‘O‚Ö–ß‚ê‚é‚æ‚¤‚És”‚Ì‰Šú‰»‚ğ‚µ‚È‚¢
+        //æ’¤é€€æ™‚ã«ç›´å‰ã¸æˆ»ã‚Œã‚‹ã‚ˆã†ã«è¡Œæ•°ã®åˆæœŸåŒ–ã‚’ã—ãªã„
         SceneManager.LoadScene("BattleScene1");
     }
 }

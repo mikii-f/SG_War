@@ -33,7 +33,7 @@ public class ImagesManager3 : ImagesManagerOrigin
         
     }
 
-    //—§‚¿ŠGŠÖŒW
+    //ç«‹ã¡çµµé–¢ä¿‚
     public override void CharacterChange(string image)
     {
         switch (image)
@@ -80,7 +80,7 @@ public class ImagesManager3 : ImagesManagerOrigin
         }
     }
 
-    //”wŒiØ‚è‘Ö‚¦
+    //èƒŒæ™¯åˆ‡ã‚Šæ›¿ãˆ
     public override void BackgroundChange(string image)
     {
         switch (image)
@@ -154,7 +154,7 @@ public class ImagesManager3 : ImagesManagerOrigin
     }
     public override void ChangeScene()
     {
-        //s”‚ğ‰Šú‰»‚µ‚È‚¢
+        //è¡Œæ•°ã‚’åˆæœŸåŒ–ã—ãªã„
         SceneManager.LoadScene("BattleScene2");
     }
 }

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-//‚Å‚«‚éŒÀ‚èŒ©‚â‚·‚­‚µ‚½‚¢(ƒR[ƒh‚ğ•ª‚¯‚é‚Ì‚àè‚©H)
+//ã§ãã‚‹é™ã‚Šè¦‹ã‚„ã™ãã—ãŸã„(ã‚³ãƒ¼ãƒ‰ã‚’åˆ†ã‘ã‚‹ã®ã‚‚æ‰‹ã‹ï¼Ÿ)
 
 public class PlayerManager : MonoBehaviour
 {
@@ -50,7 +50,7 @@ public class PlayerManager : MonoBehaviour
     public bool OnUpField { set { onUpField = value; } }
     private bool onLRField = false;
     public bool OnLRField { set { onLRField = value; } }
-    //ƒvƒŒƒCƒ„[‚ÌƒAƒjƒ[ƒVƒ‡ƒ“(ƒ|[ƒY)‚ğŠÇ—
+    //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³(ãƒãƒ¼ã‚º)ã‚’ç®¡ç†
     private enum PlayerState
     {
         IDLING = 0,
@@ -63,7 +63,7 @@ public class PlayerManager : MonoBehaviour
         ATTACK2 = 7,
     }
     private PlayerState playerState;
-    //ƒvƒŒƒCƒ„[‚Ìó‘Ô(êŠ)‚ğŠÇ—
+    //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®çŠ¶æ…‹(å ´æ‰€)ã‚’ç®¡ç†
     private enum PositionState
     {
         GROUND = 1,
@@ -71,7 +71,7 @@ public class PlayerManager : MonoBehaviour
         DOWN = 3
     }
     private PositionState positionState;
-    //•‚‚«°‚É“n‚·—p(‹­UŒ‚‚·‚è”²‚¯)
+    //æµ®ãåºŠã«æ¸¡ã™ç”¨(å¼·æ”»æ’ƒæ™‚ã™ã‚ŠæŠœã‘)
     private void Awake()
     {
         if (instance == null)
@@ -110,10 +110,10 @@ public class PlayerManager : MonoBehaviour
     {
         if (!gameOver)
         {
-            //ƒ_ƒ[ƒW‚ğó‚¯‚½’¼ŒãAUŒ‚’¼Œã‚Í‘€ì‚Å‚«‚È‚¢
+            //ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ãŸç›´å¾Œã€æ”»æ’ƒç›´å¾Œã¯æ“ä½œã§ããªã„
             if (!isDamaged && !isAttacked)
             {
-                //ƒWƒƒƒ“ƒv
+                //ã‚¸ãƒ£ãƒ³ãƒ—
                 if (Input.GetKeyDown(KeyCode.W) && positionState == PositionState.GROUND)
                 {
                     playerState = PlayerState.JUMPUP;
@@ -125,10 +125,10 @@ public class PlayerManager : MonoBehaviour
                     isJumped = true;
                     fallingAccel = false;
                 }
-                //2’iƒWƒƒƒ“ƒv
+                //2æ®µã‚¸ãƒ£ãƒ³ãƒ—
                 if (Input.GetKeyDown(KeyCode.W) && (positionState == PositionState.DOWN || floatingTime > 0.15) && isSecondJumpPossible)
                 {
-                    //•ûŒü“]Š·‚ª‰Â”\
+                    //æ–¹å‘è»¢æ›ãŒå¯èƒ½
                     if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
                     {
                         _rb.rotation = Quaternion.Euler(0f, 0f, 0f);
@@ -149,31 +149,31 @@ public class PlayerManager : MonoBehaviour
                     fallingAccel = false;
                 }
             }
-            //‹ó’†‚Éo‚Ä‚©‚ç‚ÌŠÔ‚ğ•Û
+            //ç©ºä¸­ã«å‡ºã¦ã‹ã‚‰ã®æ™‚é–“ã‚’ä¿æŒ
             if (positionState != PositionState.GROUND)
             {
                 floatingTime += Time.deltaTime;
             }
-            //ƒWƒƒƒ“ƒv’·‰Ÿ‚µI—¹
+            //ã‚¸ãƒ£ãƒ³ãƒ—é•·æŠ¼ã—çµ‚äº†
             if (Input.GetKeyUp(KeyCode.W))
             {
                 isJumped = false;
             }
-            //‘¬“xƒ}ƒCƒiƒXŒŸ’m(‚©‚ÂA‚µ‚á‚ª‚ñ‚Å‚¢‚È‚¢‚Æ‚«(‚µ‚á‚ª‚İp¨‚Å‚àáŠ±•‚‚¢‚Ä‚¢‚é‰Â”\«‚ª‚ ‚é))
+            //é€Ÿåº¦ãƒã‚¤ãƒŠã‚¹æ¤œçŸ¥(ã‹ã¤ã€ã—ã‚ƒãŒã‚“ã§ã„ãªã„ã¨ã(ã—ã‚ƒãŒã¿å§¿å‹¢ã§ã‚‚è‹¥å¹²æµ®ã„ã¦ã„ã‚‹å¯èƒ½æ€§ãŒã‚ã‚‹))
             if (_rb.velocity.y < -1e-4 && positionState != PositionState.DOWN && playerState != PlayerState.SQUAT)
             {
                 positionState = PositionState.DOWN;
-                //UŒ‚’†‚É‚Íƒ|[ƒY‚Í•Ï‚¦‚È‚¢
+                //æ”»æ’ƒä¸­ã«ã¯ãƒãƒ¼ã‚ºã¯å¤‰ãˆãªã„
                 if (!isAttacked)
                 {
                     playerState = PlayerState.JUMPDOWN;
                     playerAnimator.SetInteger("PlayerState", (int)playerState);
                 }
             }
-            //ˆÚ“®°‚Éæ‚Á‚Ä‚¢‚é‚Æ‚«‚Í•ûŒü“]Š·EƒWƒƒƒ“ƒvEUŒ‚‚µ‚©‚Å‚«‚È‚¢
+            //ç§»å‹•åºŠã«ä¹—ã£ã¦ã„ã‚‹ã¨ãã¯æ–¹å‘è»¢æ›ãƒ»ã‚¸ãƒ£ãƒ³ãƒ—ãƒ»æ”»æ’ƒã—ã‹ã§ããªã„
             if (onUpField || onLRField)
             {
-                //‚µ‚á‚ª‚İó‘Ô‚©‚ç‚·‚®‚É‚Í•Ï‚í‚ç‚È‚¢‚æ‚¤‚É‚·‚é
+                //ã—ã‚ƒãŒã¿çŠ¶æ…‹ã‹ã‚‰ã™ãã«ã¯å¤‰ã‚ã‚‰ãªã„ã‚ˆã†ã«ã™ã‚‹
                 if (playerState == PlayerState.SQUAT && isSecondJumpPossible)
                 {
                     playerState = PlayerState.IDLING;
@@ -184,7 +184,7 @@ public class PlayerManager : MonoBehaviour
                     playerState = PlayerState.IDLING;
                     playerAnimator.SetInteger("PlayerState", (int)playerState);
                 }
-                //UŒ‚’†ˆÈŠO‚Í©—R‚ÉŒü‚«‚ğ•Ï‚¦‚ç‚ê‚é
+                //æ”»æ’ƒä¸­ä»¥å¤–ã¯è‡ªç”±ã«å‘ãã‚’å¤‰ãˆã‚‰ã‚Œã‚‹
                 if (!isAttacked)
                 {
                     if (Input.GetKeyDown(KeyCode.D))
@@ -199,7 +199,7 @@ public class PlayerManager : MonoBehaviour
             }
             else
             {
-                //ƒ_ƒbƒVƒ…’†‚Ì•ûŒü“]Š·(‹­UŒ‚‚Ì’¼‘O‚É•ûŒü‚ª•Ï‚í‚Á‚Ä‚µ‚Ü‚í‚È‚¢‚æ‚¤‚É)
+                //ãƒ€ãƒƒã‚·ãƒ¥ä¸­ã®æ–¹å‘è»¢æ›(å¼·æ”»æ’ƒã®ç›´å‰ã«æ–¹å‘ãŒå¤‰ã‚ã£ã¦ã—ã¾ã‚ãªã„ã‚ˆã†ã«)
                 if (playerState == PlayerState.DASH && !isAttack2)
                 {
                     if (Input.GetKeyDown(KeyCode.D) && _rb.rotation != Quaternion.Euler(0f, 0f, 0f))
@@ -215,19 +215,19 @@ public class PlayerManager : MonoBehaviour
                         playerAnimator.SetInteger("PlayerState", (int)playerState);
                     }
                 }
-                //Ü‚è•Ô‚µE‚µ‚á‚ª‚İó‘Ô‚©‚çƒ_ƒbƒVƒ…‚Ö(‚µ‚á‚ª‚İŠÔ‚ğ‘ª‚é‘ã‚í‚è‚É2’iƒWƒƒƒ“ƒv‰Â”Û•Ï”‚ğg—p)
+                //æŠ˜ã‚Šè¿”ã—ãƒ»ã—ã‚ƒãŒã¿çŠ¶æ…‹ã‹ã‚‰ãƒ€ãƒƒã‚·ãƒ¥ã¸(ã—ã‚ƒãŒã¿æ™‚é–“ã‚’æ¸¬ã‚‹ä»£ã‚ã‚Šã«2æ®µã‚¸ãƒ£ãƒ³ãƒ—å¯å¦å¤‰æ•°ã‚’ä½¿ç”¨)
                 if (playerState == PlayerState.TURNBACK || (playerState == PlayerState.SQUAT && isSecondJumpPossible))
                 {
-                    //‰E‚ğŒü‚¢‚Ä‚¢‚é‚Æ‚«
+                    //å³ã‚’å‘ã„ã¦ã„ã‚‹ã¨ã
                     if (_rb.rotation == Quaternion.Euler(0f, 0f, 0f))
                     {
-                        //‰E‚É“®‚«n‚ß‚½‚çƒ_ƒbƒVƒ…‚ÖˆÚs(‚Ü‚½‚Í“®‚­°(ƒvƒŒƒCƒ„[‚ÌÅ‘¬‚æ‚è‘¬‚¢)‚Éæ‚Á‚Ä‚¢‚é‚Æ‚«)
+                        //å³ã«å‹•ãå§‹ã‚ãŸã‚‰ãƒ€ãƒƒã‚·ãƒ¥ã¸ç§»è¡Œ(ã¾ãŸã¯å‹•ãåºŠ(ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æœ€é€Ÿã‚ˆã‚Šé€Ÿã„)ã«ä¹—ã£ã¦ã„ã‚‹ã¨ã)
                         if (_rb.velocity.x > 1e-4 || (onLRField && _rb.velocity.x < -maxSpeed - 0.5f))
                         {
                             playerState = PlayerState.DASH;
                             playerAnimator.SetInteger("PlayerState", (int)playerState);
                         }
-                        //”½‘Î•ûŒü‚ª“ü—Í‚³‚ê‚½‚ç‘¦À‚ÉŒü‚«‚ğ•Ï‚¦‚é
+                        //åå¯¾æ–¹å‘ãŒå…¥åŠ›ã•ã‚ŒãŸã‚‰å³åº§ã«å‘ãã‚’å¤‰ãˆã‚‹
                         if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
                         {
                             _rb.rotation = Quaternion.Euler(0f, 180f, 0f);
@@ -235,16 +235,16 @@ public class PlayerManager : MonoBehaviour
                             playerAnimator.SetInteger("PlayerState", (int)playerState);
                         }
                     }
-                    //¶‚ğŒü‚¢‚Ä‚¢‚é‚Æ‚«
+                    //å·¦ã‚’å‘ã„ã¦ã„ã‚‹ã¨ã
                     if (_rb.rotation == Quaternion.Euler(0f, 180f, 0f))
                     {
-                        //¶‚É“®‚«n‚ß‚½‚çƒ_ƒbƒVƒ…‚ÖˆÚs(‚Ü‚½‚Í“®‚­°(ƒvƒŒƒCƒ„[‚ÌÅ‘¬‚æ‚è‘¬‚¢)‚Éæ‚Á‚Ä‚¢‚é‚Æ‚«)
+                        //å·¦ã«å‹•ãå§‹ã‚ãŸã‚‰ãƒ€ãƒƒã‚·ãƒ¥ã¸ç§»è¡Œ(ã¾ãŸã¯å‹•ãåºŠ(ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æœ€é€Ÿã‚ˆã‚Šé€Ÿã„)ã«ä¹—ã£ã¦ã„ã‚‹ã¨ã)
                         if (_rb.velocity.x < -1e-4 || (onLRField && _rb.velocity.x > maxSpeed + 0.5f))
                         {
                             playerState = PlayerState.DASH;
                             playerAnimator.SetInteger("PlayerState", (int)playerState);
                         }
-                        //”½‘Î•ûŒü‚ª“ü—Í‚³‚ê‚½‚ç‘¦À‚ÉŒü‚«‚ğ•Ï‚¦‚é
+                        //åå¯¾æ–¹å‘ãŒå…¥åŠ›ã•ã‚ŒãŸã‚‰å³åº§ã«å‘ãã‚’å¤‰ãˆã‚‹
                         if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
                         {
                             _rb.rotation = Quaternion.Euler(0f, 0f, 0f);
@@ -253,7 +253,7 @@ public class PlayerManager : MonoBehaviour
                         }
                     }
                 }
-                //‘Ò‹@‚Í“®‚«n‚ß‚½•ûŒü‚É‡‚í‚¹‚Ä•ûŒü“]Š·(ƒL[—¼‰Ÿ‚µ¨•Ğ•û—£‚·‚È‚Ç‚É‘Îˆ‚·‚é‚½‚ß) ‹­UŒ‚‚ÍƒvƒŒƒCƒ„[‚ğˆê“x”ñƒAƒNƒeƒBƒu‚É‚·‚é‰e‹¿‚Åó‘Ô‚ªƒŠƒZƒbƒg‚³‚ê‚é‚½‚ß•ûŒü‚ğ•Ï‚¦‚ç‚ê‚È‚¢‚æ‚¤‚É‚·‚é
+                //å¾…æ©Ÿæ™‚ã¯å‹•ãå§‹ã‚ãŸæ–¹å‘ã«åˆã‚ã›ã¦æ–¹å‘è»¢æ›(ã‚­ãƒ¼ä¸¡æŠ¼ã—â†’ç‰‡æ–¹é›¢ã™ãªã©ã«å¯¾å‡¦ã™ã‚‹ãŸã‚) å¼·æ”»æ’ƒæ™‚ã¯ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ä¸€åº¦éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹å½±éŸ¿ã§çŠ¶æ…‹ãŒãƒªã‚»ãƒƒãƒˆã•ã‚Œã‚‹ãŸã‚æ–¹å‘ã‚’å¤‰ãˆã‚‰ã‚Œãªã„ã‚ˆã†ã«ã™ã‚‹
                 if (playerState == PlayerState.IDLING && !isAttack2)
                 {
                     if (_rb.velocity.x > 1e-4 && Input.GetKey(KeyCode.D))
@@ -270,13 +270,13 @@ public class PlayerManager : MonoBehaviour
                     }
                 }
             }
-            //’nã‚ÅƒWƒƒƒ“ƒvó‘Ô‚Ìê‡‹­§“I‚É‘Ò‹@ó‘Ô‚Ö
+            //åœ°ä¸Šã§ã‚¸ãƒ£ãƒ³ãƒ—çŠ¶æ…‹ã®å ´åˆå¼·åˆ¶çš„ã«å¾…æ©ŸçŠ¶æ…‹ã¸
             if (playerState == PlayerState.JUMPDOWN && positionState == PositionState.GROUND)
             {
                 playerState = PlayerState.IDLING;
                 playerAnimator.SetInteger("PlayerState", (int)playerState);
             }
-            //‰ºƒL[‚Å—‰º‰Á‘¬
+            //ä¸‹ã‚­ãƒ¼ã§è½ä¸‹åŠ é€Ÿ
             if (positionState == PositionState.DOWN && !isAttack2)
             {
                 if (Input.GetKeyDown(KeyCode.S))
@@ -284,17 +284,17 @@ public class PlayerManager : MonoBehaviour
                     fallingAccel = true;
                 }
             }
-            //’ÊíUŒ‚
+            //é€šå¸¸æ”»æ’ƒ
             if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.LeftArrow)) && attackPossible && !clear)
             {
                 StartCoroutine(NormalAttack());
             }
-            //‹­UŒ‚
+            //å¼·æ”»æ’ƒ
             if ((Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.RightArrow)) && attackPossible && attack2Count == 0)
             {
                 StartCoroutine(StrongAttack());
             }
-            //—‰º”»’è(‰½‚ç‚©‚Ìƒ~ƒX‚ÅƒNƒŠƒAŒã‚É—‚¿‚Ä‚à”½‰‚µ‚È‚¢)
+            //è½ä¸‹åˆ¤å®š(ä½•ã‚‰ã‹ã®ãƒŸã‚¹ã§ã‚¯ãƒªã‚¢å¾Œã«è½ã¡ã¦ã‚‚åå¿œã—ãªã„)
             if (_transform.position.y < deathLine && !clear)
             {
                 seSource.clip = seDamage;
@@ -308,20 +308,20 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    //’ÊíUŒ‚(I‚í‚éuŠÔ‚É’…’n‚µ‚½‚Æ‚«‚É’…’n”»’è‚É‚æ‚éó‘Ô•Ï‰»‚Æ‹£‡‚·‚éccH)(’nã‚ÅƒWƒƒƒ“ƒvp¨‚¾‚Á‚½‚É‘Ò‹@‚Ö‹­§“I‚É–ß‚·ˆ—‚ğ’Ç‰Á)
+    //é€šå¸¸æ”»æ’ƒ(çµ‚ã‚ã‚‹ç¬é–“ã«ç€åœ°ã—ãŸã¨ãã«ç€åœ°åˆ¤å®šã«ã‚ˆã‚‹çŠ¶æ…‹å¤‰åŒ–ã¨ç«¶åˆã™ã‚‹â€¦â€¦ï¼Ÿ)(åœ°ä¸Šã§ã‚¸ãƒ£ãƒ³ãƒ—å§¿å‹¢ã ã£ãŸæ™‚ã«å¾…æ©Ÿã¸å¼·åˆ¶çš„ã«æˆ»ã™å‡¦ç†ã‚’è¿½åŠ )
     private IEnumerator NormalAttack()
     {
-        //ƒ|[ƒY‚Ì•ÏXA0.05•b‚ÌŠÔ“–‚½‚è”»’è‚ğo‚·AUŒ‚’†ó‘ÔEUŒ‚‰Â”\ó‘Ô‚ÌŠÇ—ASE
+        //ãƒãƒ¼ã‚ºã®å¤‰æ›´ã€0.05ç§’ã®é–“å½“ãŸã‚Šåˆ¤å®šã‚’å‡ºã™ã€æ”»æ’ƒä¸­çŠ¶æ…‹ãƒ»æ”»æ’ƒå¯èƒ½çŠ¶æ…‹ã®ç®¡ç†ã€SE
         playerState = PlayerState.ATTACK1;
         playerAnimator.SetInteger("PlayerState", (int)(playerState));
         normalAttackCollider.enabled = true;
         seSource.clip = seSword;
         seSource.Play();
-        //ƒGƒtƒFƒNƒg‚ğ‚»‚Ìê‚É—¯‚ß‚é
+        //ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ãã®å ´ã«ç•™ã‚ã‚‹
         StartCoroutine(StopEffect(normalAttackEffect, attack1Interval));
         isAttacked = true;
         attackPossible = false;
-        //‰º~’†‚È‚ç‰º~‚ğ~‚ßáŠ±•‚‚­
+        //ä¸‹é™ä¸­ãªã‚‰ä¸‹é™ã‚’æ­¢ã‚è‹¥å¹²æµ®ã
         if (positionState == PositionState.DOWN)
         {
             Vector3 temp = _rb.velocity;
@@ -333,7 +333,7 @@ public class PlayerManager : MonoBehaviour
         normalAttackCollider.enabled = false;
         yield return new WaitForSeconds(attack1Interval);
         isAttacked = false;
-        //’nã‚È‚çƒ_ƒbƒVƒ…‚©‘Ò‹@‚Ö
+        //åœ°ä¸Šãªã‚‰ãƒ€ãƒƒã‚·ãƒ¥ã‹å¾…æ©Ÿã¸
         if (positionState == PositionState.GROUND)
         {
             if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
@@ -354,7 +354,7 @@ public class PlayerManager : MonoBehaviour
                 playerAnimator.SetInteger("PlayerState", (int)playerState);
             }
         }
-        //‹ó’†‚È‚ç‰º~ó‘Ô‚Ö(UŒ‚ŠÔŠu’·‚ß)
+        //ç©ºä¸­ãªã‚‰ä¸‹é™çŠ¶æ…‹ã¸(æ”»æ’ƒé–“éš”é•·ã‚)
         else
         {
             playerState = PlayerState.JUMPDOWN;
@@ -363,7 +363,7 @@ public class PlayerManager : MonoBehaviour
         }
         attackPossible = true;
     }
-    //‹­UŒ‚
+    //å¼·æ”»æ’ƒ
     private IEnumerator StrongAttack()
     {
         isAttacked = true;
@@ -371,9 +371,9 @@ public class PlayerManager : MonoBehaviour
         attackPossible = false;
         _rb.velocity = Vector3.zero;
         attack2Count++;
-        //‘O‰ñ‚Ìis•ûŒü‚ğ•Û‚·‚é‚½‚ß‚Ì•Ï”
+        //å‰å›ã®é€²è¡Œæ–¹å‘ã‚’ä¿æŒã™ã‚‹ãŸã‚ã®å¤‰æ•°
         int former;
-        //‹ó’†‚Å‚à•ûŒü“]Š·‚ª‰Â”\
+        //ç©ºä¸­ã§ã‚‚æ–¹å‘è»¢æ›ãŒå¯èƒ½
         if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
         {
             _rb.rotation = Quaternion.Euler(0f, 0f, 0f);
@@ -396,10 +396,10 @@ public class PlayerManager : MonoBehaviour
             playerAnimator.SetInteger("PlayerState", (int)playerState);
             former = 6;
         }
-        //ó•tŠÔ“à‚ÉÄ‚Ñ“ü—Í‚³‚ê‚½‚çÄ”­“®‚Å‚«‚é
+        //å—ä»˜æ™‚é–“å†…ã«å†ã³å…¥åŠ›ã•ã‚ŒãŸã‚‰å†ç™ºå‹•ã§ãã‚‹
         while (attack2Count < attack2Possible && !gameOver)
         {
-            //ó•tŠÔ‚Æ“¯‚¶‚¾‚¯‚ÌŠÔ‚ÍŠ®‘S‚Éd’¼
+            //å—ä»˜æ™‚é–“ã¨åŒã˜ã ã‘ã®æ™‚é–“ã¯å®Œå…¨ã«ç¡¬ç›´
             yield return new WaitForSeconds(attack2reception);
             float timeCount = 0;
             bool attacked = false;
@@ -407,10 +407,10 @@ public class PlayerManager : MonoBehaviour
             {
                 yield return null;
                 timeCount += Time.deltaTime;
-                //8•ûŒü‚ÉˆÚ“®‚Å‚«‚é(—Dæ‚Í‰E‚Æã)
+                //8æ–¹å‘ã«ç§»å‹•ã§ãã‚‹(å„ªå…ˆã¯å³ã¨ä¸Š)
                 if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.RightArrow))
                 {
-                    //‰Eã
+                    //å³ä¸Š
                     if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D) && former != 3){
                         yield return StartCoroutine(SAExecute(3));
                         positionState = PositionState.UP;
@@ -418,7 +418,7 @@ public class PlayerManager : MonoBehaviour
                         playerAnimator.SetInteger("PlayerState", (int)playerState);
                         former = 3;
                     }
-                    //‰E‰º
+                    //å³ä¸‹
                     else if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.S) && former != 1)
                     {
                         yield return StartCoroutine(SAExecute(1));
@@ -426,7 +426,7 @@ public class PlayerManager : MonoBehaviour
                         playerAnimator.SetInteger("PlayerState", (int)playerState);
                         former = 1;
                     }
-                    //¶ã
+                    //å·¦ä¸Š
                     else if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A) && former != 5)
                     {
                         yield return StartCoroutine(SAExecute(5));
@@ -435,7 +435,7 @@ public class PlayerManager : MonoBehaviour
                         playerAnimator.SetInteger("PlayerState", (int)playerState);
                         former = 5;
                     }
-                    //¶‰º
+                    //å·¦ä¸‹
                     else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.S) && former != 7)
                     {
                         yield return StartCoroutine(SAExecute(7));
@@ -443,7 +443,7 @@ public class PlayerManager : MonoBehaviour
                         playerAnimator.SetInteger("PlayerState", (int)playerState);
                         former = 7;
                     }
-                    //‰E
+                    //å³
                     else if (Input.GetKey(KeyCode.D) && former != 2)
                     {
                         yield return StartCoroutine(SAExecute(2));
@@ -451,7 +451,7 @@ public class PlayerManager : MonoBehaviour
                         playerAnimator.SetInteger("PlayerState", (int)playerState);
                         former = 2;
                     }
-                    //¶
+                    //å·¦
                     else if (Input.GetKey(KeyCode.A) && former != 6)
                     {
                         yield return StartCoroutine(SAExecute(6));
@@ -459,7 +459,7 @@ public class PlayerManager : MonoBehaviour
                         playerAnimator.SetInteger("PlayerState", (int)playerState);
                         former = 6;
                     }
-                    //ã
+                    //ä¸Š
                     else if (Input.GetKey(KeyCode.W) && former != 4)
                     {
                         yield return StartCoroutine(SAExecute(4));
@@ -468,7 +468,7 @@ public class PlayerManager : MonoBehaviour
                         playerAnimator.SetInteger("PlayerState", (int)playerState);
                         former = 4;
                     }
-                    //‰º
+                    //ä¸‹
                     else if (Input.GetKey(KeyCode.S) && former != 0)
                     {
                         yield return StartCoroutine(SAExecute(0));
@@ -476,13 +476,13 @@ public class PlayerManager : MonoBehaviour
                         playerAnimator.SetInteger("PlayerState", (int)playerState);
                         former = 0;
                     }
-                    //ˆÚ“®‚Å‚«‚È‚¢•ûŒü‚¾‚Á‚½ê‡“ü—Íó•tó‘Ô‚É–ß‚é
+                    //ç§»å‹•ã§ããªã„æ–¹å‘ã ã£ãŸå ´åˆå…¥åŠ›å—ä»˜çŠ¶æ…‹ã«æˆ»ã‚‹
                     else
                     {
                         continue;
                     }
                     attack2Count++;
-                    //ÅI’i‚Ü‚ÅUŒ‚‚µ‚½ê‡‚Ìd’¼
+                    //æœ€çµ‚æ®µã¾ã§æ”»æ’ƒã—ãŸå ´åˆã®ç¡¬ç›´
                     if (attack2Count == attack2Possible)
                     {
                         yield return new WaitForSeconds(attack2reception);
@@ -491,17 +491,17 @@ public class PlayerManager : MonoBehaviour
                     break;
                 }
             }
-            //ó•t’†‚ÉUŒ‚‚µ‚Ä‚¢‚È‚©‚Á‚½ê‡UŒ‚‰ñ”‚ªc‚Á‚Ä‚¢‚Ä‚àI—¹
+            //å—ä»˜ä¸­ã«æ”»æ’ƒã—ã¦ã„ãªã‹ã£ãŸå ´åˆæ”»æ’ƒå›æ•°ãŒæ®‹ã£ã¦ã„ã¦ã‚‚çµ‚äº†
             if (!attacked)
             {
                 break;
             }
         }
-        //I—¹ˆ—
+        //çµ‚äº†å‡¦ç†
         Vector3 temp = _rb.rotation.eulerAngles;
         temp.z = 0;
         _rb.rotation = Quaternion.Euler(temp);
-        //‰ñ“]‚É‚æ‚è‚ß‚è‚ñ‚¾ê‡‚É’…’n”»’è‚ªo‚È‚¢‚æ‚¤‚É(1ƒtƒŒ[ƒ€‚ ‚ê‚Î‚ß‚è‚İ‚ª‰ğÁ‚³‚ê‚é)
+        //å›è»¢ã«ã‚ˆã‚Šã‚ã‚Šè¾¼ã‚“ã å ´åˆã«ç€åœ°åˆ¤å®šãŒå‡ºãªã„ã‚ˆã†ã«(1ãƒ•ãƒ¬ãƒ¼ãƒ ã‚ã‚Œã°ã‚ã‚Šè¾¼ã¿ãŒè§£æ¶ˆã•ã‚Œã‚‹)
         yield return null;
         isAttack2 = false;
         isAttacked = false;
@@ -519,12 +519,12 @@ public class PlayerManager : MonoBehaviour
         }
         attackPossible = true;
     }
-    //–ñ4mˆÚ“®‚µ‚Â‚ÂaŒ‚(‘«Œ³‘¤(ƒIƒuƒWƒFƒNƒg‚Ì‰ñ“]’†S‚É‘Î‚µ‚Ä“–‚½‚è”»’è‚ª’·‚¢‘¤)‚ª’n–Ê‚ğŒü‚¢‚½‚Æ‚«‚É‚ß‚è‚İ‚ª‰ğÁ‚Å‚«‚È‚¢‚±‚Æ‚ª•ª‚©‚Á‚Ä‚¢‚é)
+    //ç´„4mç§»å‹•ã—ã¤ã¤æ–¬æ’ƒ(è¶³å…ƒå´(ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å›è»¢ä¸­å¿ƒã«å¯¾ã—ã¦å½“ãŸã‚Šåˆ¤å®šãŒé•·ã„å´)ãŒåœ°é¢ã‚’å‘ã„ãŸã¨ãã«ã‚ã‚Šè¾¼ã¿ãŒè§£æ¶ˆã§ããªã„ã“ã¨ãŒåˆ†ã‹ã£ã¦ã„ã‚‹)
     private IEnumerator SAExecute(int n)
     {
         int[] theta = { -90, -45, 0, 45, 90, 135, 180, -135 };
         Vector3 v = new(4 * Mathf.Cos(theta[n] * Mathf.PI / 180), 4 * Mathf.Sin(theta[n] * Mathf.PI / 180), 0);
-        //‘Ì‚ÌŒü‚«‚ÌØ‚è‘Ö‚¦
+        //ä½“ã®å‘ãã®åˆ‡ã‚Šæ›¿ãˆ
         if (1 <= n && n <= 3)
         {
             _rb.rotation = Quaternion.Euler(0f, 0f, theta[n]);
@@ -544,9 +544,9 @@ public class PlayerManager : MonoBehaviour
             _rb.rotation = Quaternion.Euler(temp);
         }
         character.SetActive(false);
-        yield return null;              //–„‚Ü‚èó‘Ô‰ğÁ—p
+        yield return null;              //åŸ‹ã¾ã‚ŠçŠ¶æ…‹è§£æ¶ˆç”¨
         float oneAttackTime = 0.05f;
-        //ˆÚ“®°‚Éæ‚Á‚Ä‚¢‚½‚ç‚»‚Ì•ª‘¬“x‚ğ‰ÁZ‚·‚é
+        //ç§»å‹•åºŠã«ä¹—ã£ã¦ã„ãŸã‚‰ãã®åˆ†é€Ÿåº¦ã‚’åŠ ç®—ã™ã‚‹
         Vector3 pastVelocity = _rb.velocity;
         bool velocityPlusY = false;
         bool velocityPlusX = false;
@@ -571,7 +571,7 @@ public class PlayerManager : MonoBehaviour
             {
                 _rb.velocity = Vector3.zero;
             }
-            //“r’†‚ÅˆÚ“®°‚©‚ç—£‚ê‚½‚ç’Ç‰Á•ª‚Ì‘¬“x‚ğŒ¸Z‚·‚é
+            //é€”ä¸­ã§ç§»å‹•åºŠã‹ã‚‰é›¢ã‚ŒãŸã‚‰è¿½åŠ åˆ†ã®é€Ÿåº¦ã‚’æ¸›ç®—ã™ã‚‹
             else
             {
                 if (velocityPlusY && !onUpField)
@@ -598,7 +598,7 @@ public class PlayerManager : MonoBehaviour
         }
         attack2Stop = false;
     }
-    //aŒ‚‚ğ‚»‚Ìê‚Éc‚·‚½‚ß‚ÌŠÖ”
+    //æ–¬æ’ƒã‚’ãã®å ´ã«æ®‹ã™ãŸã‚ã®é–¢æ•°
     private IEnumerator StopEffect(GameObject effect, float durationTime)
     {
         effect.SetActive(true);
@@ -620,27 +620,27 @@ public class PlayerManager : MonoBehaviour
     {
         if (!gameOver)
         {
-            //d—Í
+            //é‡åŠ›
             if (!isAttack2)
             {
-                //‰ºƒL[‚ğ‰Ÿ‚µ‚½ê‡
+                //ä¸‹ã‚­ãƒ¼ã‚’æŠ¼ã—ãŸå ´åˆ
                 if (fallingAccel)
                 {
                     _rb.AddForce(new Vector3(0, 1.5f * gravity, 0));
                 }
-                //’Êí
+                //é€šå¸¸
                 else
                 {
                     _rb.AddForce(new Vector3(0, gravity, 0));
                 }
             }
-            //ˆÚ“®°‚Éæ‚Á‚Ä‚¢‚é‚Æ‚«‚Í•ûŒü“]Š·EƒWƒƒƒ“ƒvEUŒ‚‚µ‚©‚Å‚«‚È‚¢
+            //ç§»å‹•åºŠã«ä¹—ã£ã¦ã„ã‚‹ã¨ãã¯æ–¹å‘è»¢æ›ãƒ»ã‚¸ãƒ£ãƒ³ãƒ—ãƒ»æ”»æ’ƒã—ã‹ã§ããªã„
             if (!onUpField && !onLRField)
             {
-                //ƒ_ƒ[ƒW‚ğó‚¯‚½’¼ŒãAUŒ‚’¼Œã‚Í‘€ì‚Å‚«‚È‚¢
+                //ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ãŸç›´å¾Œã€æ”»æ’ƒç›´å¾Œã¯æ“ä½œã§ããªã„
                 if (!isDamaged && !isAttacked)
                 {
-                    //‰EˆÚ“®
+                    //å³ç§»å‹•
                     if (Input.GetKey(KeyCode.D))
                     {
                         if (positionState == PositionState.GROUND)
@@ -649,19 +649,19 @@ public class PlayerManager : MonoBehaviour
                             {
                                 _rb.AddForce(new Vector3(horizontalForce, 0, 0));
                             }
-                            //‰½‚ç‚©‚ÌƒoƒO‚Åƒ_ƒbƒVƒ…•ûŒü‚Æ‘Ì‚ÌŒü‚«‚ªˆá‚Á‚Ä‚¢‚½—p(¶‰EˆÚ“®°œ‚­)
+                            //ä½•ã‚‰ã‹ã®ãƒã‚°ã§ãƒ€ãƒƒã‚·ãƒ¥æ–¹å‘ã¨ä½“ã®å‘ããŒé•ã£ã¦ã„ãŸæ™‚ç”¨(å·¦å³ç§»å‹•åºŠé™¤ã)
                             else if (playerState == PlayerState.DASH && _rb.rotation == Quaternion.Euler(0f, 180f, 0f) && !onLRField)
                             {
                                 _rb.rotation = Quaternion.Euler(0f, 0f, 0f);
                             }
-                            //‰½‚ç‚©‚ÌƒoƒO‚ÅÅ‚‘¬“x‚È‚Ì‚Éƒ_ƒbƒVƒ…ó‘Ô‚¶‚á‚È‚©‚Á‚½—p
+                            //ä½•ã‚‰ã‹ã®ãƒã‚°ã§æœ€é«˜é€Ÿåº¦ãªã®ã«ãƒ€ãƒƒã‚·ãƒ¥çŠ¶æ…‹ã˜ã‚ƒãªã‹ã£ãŸæ™‚ç”¨
                             else if (playerState != PlayerState.DASH && !onLRField)
                             {
                                 playerState = PlayerState.DASH;
                                 playerAnimator.SetInteger("PlayerState", (int)playerState);
                             }
                         }
-                        //‹ó’†‚Å‚Í§ŒÀ
+                        //ç©ºä¸­ã§ã¯åˆ¶é™
                         else
                         {
                             if (_rb.velocity.x < maxSpeed * 0.8f)
@@ -670,7 +670,7 @@ public class PlayerManager : MonoBehaviour
                             }
                         }
                     }
-                    //¶ˆÚ“®
+                    //å·¦ç§»å‹•
                     if (Input.GetKey(KeyCode.A))
                     {
                         if (positionState == PositionState.GROUND)
@@ -679,19 +679,19 @@ public class PlayerManager : MonoBehaviour
                             {
                                 _rb.AddForce(new Vector3(-horizontalForce, 0, 0));
                             }
-                            //‰½‚ç‚©‚ÌƒoƒO‚Åƒ_ƒbƒVƒ…•ûŒü‚Æ‘Ì‚ÌŒü‚«‚ªˆá‚Á‚Ä‚¢‚½—p(¶‰EˆÚ“®°œ‚­)
+                            //ä½•ã‚‰ã‹ã®ãƒã‚°ã§ãƒ€ãƒƒã‚·ãƒ¥æ–¹å‘ã¨ä½“ã®å‘ããŒé•ã£ã¦ã„ãŸæ™‚ç”¨(å·¦å³ç§»å‹•åºŠé™¤ã)
                             else if (playerState == PlayerState.DASH && _rb.rotation == Quaternion.Euler(0f, 0f, 0f) && !onLRField)
                             {
                                 _rb.rotation = Quaternion.Euler(0f, 180f, 0f);
                             }
-                            //‰½‚ç‚©‚ÌƒoƒO‚ÅÅ‚‘¬“x‚È‚Ì‚Éƒ_ƒbƒVƒ…ó‘Ô‚¶‚á‚È‚©‚Á‚½—p
+                            //ä½•ã‚‰ã‹ã®ãƒã‚°ã§æœ€é«˜é€Ÿåº¦ãªã®ã«ãƒ€ãƒƒã‚·ãƒ¥çŠ¶æ…‹ã˜ã‚ƒãªã‹ã£ãŸæ™‚ç”¨
                             else if (playerState != PlayerState.DASH && !onLRField)
                             {
                                 playerState = PlayerState.DASH;
                                 playerAnimator.SetInteger("PlayerState", (int)playerState);
                             }
                         }
-                        //‹ó’†‚Å‚Í§ŒÀ
+                        //ç©ºä¸­ã§ã¯åˆ¶é™
                         else
                         {
                             if (_rb.velocity.x > -maxSpeed * 0.8f)
@@ -701,7 +701,7 @@ public class PlayerManager : MonoBehaviour
                         }
                     }
                 }
-                //–€C(‹ó’†‚Å‚ÍRigidBody‚Ì’ïR‚¾‚¯‚Å)
+                //æ‘©æ“¦(ç©ºä¸­ã§ã¯RigidBodyã®æŠµæŠ—ã ã‘ã§)
                 if (((!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D)) || (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))) && !isAttacked)
                 {
                     if (positionState == PositionState.GROUND)
@@ -717,7 +717,7 @@ public class PlayerManager : MonoBehaviour
                         else if (Mathf.Abs(_rb.velocity.x) < 1)
                         {
                             _rb.velocity = Vector3.zero;
-                            //‚µ‚á‚ª‚İó‘Ô‚©‚ç‚·‚®‚É‚Í•Ï‚í‚ç‚È‚¢‚æ‚¤‚É‚·‚é
+                            //ã—ã‚ƒãŒã¿çŠ¶æ…‹ã‹ã‚‰ã™ãã«ã¯å¤‰ã‚ã‚‰ãªã„ã‚ˆã†ã«ã™ã‚‹
                             if (isSecondJumpPossible)
                             {
                                 playerState = PlayerState.IDLING;
@@ -726,7 +726,7 @@ public class PlayerManager : MonoBehaviour
                         }
                     }
                 }
-                //’ÊíUŒ‚Œã‚Í‹­‚­–€C‚ğ‚©‚¯‚é
+                //é€šå¸¸æ”»æ’ƒå¾Œã¯å¼·ãæ‘©æ“¦ã‚’ã‹ã‘ã‚‹
                 if (isAttacked && !isAttack2)
                 {
                     if (positionState == PositionState.GROUND)
@@ -742,7 +742,7 @@ public class PlayerManager : MonoBehaviour
                     }
                 }
             }
-            //’·‰Ÿ‚µ‚ÅƒWƒƒƒ“ƒv‰„’·
+            //é•·æŠ¼ã—ã§ã‚¸ãƒ£ãƒ³ãƒ—å»¶é•·
             if (isJumped)
             {
                 _rb.AddForce(new Vector3(0, continueUpForce, 0));
@@ -754,7 +754,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    //ƒ_ƒ[ƒW(ƒ_ƒ[ƒWŒã‚Ì–³“GŠÔ‚¨‚æ‚ÑUŒ‚’†‚ğœ‚­)&ƒƒ_ƒ‹Šl“¾
+    //ãƒ€ãƒ¡ãƒ¼ã‚¸æ™‚(ãƒ€ãƒ¡ãƒ¼ã‚¸å¾Œã®ç„¡æ•µæ™‚é–“ãŠã‚ˆã³æ”»æ’ƒä¸­ã‚’é™¤ã)&ãƒ¡ãƒ€ãƒ«ç²å¾—
     private void OnTriggerEnter(Collider other)
     {
         if ((other.CompareTag("Enemy") || other.CompareTag("Bullet")) && !isInvincible && !isAttacked)
@@ -788,7 +788,7 @@ public class PlayerManager : MonoBehaviour
             stageManager.GotMedal();
         }
     }
-    //ƒ_ƒ[ƒW‚Ì“_–Å&‘€ì•s”\‚â–³“GŠÔ‚ÌŠÇ—
+    //ãƒ€ãƒ¡ãƒ¼ã‚¸æ™‚ã®ç‚¹æ»…&æ“ä½œä¸èƒ½ã‚„ç„¡æ•µæ™‚é–“ã®ç®¡ç†
     private IEnumerator Damage()
     {
         character.SetActive(false);
@@ -796,7 +796,7 @@ public class PlayerManager : MonoBehaviour
         character.SetActive(true);
         playerAnimator.SetInteger("PlayerState", (int)playerState);
         yield return new WaitForSeconds(0.2f);
-        isDamaged = false;                  //‚±‚±‚Å‘€ì‚Í‰Â”\‚É
+        isDamaged = false;                  //ã“ã“ã§æ“ä½œã¯å¯èƒ½ã«
         character.SetActive(false);
         for (int i = 0; i < 3; i++)
         {
@@ -813,7 +813,7 @@ public class PlayerManager : MonoBehaviour
         character.SetActive(true);
         playerAnimator.SetInteger("PlayerState", (int)playerState);
     }
-    //‹­UŒ‚—p‚Ì’nŒ`Õ“Ë”»’è(‹@”\‚ª‘‚¦‚È‚¢‚È‚çƒvƒƒpƒeƒB‚Å‚à‚¢‚¢)
+    //å¼·æ”»æ’ƒæ™‚ç”¨ã®åœ°å½¢è¡çªåˆ¤å®š(æ©Ÿèƒ½ãŒå¢—ãˆãªã„ãªã‚‰ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã§ã‚‚ã„ã„)
     public void FieldDitected()
     {
         if (isAttack2)
@@ -821,13 +821,13 @@ public class PlayerManager : MonoBehaviour
             attack2Stop = true;
         }
     }
-    //’…’n‚Ì‚µ‚á‚ª‚İ(’…’n“_‚Å‰Ÿ‚µ‚Ä‚¢‚½ƒL[‚Ì•ûŒü‚ğŒü‚­)(’…’n”»’è‚Íê—p‚ÌCollider‚©‚çó‚¯æ‚é)(•‚‚«°‚ğ‰º‚©‚ç’Ê‚è”²‚¯‚½”½‰‚µ‚È‚¢‚æ‚¤‚É‰º~’†ˆÈŠO‚ÍÈ‚­)
+    //ç€åœ°æ™‚ã®ã—ã‚ƒãŒã¿(ç€åœ°æ™‚ç‚¹ã§æŠ¼ã—ã¦ã„ãŸã‚­ãƒ¼ã®æ–¹å‘ã‚’å‘ã)(ç€åœ°åˆ¤å®šã¯å°‚ç”¨ã®Colliderã‹ã‚‰å—ã‘å–ã‚‹)(æµ®ãåºŠã‚’ä¸‹ã‹ã‚‰é€šã‚ŠæŠœã‘ãŸæ™‚åå¿œã—ãªã„ã‚ˆã†ã«ä¸‹é™ä¸­ä»¥å¤–ã¯çœã)
     public IEnumerator Squat()
     {
-        //—‰º’†(‚Ü‚½‚Íã¸°‚Éæ‚Á‚Ä‚¢‚é‚Æ‚«)‚©‚Â‹­UŒ‚‚ğ‚µ‚Ä‚¢‚È‚¢‚Æ‚«(‘Ì‚ª‰ñ“]‚µ‚Ä‚¢‚é‚ÆFX‚Æ‚Ü‚¸‚»‚¤)
+        //è½ä¸‹ä¸­(ã¾ãŸã¯ä¸Šæ˜‡åºŠã«ä¹—ã£ã¦ã„ã‚‹ã¨ã)ã‹ã¤å¼·æ”»æ’ƒã‚’ã—ã¦ã„ãªã„ã¨ã(ä½“ãŒå›è»¢ã—ã¦ã„ã‚‹ã¨è‰²ã€…ã¨ã¾ãšãã†)
         if ((positionState == PositionState.DOWN || onUpField) && !isAttack2)
         {
-            //UŒ‚p¨‚Ìê‡‚Íƒ|[ƒY‚ğ•Ï‚¦‚È‚¢
+            //æ”»æ’ƒå§¿å‹¢ã®å ´åˆã¯ãƒãƒ¼ã‚ºã‚’å¤‰ãˆãªã„
             if (!isAttacked)
             {
                 playerState = PlayerState.SQUAT;
@@ -846,10 +846,10 @@ public class PlayerManager : MonoBehaviour
                 _rb.rotation = Quaternion.Euler(0f, 180f, 0f);
             }
             yield return new WaitForSeconds(0.15f);
-            isSecondJumpPossible = true;    //’…’nŒã‚·‚®‚É2‰ñ–Ú‚ÌƒWƒƒƒ“ƒv‚ğ‚·‚é‚±‚Æ‚Í‚È‚¢‚Ì‚Å‚µ‚á‚ª‚İ’†‚Å‚ ‚é‚±‚Æ‚ğ•\‚·•Ï”‚Æ‚µ‚Ä‚àg‚¦‚é
+            isSecondJumpPossible = true;    //ç€åœ°å¾Œã™ãã«2å›ç›®ã®ã‚¸ãƒ£ãƒ³ãƒ—ã‚’ã™ã‚‹ã“ã¨ã¯ãªã„ã®ã§ã—ã‚ƒãŒã¿ä¸­ã§ã‚ã‚‹ã“ã¨ã‚’è¡¨ã™å¤‰æ•°ã¨ã—ã¦ã‚‚ä½¿ãˆã‚‹
         }
     }
-    //‰½‚ç‚©‚Ì——R‚Å’…’n”»’è‚ª‚Å‚«‚È‚©‚Á‚½—p
+    //ä½•ã‚‰ã‹ã®ç†ç”±ã§ç€åœ°åˆ¤å®šãŒã§ããªã‹ã£ãŸæ™‚ç”¨
     public void SetGround()
     {
         if ((positionState == PositionState.DOWN || playerState == PlayerState.JUMPDOWN) && !isAttack2)

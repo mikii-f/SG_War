@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class TextManager0 : TextManagerOrigin
 {
-    //¡‚Ì‚Æ‚±‚ë‚Ç‚ÌTextManager‚à“¯‚¶‚Í‚½‚ç‚«‚ğ‚·‚é‚½‚ßAƒtƒ@ƒCƒ‹–¼‚ÆƒV[ƒ“–¼‚ğ•R•t‚¯‚ê‚ÎƒV[ƒ“‚²‚Æ‚É•ª‚¯‚é•K—v‚Í‚È‚¢
-    //‚ªA¡Œã•Ï‚¦‚½‚­‚È‚é‰Â”\«‚à‚ ‚é‚½‚ß‚Æ‚è‚ ‚¦‚¸‚±‚Ì‚Ü‚Ü‚Å
+    //ä»Šã®ã¨ã“ã‚ã©ã®TextManagerã‚‚åŒã˜ã¯ãŸã‚‰ãã‚’ã™ã‚‹ãŸã‚ã€ãƒ•ã‚¡ã‚¤ãƒ«åã¨ã‚·ãƒ¼ãƒ³åã‚’ç´ä»˜ã‘ã‚Œã°ã‚·ãƒ¼ãƒ³ã”ã¨ã«åˆ†ã‘ã‚‹å¿…è¦ã¯ãªã„
+    //ãŒã€ä»Šå¾Œå¤‰ãˆãŸããªã‚‹å¯èƒ½æ€§ã‚‚ã‚ã‚‹ãŸã‚ã¨ã‚Šã‚ãˆãšã“ã®ã¾ã¾ã§
     private void Awake()
     {
-        StreamReader reader = new(Application.dataPath + "/StreamingAssets/Script0.txt");
+        StringReader reader = new(Resources.Load<TextAsset>("Script0").text);
         while (reader.Peek() != -1)
         {
             _function.Add(reader.ReadLine().Split(','));

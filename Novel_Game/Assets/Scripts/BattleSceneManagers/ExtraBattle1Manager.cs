@@ -27,7 +27,7 @@ public class ExtraBattle1Manager : BattleSceneManagerOrigin
     {
         yield return new WaitForSeconds(2);
         tutorialPanel.SetActive(true);
-        tutorialText.text = "‰¼‘z‹óŠÔ‚È‚ç¡‚ÌƒGƒ‹‚à‘S—Í‚Åí‚¤‚±‚Æ‚ª‚Å‚«‚Ü‚·BƒtƒBƒA‚Æ‹¤‚É–{‹C‚Å“ÁŒP‚É—Õ‚Ý‚Ü‚µ‚å‚¤B";
+        tutorialText.text = "ä»®æƒ³ç©ºé–“ãªã‚‰ä»Šã®ã‚¨ãƒ«ã‚‚å…¨åŠ›ã§æˆ¦ã†ã“ã¨ãŒã§ãã¾ã™ã€‚ãƒ•ã‚£ã‚¢ã¨å…±ã«æœ¬æ°—ã§ç‰¹è¨“ã«è‡¨ã¿ã¾ã—ã‚‡ã†ã€‚";
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
         seSource.clip = seUIClick;
         seSource.Play();

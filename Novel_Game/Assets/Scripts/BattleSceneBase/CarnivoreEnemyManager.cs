@@ -29,16 +29,16 @@ public class CarnivoreEnemyManager : EnemyManagerOrigin
         intervalText.text = intervalCount.ToString("F2");
     }
 
-    //’ÊíUŒ‚
+    //é€šå¸¸æ”»æ’ƒ
     protected override IEnumerator NormalAttack()
     {
-        StartCoroutine(AttackSubtitle("ˆÙ’Ü"));
+        StartCoroutine(AttackSubtitle("ç•°çˆª"));
         isAttack = true;
         Vector2 temp = myRect.localScale;
         myRect.localScale = new(0.8f * temp.x, 0.8f * temp.y);
         yield return new WaitForSeconds(0.5f);
         myRect.localScale = new(1.2f * temp.x, 1.2f * temp.y);
-        //“r’†‚Å€‚ñ‚¾—p
+        //é€”ä¸­ã§æ­»ã‚“ã æ™‚ç”¨
         if (!isDied)
         {
             StartCoroutine(AttackEffect(attackRect, attackImage));
@@ -47,7 +47,7 @@ public class CarnivoreEnemyManager : EnemyManagerOrigin
         float size = 1.2f;
         while (size != 1.0f)
         {
-            //0.4f:deltaTime=0.2f:(1ƒtƒŒ[ƒ€‚²‚Æ‚ÌƒTƒCƒY•Ï‰»)
+            //0.4f:deltaTime=0.2f:(1ãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã®ã‚µã‚¤ã‚ºå¤‰åŒ–)
             size = Mathf.Max(1.0f, size - Time.deltaTime * 0.5f);
             myRect.localScale = new(size * temp.x, size * temp.y);
             yield return null;
@@ -66,10 +66,10 @@ public class CarnivoreEnemyManager : EnemyManagerOrigin
                 break;
         }
     }
-    //ƒ`ƒƒ[ƒW‹Z
+    //ãƒãƒ£ãƒ¼ã‚¸æŠ€
     protected override IEnumerator ChargeAttack()
     {
-        StartCoroutine(AttackSubtitle("ˆÙ’Ü˜A"));
+        StartCoroutine(AttackSubtitle("ç•°çˆªé€£"));
         isAttack = true;
         Vector2 temp = myRect.localScale;
         myRect.localScale = new(0.7f * temp.x, 0.7f * temp.y);
@@ -84,7 +84,7 @@ public class CarnivoreEnemyManager : EnemyManagerOrigin
         float size = 1.5f;
         while (size != 1.0f)
         {
-            //0.4f:deltaTime=0.5f:(1ƒtƒŒ[ƒ€‚²‚Æ‚ÌƒTƒCƒY•Ï‰»)
+            //0.4f:deltaTime=0.5f:(1ãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã®ã‚µã‚¤ã‚ºå¤‰åŒ–)
             size = Mathf.Max(1.0f, size - Time.deltaTime * 1.25f);
             myRect.localScale = new(size * temp.x, size * temp.y);
             yield return null;
@@ -98,6 +98,6 @@ public class CarnivoreEnemyManager : EnemyManagerOrigin
     }
     public override void Revive()
     {
-        //Œ»ó•œŠˆ‚³‚¹‚é—\’è‚È‚µ
+        //ç¾çŠ¶å¾©æ´»ã•ã›ã‚‹äºˆå®šãªã—
     }
 }

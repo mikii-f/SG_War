@@ -41,7 +41,7 @@ public class LeaderManager : SystemManagerOrigin
         attackIntervalDisplay.SetActive(false);
         speedIntervalDisplay.SetActive(false);
         guardIntervalDisplay.SetActive(false);
-        //1í–Ú‚ÍƒK[ƒh‚µ‚©‚Å‚«‚È‚¢
+        //1æˆ¦ç›®ã¯ã‚¬ãƒ¼ãƒ‰ã—ã‹ã§ããªã„
         if (SceneManager.GetActiveScene().name == "BattleScene1")
         {
             HPIntervalDisplay.SetActive(true);
@@ -60,7 +60,7 @@ public class LeaderManager : SystemManagerOrigin
 
     void Update()
     {
-        //ŠeíƒAƒVƒXƒg‹y‚ÑƒI[ƒg‹@”\‚ÌƒL[“ü—Í
+        //å„ç¨®ã‚¢ã‚·ã‚¹ãƒˆåŠã³ã‚ªãƒ¼ãƒˆæ©Ÿèƒ½ã®ã‚­ãƒ¼å…¥åŠ›
         if (Input.GetKeyDown(KeyCode.Return))
         {
             GuardClick();
@@ -82,7 +82,7 @@ public class LeaderManager : SystemManagerOrigin
             AutoClick();
         }
 
-        //ŠeíƒAƒVƒXƒg‚ÌƒCƒ“ƒ^[ƒoƒ‹ŠÇ—(1í–Ú‚ÍƒK[ƒh‚Ì‚İ)
+        //å„ç¨®ã‚¢ã‚·ã‚¹ãƒˆã®ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒ«ç®¡ç†(1æˆ¦ç›®ã¯ã‚¬ãƒ¼ãƒ‰ã®ã¿)
         if (SceneManager.GetActiveScene().name != "BattleScene1")
         {
             if (HPIntervalCount > 0 && !pause)
@@ -124,7 +124,7 @@ public class LeaderManager : SystemManagerOrigin
         }
     }
 
-    //ŠeíƒAƒVƒXƒg‚Ì‘I‘ğ”»’è
+    //å„ç¨®ã‚¢ã‚·ã‚¹ãƒˆã®é¸æŠåˆ¤å®š
     public void HPAssistClick()
     {
         if (HPIntervalCount == 0 && !pause)

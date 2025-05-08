@@ -51,7 +51,7 @@ public class Stage1Manager : StageManagerOrigin
         {
             time += Time.deltaTime;
             timeText.text = "Time: " + time.ToString("F2");
-            //ƒƒjƒ…[•\Ž¦”ñ•\Ž¦
+            //ãƒ¡ãƒ‹ãƒ¥ãƒ¼è¡¨ç¤ºéžè¡¨ç¤º
             if (Input.GetKeyDown(KeyCode.M))
             {
                 if (!function.activeSelf)
@@ -67,11 +67,11 @@ public class Stage1Manager : StageManagerOrigin
                     seSource.Play();
                 }
             }
-            //Še‹@”\
+            //å„æ©Ÿèƒ½
             if (Input.GetKeyDown(KeyCode.Alpha1) && function.activeSelf && !function2.activeSelf)
             {
                 function2.SetActive(true);
-                functionMessageText.text = "Ä’§í‚µ‚Ü‚·‚©H";
+                functionMessageText.text = "å†æŒ‘æˆ¦ã—ã¾ã™ã‹ï¼Ÿ";
                 functionNumber = 1;
                 seSource.clip = seUIClick;
                 seSource.Play();
@@ -81,7 +81,7 @@ public class Stage1Manager : StageManagerOrigin
                 if (GameManager.instance.EXP != 0)
                 {
                     function2.SetActive(true);
-                    functionMessageText.text = "ƒXƒe[ƒWƒZƒŒƒNƒg‚É–ß‚è‚Ü‚·‚©H";
+                    functionMessageText.text = "ã‚¹ãƒ†ãƒ¼ã‚¸ã‚»ãƒ¬ã‚¯ãƒˆã«æˆ»ã‚Šã¾ã™ã‹ï¼Ÿ";
                     functionNumber = 2;
                     seSource.clip = seUIClick;
                     seSource.Play();
@@ -90,12 +90,12 @@ public class Stage1Manager : StageManagerOrigin
             else if (Input.GetKeyDown(KeyCode.Alpha0) && function.activeSelf && !function2.activeSelf)
             {
                 function2.SetActive(true);
-                functionMessageText.text = "(ƒQ[ƒ€‚ð•]‰¿‚µ‚Ä‚­‚¾‚³‚é•ûŒü‚¯‚Ì‹@”\‚Å‚·)\nƒXƒLƒbƒv‚µ‚ÄƒXƒRƒA3000‚ðŠl“¾‚µ‚Ü‚·‚©H";
+                functionMessageText.text = "(ã‚²ãƒ¼ãƒ ã‚’è©•ä¾¡ã—ã¦ãã ã•ã‚‹æ–¹å‘ã‘ã®æ©Ÿèƒ½ã§ã™)\nã‚¹ã‚­ãƒƒãƒ—ã—ã¦ã‚¹ã‚³ã‚¢3000ã‚’ç²å¾—ã—ã¾ã™ã‹ï¼Ÿ";
                 functionNumber = 0;
                 seSource.clip = seUIClick;
                 seSource.Play();
             }
-            //YesNo‘I‘ð
+            //YesNoé¸æŠž
             if (function2.activeSelf)
             {
                 if (Input.GetKeyDown(KeyCode.Y))
@@ -162,7 +162,7 @@ public class Stage1Manager : StageManagerOrigin
     protected virtual void ScoreText()
     {
         score = Mathf.Max((int)(2000 * medalCount / 100 * 60 / time), 1);
-        scoreText.text = "ƒƒ_ƒ‹Šl“¾F" + medalCount.ToString() + "–‡\n\nƒ^ƒCƒ€F" + time.ToString("F2") + "s\n\n\nƒXƒRƒAF" + score.ToString() + "\n—ÝŒvEXPF" + (GameManager.instance.EXP + score).ToString();
+        scoreText.text = "ãƒ¡ãƒ€ãƒ«ç²å¾—ï¼š" + medalCount.ToString() + "æžš\n\nã‚¿ã‚¤ãƒ ï¼š" + time.ToString("F2") + "s\n\n\nã‚¹ã‚³ã‚¢ï¼š" + score.ToString() + "\nç´¯è¨ˆEXPï¼š" + (GameManager.instance.EXP + score).ToString();
     }
     private void Skip()
     {
@@ -171,14 +171,14 @@ public class Stage1Manager : StageManagerOrigin
         score = 3000;
         function.SetActive(false);
         function2.SetActive(false);
-        scoreText.text = "ƒƒ_ƒ‹Šl“¾F –‡\n\nƒ^ƒCƒ€F s\n\n\nƒXƒRƒAF" + score.ToString() + "\n—ÝŒvEXPF" + (GameManager.instance.EXP + score).ToString();
+        scoreText.text = "ãƒ¡ãƒ€ãƒ«ç²å¾—ï¼š æžš\n\nã‚¿ã‚¤ãƒ ï¼š s\n\n\nã‚¹ã‚³ã‚¢ï¼š" + score.ToString() + "\nç´¯è¨ˆEXPï¼š" + (GameManager.instance.EXP + score).ToString();
         StartCoroutine(GoNext());
     }
     private IEnumerator GoNext()
     {
         resultPanel.SetActive(true);
         expSlider.value = (float)(GameManager.instance.EXP + score) / 15000;
-        //ƒŒƒxƒ‹ƒAƒbƒvŽž‚Ìˆ—(“Á‚ÉA‰‰ñŽž‚Ì‚ÝƒXƒg[ƒŠ[‚Ì‘JˆÚæ‚ðØ‚è‘Ö‚¦‚é)
+        //ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—æ™‚ã®å‡¦ç†(ç‰¹ã«ã€åˆå›žæ™‚ã®ã¿ã‚¹ãƒˆãƒ¼ãƒªãƒ¼ã®é·ç§»å…ˆã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹)
         yield return new WaitForSeconds(2);
         if (GameManager.instance.EXP == 0)
         {
@@ -188,7 +188,7 @@ public class Stage1Manager : StageManagerOrigin
             GameManager.instance.LineNumber = 0;
             GameManager.instance.SceneName = "MainScene2_3";
             GameManager.instance.Save();
-            messageText.text = "ƒXƒLƒ‹2E3‚ªŠJ•ú‚³‚ê‚Ü‚µ‚½\n•KŽE‹Z‚ªŠJ•ú‚³‚ê‚Ü‚µ‚½\nƒŠ[ƒ_[ƒXƒLƒ‹u‘Ì—ÍŽx‰‡vuUŒ‚Žx‰‡vu‘¬“xŽx‰‡v‚ªŠJ•ú‚³‚ê‚Ü‚µ‚½";
+            messageText.text = "ã‚¹ã‚­ãƒ«2ãƒ»3ãŒé–‹æ”¾ã•ã‚Œã¾ã—ãŸ\nå¿…æ®ºæŠ€ãŒé–‹æ”¾ã•ã‚Œã¾ã—ãŸ\nãƒªãƒ¼ãƒ€ãƒ¼ã‚¹ã‚­ãƒ«ã€Œä½“åŠ›æ”¯æ´ã€ã€Œæ”»æ’ƒæ”¯æ´ã€ã€Œé€Ÿåº¦æ”¯æ´ã€ãŒé–‹æ”¾ã•ã‚Œã¾ã—ãŸ";
             messagePanel.SetActive(true);
             yield return new WaitUntil(() => Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space));
             messagePanel.SetActive(false);
@@ -207,7 +207,7 @@ public class Stage1Manager : StageManagerOrigin
                 GameManager.instance.SainAttack = 90;
                 GameManager.instance.SainSG = 30;
                 GameManager.instance.Save();
-                messageText.text = "‘Ì—ÍF1000¨1400\nUŒ‚—ÍF50¨90\n‰ŠúSGF20¨30";
+                messageText.text = "ä½“åŠ›ï¼š1000â†’1400\næ”»æ’ƒåŠ›ï¼š50â†’90\nåˆæœŸSGï¼š20â†’30";
                 messagePanel.SetActive(true);
                 yield return new WaitUntil(() => Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space));
                 messagePanel.SetActive(false);
@@ -230,7 +230,7 @@ public class Stage1Manager : StageManagerOrigin
                 GameManager.instance.SainHP = 1700;
                 GameManager.instance.SainAttack = 120;
                 GameManager.instance.Save();
-                messageText.text = "‘Ì—ÍF1400¨1700\nUŒ‚—ÍF90¨120";
+                messageText.text = "ä½“åŠ›ï¼š1400â†’1700\næ”»æ’ƒåŠ›ï¼š90â†’120";
                 messagePanel.SetActive(true);
                 yield return new WaitUntil(() => Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space));
                 messagePanel.SetActive(false);
@@ -254,7 +254,7 @@ public class Stage1Manager : StageManagerOrigin
                 GameManager.instance.SainAttack = 150;
                 GameManager.instance.SainSG = 40;
                 GameManager.instance.Save();
-                messageText.text = "‘Ì—ÍF1700¨2000\nUŒ‚—ÍF120¨150\n‰ŠúSGF30¨40";
+                messageText.text = "ä½“åŠ›ï¼š1700â†’2000\næ”»æ’ƒåŠ›ï¼š120â†’150\nåˆæœŸSGï¼š30â†’40";
                 messagePanel.SetActive(true);
                 yield return new WaitUntil(() => Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space));
                 messagePanel.SetActive(false);

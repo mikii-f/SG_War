@@ -57,17 +57,17 @@ public class ExtraBattle2Manager : BattleSceneManagerOrigin
         }
         yield return new WaitForSeconds(2);
         tutorialPanel.SetActive(true);
-        tutorialText.text = "‚©‚Â‚ÄƒGƒ‹‚ðŽ¸‚Á‚½í‚¢‚ðŒJ‚è•Ô‚³‚È‚¢‚æ‚¤A‘å—Ê‚Ì“G‚ð‘¬‚â‚©‚ÉŸr–Å‚·‚éŒP—û‚ð‚µ‚Ü‚µ‚å‚¤B";
+        tutorialText.text = "ã‹ã¤ã¦ã‚¨ãƒ«ã‚’å¤±ã£ãŸæˆ¦ã„ã‚’ç¹°ã‚Šè¿”ã•ãªã„ã‚ˆã†ã€å¤§é‡ã®æ•µã‚’é€Ÿã‚„ã‹ã«æ®²æ»…ã™ã‚‹è¨“ç·´ã‚’ã—ã¾ã—ã‚‡ã†ã€‚";
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
         seSource.clip = seUIClick;
         seSource.Play();
         yield return null;
-        tutorialText.text = "–{í“¬‚É‚ÍŽžŠÔ§ŒÀ‚ª‚ ‚è‚Ü‚·B5•ªˆÈ“à‚É‘S‚Ä‚Ì“G‚ð“|‚µ‚«‚ê‚È‚©‚Á‚½ê‡ƒQ[ƒ€ƒI[ƒo[‚Æ‚È‚è‚Ü‚·B";
+        tutorialText.text = "æœ¬æˆ¦é—˜ã«ã¯æ™‚é–“åˆ¶é™ãŒã‚ã‚Šã¾ã™ã€‚5åˆ†ä»¥å†…ã«å…¨ã¦ã®æ•µã‚’å€’ã—ãã‚Œãªã‹ã£ãŸå ´åˆã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã¨ãªã‚Šã¾ã™ã€‚";
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
         seSource.clip = seUIClick;
         seSource.Play();
         yield return null;
-        tutorialText.text = "ƒXƒLƒ‹‚ðŽg—p‚·‚éƒ^ƒCƒ~ƒ“ƒO‚âA“G‚ð“|‚·‡”Ô‚ðˆÓŽ¯‚µ‚Ä’§‚Ý‚Ü‚µ‚å‚¤B";
+        tutorialText.text = "ã‚¹ã‚­ãƒ«ã‚’ä½¿ç”¨ã™ã‚‹ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã‚„ã€æ•µã‚’å€’ã™é †ç•ªã‚’æ„è­˜ã—ã¦æŒ‘ã¿ã¾ã—ã‚‡ã†ã€‚";
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0));
         seSource.clip = seUIClick;
         seSource.Play();
@@ -107,7 +107,7 @@ public class ExtraBattle2Manager : BattleSceneManagerOrigin
             if (!sainManager.Pause)
             {
                 remainingTime = Mathf.Max(remainingTime - Time.deltaTime, 0);
-                remainingTimeText.text = "Žc‚èŽžŠÔ:" + remainingTime.ToString("F2");
+                remainingTimeText.text = "æ®‹ã‚Šæ™‚é–“:" + remainingTime.ToString("F2");
             }
         }
         StartCoroutine(GameOver());

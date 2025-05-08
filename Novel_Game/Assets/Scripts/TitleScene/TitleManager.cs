@@ -50,19 +50,19 @@ public class TitleManager : SystemManagerOrigin
     }
     private void SaveDataCheck()
     {
-        //ˆê‚ÂˆÈãƒZ[ƒuƒf[ƒ^‚ª‚ ‚é‚©
+        //ä¸€ã¤ä»¥ä¸Šã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒã‚ã‚‹ã‹
         if (GameManager.instance.SaveData)
         {
             continueSwitchMask.SetActive(false);
         }
-        //ƒf[ƒ^1`3‚Ìis“x‚ğŠm”F
+        //ãƒ‡ãƒ¼ã‚¿1ï½3ã®é€²è¡Œåº¦ã‚’ç¢ºèª
         if (PlayerPrefs.GetString("progress") != "")
         {
             data1Text.text = PlayerPrefs.GetString("progress");
         }
         else
         {
-            data1Text.text = "ƒf[ƒ^‚È‚µ";
+            data1Text.text = "ãƒ‡ãƒ¼ã‚¿ãªã—";
         }
         if (PlayerPrefs.GetString("progress2") != "")
         {
@@ -70,7 +70,7 @@ public class TitleManager : SystemManagerOrigin
         }
         else
         {
-            data2Text.text = "ƒf[ƒ^‚È‚µ";
+            data2Text.text = "ãƒ‡ãƒ¼ã‚¿ãªã—";
         }
         if (PlayerPrefs.GetString("progress3") != "")
         {
@@ -78,9 +78,9 @@ public class TitleManager : SystemManagerOrigin
         }
         else
         {
-            data3Text.text = "ƒf[ƒ^‚È‚µ";
+            data3Text.text = "ãƒ‡ãƒ¼ã‚¿ãªã—";
         }
-        //ƒRƒ“ƒtƒBƒO‚Ìİ’è(float’l‚Ì‚½‚ßƒCƒR[ƒ‹”»’è‚Í”ğ‚¯‚é)
+        //ã‚³ãƒ³ãƒ•ã‚£ã‚°ã®è¨­å®š(floatå€¤ã®ãŸã‚ã‚¤ã‚³ãƒ¼ãƒ«åˆ¤å®šã¯é¿ã‘ã‚‹)
         if (GameManager.instance.BgmVolume < 0.01f)
         {
             bgmSlider.value = 0;
@@ -142,7 +142,7 @@ public class TitleManager : SystemManagerOrigin
             autoSlider.value = 4;
         }
     }
-    //ƒXƒ‰ƒCƒ_[‘€ì‚É”­¶‚³‚¹‚éƒCƒxƒ“ƒg
+    //ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼æ“ä½œæ™‚ã«ç™ºç”Ÿã•ã›ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆ
     public void OnBGMSliderValueChanged(float value)
     {
         switch (bgmSlider.value)
@@ -217,7 +217,7 @@ public class TitleManager : SystemManagerOrigin
 
     private void Update()
     {
-        //ƒƒbƒZ[ƒW‚Ö‚Ì‰“š
+        //ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¸ã®å¿œç­”
         if (Input.GetKeyDown(KeyCode.Y))
         {
             if (systemMessageObject.activeSelf)
@@ -345,7 +345,7 @@ public class TitleManager : SystemManagerOrigin
             }
             else
             {
-                if (data1Text.text != "ƒf[ƒ^‚È‚µ")
+                if (data1Text.text != "ãƒ‡ãƒ¼ã‚¿ãªã—")
                 {
                     StartCoroutine(ButtonAnim(data1SwitchRect));
                     GameManager.instance.SaveDataNumber = 1;
@@ -377,7 +377,7 @@ public class TitleManager : SystemManagerOrigin
             }
             else
             {
-                if (data2Text.text != "ƒf[ƒ^‚È‚µ")
+                if (data2Text.text != "ãƒ‡ãƒ¼ã‚¿ãªã—")
                 {
                     StartCoroutine(ButtonAnim(data2SwitchRect));
                     GameManager.instance.SaveDataNumber = 2;
@@ -409,7 +409,7 @@ public class TitleManager : SystemManagerOrigin
             }
             else
             {
-                if (data3Text.text != "ƒf[ƒ^‚È‚µ")
+                if (data3Text.text != "ãƒ‡ãƒ¼ã‚¿ãªã—")
                 {
                     StartCoroutine(ButtonAnim(data3SwitchRect));
                     GameManager.instance.SaveDataNumber = 3;

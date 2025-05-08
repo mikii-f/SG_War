@@ -57,10 +57,10 @@ public class SainManager : SystemManagerOrigin
     [SerializeField] protected Sprite specialAttackNameSprite;
     protected bool isGuard = false;
     //private bool isCannotGuard = false;
-    //public bool IsCannotGuard { get { return isCannotGuard; } }   ƒK[ƒh•s‰Â‚ÍƒfƒƒŠƒbƒg‚Æ‚µ‚Ä‘å‚«‚·‚¬‚é‚Ì‚Å‚¢‚Á‚½‚ñŠO‚·
+    //public bool IsCannotGuard { get { return isCannotGuard; } }   ã‚¬ãƒ¼ãƒ‰ä¸å¯ã¯ãƒ‡ãƒ¡ãƒªãƒƒãƒˆã¨ã—ã¦å¤§ãã™ãã‚‹ã®ã§ã„ã£ãŸã‚“å¤–ã™
     private bool isSkill3 = false;
     protected bool isInvincible = false;
-    //®”’l‚ÅŒW”‚ğˆµ‚¤‚±‚Æ‚ÅŠÈ’P‰»(float‚ÍFX‚Æ‚ß‚ñ‚Ç‚¢)(/10‚Ìˆ—‚É–â‘è‚ª‚È‚¢‚æ‚¤‹C‚ğ‚Â‚¯‚é)
+    //æ•´æ•°å€¤ã§ä¿‚æ•°ã‚’æ‰±ã†ã“ã¨ã§ç°¡å˜åŒ–(floatã¯è‰²ã€…ã¨ã‚ã‚“ã©ã„)(/10ã®å‡¦ç†ã«å•é¡ŒãŒãªã„ã‚ˆã†æ°—ã‚’ã¤ã‘ã‚‹)
     protected int attackFactor = 10;
     private int speedFactor = 10;
     private int avoidFactor = 0;
@@ -83,7 +83,7 @@ public class SainManager : SystemManagerOrigin
     void Start()
     {
         UnityEngine.Random.InitState(DateTime.Now.Millisecond);
-        maxHP = Mathf.Max(GameManager.instance.SainHP, 1000);       //ŠJ”­’†‚É‚¨‚¯‚éGameManager‚Ì’l‚ªİ’è‚³‚ê‚Ä‚¢‚È‚¢ó‹µ—p
+        maxHP = Mathf.Max(GameManager.instance.SainHP, 1000);       //é–‹ç™ºä¸­ã«ãŠã‘ã‚‹GameManagerã®å€¤ãŒè¨­å®šã•ã‚Œã¦ã„ãªã„çŠ¶æ³ç”¨
         attack = Mathf.Max(GameManager.instance.SainAttack, 50);
         currentSG = Mathf.Max(GameManager.instance.SainSG, 20);
         currentHP = maxHP;
@@ -113,7 +113,7 @@ public class SainManager : SystemManagerOrigin
         mask.SetActive(false);
         mask2.SetActive(false);
         mask3.SetActive(false);
-        //1í–Ú‚ÍƒXƒLƒ‹ƒQ[ƒW‚ª‘‚¦‚È‚¢
+        //1æˆ¦ç›®ã¯ã‚¹ã‚­ãƒ«ã‚²ãƒ¼ã‚¸ãŒå¢—ãˆãªã„
         if (SceneManager.GetActiveScene().name == "BattleScene1")
         {
             mask2.SetActive(true);
@@ -135,20 +135,20 @@ public class SainManager : SystemManagerOrigin
     {
         if (!pause)
         {
-            //ƒoƒt‚Ì‘±ŠÔŒv‘ª—p(—¬Î‚Éfloat‚Ì•\Œ»”ÍˆÍ’´‚¦‚é‰Â”\«‚Íl‚¦‚È‚­‚Ä‚¢‚¢‚Í‚¸cc)
+            //ãƒãƒ•ã®æŒç¶šæ™‚é–“è¨ˆæ¸¬ç”¨(æµçŸ³ã«floatã®è¡¨ç¾ç¯„å›²è¶…ãˆã‚‹å¯èƒ½æ€§ã¯è€ƒãˆãªãã¦ã„ã„ã¯ãšâ€¦â€¦)
             buffTimer += Time.deltaTime;
-            //ƒCƒ“ƒ^[ƒoƒ‹ŠÇ—
+            //ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒ«ç®¡ç†
             if (intervalCount > 0)
             {
                 intervalCount = Mathf.Max(0, intervalCount - Time.deltaTime * speedFactor / 10);
                 intervalText.text = intervalCount.ToString("F2");
             }
-            //UŒ‚‰Â”\ó‘Ô‚È‚çˆÃ“]—pƒ}ƒXƒN‚ğ‰ğœ
+            //æ”»æ’ƒå¯èƒ½çŠ¶æ…‹ãªã‚‰æš—è»¢ç”¨ãƒã‚¹ã‚¯ã‚’è§£é™¤
             else if (mask.activeSelf)
             {
                 mask.SetActive(false);
             }
-            //í“¬ƒXƒLƒ‹‚¨‚æ‚Ñ•KE‚Ì‘I‘ğ
+            //æˆ¦é—˜ã‚¹ã‚­ãƒ«ãŠã‚ˆã³å¿…æ®ºã®é¸æŠ
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 BattleSkill1Click();
@@ -165,7 +165,7 @@ public class SainManager : SystemManagerOrigin
             {
                 SpecialAttackClick();
             }
-            //ƒI[ƒg(ƒvƒŒƒCƒ„[‚à‘€ì‚Í‚Å‚«‚é)(‘½•ª‹£‡‚Í‚µ‚È‚¢‚Í‚¸cc)
+            //ã‚ªãƒ¼ãƒˆæ™‚(ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚‚æ“ä½œã¯ã§ãã‚‹)(å¤šåˆ†ç«¶åˆã¯ã—ãªã„ã¯ãšâ€¦â€¦)
             if (auto)
             {
                 if (intervalCount == 0)
@@ -177,12 +177,12 @@ public class SainManager : SystemManagerOrigin
     }
     protected virtual void AutoAttack()
     {
-        //SG>=50‚ÅS3‚ğg—p
+        //SG>=50ã§S3ã‚’ä½¿ç”¨
         if (currentSG >= 50 && !isSkill3)
         {
             BattleSkill3Click();
         }
-        //S3g—p’†‚ÍƒXƒLƒ‹2‚ğ—Dæ‚µ‚Äg—p
+        //S3ä½¿ç”¨ä¸­ã¯ã‚¹ã‚­ãƒ«2ã‚’å„ªå…ˆã—ã¦ä½¿ç”¨
         else if (isSkill3 && currentSG >= 10)
         {
             BattleSkill2Click();
@@ -195,15 +195,15 @@ public class SainManager : SystemManagerOrigin
 
     public virtual void BattleSkill1Click()
     {
-        //ƒCƒ“ƒ^[ƒoƒ‹‚ªI‚í‚Á‚Ä‚¢‚é‚©‚ÌŠm”F
+        //ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒ«ãŒçµ‚ã‚ã£ã¦ã„ã‚‹ã‹ã®ç¢ºèª
         if (intervalCount == 0 && !pause)
         {
             intervalCount = interval;
             StartCoroutine(ButtonAnim(bS1Rect));
             mask.SetActive(true);
-            //’ÊíUŒ‚(UŒ‚—Í‚Ì100% SG‰ñ•œ10)
+            //é€šå¸¸æ”»æ’ƒ(æ”»æ’ƒåŠ›ã®100% SGå›å¾©10)
             StartCoroutine(bSManager.SainSkill1(attack*attackFactor/10, attack1Rect, attack1Image));
-            //1í–Ú‚Í’ÊíUŒ‚‚µ‚©‚Å‚«‚È‚¢
+            //1æˆ¦ç›®ã¯é€šå¸¸æ”»æ’ƒã—ã‹ã§ããªã„
             if (SceneManager.GetActiveScene().name != "BattleScene1")
             {
                 currentSG = Mathf.Min(maxSG, currentSG + 10);
@@ -220,13 +220,13 @@ public class SainManager : SystemManagerOrigin
     }
     public virtual void BattleSkill2Click()
     {
-        //ƒCƒ“ƒ^[ƒoƒ‹‚ÌŠm”F•SG>=10
+        //ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒ«ã®ç¢ºèªï¼†SG>=10
         if (intervalCount == 0 && currentSG >= 10 && !pause)
         {
             intervalCount = interval;
             StartCoroutine(ButtonAnim(bS2Rect));
             mask.SetActive(true);
-            //‹­UŒ‚(UŒ‚—Í‚Ì200% SGÁ”ï10 UŒ‚‘Ô¨‚É“ü‚é‘O‚Ì“G‚Ìs“®’x‰„)
+            //å¼·æ”»æ’ƒ(æ”»æ’ƒåŠ›ã®200% SGæ¶ˆè²»10 æ”»æ’ƒæ…‹å‹¢ã«å…¥ã‚‹å‰ã®æ•µã®è¡Œå‹•é…å»¶)
             StartCoroutine(bSManager.SainSkill2(2*attack*attackFactor/10, attack2Rect, attack2Image));
             currentSG -= 10;
             SGCheck();
@@ -239,10 +239,10 @@ public class SainManager : SystemManagerOrigin
             seSource.Play();
         }
     }
-    //ƒNƒŠƒbƒN‚Ìó‚¯æ‚è‚ÍƒRƒ‹[ƒ`ƒ“‚É‚Å‚«‚È‚¢‚Á‚Û‚¢
+    //ã‚¯ãƒªãƒƒã‚¯ã®å—ã‘å–ã‚Šã¯ã‚³ãƒ«ãƒ¼ãƒãƒ³ã«ã§ããªã„ã£ã½ã„
     public virtual void BattleSkill3Click()
     {
-        //ƒCƒ“ƒ^[ƒoƒ‹‚ÌŠm”F•SG>=20•ƒXƒLƒ‹3g—p’†‚Å‚È‚¢
+        //ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒ«ã®ç¢ºèªï¼†SG>=20ï¼†ã‚¹ã‚­ãƒ«3ä½¿ç”¨ä¸­ã§ãªã„
         if (intervalCount == 0 && currentSG >= 20 && !pause && !isSkill3)
         {
             StartCoroutine(BattleSkill3());
@@ -255,12 +255,12 @@ public class SainManager : SystemManagerOrigin
     }
     private IEnumerator BattleSkill3()
     {
-        //‘¦À‚ÉÄs“®‰Â”\
+        //å³åº§ã«å†è¡Œå‹•å¯èƒ½
         StartCoroutine(ButtonAnim(bS3Rect));
         StartCoroutine(EffectOnandOff(buffEffect));
         seSource.clip = seBuff;
         seSource.Play();
-        //ƒoƒtó‹µ‚ÌŠÇ—
+        //ãƒãƒ•çŠ¶æ³ã®ç®¡ç†
         int index = -1;
         for (int i=0; i<buffDebuffNumber; i++)
         {
@@ -282,7 +282,7 @@ public class SainManager : SystemManagerOrigin
                 break;
             }
         }
-        //©ŒÈ‹­‰»(SGÁ”ï20 ƒCƒ“ƒ^[ƒoƒ‹”¼Œ¸ ‰ñ”ğ—¦30%ã¸ UŒ‚—Íã¸) d‚ËŠ|‚¯•s‰Â
+        //è‡ªå·±å¼·åŒ–(SGæ¶ˆè²»20 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒ«åŠæ¸› å›é¿ç‡30%ä¸Šæ˜‡ æ”»æ’ƒåŠ›ä¸Šæ˜‡) é‡ã­æ›ã‘ä¸å¯
         currentSG -= 20;
         speedFactor += 10;
         avoidFactor += 3;
@@ -291,7 +291,7 @@ public class SainManager : SystemManagerOrigin
         SGCheck();
         float tempTimer = buffTimer;
         yield return new WaitUntil(() => buffTimer - tempTimer >= 10);
-        //ƒoƒtó‹µ‚ÌŠÇ—
+        //ãƒãƒ•çŠ¶æ³ã®ç®¡ç†
         BuffIndexCheck(index, 3);
         speedFactor -= 10;
         avoidFactor -= 3;
@@ -305,13 +305,13 @@ public class SainManager : SystemManagerOrigin
 
     public virtual void SpecialAttackClick()
     {
-        //SG>=100‚È‚ç‚¢‚Â‚Å‚à
+        //SG>=100ãªã‚‰ã„ã¤ã§ã‚‚
         if (currentSG >= 100 && !pause)
         {
             StartCoroutine(ButtonAnim(sARect));
             StartCoroutine(Invincible(1));
             StartCoroutine(bSManager.SpecialAttackName(specialAttackNameSprite));
-            //“G‘S‘Ì‚ÉUŒ‚—Í500%(SGÁ”ï100 ŠÔ‚ğ~‚ß‚Äê—p‰‰o •KE‚¿‚Ì“G‚ÌƒK[ƒh‚ğŠ„‚é)
+            //æ•µå…¨ä½“ã«æ”»æ’ƒåŠ›500%(SGæ¶ˆè²»100 æ™‚é–“ã‚’æ­¢ã‚ã¦å°‚ç”¨æ¼”å‡º å¿…æ®ºæŒã¡ã®æ•µã®ã‚¬ãƒ¼ãƒ‰ã‚’å‰²ã‚‹)
             StartCoroutine(bSManager.SainToAllAttack(5*attack * attackFactor / 10, false));
             StartCoroutine(SESpecialFinish());
             currentSG -= 100;
@@ -323,7 +323,7 @@ public class SainManager : SystemManagerOrigin
             seSource.Play();
         }
     }
-    //•KE‹Z‚ÌÅŒã‚Ì•”•ª‚ÌŒø‰Ê‰¹‚ğ“Æ—§‚³‚¹‚é
+    //å¿…æ®ºæŠ€ã®æœ€å¾Œã®éƒ¨åˆ†ã®åŠ¹æœéŸ³ã‚’ç‹¬ç«‹ã•ã›ã‚‹
     protected IEnumerator SESpecialFinish()
     {
         yield return new WaitForSeconds(3);
@@ -331,7 +331,7 @@ public class SainManager : SystemManagerOrigin
         seSource.Play();
     }
     
-    //å‚É•KE‹Z”­“®’¼Œã‚Ì‚½‚ß‚Ì–³“GŠÔ
+    //ä¸»ã«å¿…æ®ºæŠ€ç™ºå‹•ç›´å¾Œã®ãŸã‚ã®ç„¡æ•µæ™‚é–“
     protected IEnumerator Invincible(float invincibleTime)
     {
         isInvincible = true;
@@ -339,7 +339,7 @@ public class SainManager : SystemManagerOrigin
         isInvincible = false;
     }
 
-    //SG’l‚É‚æ‚Á‚Äƒ}ƒXƒNØ‚è‘Ö‚¦
+    //SGå€¤ã«ã‚ˆã£ã¦ãƒã‚¹ã‚¯åˆ‡ã‚Šæ›¿ãˆ
     protected virtual void SGCheck()
     {
         SGslider.value = (float)currentSG / maxSG;
@@ -370,20 +370,20 @@ public class SainManager : SystemManagerOrigin
         }
     }
 
-    //ƒ_ƒ[ƒW‚ğó‚¯‚é
+    //ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ã‚‹
     public virtual void ReceiveDamage(int damage)
     {
-        //ƒ|[ƒY’†(Ÿ—˜Œã)‚Íƒm[ƒ_ƒ
+        //ãƒãƒ¼ã‚ºä¸­(å‹åˆ©å¾Œ)ã¯ãƒãƒ¼ãƒ€ãƒ¡
         if (pause)
         {
             damage = 0;
         }
-        //–³“GŠÔ‚È‚çƒm[ƒ_ƒ
+        //ç„¡æ•µæ™‚é–“ãªã‚‰ãƒãƒ¼ãƒ€ãƒ¡
         else if (isInvincible)
         {
             damage = 0;
         }
-        //‰ñ”ğ‚É¬Œ÷‚µ‚½‚çƒm[ƒ_ƒ
+        //å›é¿ã«æˆåŠŸã—ãŸã‚‰ãƒãƒ¼ãƒ€ãƒ¡
         else if (UnityEngine.Random.Range(0, 10) < avoidFactor)
         {
             damage = 0;
@@ -392,11 +392,11 @@ public class SainManager : SystemManagerOrigin
                 StopCoroutine(commentCoroutine);
                 ResetComment();
             }
-            commentCoroutine = StartCoroutine(Comment("‰ñ”ğ¬Œ÷"));
+            commentCoroutine = StartCoroutine(Comment("å›é¿æˆåŠŸ"));
             damageSeSource.clip = seAvoid;
             damageSeSource.Play();
         }
-        //ƒK[ƒh’†‚È‚ç9Š„ƒJƒbƒg
+        //ã‚¬ãƒ¼ãƒ‰ä¸­ãªã‚‰9å‰²ã‚«ãƒƒãƒˆ
         else if (isGuard)
         {
             damage /= 10;
@@ -405,25 +405,25 @@ public class SainManager : SystemManagerOrigin
                 StopCoroutine(commentCoroutine);
                 ResetComment();
             }
-            commentCoroutine = StartCoroutine(Comment("ƒK[ƒh¬Œ÷"));
+            commentCoroutine = StartCoroutine(Comment("ã‚¬ãƒ¼ãƒ‰æˆåŠŸ"));
             damageSeSource.clip = seGuard;
             damageSeSource.Play();
         }
-        //UŒ‚‘Ò‹@’†‚È‚ç5Š„ƒJƒbƒg
+        //æ”»æ’ƒå¾…æ©Ÿä¸­ãªã‚‰5å‰²ã‚«ãƒƒãƒˆ
         else if (intervalCount == 0)
         {
             damage /= 2;
             damageSeSource.clip = seDamage;
             damageSeSource.Play();
         }
-        //ƒK[ƒh‚È‚Ç‚ğ‚µ‚Ä‚¢‚È‚©‚Á‚½‚ÍU“®
+        //ã‚¬ãƒ¼ãƒ‰ãªã©ã‚’ã—ã¦ã„ãªã‹ã£ãŸæ™‚ã¯æŒ¯å‹•
         else
         {
             StartCoroutine(DamageVibration());
             damageSeSource.clip = seDamage;
             damageSeSource.Play();
         }
-        //•\¦‚Ég‚í‚ê‚Ä‚¢‚È‚¢ƒeƒLƒXƒgƒ{ƒbƒNƒX‚ğg‚¤
+        //è¡¨ç¤ºã«ä½¿ã‚ã‚Œã¦ã„ãªã„ãƒ†ã‚­ã‚¹ãƒˆãƒœãƒƒã‚¯ã‚¹ã‚’ä½¿ã†
         if (damageText.text == "")
         {
             StartCoroutine(DamageDisplay(damage, damageText));
@@ -444,7 +444,7 @@ public class SainManager : SystemManagerOrigin
             StartCoroutine(bSManager.GameOver());
         }
     }
-    //•KE‹Zƒ_ƒ[ƒW‚ğó‚¯‚é(ƒK[ƒh“™–³Œø)
+    //å¿…æ®ºæŠ€ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ã‚‹(ã‚¬ãƒ¼ãƒ‰ç­‰ç„¡åŠ¹)
     public void ReceiveSpecialDamage(int damage)
     {
         StartCoroutine(DamageVibration());
@@ -460,14 +460,14 @@ public class SainManager : SystemManagerOrigin
         }
     }
 
-    //ƒ_ƒ[ƒW•\¦
+    //ãƒ€ãƒ¡ãƒ¼ã‚¸è¡¨ç¤º
     protected IEnumerator DamageDisplay(int damage, TMP_Text damageText)
     {
         damageText.text = damage.ToString();
         yield return new WaitForSeconds(0.35f);
         damageText.text = "";
     }
-    //ƒK[ƒhE‰ñ”ğ¬Œ÷‚ÌƒRƒƒ“ƒg
+    //ã‚¬ãƒ¼ãƒ‰ãƒ»å›é¿æˆåŠŸæ™‚ã®ã‚³ãƒ¡ãƒ³ãƒˆ
     protected IEnumerator Comment(string text)
     {
         comment.text = text;
@@ -485,7 +485,7 @@ public class SainManager : SystemManagerOrigin
         temp.x = 250;
         commentPanelRect.anchoredPosition = temp;
     }
-    //0.5•b‚ÌŠÔ‚Å2‰ñŒÄ‚Ño‚³‚ê‚½—p
+    //0.5ç§’ã®é–“ã§2å›å‘¼ã³å‡ºã•ã‚ŒãŸæ™‚ç”¨
     protected void ResetComment()
     {
         commentPanel.SetActive(false);
@@ -493,7 +493,7 @@ public class SainManager : SystemManagerOrigin
         temp.x = 250;
         commentPanelRect.anchoredPosition = temp;
     }
-    //ƒ_ƒ[ƒWó‚¯æ‚è‚Ì—h‚ê
+    //ãƒ€ãƒ¡ãƒ¼ã‚¸å—ã‘å–ã‚Šæ™‚ã®æºã‚Œ
     protected IEnumerator DamageVibration()
     {
         Vector2 temp = myRect.anchoredPosition;
@@ -513,7 +513,7 @@ public class SainManager : SystemManagerOrigin
         myRect.anchoredPosition = temp;
     }
 
-    //ƒK[ƒhó‘Ô‚É‚È‚é
+    //ã‚¬ãƒ¼ãƒ‰çŠ¶æ…‹ã«ãªã‚‹
     public IEnumerator ReceiveGuard()
     {
         isGuard = true;
@@ -523,7 +523,7 @@ public class SainManager : SystemManagerOrigin
         isGuard = false;
         guardEffect.SetActive(false);    
     }
-    //‘Ì—ÍƒAƒVƒXƒg‚ğó‚¯‚é(b’è5Š„‰ñ•œ)
+    //ä½“åŠ›ã‚¢ã‚·ã‚¹ãƒˆã‚’å—ã‘ã‚‹(æš«å®š5å‰²å›å¾©)
     public void ReceiveHPAssist()
     {
         currentHP = Mathf.Min(currentHP + maxHP/2, maxHP);
@@ -533,7 +533,7 @@ public class SainManager : SystemManagerOrigin
         lSkillSeSource.clip = seHeal;
         lSkillSeSource.Play();
     }
-    //UŒ‚ƒAƒVƒXƒg‚ğó‚¯‚é(b’è15•bŠÔUŒ‚+1.5”{)
+    //æ”»æ’ƒã‚¢ã‚·ã‚¹ãƒˆã‚’å—ã‘ã‚‹(æš«å®š15ç§’é–“æ”»æ’ƒ+1.5å€)
     public IEnumerator ReceiveAttackAssist()
     {
         StartCoroutine(EffectOnandOff(buffEffect));
@@ -541,7 +541,7 @@ public class SainManager : SystemManagerOrigin
         lSkillSeSource.Play();
         attackFactor += 5;
         float tempTimer = buffTimer;
-        //ƒoƒtó‹µ‚ÌŠÇ—
+        //ãƒãƒ•çŠ¶æ³ã®ç®¡ç†
         int index = -1;
         for (int i = 0; i < buffDebuffNumber; i++)
         {
@@ -564,7 +564,7 @@ public class SainManager : SystemManagerOrigin
         BuffIndexCheck(index, 1);
         attackFactor -= 5;
     }
-    //‘¬“xƒAƒVƒXƒg‚ğó‚¯‚é(b’è20•bŠÔ5ã¸)
+    //é€Ÿåº¦ã‚¢ã‚·ã‚¹ãƒˆã‚’å—ã‘ã‚‹(æš«å®š20ç§’é–“5ä¸Šæ˜‡)
     public IEnumerator ReceiveSpeedAssist()
     {
         StartCoroutine(EffectOnandOff(buffEffect));
@@ -572,7 +572,7 @@ public class SainManager : SystemManagerOrigin
         lSkillSeSource.Play();
         speedFactor += 5;
         float tempTimer = buffTimer;
-        //ƒoƒtó‹µ‚ÌŠÇ—
+        //ãƒãƒ•çŠ¶æ³ã®ç®¡ç†
         int index = -1;
         for (int i = 0; i < buffDebuffNumber; i++)
         {
@@ -596,10 +596,10 @@ public class SainManager : SystemManagerOrigin
         speedFactor -= 5;
     }
 
-    //ƒoƒt‚È‚Ç‚ÌƒAƒjƒ[ƒVƒ‡ƒ“(ƒtƒF[ƒh‚¢‚éH)
+    //ãƒãƒ•ãªã©ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³(ãƒ•ã‚§ãƒ¼ãƒ‰ã„ã‚‹ï¼Ÿ)
     protected IEnumerator EffectOnandOff(GameObject effect)
     {
-        //d‚ËŠ|‚¯‚Í‚Æ‚è‚ ‚¦‚¸Å‰‚Ì‚¾‚¯•\¦
+        //é‡ã­æ›ã‘æ™‚ã¯ã¨ã‚Šã‚ãˆãšæœ€åˆã®ã ã‘è¡¨ç¤º
         if (!effect.activeSelf)
         {
             effect.SetActive(true);
@@ -607,14 +607,14 @@ public class SainManager : SystemManagerOrigin
             effect.SetActive(false);
         }
     }
-    //ƒoƒtó‹µ‚ÌŠÇ—
-    //ƒoƒt”­“®‚Éæ“¾‚µ‚½ƒCƒ“ƒfƒbƒNƒX‚ª“K‹X•ÏX‚³‚ê‚Ä‚¢‚­Œ`
-    //(—áF0”Ô–ÚE1”Ô–Ú‚ÌƒAƒCƒRƒ“˜g‚ªnull‚Å‚È‚­2”Ô–Ú‚ÉƒAƒCƒRƒ“‚ğ’u‚¢‚½¨ƒCƒ“ƒfƒbƒNƒX•Û”z—ñ‚Ì’l‚ª-1‚Ì‚Æ‚±‚ë‚ğŒ©‚Â‚¯‚»‚ÌƒCƒ“ƒfƒbƒNƒX‚ğˆê“I‚É‹L‰¯‚µ2‚ğŠi”[¨
-    //‚±‚ÌŠÖ”‚ª“KØ‚ÉƒCƒ“ƒfƒbƒNƒX‚ğŠÇ—¨ƒoƒtI—¹‚ÉƒCƒ“ƒfƒbƒNƒX•Û”z—ñ‚ªw‚·êŠ‚ÌƒAƒCƒRƒ“‚ğnull‚É‚µ”z—ñ‚Ì’l‚ğ-1‚É–ß‚·)
-    //‘æ1ˆø”‚Íˆê“I‚É‹L‰¯‚µ‚½ƒCƒ“ƒfƒbƒNƒXA‘æ2ˆø”‚ÍÁ‚·ƒoƒt‚Ì”
+    //ãƒãƒ•çŠ¶æ³ã®ç®¡ç†
+    //ãƒãƒ•ç™ºå‹•æ™‚ã«å–å¾—ã—ãŸã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãŒé©å®œå¤‰æ›´ã•ã‚Œã¦ã„ãå½¢
+    //(ä¾‹ï¼š0ç•ªç›®ãƒ»1ç•ªç›®ã®ã‚¢ã‚¤ã‚³ãƒ³æ ãŒnullã§ãªã2ç•ªç›®ã«ã‚¢ã‚¤ã‚³ãƒ³ã‚’ç½®ã„ãŸâ†’ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ä¿æŒé…åˆ—ã®å€¤ãŒ-1ã®ã¨ã“ã‚ã‚’è¦‹ã¤ã‘ãã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’ä¸€æ™‚çš„ã«è¨˜æ†¶ã—2ã‚’æ ¼ç´â†’
+    //ã“ã®é–¢æ•°ãŒé©åˆ‡ã«ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’ç®¡ç†â†’ãƒãƒ•çµ‚äº†æ™‚ã«ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ä¿æŒé…åˆ—ãŒæŒ‡ã™å ´æ‰€ã®ã‚¢ã‚¤ã‚³ãƒ³ã‚’nullã«ã—é…åˆ—ã®å€¤ã‚’-1ã«æˆ»ã™)
+    //ç¬¬1å¼•æ•°ã¯ä¸€æ™‚çš„ã«è¨˜æ†¶ã—ãŸã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã€ç¬¬2å¼•æ•°ã¯æ¶ˆã™ãƒãƒ•ã®æ•°
     protected void BuffIndexCheck(int n, int m)
     {
-        //ƒAƒCƒRƒ“‘‚«Š·‚¦
+        //ã‚¢ã‚¤ã‚³ãƒ³æ›¸ãæ›ãˆ
         for (int i = buffIndex[n]; i < buffIndex[n]+m; i++)
         {
             buffAndDebuffs[i].sprite = noneSprite;
@@ -624,7 +624,7 @@ public class SainManager : SystemManagerOrigin
             buffAndDebuffs[i - m].sprite = buffAndDebuffs[i].sprite;
             buffAndDebuffs[i].sprite = noneSprite;
         }
-        //‚»‚Ì‘¼‚ÌƒAƒCƒRƒ“‚ÌƒCƒ“ƒfƒbƒNƒXŠÇ—
+        //ãã®ä»–ã®ã‚¢ã‚¤ã‚³ãƒ³ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ç®¡ç†
         for (int i=0; i<buffDebuffNumber; i++)
         {
             if (buffIndex[i] > buffIndex[n])

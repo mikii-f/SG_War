@@ -35,7 +35,7 @@ public class ImagesManager3_2 : ImagesManagerOrigin
         effectsAudio = effectsObject.GetComponent<AudioSource>();
     }
 
-    //—§‚¿ŠGŠÖŒW
+    //ç«‹ã¡çµµé–¢ä¿‚
     public override void CharacterChange(string image)
     {
         switch (image)
@@ -66,7 +66,7 @@ public class ImagesManager3_2 : ImagesManagerOrigin
         }
     }
 
-    //”wŒiØ‚è‘Ö‚¦
+    //èƒŒæ™¯åˆ‡ã‚Šæ›¿ãˆ
     public override void BackgroundChange(string image)
     {
         switch (image)
@@ -177,7 +177,7 @@ public class ImagesManager3_2 : ImagesManagerOrigin
     public override void ChangeScene()
     {
         GameManager.instance.LineNumber = 0;
-        GameManager.instance.Progress = "4Í";
+        GameManager.instance.Progress = "4ç« ";
         SceneManager.LoadScene("MainScene4");
     }
 }

@@ -19,7 +19,7 @@ public abstract class Enemy3DOrigin : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         seSource = GetComponent<AudioSource>();
         seSource.volume = GameManager.instance.SeVolume;
-        //ƒvƒŒƒCƒ„[‚ÌˆÊ’u‚ğæ“¾
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®ã‚’å–å¾—
         if (PlayerFootManager.instance != null)
         {
             playerTransform = PlayerFootManager.instance.transform;
@@ -55,7 +55,7 @@ public abstract class Enemy3DOrigin : MonoBehaviour
         Destroy(gameObject);
     }
 
-    //ˆµ‚¤‚Ì‚ªImage‚Å‚È‚¢‚½‚ß‹¤’Ê‰»FadeOut‚Íg‚¦‚È‚¢
+    //æ‰±ã†ã®ãŒImageã§ãªã„ãŸã‚å…±é€šåŒ–FadeOutã¯ä½¿ãˆãªã„
     private IEnumerator FadeOut()
     {
         float fadeTime = 1;

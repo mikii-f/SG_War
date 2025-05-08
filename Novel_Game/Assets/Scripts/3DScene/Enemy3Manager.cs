@@ -14,7 +14,7 @@ public class Enemy3Manager : Enemy3DOrigin
 
     void Update()
     {
-        //“¯‚¶‚®‚ç‚¢‚ÌxÀ•WA­‚µ‰º‚ÌyÀ•W‚ÉƒvƒŒƒCƒ„[‚ğŒ©‚Â‚¯‚½‚çUŒ‚
+        //åŒã˜ãã‚‰ã„ã®xåº§æ¨™ã€å°‘ã—ä¸‹ã®yåº§æ¨™ã«ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’è¦‹ã¤ã‘ãŸã‚‰æ”»æ’ƒ
         if (Mathf.Abs(_transform.position.x - playerTransform.position.x) < eyesightX && Mathf.Abs(_transform.position.y - 1 - playerTransform.position.y) < eyesightY)
         {
             StartCoroutine(Attack());
@@ -24,7 +24,7 @@ public class Enemy3Manager : Enemy3DOrigin
     private IEnumerator Attack()
     {
         Vector3 temp = _transform.position;
-        //1/3•b‚ÅƒvƒŒƒCƒ„[‚Æ‚Ì‹——£”¼•ª‚Ü‚Å“’B
+        //1/3ç§’ã§ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã®è·é›¢åŠåˆ†ã¾ã§åˆ°é”
         while (_transform.position.z > zDistance / 2)
         {
             yield return null;
@@ -32,7 +32,7 @@ public class Enemy3Manager : Enemy3DOrigin
             temp.y += Time.deltaTime * 6;
             _transform.position = temp;
         }
-        //1/3•b‚ÅƒvƒŒƒCƒ„[‚ÌzÀ•W‚É“’BA‚»‚Ì‚Ü‚Ü’Ê‚è‰ß‚¬1/3•bŒã‚ÉÁ‚¦‚é
+        //1/3ç§’ã§ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®zåº§æ¨™ã«åˆ°é”ã€ãã®ã¾ã¾é€šã‚Šéã1/3ç§’å¾Œã«æ¶ˆãˆã‚‹
         while (_transform.position.z > -zDistance / 2)
         {
             yield return null;

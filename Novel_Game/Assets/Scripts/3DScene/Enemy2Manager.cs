@@ -17,12 +17,12 @@ public class Enemy2Manager : Enemy3DOrigin
 
     void Update()
     {
-        //ƒvƒŒƒCƒ„[‚ª‹ß‚Ã‚¢‚Ä‚©‚ç“®‚«o‚·
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒè¿‘ã¥ã„ã¦ã‹ã‚‰å‹•ãå‡ºã™
         if (Mathf.Abs(_transform.position.x - playerTransform.position.x) < eyesightX && Mathf.Abs(_transform.position.y - playerTransform.position.y) < eyesightY)
         {
             startMove = true;
         }
-        //‘B
+        //å¢—æ®–
         if (startMove)
         {
             timeCount += Time.deltaTime;
@@ -33,14 +33,14 @@ public class Enemy2Manager : Enemy3DOrigin
                 timeCount = 0;
             }
         }
-        //ƒvƒŒƒCƒ„[‚ª\•ª‰E‚É‚¢‚Á‚½‚çÁ‚¦‚é
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒååˆ†å³ã«ã„ã£ãŸã‚‰æ¶ˆãˆã‚‹
         if (playerTransform.position.x - _transform.position.x > 2 * eyesightX)
         {
             Destroy(gameObject);
         }
     }
 
-    //UŒ‚‚³‚ê‚½‚çÁ‚¦‚é
+    //æ”»æ’ƒã•ã‚ŒãŸã‚‰æ¶ˆãˆã‚‹
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Sword"))

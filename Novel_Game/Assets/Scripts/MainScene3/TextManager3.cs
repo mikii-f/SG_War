@@ -5,7 +5,7 @@ public class TextManager3 : TextManagerOrigin
 {
     private void Awake()
     {
-        StreamReader reader = new(Application.dataPath + "/StreamingAssets/Script3.txt");
+        StringReader reader = new(Resources.Load<TextAsset>("Script3").text);
         while (reader.Peek() != -1)
         {
             _function.Add(reader.ReadLine().Split(','));

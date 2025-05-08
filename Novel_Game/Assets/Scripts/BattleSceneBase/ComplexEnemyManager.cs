@@ -18,10 +18,10 @@ public class ComplexEnemyManager : EnemyManagerOrigin
         intervalText.text = intervalCount.ToString("F2");
     }
 
-    //’ÊíUŒ‚
+    //é€šå¸¸æ”»æ’ƒ
     protected override IEnumerator NormalAttack()
     {
-        StartCoroutine(AttackSubtitle("å¿‚¢‚Ä‚¢‚é"));
+        StartCoroutine(AttackSubtitle("è ¢ã„ã¦ã„ã‚‹"));
         isAttack = true;
         yield return new WaitForSeconds(1);
         isAttack = false;
@@ -37,10 +37,10 @@ public class ComplexEnemyManager : EnemyManagerOrigin
                 break;
         }
     }
-    //ƒ`ƒƒ[ƒW‹Z
+    //ãƒãƒ£ãƒ¼ã‚¸æŠ€
     protected override IEnumerator ChargeAttack()
     {
-        StartCoroutine(AttackSubtitle("‘BÄ¶"));
+        StartCoroutine(AttackSubtitle("å¢—æ®–å†ç”Ÿ"));
         isAttack = true;
         bSManager.ReviveEnemy();
         yield return new WaitForSeconds(1);
@@ -51,6 +51,6 @@ public class ComplexEnemyManager : EnemyManagerOrigin
 
     public override void Revive()
     {
-        //Œ»ó•œŠˆ‚³‚¹‚é—\’è‚È‚µ
+        //ç¾çŠ¶å¾©æ´»ã•ã›ã‚‹äºˆå®šãªã—
     }
 }
